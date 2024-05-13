@@ -56,10 +56,10 @@ Requirements:
 * FreeCAD >= 0.20
 * Python >= 3.10
 
-For full functionality, additional Python modules are required:
+For full functionality, you need:
 
-* [ezdxf](https://pypi.org/project/ezdxf)
-* [numpy](https://pypi.org/project/numpy)
+* [FreeCAD SheetMetal Workbench](https://github.com/shaise/FreeCAD_SheetMetal)
+* Additional Python Modules: [ezdxf](https://pypi.org/project/ezdxf) and [numpy](https://pypi.org/project/numpy)
 
 The easiest way to install is to use the Python package management system - [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)):
 
