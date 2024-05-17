@@ -442,6 +442,7 @@ def dialog() -> None:
                 # line.Z2 = entity.Placement.Base.z
         group['exploded'] = True
         ad.recompute()
+        update_placement((0, 0, 0), (0, 0, 0), True)
     w.groupExplode.clicked.connect(group_explode)
 
     ##########################
@@ -661,21 +662,22 @@ def dialog() -> None:
                 for i in guides.Group:
                     i.Visibility = False
 
-        # note! step: 0.001 ... 0.100
+        step = round(group['animation']['step'] / 100000, 5)
 
         if group['animation']['split']:
-            step = round(group['animation']['step'] / 1000, 3)
             for i in group['fuses']:
                 for j in i['keyframes']:
                     j = placement_load(j)
                     entity = get(i['doc'], i['name'])
-                    result = np.arange(step, 1.0 + step, step)
+                    result = np.arange(0.0, 1.0 + step, step)
+                    diff = True
                     for k in result:
-                        slerp = entity.Placement.slerp(j, k)
-                        entity.Placement = slerp
+                        if not diff:
+                            break
+                        entity.Placement = entity.Placement.sclerp(j, k)
                         # compare:
                         equal = entity.Placement.Base.isEqual(
-                            j.Base, 0.01)
+                            j.Base, 0.1)
                         same = entity.Placement.Rotation.isSame(
                             j.Rotation, 0.000001)
                         # display:
@@ -686,22 +688,25 @@ def dialog() -> None:
                             FreeCAD.Gui.updateGui()
                             if fit:
                                 FreeCAD.Gui.SendMsgToActiveView('ViewFit')
+                        else:
+                            diff = False
         else:
-            step = round(group['animation']['step'] / 1000, 3)
             count = len(group['fuses'][0]['keyframes'])
             for i in range(count):
-                result = np.arange(step, 1.0 + step, step)
+                result = np.arange(0.0, 1.0 + step, step)
+                diff = True
                 for j in result:
+                    if not diff:
+                        break
                     for k in group['fuses']:
                         if i > len(k['keyframes']) - 1:
                             continue
                         p = placement_load(k['keyframes'][i])
                         entity = get(k['doc'], k['name'])
-                        slerp = entity.Placement.slerp(p, j)
-                        entity.Placement = slerp
+                        entity.Placement = entity.Placement.sclerp(p, j)
                         # compare:
                         equal = entity.Placement.Base.isEqual(
-                            p.Base, 0.01)
+                            p.Base, 0.1)
                         same = entity.Placement.Rotation.isSame(
                             p.Rotation, 0.000001)
                         # display:
@@ -712,6 +717,8 @@ def dialog() -> None:
                             FreeCAD.Gui.updateGui()
                             if fit:
                                 FreeCAD.Gui.SendMsgToActiveView('ViewFit')
+                        else:
+                            diff = False
 
         if reverse:
             group_combine()

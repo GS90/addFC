@@ -464,11 +464,23 @@ class AddFCProperties():
                 for j in i.InList:
                     if j.TypeId != 'App::Link':
                         _list.append(j)
-                if len(_list) > 1:
-                    try:
+
+                if FreeCAD.ActiveDocument.Name != i.Document.Name:
+                    if len(_list) > 1:
                         i = _list[0]
+                else:
+                    try:
+                        if i.BaseFeature is not None:
+                            i = _list[0]
+                        else:
+                            match i.TypeId:
+                                case 'PartDesign::Body' | 'App::Link':
+                                    pass
+                                case _:
+                                    i = _list[0]
                     except BaseException:
                         pass
+
                 if i.TypeId == 'App::Link':
                     i = i.LinkedObject
                 if _smp:  # sheet metal part
