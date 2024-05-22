@@ -3,39 +3,144 @@
 
 
 from PySide import QtGui, QtCore
+import addFC_Preference as P
 import FreeCAD
 import os
 import re
+import shutil
+import subprocess
 import time
 
 
 is_available_NP: bool = True
+is_available_FF: bool = True
 
 try:
     import numpy as np
 except ImportError:
     is_available_NP = False
 
+r = subprocess.run(['ffmpeg', '-version'])
+if r.returncode != 0:
+    is_available_FF: bool = False
+
+
+# ------------------------------------------------------------------------------
+
 
 ad = FreeCAD.ActiveDocument
 
-ui = os.path.join(os.path.dirname(__file__), 'addFC_Explode.ui')
-w = FreeCAD.Gui.PySideUic.loadUi(ui)
+
+w = FreeCAD.Gui.PySideUic.loadUi(
+    os.path.join(os.path.dirname(__file__), 'addFC_Explode.ui'))
+es = FreeCAD.Gui.PySideUic.loadUi(
+    os.path.join(os.path.dirname(__file__), 'addFC_Explode_es.ui'))
+
 
 storage = None
-explosion = {}
-freeze = False
+explosion: dict = {}
+freeze: bool = False
+frame: int = 1
+storyboard: str = ''
+
+
+export_properties: dict = {
+    'size': {
+        '480p (SD)': (640, 480),
+        '720p (HD)': (1280, 720),
+        '1080p (FHD)': (1920, 1080),
+        '1440p (QHD)': (2560, 1440),
+        '2K video': (2048, 1080),
+        '4K video': (3840, 2160),
+        '8K video': (7680, 4320),
+    },
+    'background': ('Current', 'White', 'Black', 'Transparent'),
+    'method': {
+        'Offscreen': 'QtOffscreenRenderer',
+        'Framebuffer': 'FramebufferObject',
+    },
+    'image_format': {
+        'PNG': '.png',
+        'JPG': '.jpg'
+    }
+}
+
+
+# ------------------------------------------------------------------------------
 
 
 def get(doc: str, name: str): return FreeCAD.getDocument(doc).getObject(name)
 
 
+def color_convert(hex: str):
+    rgb = tuple(int(hex.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4))
+    linear = tuple(i / 255 for i in rgb)
+    return rgb, linear
+
+
+def placement_save(obj):
+    exp, base_obj = [], ''
+    for i in obj.ExpressionEngine:
+        if 'Placement' in i[0]:
+            # saving and cleaning expressions:
+            exp.append((i[0], i[1]))
+            obj.setExpression(i[0], None)
+    if 'baseObject' in obj.PropertiesList:  # fasteners?
+        # save and clean:
+        base_obj = obj.baseObject
+        obj.baseObject = None
+    p_base = (
+        obj.Placement.Base.x,
+        obj.Placement.Base.y,
+        obj.Placement.Base.z,
+    )
+    return exp, base_obj, p_base, obj.Placement.Rotation.getYawPitchRoll()
+
+
+def placement_load(placement) -> FreeCAD.Placement:
+    p = FreeCAD.Placement()
+    p.Base = placement[0]
+    p.Rotation.setYawPitchRoll(*placement[1])
+    return p
+
+
+def fuse_combine(fuse) -> None:
+    obj = get(fuse['doc'], fuse['name'])
+    obj.Placement = placement_load(fuse['start'])
+    for i in fuse['expressions']:
+        obj.setExpression(i[0], i[1])
+    if 'baseObject' in obj.PropertiesList:
+        obj.baseObject = fuse['baseObject']
+
+
+def fuse_explode(obj, finish) -> None:
+    for i in obj.ExpressionEngine:
+        if 'Placement' in i[0]:
+            obj.setExpression(i[0], None)
+    if 'baseObject' in obj.PropertiesList:
+        obj.baseObject = None
+    obj.Placement = placement_load(finish)
+
+
+# ------------------------------------------------------------------------------
+
+
 def dialog() -> None:
+
+    if not is_available_FF:
+        w.error.setText('FFmpeg is not available!')
+        w.animationExport.setEnabled(False)
+        w.exportSettings.setEnabled(False)
 
     if not is_available_NP:
         w.error.setText('NumPy is not available!')
         w.animate.setEnabled(False)
         w.animateAll.setEnabled(False)
+
+    ep = P.load_explosion()
+
+    global storyboard
+    storyboard = os.path.join(ep['export_dir'], ad.Name + '_storyboard')
 
     selection_styles = ('Shape', 'BoundBox', 'None')
 
@@ -57,43 +162,6 @@ def dialog() -> None:
             color_set(color.getRgb()[:-1])
     w.guidesColor.clicked.connect(color_get)
 
-    def color_convert(hex: str):
-        rgb = tuple(int(hex.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4))
-        linear = tuple(i / 255 for i in rgb)
-        return rgb, linear
-
-    def placement_save(obj):
-        expressions = []
-        for i in obj.ExpressionEngine:
-            if 'Placement' in i[0]:
-                # saving and cleaning expressions:
-                expressions.append((i[0], i[1]))
-                obj.setExpression(i[0], None)
-        placement = (
-            obj.Placement.Base.x,
-            obj.Placement.Base.y,
-            obj.Placement.Base.z,
-        )
-        return expressions, placement, obj.Placement.Rotation.getYawPitchRoll()
-
-    def placement_load(placement) -> FreeCAD.Placement:
-        p = FreeCAD.Placement()
-        p.Base = placement[0]
-        p.Rotation.setYawPitchRoll(*placement[1])
-        return p
-
-    def obj_combine(fuse) -> None:
-        obj = get(fuse['doc'], fuse['name'])
-        obj.Placement = placement_load(fuse['start'])
-        for i in fuse['expressions']:
-            obj.setExpression(i[0], i[1])
-
-    def obj_explode(obj, finish) -> None:
-        for i in obj.ExpressionEngine:
-            if 'Placement' in i[0]:
-                obj.setExpression(i[0], None)
-        obj.Placement = placement_load(finish)
-
     model = QtGui.QStandardItemModel()
     w.groups.setModel(model)
 
@@ -113,15 +181,14 @@ def dialog() -> None:
         if target == '':
             return
         global explosion
-        if target not in explosion:
+        if target not in explosion:  # error?
             return
         group = explosion[target]
         for i in group['fuses']:
             get(i['doc'], i['name']).ViewObject.SelectionStyle = select
             for j in i['selection'][1]:
                 FreeCAD.Gui.Selection.addSelection(
-                    ad.Name, i['selection'][0], j
-                )
+                    ad.Name, i['selection'][0], j)
     w.groupSelection.currentTextChanged.connect(selection_style)
 
     def update_placement(position, rotation, silent: bool) -> None:
@@ -164,6 +231,12 @@ def dialog() -> None:
             return
         update_placement((0, 0, 0), (0, 0, 0), True)
 
+        selection = FreeCAD.Gui.Selection.getSelectionEx('', 0)
+        if len(selection) == 0:
+            FreeCAD.Console.PrintWarning(
+                'To create a group, you need to select the elements.\n')
+            return
+
         group = {
             'fuses': [],
             'placement': [[0, 0, 0], [0, 0, 0]],
@@ -184,9 +257,6 @@ def dialog() -> None:
             'exploded': False,
         }
 
-        selection = FreeCAD.Gui.Selection.getSelectionEx('', 0)
-        if len(selection) == 0:
-            return
         for s in selection[0].SubElementNames:
             sub = selection[0].Object.getSubObjectList(s)
 
@@ -201,7 +271,7 @@ def dialog() -> None:
                     pass
 
             try:
-                p = placement_save(i)
+                p = placement_save(i)  # (exp, base_obj, p_base, ypr)
                 group['fuses'].append({
                     'doc': i.Document.Name,
                     'name': i.Name,
@@ -211,9 +281,10 @@ def dialog() -> None:
                         selection[0].SubElementNames,
                     ),
                     'expressions': p[0],
-                    'start': p[1:],
-                    'finish': p[1:],
-                    'keyframes': [p[1:],],
+                    'baseObject': p[1],
+                    'start': p[2:],
+                    'finish': p[2:],
+                    'keyframes': [p[2:],],
                     'line': '',
                 })
 
@@ -253,7 +324,7 @@ def dialog() -> None:
             return
         target = w.groups.model().itemFromIndex(indexes[0])
         global explosion
-        if target.text() not in explosion:  # error
+        if target.text() not in explosion:  # error?
             return
         update_placement((0, 0, 0), (0, 0, 0), True)
         del explosion[target.text()]
@@ -307,7 +378,7 @@ def dialog() -> None:
         target = model.index(item.row(), item.column()).data()
         w.target.setText(target)
         global explosion
-        if target not in explosion:  # error
+        if target not in explosion:  # error?
             return
 
         FreeCAD.Gui.Selection.clearSelection()
@@ -317,14 +388,13 @@ def dialog() -> None:
                 for i in group['fuses']:
                     for j in i['selection'][1]:
                         FreeCAD.Gui.Selection.addSelection(
-                            ad.Name, i['selection'][0], j
-                        )
+                            ad.Name, i['selection'][0], j)
         if group['exploded']:
             update_placement(
-                group['placement'][0], group['placement'][1], True
-            )
+                group['placement'][0], group['placement'][1], True)
         else:
-            update_placement((0, 0, 0), (0, 0, 0), True)
+            update_placement(
+                (0, 0, 0), (0, 0, 0), True)
 
         # get guides:
         w.guidesStyle.setCurrentText(group['guides']['style'])
@@ -334,8 +404,7 @@ def dialog() -> None:
 
         # get animation:
         w.animationKeys.setText(
-            f"Key frames: {group['animation']['keyframes']}"
-        )
+            f"Key frames: {group['animation']['keyframes']}")
         w.animationStep.setValue(group['animation']['step'])
         w.animationSplit.setChecked(group['animation']['split'])
         w.animationGuides.setChecked(group['animation']['guides'])
@@ -354,7 +423,7 @@ def dialog() -> None:
         if target == '':
             return
         global explosion
-        if target not in explosion:  # error
+        if target not in explosion:  # error?
             return
         group = explosion[target]
         group['exploded'] = True
@@ -383,7 +452,7 @@ def dialog() -> None:
             get(i['doc'], i['name']).Placement.Base = start.Base + position
             r = start.Rotation.multiply(rotation)
             get(i['doc'], i['name']).Placement.Rotation = r
-            i['finish'] = placement_save(get(i['doc'], i['name']))[1:]
+            i['finish'] = placement_save(get(i['doc'], i['name']))[2:]
 
     w.positionX.valueChanged.connect(group_moving)
     w.positionY.valueChanged.connect(group_moving)
@@ -409,7 +478,7 @@ def dialog() -> None:
             guides.Visibility = False
         update_placement((0, 0, 0), (0, 0, 0), True)
         for i in group['fuses']:
-            obj_combine(i)
+            fuse_combine(i)
         group['exploded'] = False
         ad.recompute()
     w.groupCombine.clicked.connect(group_combine)
@@ -429,20 +498,15 @@ def dialog() -> None:
             guides.Visibility = True
         update_placement(group['placement'][0], group['placement'][1], True)
         for i in group['fuses']:
-            entity = get(i['doc'], i['name'])
-            obj_explode(entity, i['finish'])
+            obj = get(i['doc'], i['name'])
+            fuse_explode(obj, i['finish'])
             if i['line'] != '':
                 line = ad.getObject(i['line'])
                 if line is None:
                     i['line'] = ''
                     continue
-                # TODO зачем это..?
-                # line.X2 = entity.Placement.Base.x
-                # line.Y2 = entity.Placement.Base.y
-                # line.Z2 = entity.Placement.Base.z
         group['exploded'] = True
         ad.recompute()
-        update_placement((0, 0, 0), (0, 0, 0), True)
     w.groupExplode.clicked.connect(group_explode)
 
     ##########################
@@ -470,7 +534,7 @@ def dialog() -> None:
     def guides_remove() -> bool:
         target = w.target.text()
         global explosion
-        if target not in explosion:  # error
+        if target not in explosion:  # error?
             return
         guides = ad.getObject(explosion[target]['guides']['title'])
         if guides is None:
@@ -499,14 +563,12 @@ def dialog() -> None:
             round(fuse['tree']['ypr'][:-1][-1][1]),
             round(fuse['tree']['ypr'][:-1][-1][2]),
         )
-
-        # TODO what the fuck is this..?
+        # TODO need to think about this...
         if ypr[0] == -180:
             start[0] = -start[0]    # X
             start[1] = -start[1]    # Y
             finish[0] = -finish[0]  # X
             finish[1] = -finish[1]  # Y
-
         # addition:
         uno[0] += start[0]   # X
         uno[1] += start[1]   # Y
@@ -514,13 +576,13 @@ def dialog() -> None:
         dos[0] += finish[0]  # X
         dos[1] += finish[1]  # Y
         dos[2] += finish[2]  # Z
-
+        # result:
         return uno, dos
 
     def guides_create() -> None:
         target = w.target.text()
         global explosion
-        if target not in explosion:  # error
+        if target not in explosion:  # error?
             return
         if guides_remove():
             time.sleep(0.2)
@@ -540,7 +602,7 @@ def dialog() -> None:
         for i in group['fuses']:
             uno, dos = guide_position(i)
             i['line'] = f"Line_{i['name']}"
-            line = FreeCAD.ActiveDocument.addObject('Part::Line', i['line'])
+            line = ad.addObject('Part::Line', i['line'])
             # placement:
             line.X1 = uno[0]
             line.Y1 = uno[1]
@@ -573,35 +635,33 @@ def dialog() -> None:
         if target == '':
             return
         global explosion
-        if target not in explosion:  # error
+        if target not in explosion:  # error?
             return
         group = explosion[target]
         for i in group['fuses']:
             i['keyframes'].clear()
         group['animation']['keyframes'] = 0
         w.animationKeys.setText(
-            f"Key frames: {group['animation']['keyframes']}"
-        )
+            f"Key frames: {group['animation']['keyframes']}")
     w.animationClear.clicked.connect(animation_clear)
 
     def animation_add() -> None:
         target = w.target.text()
         global explosion
-        if target not in explosion:  # error
+        if target not in explosion:  # error?
             return
         group = explosion[target]
         for i in group['fuses']:
-            i['keyframes'].append(placement_save(get(i['doc'], i['name']))[1:])
+            i['keyframes'].append(placement_save(get(i['doc'], i['name']))[2:])
         group['animation']['step'] = w.animationStep.value()
         group['animation']['split'] = w.animationSplit.isChecked()
         group['animation']['guides'] = w.animationGuides.isChecked()
         group['animation']['keyframes'] += 1
         w.animationKeys.setText(
-            f"Key frames: {group['animation']['keyframes']}"
-        )
+            f"Key frames: {group['animation']['keyframes']}")
     w.animationAddKey.clicked.connect(animation_add)
 
-    def animation_play(conservation: bool = True) -> None:
+    def animation_play(single: bool = True) -> None:
         target = w.target.text()
         global explosion
         if target not in explosion:  # error
@@ -610,29 +670,35 @@ def dialog() -> None:
         FreeCAD.Gui.Selection.clearSelection()
         reverse = w.animationReverse.isChecked()
         fit = w.animationFit.isChecked()
+        export = w.animationExport.isChecked()
 
         w.animate.setEnabled(False)
         w.animationReverse.setEnabled(False)
-        w.animationStatus.setText('... animation')
+        w.animationExport.setEnabled(False)
+        w.exportSettings.setEnabled(False)
+        if export:
+            w.animationStatus.setText('... export')
+        else:
+            w.animationStatus.setText('... playback')
 
-        def update_line_old(line: str, entity) -> None:
-            guides = ad.getObject(group['guides']['title'])
-            if guides is not None:
-                i = ad.getObject(line)
-                i.Visibility = True
-                # TODO так не работает..?
-                if i.X1 != entity.Placement.Base.x:
-                    i.X2 = entity.Placement.Base.x
-                if i.Y1 != entity.Placement.Base.y:
-                    i.Y2 = entity.Placement.Base.y
-                if i.Z1 != entity.Placement.Base.z:
-                    i.Z2 = entity.Placement.Base.z
+        # def update_line(line: str, entity) -> None:
+        #     guides = ad.getObject(group['guides']['title'])
+        #     if guides is not None:
+        #         i = ad.getObject(line)
+        #         i.Visibility = True
+        #         if i.X1 != entity.Placement.Base.x:
+        #             i.X2 = entity.Placement.Base.x
+        #         if i.Y1 != entity.Placement.Base.y:
+        #             i.Y2 = entity.Placement.Base.y
+        #         if i.Z1 != entity.Placement.Base.z:
+        #             i.Z2 = entity.Placement.Base.z
 
         def update_line(fuse) -> None:
             guides = ad.getObject(group['guides']['title'])
             if guides is not None:
                 guide = ad.getObject(fuse['line'])
                 guide.Visibility = True
+                # TODO is it working?
                 _, dos = guide_position(fuse)
                 if guide.X1 != dos[0]:
                     guide.X2 = dos[0]
@@ -643,10 +709,35 @@ def dialog() -> None:
 
         group = explosion[target]
 
-        if conservation:
+        global frame  # frame counter
+
+        av = FreeCAD.Gui.activeDocument().activeView()
+
+        ccs = FreeCAD.ParamGet(
+            'User parameter:BaseApp/Preferences/View').GetBool(
+            'CornerCoordSystem')
+
+        if single:
             group['animation']['step'] = w.animationStep.value()
             group['animation']['split'] = w.animationSplit.isChecked()
             group['animation']['guides'] = w.animationGuides.isChecked()
+            if export:
+                frame = 1
+                FreeCAD.ParamGet(
+                    'User parameter:BaseApp/Preferences/View').SetBool(
+                    'CornerCoordSystem', ep['export_ccs'])
+
+        if export and not os.path.exists(storyboard):
+            os.makedirs(storyboard)
+
+        def shot() -> None:
+            av.saveImage(
+                os.path.join(
+                    storyboard,
+                    str(frame).rjust(6, '0') + ep['export_image_format']),
+                ep['export_width'],
+                ep['export_height'],
+                ep['export_background'])
 
         if reverse:
             group_explode()
@@ -683,11 +774,13 @@ def dialog() -> None:
                         # display:
                         if not equal or not same:
                             if group['animation']['guides']:
-                                # update_line_old(i['line'], entity)
                                 update_line(i)
                             FreeCAD.Gui.updateGui()
                             if fit:
                                 FreeCAD.Gui.SendMsgToActiveView('ViewFit')
+                            if export:
+                                shot()
+                                frame += 1
                         else:
                             diff = False
         else:
@@ -703,7 +796,7 @@ def dialog() -> None:
                             continue
                         p = placement_load(k['keyframes'][i])
                         entity = get(k['doc'], k['name'])
-                        entity.Placement = entity.Placement.sclerp(p, j)
+                        entity.Placement = entity.Placement.slerp(p, j)
                         # compare:
                         equal = entity.Placement.Base.isEqual(
                             p.Base, 0.1)
@@ -712,11 +805,13 @@ def dialog() -> None:
                         # display:
                         if not equal or not same:
                             if group['animation']['guides']:
-                                # update_line_old(k['line'], entity)
                                 update_line(k)
                             FreeCAD.Gui.updateGui()
                             if fit:
                                 FreeCAD.Gui.SendMsgToActiveView('ViewFit')
+                            if export:
+                                shot()
+                                frame += 1
                         else:
                             diff = False
 
@@ -729,16 +824,34 @@ def dialog() -> None:
             group_explode()
             group['exploded'] = True
 
+        ad.recompute()
+
+        if single and export:
+            make_video(' - ' + target)
+            FreeCAD.ParamGet(
+                'User parameter:BaseApp/Preferences/View').SetBool(
+                'CornerCoordSystem', ccs)
+
         w.animate.setEnabled(True)
         w.animationReverse.setEnabled(True)
         w.animationReverse.setChecked(reverse)
+        w.animationExport.setEnabled(True)
+        w.animationExport.setChecked(export)
+        w.exportSettings.setEnabled(True)
         w.animationStatus.setText('...')
-        ad.recompute()
 
     w.animate.clicked.connect(lambda: animation_play(True))
 
     def animate_all() -> None:
-        order = []
+        global frame
+        frame, order = 1, []
+        export = w.animationExport.isChecked()
+        ccs = FreeCAD.ParamGet(
+            'User parameter:BaseApp/Preferences/View').GetBool(
+            'CornerCoordSystem')
+        FreeCAD.ParamGet(
+            'User parameter:BaseApp/Preferences/View').SetBool(
+            'CornerCoordSystem', ep['export_ccs'])
         for index in range(model.rowCount()):
             order.append(model.item(index).text())
         if w.animationReverse.isChecked():
@@ -750,6 +863,11 @@ def dialog() -> None:
             w.target.setText(i)
             animation_play(False)
         w.target.setText('...')
+        if export:
+            make_video()
+            FreeCAD.ParamGet(
+                'User parameter:BaseApp/Preferences/View').SetBool(
+                'CornerCoordSystem', ccs)
     w.animateAll.clicked.connect(animate_all)
 
     ########
@@ -765,6 +883,92 @@ def dialog() -> None:
             db[title] = explosion[title]
         storage.Storage = db
         ad.recompute()
+
+    ####################
+    # creating a video #
+    ####################
+
+    def make_video(postfix: str = '') -> None:
+        output = subprocess.run([
+            'ffmpeg',
+            '-framerate', str(ep['export_framerate']),
+            '-pattern_type', 'glob',
+            '-y', '-i', '*' + ep['export_image_format'],
+            '-codec', 'copy',
+            f'../{ad.Name}{postfix}.mkv'],
+            cwd=storyboard
+        )
+        if '_storyboard' in storyboard:
+            shutil.rmtree(storyboard)
+        if output.returncode != 0:
+            FreeCAD.Console.PrintError('ffmpeg: failed to create a video\n')
+
+    ###################
+    # export settings #
+    ###################
+
+    def export_settings() -> None:
+        es.comboBoxSize.clear()
+        es.comboBoxSize.addItems(export_properties['size'].keys())
+        es.comboBoxBackground.addItems(export_properties['background'])
+        es.comboBoxMethod.addItems(export_properties['method'].keys())
+        es.comboBoxImageFormat.addItems(
+            export_properties['image_format'].keys())
+
+        def resize(size) -> None:
+            if size not in export_properties['size']:
+                size = '1080p (FHD)'
+            es.comboBoxSize.setCurrentText(size)
+            s = export_properties['size'][size]
+            es.spinBoxWidth.setValue(s[0])
+            es.spinBoxHeight.setValue(s[1])
+        es.comboBoxSize.currentTextChanged.connect(resize)
+
+        es.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        es.show()
+
+        def ccs(method) -> None:
+            es.checkBoxCCS.setEnabled(
+                True if method == 'Framebuffer' else False)
+        es.comboBoxMethod.currentTextChanged.connect(ccs)
+
+        resize(ep['export_size'])
+        es.comboBoxBackground.setCurrentText(ep['export_background'])
+        es.comboBoxMethod.setCurrentText(ep['export_method'])
+        es.checkBoxCCS.setChecked(ep['export_ccs'])
+        es.comboBoxImageFormat.setCurrentText(ep['export_image_format'])
+        es.spinBoxFramerate.setValue(ep['export_framerate'])
+        es.labelDir.setText(f"... {os.path.basename(ep['export_dir'])}")
+
+        def directory() -> None:
+            d = os.path.normcase(QtGui.QFileDialog.getExistingDirectory())
+            if d != '':
+                ep['export_dir'] = d
+                es.labelDir.setText(f'... {os.path.basename(d)}')
+        es.pushButtonDir.clicked.connect(directory)
+
+        def apply() -> None:
+            global storyboard
+            storyboard = os.path.join(
+                ep['export_dir'], ad.Name + '_storyboard')
+            ep['export_size'] = es.comboBoxSize.currentText()
+            ep['export_width'] = es.spinBoxWidth.value()
+            ep['export_height'] = es.spinBoxHeight.value()
+            ep['export_background'] = es.comboBoxBackground.currentText()
+            ep['export_method'] = es.comboBoxMethod.currentText()
+            ep['export_ccs'] = es.checkBoxCCS.isChecked()
+            ep['export_image_format'] = export_properties['image_format'][
+                es.comboBoxImageFormat.currentText()]
+            ep['export_framerate'] = es.spinBoxFramerate.value()
+            P.save_explosion(ep)
+            export_method = export_properties['method'][ep['export_method']]
+            FreeCAD.ParamGet(
+                'User parameter:BaseApp/Preferences/View').SetString(
+                'SavePicture', export_method)
+            es.close()
+        es.apply.clicked.connect(apply)
+
+    w.exportSettings.clicked.connect(export_settings)
 
 
 dialog()

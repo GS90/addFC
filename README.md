@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 0.1.2
+Current version 0.1.8
 
 
 
@@ -12,7 +12,7 @@ At the moment it is:
 
 1. Bill of materials (BOM).
 2. Batch processing of sheet metal parts.
-3. Exploded view (creation and visualization).
+3. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
 4. Creating a pipeline.
 
 
@@ -60,6 +60,7 @@ For full functionality, you need:
 
 * [FreeCAD SheetMetal Workbench](https://github.com/shaise/FreeCAD_SheetMetal)
 * Additional Python Modules: [ezdxf](https://pypi.org/project/ezdxf) and [numpy](https://pypi.org/project/numpy)
+* [FFmpeg](https://ffmpeg.org)
 
 The easiest way to install is to use the Python package management system - [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)):
 

@@ -12,8 +12,12 @@ import os
 import Part
 
 
+ad = FreeCAD.activeDocument()
+
+
 pipe_variations: dict = {
     'Other': {'Other': (20.0, 1.0)},  # default
+
     'OD - Copper pipe': {
         # thread: (outer diameter, wall thickness)
         '1/4"': (6.35, 0.76),
@@ -124,7 +128,7 @@ relationship: dict = {
 }
 
 
-fittings = {
+fittings: dict = {
     'allowed': False,
     'color': (),
     'parent': '',
@@ -134,7 +138,7 @@ fittings = {
 }
 
 
-rotations = {
+rotations: dict = {
     # X
     '+X+Y': FreeCAD.Rotation(FreeCAD.Vector(0.00, 0.00, 1.00), 180.00),
     '+X+Z': FreeCAD.Rotation(FreeCAD.Vector(0.58, 0.58, 0.58), -120.00),
@@ -198,9 +202,7 @@ def detect_rotation(uno, dos, tres) -> FreeCAD.Rotation | bool:
             elif dos.z > tres.z:
                 r += '-Z'
     # result:
-    if r in rotations:
-        return rotations[r]
-    return False
+    return rotations[r] if r in rotations else False
 
 
 def dialog() -> None:
@@ -292,7 +294,6 @@ def create_pipe(diameter: float,
             weight = group + p
             weight_type = 'App::Property' + properties[p][0]
 
-    ad = FreeCAD.activeDocument()
     sl = FreeCAD.Gui.Selection.getSelection()
     if len(sl) < 1:
         raise Exception('No objects selected.')
@@ -355,6 +356,7 @@ def create_pipe(diameter: float,
     if color is not None:
         pipe.ViewObject.ShapeColor = color
         fittings['color'] = pipe_materials['Copper fittings'][0]
+
     if density is not None:
         pipe.addProperty(weight_type, weight, group)
         pipe.setExpression(weight, ''.join((
@@ -372,7 +374,6 @@ def create_pipe(diameter: float,
 
 
 def remove_fittings() -> None:
-    ad = FreeCAD.activeDocument()
     group = []
     for i in FreeCAD.ActiveDocument.findObjects():
         if '_fittings' in i.Label and i.TypeId == 'App::DocumentObjectGroup':
@@ -388,7 +389,6 @@ def remove_fittings() -> None:
 
 
 def add_fittings() -> None:
-    ad = FreeCAD.activeDocument()
     pd = os.path.join(os.path.dirname(__file__), 'addFC_Pipe.FCStd')
     d = FreeCAD.openDocument(pd, True)
     FreeCAD.setActiveDocument(ad.Name)

@@ -14,18 +14,19 @@ import re
 import shutil
 import time
 
-is_available_ezdxf: bool = True
-is_available_SMU: bool = True
 
-try:
-    import ezdxf
-except ImportError:
-    is_available_ezdxf = False
+is_available_SMU: bool = True
+is_available_ezdxf: bool = True
 
 try:
     from SheetMetalUnfoldCmd import SMUnfoldUnattendedCommandClass as u
 except ImportError:
     is_available_SMU = False
+
+try:
+    import ezdxf
+except ImportError:
+    is_available_ezdxf = False
 
 
 garbage: tuple[str] = (
@@ -49,7 +50,6 @@ def add_signature(file: str, sign: str, width: float, size: int) -> None:
 
 
 def unfold(w, details: dict, path: str, skip: list = []) -> None:
-
     # checking the functionality:
     if not is_available_SMU:
         w.error.setText('Error: SheetMetalUnfold is not available!')

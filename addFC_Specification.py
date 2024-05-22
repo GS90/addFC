@@ -106,10 +106,12 @@ def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
                 case 'App::Part' | 'PartDesign::Body' | 'Part::Feature':
                     analysis(i)
                 case 'Part::FeaturePython':
-                    try:
-                        analysis(i.Base.getLinkedObject(), i.Count)  # array
-                    except BaseException:
-                        pass
+                    if 'Base' in i.PropertiesList:
+                        if 'Count' in i.PropertiesList:
+                            # array:
+                            analysis(i.Base.getLinkedObject(), i.Count)
+                    else:
+                        analysis(i)
 
     for i in heap:
         o = i.getLinkedObject()

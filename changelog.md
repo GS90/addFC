@@ -6,5 +6,11 @@
 * Initial release.
 
 #### 2024.05.17 (**0.1.2**):
-* Fixes: AddFCProperties - selection.
-* Fixes: Explode - animation.
+* Fixed: AddFCProperties - selection.
+* Fixed: Explode - animation.
+
+#### 2024.05.22 (**0.1.8**):
+* Refactoring.
+* Added: Explode - export animation to video file.
+* Added: New example - belt roller support assembly.
+* A new optional dependency: FFmpeg.

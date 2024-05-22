@@ -13,9 +13,11 @@ add_base: str = os.path.dirname(__file__)
 add_icon: str = os.path.join(add_base, 'repo', 'icon')
 
 
-add_configuration: str = os.path.join(add_base, 'pref', 'configuration.json')
-add_properties: str = os.path.join(add_base, 'pref', 'properties.json')
-add_steel: str = os.path.join(add_base, 'pref', 'steel.json')
+pref_configuration: str = os.path.join(add_base, 'pref', 'configuration.json')
+pref_properties: str = os.path.join(add_base, 'pref', 'properties.json')
+pref_steel: str = os.path.join(add_base, 'pref', 'steel.json')
+pref_explosion: str = os.path.join(add_base, 'pref', 'explosion.json')
+
 
 reserved: str = 'Body'
 
@@ -25,6 +27,7 @@ configuration: dict = {
     'properties_group': 'Add',
     'working_directory': '',
 }
+
 
 sheet_metal_part: dict = {
     'density': 7800,
@@ -68,22 +71,22 @@ available_properties: tuple = (
 
 
 def check_configuration() -> None:
-    d = os.path.dirname(add_configuration)
+    d = os.path.dirname(pref_configuration)
     if not os.path.exists(d):
         os.makedirs(d)
-    if not os.path.exists(add_configuration):
-        file = open(add_configuration, 'w+', encoding='utf-8')
+    if not os.path.exists(pref_configuration):
+        file = open(pref_configuration, 'w+', encoding='utf-8')
         json.dump(configuration, file, ensure_ascii=False)
         file.close()
-    elif not os.path.isfile(add_configuration):
-        os.remove(add_configuration)
+    elif not os.path.isfile(pref_configuration):
+        os.remove(pref_configuration)
         check_properties()
 
 
 def load_configuration() -> dict:
     check_configuration()
     try:
-        file = open(add_configuration, 'r', encoding='utf-8')
+        file = open(pref_configuration, 'r', encoding='utf-8')
         result = configuration | json.load(file)
         file.close()
     except BaseException as e:
@@ -96,7 +99,7 @@ def save_configuration(conf: dict) -> dict:
     check_configuration()
     result = configuration | load_configuration() | conf
     try:
-        file = open(add_configuration, 'w+', encoding='utf-8')
+        file = open(pref_configuration, 'w+', encoding='utf-8')
         json.dump(result, file, ensure_ascii=False)
         file.close()
     except BaseException as e:
@@ -107,23 +110,23 @@ def save_configuration(conf: dict) -> dict:
 
 
 def check_properties() -> None:
-    d = os.path.dirname(add_properties)
+    d = os.path.dirname(pref_properties)
     if not os.path.exists(d):
         os.makedirs(d)
-    if not os.path.exists(add_properties):
-        file = open(add_properties, 'w+', encoding='utf-8')
+    if not os.path.exists(pref_properties):
+        file = open(pref_properties, 'w+', encoding='utf-8')
         result = specification_properties_core | specification_properties_add
         json.dump(result, file, ensure_ascii=False)
         file.close()
-    elif not os.path.isfile(add_properties):
-        os.remove(add_properties)
+    elif not os.path.isfile(pref_properties):
+        os.remove(pref_properties)
         check_properties()
 
 
 def load_properties() -> dict:
     check_properties()
     try:
-        file = open(add_properties, 'r', encoding='utf-8')
+        file = open(pref_properties, 'r', encoding='utf-8')
         result = json.load(file)
         file.close()
     except BaseException as e:
@@ -151,7 +154,7 @@ def save_properties(properties: dict, init: bool = False) -> None:
     if init:
         return
     try:
-        file = open(add_properties, 'w+', encoding='utf-8')
+        file = open(pref_properties, 'w+', encoding='utf-8')
         json.dump(properties, file, ensure_ascii=False)
         file.close()
     except BaseException as e:
@@ -406,12 +409,12 @@ class addFCPreferenceSpecification():
 steel: dict = {
     # title: {thickness: k-factor, alias}
     'galvanized': {
-        0.5: [0.472, 'AG',],
-        0.8: [0.448, 'BG',],
-        1.0: [0.425, 'CG',],
-        1.5: [0.412, 'DG',],
-        2.0: [0.425, 'EG',],
-        3.0: [0.414, 'FG',],
+        0.5: [0.472, 'A',],
+        0.8: [0.448, 'B',],
+        1.0: [0.425, 'C',],
+        1.5: [0.412, 'D',],
+        2.0: [0.425, 'E',],
+        3.0: [0.414, 'F',],
     },
     'stainless': {
         0.5: [0.472, 'AS',],
@@ -425,22 +428,22 @@ steel: dict = {
 
 
 def check_steel() -> None:
-    d = os.path.dirname(add_steel)
+    d = os.path.dirname(pref_steel)
     if not os.path.exists(d):
         os.makedirs(d)
-    if not os.path.exists(add_steel):
-        file = open(add_steel, 'w+', encoding='utf-8')
+    if not os.path.exists(pref_steel):
+        file = open(pref_steel, 'w+', encoding='utf-8')
         json.dump(steel, file, ensure_ascii=False)
         file.close()
-    elif not os.path.isfile(add_steel):
-        os.remove(add_steel)
+    elif not os.path.isfile(pref_steel):
+        os.remove(pref_steel)
         check_properties()
 
 
 def load_steel() -> dict:
     check_steel()
     try:
-        file = open(add_steel, 'r', encoding='utf-8')
+        file = open(pref_steel, 'r', encoding='utf-8')
         result = steel | json.load(file)
         file.close()
     except BaseException as e:
@@ -453,7 +456,7 @@ def save_steel(s: dict) -> dict:
     check_steel()
     result = steel | load_steel() | s
     try:
-        file = open(add_steel, 'w+', encoding='utf-8')
+        file = open(pref_steel, 'w+', encoding='utf-8')
         json.dump(result, file, ensure_ascii=False)
         file.close()
     except BaseException as e:
@@ -552,3 +555,55 @@ class addFCPreferenceSM():
 
         save_steel(result)
         return
+
+
+# ------------------------------------------------------------------------------
+
+
+exploded: dict = {
+    'export_size': '1080p (FHD)',
+    'export_width': 1920,
+    'export_height': 1080,
+    'export_background': 'Current',
+    'export_method': 'Framebuffer',
+    'export_ccs': False,
+    'export_image_format': 'PNG',
+    'export_framerate': 60,
+    'export_dir': os.path.expanduser('~/Desktop'),
+}
+
+
+def check_explosion() -> None:
+    d = os.path.dirname(pref_explosion)
+    if not os.path.exists(d):
+        os.makedirs(d)
+    if not os.path.exists(pref_explosion):
+        file = open(pref_explosion, 'w+', encoding='utf-8')
+        json.dump(exploded, file, ensure_ascii=False)
+        file.close()
+    elif not os.path.isfile(pref_explosion):
+        os.remove(pref_explosion)
+        check_properties()
+
+
+def load_explosion() -> dict:
+    check_explosion()
+    try:
+        file = open(pref_explosion, 'r', encoding='utf-8')
+        result = exploded | json.load(file)
+        file.close()
+    except BaseException as e:
+        FreeCAD.Console.PrintError(str(e) + '\n')
+        result = exploded
+    return result
+
+
+def save_explosion(d: dict) -> dict:
+    check_explosion()
+    result = exploded | load_explosion() | d
+    try:
+        file = open(pref_explosion, 'w+', encoding='utf-8')
+        json.dump(result, file, ensure_ascii=False)
+        file.close()
+    except BaseException as e:
+        FreeCAD.Console.PrintError(str(e) + '\n')

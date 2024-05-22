@@ -38,6 +38,7 @@ class addFC(FreeCAD.Gui.Workbench):
         P.save_configuration({})
         P.save_properties({}, init=True)
         P.save_steel({})
+        P.save_explosion({})
 
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceSpecification, 'addFC')
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceSM, 'addFC')

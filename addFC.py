@@ -17,8 +17,8 @@ exporting: dict = {'json': ['JSON (*.json)']}
 unfold_name: tuple = ('Code', 'Name')
 unfold_signature: tuple = ('None', 'Code', 'Prefix', 'Prefix + Code')
 
-unfold_index = 0
-name_index = 0
+unfold_index: int = 0
+name_index: int = 0
 
 
 def error(message: str) -> None:
@@ -414,10 +414,6 @@ class AddFCProperties():
         if 'Material' in properties:
             smp_material = properties['Material'][2]  # enumeration
         w.comboBoxSMP.addItems(smp_material)
-        # for i in smp_material:
-        #     if 'galvanized' in str(i).lower() or 'цинк' in str(i).lower():
-        #         w.comboBoxSMP.setCurrentText(i)
-        #         break
 
         # guessing game:
         smp_type = '-'
@@ -464,7 +460,6 @@ class AddFCProperties():
                 for j in i.InList:
                     if j.TypeId != 'App::Link':
                         _list.append(j)
-
                 if FreeCAD.ActiveDocument.Name != i.Document.Name:
                     if len(_list) > 1:
                         i = _list[0]
@@ -480,7 +475,6 @@ class AddFCProperties():
                                     i = _list[0]
                     except BaseException:
                         pass
-
                 if i.TypeId == 'App::Link':
                     i = i.LinkedObject
                 if _smp:  # sheet metal part
@@ -504,21 +498,33 @@ class AddFCProperties():
                                     setattr(i, p, smp_type)
                         else:
                             i.addProperty(t, p, group)
-                            if text == 'Name':
-                                setattr(i, p, i.Label)
-                            elif text == 'Quantity':
-                                setattr(i, p, 1)
-                            elif text == 'Unfold':
-                                setattr(i, p, True)
-                            elif text == 'MetalThickness':
-                                bind = w.checkBoxLT.isChecked()  # true if smp
-                                try:
-                                    thickness = float(
-                                        S.define_thickness(i, bind, p))
-                                    if not bind:
-                                        setattr(i, p, thickness)
-                                except BaseException:
-                                    pass
+                            match text:
+                                # name template: '1. Body - 01'
+                                case 'Name':
+                                    sp = i.Label.split('. ', 1)
+                                    if len(sp) > 1:
+                                        n = sp[1].rsplit(' - ', 1)
+                                        setattr(i, p, n[0])
+                                    else:
+                                        n = sp[1].rsplit(' - ', 1)
+                                        setattr(i, p, n[0])
+                                case 'Code':
+                                    sp = i.Label.split('. ', 1)
+                                    if len(sp) > 1:
+                                        setattr(i, p, sp[0])
+                                case 'Quantity':
+                                    setattr(i, p, 1)
+                                case 'Unfold':
+                                    setattr(i, p, True)
+                                case 'MetalThickness':
+                                    bind = w.checkBoxLT.isChecked()
+                                    try:
+                                        thickness = float(
+                                            S.define_thickness(i, bind, p))
+                                        if not bind:
+                                            setattr(i, p, thickness)
+                                    except BaseException:
+                                        pass
                             # sheet metal part:
                             if _smp and text == 'Weight':
                                 set_weight(i, p)
@@ -561,7 +567,7 @@ class AddFCProperties():
             w.comboBoxSMP.setEnabled(True)
             w.checkBoxLT.setEnabled(True)
             w.checkBoxLT.setChecked(True)
-            values = ['Code', 'Material', 'MetalThickness', 'Unfold']
+            values = ['Code', 'Material', 'MetalThickness', 'Unfold']  # core
             for key in properties:
                 if key == 'Type' or key == 'Weight':
                     values.append(key)
@@ -643,6 +649,11 @@ examples: dict = {
         'An example of a complex parametric assembly, '
         'bill of materials, batch processing of sheet metal, '
         'and an exploded view.',
+    ),
+    'Belt Roller Support': (
+        os.path.join(examples_path, 'beltRollerSupport.FCStd'),
+        'Simple assembly example: bill of materials, exploded view '
+        'and fasteners workbench support.'
     ),
     'Pipe': (
         os.path.join(examples_path, 'pipe.FCStd'),
