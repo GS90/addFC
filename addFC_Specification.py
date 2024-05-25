@@ -242,8 +242,7 @@ def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
 
     details = {}
 
-    info_headers = {}
-    details_headers = {}
+    info_headers, details_headers = {}, {}
 
     def addition(s: str) -> bool:
         if s == 'Quantity':
@@ -312,7 +311,7 @@ def export_specification(path: str, target: str, strict: bool) -> str:
     match target:
 
         case 'JSON' | 'CSV':
-            result = {}
+            result, headers = {}, []
 
             if target == 'JSON':
                 use_alias = json_use_alias
@@ -325,10 +324,14 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                 result[i] = {}
                 for j in specification[0][i]:
                     key = j
+                    if key in skip:
+                        continue
                     if j in properties:
                         alias = properties[j][3]
                         if use_alias and alias != '':
                             key = properties[j][3]
+                    if key not in headers:
+                        headers.append(key)
                     result[i][key] = specification[0][i][j]
 
             match target:
@@ -338,8 +341,7 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                     file.close()
                 case 'CSV':
                     file = open(path, 'w+', encoding='utf-8-sig')
-                    writer = csv.DictWriter(
-                        file, fieldnames=specification[1])
+                    writer = csv.DictWriter(file, fieldnames=headers)
                     writer.writeheader()
                     for i in result:
                         for j in result[i]:
