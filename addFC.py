@@ -12,7 +12,10 @@ import importlib.machinery
 import os
 
 
-exporting: dict = {'json': ['JSON (*.json)']}
+exporting: dict = {
+    'JSON': ['JSON (*.json)'],
+    'Spreadsheet': [],
+}
 
 unfold_name: tuple = ('Code', 'Name')
 unfold_signature: tuple = ('None', 'Code', 'Prefix', 'Prefix + Code')
@@ -132,6 +135,7 @@ class AddFCSpecification():
         w = FreeCAD.Gui.PySideUic.loadUi(ui)
 
         conf = P.load_configuration()
+
         if conf['working_directory'] == '':
             conf['working_directory'] = os.path.expanduser('~/Desktop')
         if conf['unfold_prefix'] != '':
@@ -140,6 +144,7 @@ class AddFCSpecification():
             f"... {os.path.basename(conf['working_directory'])}")
 
         w.comboBoxExport.addItems(exporting.keys())
+        w.comboBoxExport.setCurrentText(conf['spec_export_type'])
         w.comboBoxName.addItems(unfold_name)
         w.comboBoxSignature.addItems(unfold_signature)
 
@@ -151,8 +156,8 @@ class AddFCSpecification():
 
         forbidden = ('Unit', 'Body')
 
-        def specification_update() -> None:
-            specification_purge()
+        def specification_update(startup=False) -> None:
+            specification_purge(startup)
 
             strict = True if w.checkBoxStrict.isChecked() else False
             info, info_h, details, details_h = S.get_specification(strict)
@@ -267,10 +272,11 @@ class AddFCSpecification():
             table_details.setSortingEnabled(True)
             table_details.horizontalHeader().setSortIndicatorShown(False)
 
-            w.status.setText('The specification has been updated')
+            if not startup:
+                w.info.setText('Updated')
             w.pushButtonExit.setFocus()
 
-        def specification_purge() -> None:
+        def specification_purge(startup=False) -> None:
             table.setSortingEnabled(False)
             table.clearSelection()
             table.clearContents()
@@ -281,26 +287,88 @@ class AddFCSpecification():
             table_details.clearContents()
             table_details.setColumnCount(0)
             table_details.setRowCount(0)
-            w.status.setText('The specification has been cleared')
+            if not startup:
+                w.info.setText('Cleared')
 
-        specification_update()
+        specification_update(True)
 
         w.show()
 
         w.pushButtonUpdate.clicked.connect(specification_update)
         w.pushButtonClear.clicked.connect(specification_purge)
 
+        def spec_export_settings() -> None:
+            properties = P.load_properties()
+            es = FreeCAD.Gui.PySideUic.loadUi(
+                os.path.join(P.add_base, 'repo', 'ui', 'specification_es.ui'))
+
+            es.JSON.setChecked(
+                conf['spec_export_json_use_alias'])
+            es.Spreadsheet.setChecked(
+                conf['spec_export_spreadsheet_use_alias'])
+
+            es.comboBoxMerger.addItems(properties.keys())
+            es.comboBoxSorting.addItems(properties.keys())
+
+            value = conf['spec_export_merger']
+            if value in properties:
+                es.comboBoxMerger.setCurrentText(value)
+            value = conf['spec_export_sort']
+            if value in properties:
+                es.comboBoxSorting.setCurrentText(value)
+
+            model = QtGui.QStandardItemModel()
+            es.listView.setModel(model)
+            for i in properties:
+                item = QtGui.QStandardItem(i)
+                item.setCheckable(True)
+                if i == 'Name':
+                    item.setEnabled(False)
+                    item.setCheckState(QtCore.Qt.Checked)
+                else:
+                    if i in conf['spec_export_skip']:
+                        item.setCheckState(QtCore.Qt.Unchecked)
+                    else:
+                        item.setCheckState(QtCore.Qt.Checked)
+                model.appendRow(item)
+
+            es.show()
+            es.pushButtonApply.setFocus()
+
+            def apply() -> None:
+                conf['spec_export_type'] = w.comboBoxExport.currentText()
+                conf['spec_export_json_use_alias'] = es.JSON.isChecked()
+                conf['spec_export_spreadsheet_use_alias'] = \
+                    es.Spreadsheet.isChecked()
+                conf['spec_export_merger'] = es.comboBoxMerger.currentText()
+                conf['spec_export_sort'] = es.comboBoxSorting.currentText()
+                conf['spec_export_skip'].clear()
+                conf['spec_export_skip'].append('Body')  # required
+                for index in range(model.rowCount()):
+                    item = model.item(index)
+                    if item.checkState() != QtCore.Qt.Checked:
+                        conf['spec_export_skip'].append(item.text())
+                P.save_configuration(conf)
+                es.close()
+            es.pushButtonApply.clicked.connect(apply)
+
+        w.pushButtonExportSettings.clicked.connect(spec_export_settings)
+
         def specification_export() -> None:
             target = w.comboBoxExport.currentText()
-            fd = QtGui.QFileDialog()
-            fd.setDefaultSuffix(target)
-            fd.setAcceptMode(QtGui.QFileDialog.AcceptSave)
-            fd.setNameFilters(exporting[target])
-            if fd.exec_() == QtGui.QDialog.Accepted:
-                path = fd.selectedFiles()[0]
-                strict = True if w.checkBoxStrict.isChecked() else False
-                S.export_specification(path, target, strict)
-                w.status.setText('Export complete')
+            match target:
+                case 'JSON':
+                    fd = QtGui.QFileDialog()
+                    fd.setDefaultSuffix(target.lower())
+                    fd.setAcceptMode(QtGui.QFileDialog.AcceptSave)
+                    fd.setNameFilters(exporting[target])
+                    if fd.exec_() == QtGui.QDialog.Accepted:
+                        path = fd.selectedFiles()[0]
+                        w.info.setText(S.export_specification(
+                            path, target, w.checkBoxStrict.isChecked()))
+                case 'Spreadsheet':
+                    w.info.setText(S.export_specification(
+                        '', target, w.checkBoxStrict.isChecked()))
         w.pushButtonExport.clicked.connect(specification_export)
 
         def switch_unfold(item) -> None:
@@ -501,12 +569,16 @@ class AddFCProperties():
                             match text:
                                 # name template: '1. Body - 01'
                                 case 'Name':
-                                    sp = i.Label.split('. ', 1)
-                                    if len(sp) > 1:
-                                        n = sp[1].rsplit(' - ', 1)
-                                        setattr(i, p, n[0])
+                                    if '. ' in i.Label[:int(len(i.Label) / 2)]:
+                                        sp = i.Label.split('. ', 1)
+                                        if len(sp) > 1:
+                                            n = sp[1].rsplit(' - ', 1)
+                                            setattr(i, p, n[0])
+                                        else:
+                                            n = sp[0].rsplit(' - ', 1)
+                                            setattr(i, p, n[0])
                                     else:
-                                        n = sp[1].rsplit(' - ', 1)
+                                        n = i.Label.rsplit(' - ', 1)
                                         setattr(i, p, n[0])
                                 case 'Code':
                                     sp = i.Label.split('. ', 1)
@@ -678,8 +750,8 @@ class OpenExample():
         for i in examples:
             model.appendRow(QtGui.QStandardItem(i))
 
-        def unzip() -> None:
-            if not os.path.exists(examples_path):
+        def unzip(reset: bool) -> None:
+            if reset or not os.path.exists(examples_path):
                 z = ZipFile(examples_path_zip, 'r')
                 z.extractall(os.path.join(P.add_base, 'repo'))
 
@@ -694,7 +766,7 @@ class OpenExample():
                 item = w.listView.model().itemFromIndex(index).text()
                 path = examples[item][0]
                 w.close()
-                unzip()
+                unzip(True if not os.path.exists(path) else False)
                 FreeCAD.openDocument(path)
         w.pushButtonOpen.clicked.connect(open)
         w.listView.doubleClicked.connect(open)

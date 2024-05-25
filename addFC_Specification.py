@@ -7,13 +7,7 @@ import FreeCAD
 import json
 
 
-base_enumeration: tuple[str] = (
-    '', '001', '002', '003', '004', '005', '006', '007', '008', '009', '010',
-    '011', '012', '013', '014', '015', '016', '017', '018', '019', '020',
-    '021', '022', '023', '024', '025', '026', '027', '028', '029', '030',
-    '031', '032', '033', '034', '035', '036', '037', '038', '039', '040',
-    '041', '042', '043', '044', '045', '046', '047', '048', '049', '050',
-)
+base_enumeration = tuple(['',] + [str(i).rjust(3, '0') for i in range(1, 51)])
 
 
 def define_thickness(body, bind=False, property='') -> float | int | str:
@@ -299,11 +293,23 @@ def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
 # ------------------------------------------------------------------------------
 
 
-def export_specification(path: str, target: str, strict: bool) -> None:
-    properties = P.load_properties()
+def export_specification(path: str, target: str, strict: bool) -> str:
+    specification = get_specification(strict)
+    if len(specification[0]) == 0:
+        return 'The specification is empty...'
+
+    conf, properties = P.load_configuration(), P.load_properties()
+
+    json_use_alias = conf['spec_export_json_use_alias']
+    spreadsheet_use_alias = conf['spec_export_spreadsheet_use_alias']
+
+    merger = conf['spec_export_merger']
+    sort = conf['spec_export_sort']
+    skip = conf['spec_export_skip']
+
     match target:
-        case 'json':
-            specification = get_specification(strict)
+
+        case 'JSON':
             result = {}
             for i in specification[0]:
                 if 'Body' in specification[0][i]:
@@ -313,9 +319,86 @@ def export_specification(path: str, target: str, strict: bool) -> None:
                     key = j
                     if j in properties:
                         alias = properties[j][3]
-                        if alias != '':
+                        if json_use_alias and alias != '':
                             key = properties[j][3]
                     result[i][key] = specification[0][i][j]
             file = open(path, 'w+', encoding='utf-8')
             json.dump(result, file, ensure_ascii=False, indent=4)
             file.close()
+            return 'Export complete'
+
+        case 'Spreadsheet':
+            result = {}
+            for i in specification[0]:
+                unit = specification[0][i]
+                for j in skip:
+                    if j in unit:
+                        unit.pop(j)
+                if merger not in unit:
+                    unit[merger] = '-'  # null
+                if unit[merger] in result:
+                    result[unit[merger]].append(unit)
+                else:
+                    result[unit[merger]] = [unit,]
+            result = dict(sorted(result.items()))
+            for i in result:
+                result[i] = sorted(result[i], key=lambda x: x[sort])
+
+            ad = FreeCAD.ActiveDocument
+            s = ad.getObjectsByLabel('addFC_BOM')
+            if len(s) == 0:
+                s = ad.addObject('Spreadsheet::Sheet', 'addFC_BOM')
+            else:
+                s = s[0]
+                s.clearAll()
+
+            alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            center = 'center|vcenter|vimplied'
+
+            columns, columns_width = {}, {}
+
+            x = -1
+            for i in specification[1]:
+                if i not in skip:
+                    x += 1
+                    columns[i] = alphabet[x]
+                    if i in properties:
+                        if spreadsheet_use_alias and properties[i][3] != '':
+                            i = properties[i][3]
+                        elif i == 'MetalThickness':
+                            i = 'MT'
+                    s.set(f'{alphabet[x]}{1}', i)
+                    columns_width[alphabet[x]] = [0, True]  # width, empty
+
+            # style:
+            s.setAlignment(f'A1:{alphabet[x]}1', center)
+            s.setStyle(f'A1:{alphabet[x]}1', 'bold')
+
+            y = 2
+            for i in result:
+                for j in result[i]:
+                    for k in j:
+                        if k in columns:
+                            value = str(j[k])
+                            w = max(columns_width[columns[k]][0], len(value))
+                            columns_width[columns[k]][0] = w
+                            if value != '-':
+                                columns_width[columns[k]][1] = False
+                            cell = f'{columns[k]}{y}'
+                            s.set(cell, value)
+                            # style:
+                            match j[k]:
+                                case int() | float():
+                                    s.setAlignment(cell, center)
+                                case _:
+                                    if j[k] == '-' or j[k].isdigit():
+                                        s.setAlignment(cell, center)
+                    y += 1
+
+            for i in columns_width:
+                s.setColumnWidth(i, max(80, columns_width[i][0] * 8))
+                if columns_width[i][1]:
+                    s.removeColumns(i, 1)
+
+            ad.recompute()
+            return 'Export complete'

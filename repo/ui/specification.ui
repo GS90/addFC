@@ -286,7 +286,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="info">
+        <layout class="QHBoxLayout" name="infoSM">
          <item>
           <widget class="QProgressBar" name="progress">
            <property name="maximumSize">
@@ -336,12 +336,26 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QPushButton" name="pushButtonExportSettings">
+       <property name="text">
+        <string>Export Settings</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QComboBox" name="comboBoxExport"/>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonExport">
        <property name="text">
         <string>Export</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="info">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -419,12 +433,12 @@
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>specificationTable</tabstop>
-  <tabstop>pushButtonExit</tabstop>
   <tabstop>pushButtonUpdate</tabstop>
   <tabstop>pushButtonClear</tabstop>
   <tabstop>checkBoxStrict</tabstop>
-  <tabstop>pushButtonExport</tabstop>
+  <tabstop>pushButtonExportSettings</tabstop>
   <tabstop>comboBoxExport</tabstop>
+  <tabstop>pushButtonExport</tabstop>
   <tabstop>detailsTable</tabstop>
   <tabstop>pushButtonUnfold</tabstop>
   <tabstop>pushButtonTrue</tabstop>
@@ -436,6 +450,7 @@
   <tabstop>comboBoxSignature</tabstop>
   <tabstop>lineEditPrefix</tabstop>
   <tabstop>pushButtonDir</tabstop>
+  <tabstop>pushButtonExit</tabstop>
  </tabstops>
  <resources/>
  <connections>

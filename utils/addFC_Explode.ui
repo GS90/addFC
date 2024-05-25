@@ -311,7 +311,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tabGuides">
            <attribute name="title">
@@ -675,11 +675,14 @@
   <tabstop>animationSplit</tabstop>
   <tabstop>animationGuides</tabstop>
   <tabstop>animationReverse</tabstop>
+  <tabstop>animationFit</tabstop>
+  <tabstop>animationExport</tabstop>
   <tabstop>animate</tabstop>
-  <tabstop>combineAll</tabstop>
-  <tabstop>explodeAll</tabstop>
-  <tabstop>animateAll</tabstop>
+  <tabstop>exportSettings</tabstop>
   <tabstop>exit</tabstop>
+  <tabstop>animateAll</tabstop>
+  <tabstop>explodeAll</tabstop>
+  <tabstop>combineAll</tabstop>
  </tabstops>
  <resources/>
  <connections>

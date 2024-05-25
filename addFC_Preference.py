@@ -12,20 +12,26 @@ import os
 add_base: str = os.path.dirname(__file__)
 add_icon: str = os.path.join(add_base, 'repo', 'icon')
 
-
 pref_configuration: str = os.path.join(add_base, 'pref', 'configuration.json')
 pref_properties: str = os.path.join(add_base, 'pref', 'properties.json')
 pref_steel: str = os.path.join(add_base, 'pref', 'steel.json')
 pref_explosion: str = os.path.join(add_base, 'pref', 'explosion.json')
 
 
-reserved: str = 'Body'
+reserved_str: str = 'Body'
 
 
 configuration: dict = {
-    'unfold_prefix': 'Result',
+    'unfold_prefix': 'Unfold',
     'properties_group': 'Add',
     'working_directory': '',
+    # export specification:
+    'spec_export_type': 'Spreadsheet',
+    'spec_export_json_use_alias': False,
+    'spec_export_spreadsheet_use_alias': True,
+    'spec_export_merger': 'Type',
+    'spec_export_sort': 'Name',
+    'spec_export_skip': ['Body',],
 }
 
 
@@ -50,7 +56,7 @@ specification_properties_core: dict = {
     'Unit': ['Enumeration', False, ['-', 'm', 'kg', 'm²', 'm³'], ''],
 }
 
-specification_properties_add: dict = {
+specification_properties_add: dict = {  # recommended
     'Id': ['Integer', False, [], ''],
     'Price': ['Float', True, [], ''],
     'Type': ['Enumeration', False, [
@@ -97,7 +103,7 @@ def load_configuration() -> dict:
 
 def save_configuration(conf: dict) -> dict:
     check_configuration()
-    result = configuration | load_configuration() | conf
+    result = load_configuration() | conf
     try:
         file = open(pref_configuration, 'w+', encoding='utf-8')
         json.dump(result, file, ensure_ascii=False)
@@ -289,7 +295,7 @@ class addFCPreferenceSpecification():
             if item.column() == 0:
                 if item is not None:
                     # reserved:
-                    if item.text() == reserved:
+                    if item.text() == reserved_str:
                         item.setText(f'{item.text()} (reserved)')
                     # duplicates:
                     for row in range(tableProperties.rowCount()):
@@ -454,7 +460,7 @@ def load_steel() -> dict:
 
 def save_steel(s: dict) -> dict:
     check_steel()
-    result = steel | load_steel() | s
+    result = load_steel() | s
     try:
         file = open(pref_steel, 'w+', encoding='utf-8')
         json.dump(result, file, ensure_ascii=False)
@@ -600,7 +606,7 @@ def load_explosion() -> dict:
 
 def save_explosion(d: dict) -> dict:
     check_explosion()
-    result = exploded | load_explosion() | d
+    result = load_explosion() | d
     try:
         file = open(pref_explosion, 'w+', encoding='utf-8')
         json.dump(result, file, ensure_ascii=False)

@@ -14,3 +14,8 @@
 * Added: Explode - export animation to video file.
 * Added: New example - belt roller support assembly.
 * A new optional dependency: FFmpeg.
+
+#### 2024.05.25 (**0.2.0**):
+* Fixes.
+* BOM (Specification): Export settings.
+* BOM (Specification): Export to spreadsheet.

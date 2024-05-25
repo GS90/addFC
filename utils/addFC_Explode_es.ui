@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Golodnikov Sergey</author>
  <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
@@ -213,6 +214,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>comboBoxSize</tabstop>
+  <tabstop>spinBoxWidth</tabstop>
+  <tabstop>spinBoxHeight</tabstop>
+  <tabstop>comboBoxBackground</tabstop>
+  <tabstop>comboBoxMethod</tabstop>
+  <tabstop>comboBoxImageFormat</tabstop>
+  <tabstop>checkBoxCCS</tabstop>
+  <tabstop>spinBoxFramerate</tabstop>
+  <tabstop>pushButtonDir</tabstop>
+  <tabstop>apply</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
