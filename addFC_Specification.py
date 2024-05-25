@@ -5,6 +5,7 @@
 import addFC_Preference as P
 import FreeCAD
 import json
+import csv
 
 
 base_enumeration = tuple(['',] + [str(i).rjust(3, '0') for i in range(1, 51)])
@@ -301,6 +302,7 @@ def export_specification(path: str, target: str, strict: bool) -> str:
     conf, properties = P.load_configuration(), P.load_properties()
 
     json_use_alias = conf['spec_export_json_use_alias']
+    csv_use_alias = conf['spec_export_csv_use_alias']
     spreadsheet_use_alias = conf['spec_export_spreadsheet_use_alias']
 
     merger = conf['spec_export_merger']
@@ -309,8 +311,14 @@ def export_specification(path: str, target: str, strict: bool) -> str:
 
     match target:
 
-        case 'JSON':
+        case 'JSON' | 'CSV':
             result = {}
+
+            if target == 'JSON':
+                use_alias = json_use_alias
+            if target == 'CSV':
+                use_alias = csv_use_alias
+
             for i in specification[0]:
                 if 'Body' in specification[0][i]:
                     del specification[0][i]['Body']
@@ -319,12 +327,27 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                     key = j
                     if j in properties:
                         alias = properties[j][3]
-                        if json_use_alias and alias != '':
+                        if use_alias and alias != '':
                             key = properties[j][3]
                     result[i][key] = specification[0][i][j]
-            file = open(path, 'w+', encoding='utf-8')
-            json.dump(result, file, ensure_ascii=False, indent=4)
-            file.close()
+
+            match target:
+                case 'JSON':
+                    file = open(path, 'w+', encoding='utf-8')
+                    json.dump(result, file, ensure_ascii=False, indent=4)
+                    file.close()
+                case 'CSV':
+                    file = open(path, 'w+', encoding='utf-8-sig')
+                    writer = csv.DictWriter(
+                        file, fieldnames=specification[1])
+                    writer.writeheader()
+                    for i in result:
+                        for j in result[i]:
+                            if type(result[i][j]) is float:
+                                result[i][j] = str(
+                                    result[i][j]).replace('.', ',')
+                        writer.writerow(result[i])
+                    file.close()
             return 'Export complete'
 
         case 'Spreadsheet':

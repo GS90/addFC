@@ -14,6 +14,7 @@ import os
 
 exporting: dict = {
     'JSON': ['JSON (*.json)'],
+    'CSV': ['CSV (*.csv)'],
     'Spreadsheet': [],
 }
 
@@ -304,6 +305,8 @@ class AddFCSpecification():
 
             es.JSON.setChecked(
                 conf['spec_export_json_use_alias'])
+            es.CSV.setChecked(
+                conf['spec_export_csv_use_alias'])
             es.Spreadsheet.setChecked(
                 conf['spec_export_spreadsheet_use_alias'])
 
@@ -338,6 +341,7 @@ class AddFCSpecification():
             def apply() -> None:
                 conf['spec_export_type'] = w.comboBoxExport.currentText()
                 conf['spec_export_json_use_alias'] = es.JSON.isChecked()
+                conf['spec_export_csv_use_alias'] = es.CSV.isChecked()
                 conf['spec_export_spreadsheet_use_alias'] = \
                     es.Spreadsheet.isChecked()
                 conf['spec_export_merger'] = es.comboBoxMerger.currentText()
@@ -357,7 +361,7 @@ class AddFCSpecification():
         def specification_export() -> None:
             target = w.comboBoxExport.currentText()
             match target:
-                case 'JSON':
+                case 'JSON' | 'CSV':
                     fd = QtGui.QFileDialog()
                     fd.setDefaultSuffix(target.lower())
                     fd.setAcceptMode(QtGui.QFileDialog.AcceptSave)

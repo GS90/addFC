@@ -19,3 +19,6 @@
 * Fixes.
 * BOM (Specification): Export settings.
 * BOM (Specification): Export to spreadsheet.
+
+#### 2024.05.25 (**0.2.2**):
+* BOM (Specification): Export to CSV.

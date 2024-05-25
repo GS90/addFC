@@ -8,13 +8,13 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>310</height>
+    <height>355</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>480</width>
-    <height>310</height>
+    <height>355</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -45,6 +45,13 @@
          <widget class="QCheckBox" name="JSON">
           <property name="text">
            <string>JSON</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="CSV">
+          <property name="text">
+           <string>CSV</string>
           </property>
          </widget>
         </item>
@@ -154,6 +161,7 @@
  <tabstops>
   <tabstop>listView</tabstop>
   <tabstop>JSON</tabstop>
+  <tabstop>CSV</tabstop>
   <tabstop>Spreadsheet</tabstop>
   <tabstop>comboBoxMerger</tabstop>
   <tabstop>comboBoxSorting</tabstop>

@@ -12,6 +12,7 @@ import os
 add_base: str = os.path.dirname(__file__)
 add_icon: str = os.path.join(add_base, 'repo', 'icon')
 
+
 pref_configuration: str = os.path.join(add_base, 'pref', 'configuration.json')
 pref_properties: str = os.path.join(add_base, 'pref', 'properties.json')
 pref_steel: str = os.path.join(add_base, 'pref', 'steel.json')
@@ -28,6 +29,7 @@ configuration: dict = {
     # export specification:
     'spec_export_type': 'Spreadsheet',
     'spec_export_json_use_alias': False,
+    'spec_export_csv_use_alias': True,
     'spec_export_spreadsheet_use_alias': True,
     'spec_export_merger': 'Type',
     'spec_export_sort': 'Name',
