@@ -20,8 +20,11 @@ try:
 except ImportError:
     is_available_NP = False
 
-r = subprocess.run(['ffmpeg', '-version'])
-if r.returncode != 0:
+try:
+    r = subprocess.run(['ffmpeg', '-version'])  # TODO Windows, macOS
+    if r.returncode != 0:
+        is_available_FF: bool = False
+except BaseException:
     is_available_FF: bool = False
 
 
@@ -835,9 +838,10 @@ def dialog() -> None:
         w.animate.setEnabled(True)
         w.animationReverse.setEnabled(True)
         w.animationReverse.setChecked(reverse)
-        w.animationExport.setEnabled(True)
-        w.animationExport.setChecked(export)
-        w.exportSettings.setEnabled(True)
+        if is_available_FF:
+            w.animationExport.setEnabled(True)
+            w.animationExport.setChecked(export)
+            w.exportSettings.setEnabled(True)
         w.animationStatus.setText('...')
 
     w.animate.clicked.connect(lambda: animation_play(True))

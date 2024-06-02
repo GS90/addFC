@@ -195,7 +195,8 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         n = 0
         for f in faces:
             n += 1
-            if f.Orientation == 'Forward' and f.Area > target[0]:
+            # TODO f.Orientation: Forward, Reversed
+            if f.Area > target[0]:
                 target[0] = f.Area
                 target[1] = n
 
