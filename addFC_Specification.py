@@ -367,7 +367,10 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                     result[unit[merger]] = [unit,]
             result = dict(sorted(result.items()))
             for i in result:
-                result[i] = sorted(result[i], key=lambda x: x[sort])
+                try:
+                    result[i] = sorted(result[i], key=lambda x: x[sort])
+                except BaseException:
+                    pass
 
             ad = FreeCAD.ActiveDocument
             s = ad.getObjectsByLabel('addFC_BOM')

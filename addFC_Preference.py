@@ -518,7 +518,7 @@ class addFCPreferenceSM():
                     if t is None:
                         continue
                     try:
-                        t = float(t.text().replace(',', '.'))
+                        t = max(0.1, float(t.text().replace(',', '.')))
                     except BaseException:
                         continue
                     r = table.item(row, 1)  # Radius
@@ -526,7 +526,7 @@ class addFCPreferenceSM():
                         r = t
                     else:
                         try:
-                            r = float(r.text().replace(',', '.'))
+                            r = max(0.1, float(r.text().replace(',', '.')))
                         except BaseException:
                             r = t
                     k = 1 / math.log(1 + t / r) - r / t
