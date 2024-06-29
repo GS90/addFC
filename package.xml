@@ -2,7 +2,7 @@
 <package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
   <name>AddFC Workbench</name>
   <description>Additional tools for FreeCAD.</description>
-  <version>0.4.0</version>
+  <version>0.4.1</version>
   <date>2024-06-29</date>
   <maintainer email="nn19051990@gmail.com">Golodnikov Sergey</maintainer>
   <license file="LICENSE">LGPL-2.1-or-later</license>

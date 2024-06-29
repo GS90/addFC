@@ -39,7 +39,6 @@ garbage: tuple[str] = (
     'Unfold',
 )
 
-
 chars: str = re.escape('<>:"?*/|\\')
 
 
@@ -137,7 +136,12 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             stainless[0] = True
             stainless[1] = material.lower().replace('aisi', '').strip()
 
-        steel = [thickness, 0.5, '']  # thickness, k-factor, alias
+        steel = {
+            't': thickness,
+            'radius': 1.0,
+            'k-factor': 0.42,
+            'alias': '',
+        }
 
         err = False
         if stainless[0]:
@@ -147,15 +151,17 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                     v.append(float(key))
                 except BaseException:
                     err = True
-            steel[0] = min(sorted(v), key=lambda n: abs(thickness - n))
+            steel['t'] = min(sorted(v), key=lambda n: abs(thickness - n))
             # float or string?
-            if steel[0] in conf_steel['stainless']:
-                _steel = conf_steel['stainless'][steel[0]]
-            elif str(steel[0]) in conf_steel['stainless']:
-                _steel = conf_steel['stainless'][str(steel[0])]
+            if steel['t'] in conf_steel['stainless']:
+                _steel = conf_steel['stainless'][steel['t']]
+            elif str(steel['t']) in conf_steel['stainless']:
+                _steel = conf_steel['stainless'][str(steel['t'])]
             else:
                 err = True
-            steel[1], steel[2] = _steel[0], _steel[1]
+            steel['radius'] = _steel[0]
+            steel['k-factor'] = _steel[1]
+            steel['alias'] = _steel[2]
         else:
             v = []
             for key in conf_steel['galvanized'].keys():
@@ -163,29 +169,31 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                     v.append(float(key))
                 except BaseException:
                     err = True
-            steel[0] = min(sorted(v), key=lambda n: abs(thickness - n))
+            steel['t'] = min(sorted(v), key=lambda n: abs(thickness - n))
             # float or string?
-            if steel[0] in conf_steel['galvanized']:
-                _steel = conf_steel['galvanized'][steel[0]]
-            elif str(steel[0]) in conf_steel['galvanized']:
-                _steel = conf_steel['galvanized'][str(steel[0])]
+            if steel['t'] in conf_steel['galvanized']:
+                _steel = conf_steel['galvanized'][steel['t']]
+            elif str(steel['t']) in conf_steel['galvanized']:
+                _steel = conf_steel['galvanized'][str(steel['t'])]
             else:
                 err = True
-            steel[1], steel[2] = _steel[0], _steel[1]
+            steel['radius'] = _steel[0]
+            steel['k-factor'] = _steel[1]
+            steel['alias'] = _steel[2]
         if err:
             e = f'{d}: error in sheet metal preference\n'
             FreeCAD.Console.PrintError(e)
             continue
 
         # alias:
-        if steel[2] == '':
-            steel[2] = str(thickness)
+        if steel['alias'] == '':
+            steel['alias'] = str(thickness)
         if stainless[0]:
             if stainless[1] != '':
-                steel[2] = f'{steel[2]}_{stainless[1]}'
+                steel['alias'] = f"{steel['alias']}_{stainless[1]}"
         else:
             if material == 'Steel':
-                steel[2] = f'{steel[2]}_Steel'
+                steel['alias'] = f"{steel['alias']}_Steel"
 
         # reproduction:
         shape = Part.getShape(body, '', needSubElement=False, refine=True)
@@ -211,10 +219,10 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         # k-factor:
         FreeCAD.ParamGet(
             'User parameter:BaseApp/Preferences/Mod/SheetMetal').SetFloat(
-            'manualKFactor', steel[1])
+            'manualKFactor', steel['k-factor'])
 
         # unfold:
-        msg = f'{d}: {material} ({steel[0]}) {steel[1]}\n'
+        msg = f"{d}: {material} ({steel['t']}) {steel['k-factor']}\n"
         FreeCAD.Console.PrintMessage(msg)
         u.Activated(None)
         FreeCAD.Gui.Selection.clearSelection()
@@ -254,7 +262,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                 pass
 
         # directory:
-        target = os.path.join(path, steel[2])
+        target = os.path.join(path, steel['alias'])
         if not os.path.exists(target):
             os.makedirs(target)
 
@@ -281,7 +289,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                 f = os.path.join(target, f'{file} ({i + 1}).dxf')
                 importDXF.export([ad.getObject('Unfold_Sketch')], f)
                 # signature:
-                if signature[0]:
+                if signature[0] and len(sign) > 0:
                     size = int(abs(unfold_width) / len(sign))
                     size = max(6, min(size, 120))
                     size_verify = int(abs(unfold_height) - 10)

@@ -24,8 +24,9 @@
 #### 2024.06.02 (**0.3.1**):
 * Fixes.
 
-#### 2024.06.29 (**0.4.0**):
+#### 2024.06.29 (**0.4.1**):
 * Minor changes.
 * The "Code" property has been renamed to "Index".
 * Added: Sheet metal settings: radius, k-factor calculation.
 * Added: Sheet metal part settings: color and density.
+* HotFix.
