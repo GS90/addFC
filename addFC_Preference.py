@@ -23,9 +23,15 @@ reserved_str: str = 'Body'
 
 
 configuration: dict = {
-    'unfold_prefix': 'Unfold',
-    'properties_group': 'Add',
     'working_directory': '',
+    'properties_group': 'Add',
+    # unfold:
+    'unfold_dxf': True,
+    'unfold_svg': False,
+    'unfold_stp': False,
+    'unfold_file_name': 'Index',
+    'unfold_file_signature': 'None',
+    'unfold_prefix': 'Unfold',
     # export specification:
     'spec_export_type': 'Spreadsheet',
     'spec_export_json_use_alias': False,
@@ -49,7 +55,7 @@ specification_properties_core: dict = {
     # required:
     'Name': ['String', False, [], ''],
     # core:
-    'Code': ['String', False, [], ''],
+    'Index': ['String', False, [], ''],
     'Material': ['Enumeration', False, [
         '-', 'Steel', 'Galvanized', 'Stainless', 'AISI 304', 'AISI 316'], ''],
     'MetalThickness': ['Float', False, [], ''],

@@ -18,8 +18,9 @@ exporting: dict = {
     'Spreadsheet': [],
 }
 
-unfold_name: tuple = ('Code', 'Name')
-unfold_signature: tuple = ('None', 'Code', 'Prefix', 'Prefix + Code')
+unfold_name: tuple = ('Index', 'Name', 'Index + Name')
+unfold_signature: tuple = ('None', 'Index', 'Prefix', 'Prefix + Index')
+
 
 unfold_index: int = 0
 name_index: int = 0
@@ -139,8 +140,6 @@ class AddFCSpecification():
 
         if conf['working_directory'] == '':
             conf['working_directory'] = os.path.expanduser('~/Desktop')
-        if conf['unfold_prefix'] != '':
-            w.lineEditPrefix.setText(conf['unfold_prefix'])
         w.labelTarget.setText(
             f"... {os.path.basename(conf['working_directory'])}")
 
@@ -148,6 +147,17 @@ class AddFCSpecification():
         w.comboBoxExport.setCurrentText(conf['spec_export_type'])
         w.comboBoxName.addItems(unfold_name)
         w.comboBoxSignature.addItems(unfold_signature)
+
+        # values:
+        w.DXF.setChecked(conf['unfold_dxf'])
+        w.SVG.setChecked(conf['unfold_svg'])
+        w.STP.setChecked(conf['unfold_stp'])
+        if conf['unfold_file_name'] in unfold_name:
+            w.comboBoxName.setCurrentText(conf['unfold_file_name'])
+        if conf['unfold_file_signature'] in unfold_signature:
+            w.comboBoxSignature.setCurrentText(conf['unfold_file_signature'])
+        if conf['unfold_prefix'] != '':
+            w.lineEditPrefix.setText(conf['unfold_prefix'])
 
         table = w.specificationTable
         table_details = w.detailsTable
@@ -206,7 +216,10 @@ class AddFCSpecification():
                 if value > 0:
                     labels.append(f'{i}\n{value}')
                 else:
-                    labels.append(i)
+                    if i == 'MetalThickness':
+                        labels.append('MT')
+                    else:
+                        labels.append(i)
             table.setHorizontalHeaderLabels(labels)
 
             table.resizeColumnsToContents()
@@ -261,7 +274,10 @@ class AddFCSpecification():
                 if value > 0:
                     labels.append(f'{i}\n{value}')
                 else:
-                    labels.append(i)
+                    if i == 'MetalThickness':
+                        labels.append('MT')
+                    else:
+                        labels.append(i)
             table_details.setHorizontalHeaderLabels(labels)
 
             table_details.resizeColumnsToContents()
@@ -446,8 +462,16 @@ class AddFCSpecification():
             prefix = str(w.lineEditPrefix.text()).strip()
             if prefix == '':
                 prefix = 'Result'
+
+            # saving the values:
+            conf['unfold_dxf'] = w.DXF.isChecked()
+            conf['unfold_svg'] = w.SVG.isChecked()
+            conf['unfold_stp'] = w.STP.isChecked()
+            conf['unfold_file_name'] = w.comboBoxName.currentText()
+            conf['unfold_file_signature'] = w.comboBoxSignature.currentText()
             conf['unfold_prefix'] = prefix
             P.save_configuration(conf)
+
             path = os.path.join(conf['working_directory'], prefix)
             addFC_Unfold.unfold(w, spec[2], path, redefinition())
         w.pushButtonUnfold.clicked.connect(unfold)
@@ -461,6 +485,26 @@ FreeCAD.Gui.addCommand('AddFCSpecification', AddFCSpecification())
 
 
 # ------------------------------------------------------------------------------
+
+
+def parse_label(label: str) -> tuple[str, str]:
+    # name template: 'Index. Body - Copy'
+    index = '0'
+    if len(label) > 3:
+        if '. ' in label[:4]:
+            try:
+                sp = label.split('. ', 1)
+                if len(sp) > 1:
+                    if len(sp[1].strip()) > 1:
+                        index = sp[0].replace('0', '').strip()
+                        label = sp[1].strip()
+            except BaseException:
+                pass
+    sp = label.rsplit(' - ', 1)
+    if len(sp) > 1:
+        if len(sp[1]) < 5:
+            label = sp[0].strip()
+    return index, label
 
 
 class AddFCProperties():
@@ -570,24 +614,12 @@ class AddFCProperties():
                                     setattr(i, p, smp_type)
                         else:
                             i.addProperty(t, p, group)
+                            index, name = parse_label(i.Label)
                             match text:
-                                # name template: '1. Body - 01'
                                 case 'Name':
-                                    if '. ' in i.Label[:int(len(i.Label) / 2)]:
-                                        sp = i.Label.split('. ', 1)
-                                        if len(sp) > 1:
-                                            n = sp[1].rsplit(' - ', 1)
-                                            setattr(i, p, n[0])
-                                        else:
-                                            n = sp[0].rsplit(' - ', 1)
-                                            setattr(i, p, n[0])
-                                    else:
-                                        n = i.Label.rsplit(' - ', 1)
-                                        setattr(i, p, n[0])
-                                case 'Code':
-                                    sp = i.Label.split('. ', 1)
-                                    if len(sp) > 1:
-                                        setattr(i, p, sp[0])
+                                    setattr(i, p, name)
+                                case 'Index':
+                                    setattr(i, p, index)
                                 case 'Quantity':
                                     setattr(i, p, 1)
                                 case 'Unfold':
@@ -643,7 +675,7 @@ class AddFCProperties():
             w.comboBoxSMP.setEnabled(True)
             w.checkBoxLT.setEnabled(True)
             w.checkBoxLT.setChecked(True)
-            values = ['Code', 'Material', 'MetalThickness', 'Unfold']  # core
+            values = ['Index', 'Material', 'MetalThickness', 'Unfold']  # core
             for key in properties:
                 if key == 'Type' or key == 'Weight':
                     values.append(key)

@@ -23,3 +23,7 @@
 
 #### 2024.06.02 (**0.3.1**):
 * Fixes.
+
+#### 2024.06.29 (**0.3.2**):
+* Minor changes.
+* The Code property has been renamed to Index.

@@ -40,6 +40,9 @@ garbage: tuple[str] = (
 )
 
 
+chars: str = re.escape('<>:"?*/|\\')
+
+
 def add_signature(file: str, sign: str, width: float, size: int) -> None:
     file = ezdxf.readfile(file)
     model = file.modelspace()
@@ -75,9 +78,9 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
 
     signature = [False, '']  # prefix
     match w.comboBoxSignature.currentText():
-        case 'Code':
+        case 'Index':
             signature[0] = True
-        case 'Prefix' | 'Prefix + Code':
+        case 'Prefix' | 'Prefix + Index':
             prefix = str(w.lineEditPrefix.text()).strip()
             if prefix != '':
                 signature = [True, prefix]
@@ -256,20 +259,21 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             os.makedirs(target)
 
         sign = signature[1]
-
-        # file:
-        chars = re.escape('<>:"?*/|\\')
         file = re.sub('[' + chars + ']', '_', d)
-        if w.comboBoxName.currentText() == 'Code':
-            if 'Code' in details[d] and details[d]['Code'] != '':
-                code = re.sub('[' + chars + ']', '_', details[d]['Code'])
-                if signature[0]:
-                    match w.comboBoxSignature.currentText():
-                        case 'Code':
-                            sign = code
-                        case 'Prefix + Code':
-                            sign = f'{signature[1]}_{code}'
-                file = code
+
+        if 'Index' in details[d] and details[d]['Index'] != '':
+            index = re.sub('[' + chars + ']', '_', details[d]['Index'])
+            if signature[0]:
+                match w.comboBoxSignature.currentText():
+                    case 'Index':
+                        sign = index
+                    case 'Prefix + Index':
+                        sign = f'{signature[1]}_{index}'
+
+        if w.comboBoxName.currentText() == 'Index':
+            file = index
+        elif w.comboBoxName.currentText() == 'Index + Name':
+            file = f'({index}) {file}'
 
         # save:
         for i in range(int(details[d]['Quantity'])):
@@ -306,6 +310,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         FreeCAD.Gui.updateGui()
 
     w.progress.setValue(100)
+
     stop = time.strftime('%M:%S', time.gmtime(time.time() - start))
     w.status.setText(f'Unfold completed, time - {stop}')
 
