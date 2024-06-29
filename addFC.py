@@ -543,17 +543,15 @@ class AddFCProperties():
                     smp_type = i
                     break
 
-        def set_weight(obj, p: str) -> None:
-            density = P.sheet_metal_part['density']
+        def set_weight(obj, p: str, density: int) -> None:
             if 'Tipe' in obj.PropertiesList:
                 src = '.Tip.Shape.Volume'
             else:
                 src = '.Shape.Volume'
             obj.setExpression(p, f'{src} / 1000000000 * {density}')
 
-        def set_color(obj) -> None:
-            color = tuple(i / 255 for i in P.sheet_metal_part['color'])
-            obj.ViewObject.ShapeColor = color
+        def set_color(obj, color: tuple) -> None:
+            obj.ViewObject.ShapeColor = tuple(i / 255 for i in color)
 
         model = QtGui.QStandardItemModel()
         w.listView.setModel(model)
@@ -594,7 +592,7 @@ class AddFCProperties():
                 if i.TypeId == 'App::Link':
                     i = i.LinkedObject
                 if _smp:  # sheet metal part
-                    set_color(i)
+                    set_color(i, configuration['smp_color'])
                 for index in range(model.rowCount()):
                     item = model.item(index)
                     if item.checkState() != QtCore.Qt.Checked:
@@ -635,7 +633,7 @@ class AddFCProperties():
                                         pass
                             # sheet metal part:
                             if _smp and text == 'Weight':
-                                set_weight(i, p)
+                                set_weight(i, p, configuration['smp_density'])
             FreeCAD.activeDocument().recompute()
         w.pushButtonAdd.clicked.connect(add)
 

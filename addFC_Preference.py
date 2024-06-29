@@ -6,12 +6,12 @@ from PySide import QtGui, QtCore
 import copy
 import FreeCAD
 import json
+import math
 import os
 
 
 add_base: str = os.path.dirname(__file__)
 add_icon: str = os.path.join(add_base, 'repo', 'icon')
-
 
 pref_configuration: str = os.path.join(add_base, 'pref', 'configuration.json')
 pref_properties: str = os.path.join(add_base, 'pref', 'properties.json')
@@ -40,12 +40,9 @@ configuration: dict = {
     'spec_export_merger': 'Type',
     'spec_export_sort': 'Name',
     'spec_export_skip': ['Body',],
-}
-
-
-sheet_metal_part: dict = {
-    'density': 7800,
-    'color': tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4))
+    # sheet metal part:
+    'smp_density': 7800,
+    'smp_color': tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)),
 }
 
 
@@ -421,22 +418,24 @@ class addFCPreferenceSpecification():
 
 
 steel: dict = {
-    # title: {thickness: k-factor, alias}
+    # title: {thickness: radius, k-factor, alias}
     'galvanized': {
-        0.5: [0.472, 'A',],
-        0.8: [0.448, 'B',],
-        1.0: [0.425, 'C',],
-        1.5: [0.412, 'D',],
-        2.0: [0.425, 'E',],
-        3.0: [0.414, 'F',],
+        0.5: [1.3, 0.473, 'A',],
+        0.8: [1.3, 0.460, 'B',],
+        1.0: [1.3, 0.453, 'C',],
+        1.2: [1.7, 0.456, 'D',],
+        1.5: [1.7, 0.448, 'D',],
+        2.0: [2.7, 0.454, 'E',],
+        3.0: [3.3, 0.446, 'F',],
     },
     'stainless': {
-        0.5: [0.472, 'AS',],
-        0.8: [0.448, 'BS',],
-        1.0: [0.425, 'CS',],
-        1.5: [0.412, 'DS',],
-        2.0: [0.425, 'ES',],
-        3.0: [0.414, 'FS',],
+        0.5: [1.3, 0.473, 'AS',],
+        0.8: [1.3, 0.460, 'BS',],
+        1.0: [1.3, 0.453, 'CS',],
+        1.2: [1.7, 0.456, 'DS',],
+        1.5: [1.7, 0.448, 'DS',],
+        2.0: [2.7, 0.454, 'ES',],
+        3.0: [3.3, 0.446, 'FS',],
     },
 }
 
@@ -485,7 +484,7 @@ class addFCPreferenceSM():
         tableGalvanized = self.form.tableGalvanized
         tableStainless = self.form.tableStainless
 
-        headers = ('Thickness', 'K-Factor', 'Alias')
+        headers = ('Thickness', 'Radius', 'K-Factor', 'Alias')
 
         d = load_steel()
 
@@ -502,14 +501,38 @@ class addFCPreferenceSM():
             i = QtGui.QTableWidgetItem
             for key in d:
                 value = d[key]
-                t.setItem(x, 0, i(str(key)))
-                t.setItem(x, 1, i(str(value[0])))
-                t.setItem(x, 2, i(value[1]))
+                t.setItem(x, 0, i(str(key)))       # Thickness
+                t.setItem(x, 1, i(str(value[0])))  # Radius
+                t.setItem(x, 2, i(str(value[1])))  # K-Factor
+                t.setItem(x, 3, i(value[2]))       # Alias
                 x += 1
             align(t, headers.index('Alias'))
 
         fill(tableGalvanized, d['galvanized'])
         fill(tableStainless, d['stainless'])
+
+        def calculate_factor() -> None:
+            for table in (tableGalvanized, tableStainless):
+                for row in range(table.rowCount()):
+                    t = table.item(row, 0)  # Thickness
+                    if t is None:
+                        continue
+                    try:
+                        t = float(t.text().replace(',', '.'))
+                    except BaseException:
+                        continue
+                    r = table.item(row, 1)  # Radius
+                    if r is None:
+                        r = t
+                    else:
+                        try:
+                            r = float(r.text().replace(',', '.'))
+                        except BaseException:
+                            r = t
+                    k = 1 / math.log(1 + t / r) - r / t
+                    i = table.item(row, 2)
+                    i.setText(str(round(k, 3)))  # K-Factor
+        self.form.calculate.clicked.connect(calculate_factor)
 
         def galvanized_default() -> None:
             fill(tableGalvanized, steel['galvanized'])
@@ -537,6 +560,17 @@ class addFCPreferenceSM():
             align(tableStainless, headers.index('Alias'))
         self.form.stainlessAdd.clicked.connect(stainless_add)
 
+        def color_set(color: tuple | list) -> None:
+            color = QtGui.QColor(*color).name()
+            self.form.color.setText(color)
+            self.form.color.setStyleSheet('QPushButton {color:' + color + '}')
+
+        def color_get() -> None:
+            color = QtGui.QColorDialog.getColor()
+            if color.isValid():
+                color_set(color.getRgb()[:-1])
+        self.form.color.clicked.connect(color_get)
+
         return
 
     def __del__(self):
@@ -545,10 +579,13 @@ class addFCPreferenceSM():
         def read(table, key: str) -> None:
             for row in range(table.rowCount()):
                 thickness = table.item(row, 0)
-                factor = table.item(row, 1)
+                radius = table.item(row, 1)
+                factor = table.item(row, 2)
                 if thickness is None or factor is None:
                     continue
-                alias = table.item(row, 2)
+                if radius is None:
+                    radius = thickness
+                alias = table.item(row, 3)
                 if alias is None:
                     alias == ''
                 else:
@@ -558,16 +595,27 @@ class addFCPreferenceSM():
                 except BaseException:
                     continue
                 try:
+                    radius = float(radius.text().replace(',', '.'))
+                except BaseException:
+                    continue
+                try:
                     factor = abs(float(factor.text().replace(',', '.')))
                     factor = max(0.0, min(factor, 1.0))
                 except BaseException:
-                    factor = 0.5
-                result[key][thickness] = [factor, alias]
+                    factor = 0.42
+                result[key][thickness] = [radius, factor, alias]
 
         read(self.form.tableGalvanized, 'galvanized')
         read(self.form.tableStainless, 'stainless')
 
         save_steel(result)
+
+        color = self.form.color.text().lstrip('#')
+        save_configuration({
+            'smp_density': int(self.form.density.value()),
+            'smp_color': tuple(int(color[i:i + 2], 16) for i in (0, 2, 4)),
+        })
+
         return
 
 
