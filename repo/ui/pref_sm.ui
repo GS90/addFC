@@ -48,6 +48,9 @@
      </item>
      <item>
       <widget class="QSpinBox" name="density">
+       <property name="suffix">
+        <string> kg/m3</string>
+       </property>
        <property name="maximum">
         <number>100000</number>
        </property>

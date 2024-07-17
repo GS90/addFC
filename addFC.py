@@ -10,6 +10,7 @@ import addFC_Unfold
 import FreeCAD
 import importlib.machinery
 import os
+import webbrowser
 
 
 exporting: dict = {
@@ -488,7 +489,7 @@ FreeCAD.Gui.addCommand('AddFCSpecification', AddFCSpecification())
 
 
 def parse_label(label: str) -> tuple[str, str]:
-    # name template: 'Index. Body - Copy'
+    # name template: 'Index. Name - Copy'
     index = '0'
     if len(label) > 3:
         if '. ' in label[:4]:
@@ -745,11 +746,20 @@ FreeCAD.Gui.addCommand('AddFCExplode', AddFCExplode())
 # ------------------------------------------------------------------------------
 
 
+documentation_path: str = os.path.join(P.add_base, 'repo', 'doc')
 examples_path: str = os.path.join(P.add_base, 'repo', 'example')
 examples_path_zip: str = os.path.join(P.add_base, 'repo', 'example.zip')
 
 
 examples: dict = {
+    'Documentation - English': (
+        os.path.join(documentation_path, 'documentation_EN.pdf'),
+        'Documentation in PDF format - English.',
+    ),
+    'Documentation - Russian': (
+        os.path.join(documentation_path, 'documentation_RU.pdf'),
+        'Документация в формате PDF на русском языке.',
+    ),
     'Assembly': (
         os.path.join(examples_path, 'noAssembly.FCStd'),
         'An example of a complex parametric assembly, '
@@ -768,12 +778,12 @@ examples: dict = {
 }
 
 
-class OpenExample():
+class addFCAssistant():
 
     def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'example.svg'),
-                'MenuText': 'Open an example',
-                'ToolTip': 'Open an example'}
+        return {'Pixmap': os.path.join(P.add_icon, 'help.svg'),
+                'MenuText': 'Help and example',
+                'ToolTip': 'Help and example'}
 
     def Activated(self):
         ui = os.path.join(P.add_base, 'repo', 'ui', 'list.ui')
@@ -800,12 +810,15 @@ class OpenExample():
                 item = w.listView.model().itemFromIndex(index).text()
                 path = examples[item][0]
                 w.close()
-                unzip(True if not os.path.exists(path) else False)
-                FreeCAD.openDocument(path)
+                if '.pdf' in path:
+                    webbrowser.open_new_tab(path)
+                else:
+                    unzip(True if not os.path.exists(path) else False)
+                    FreeCAD.openDocument(path)
         w.pushButtonOpen.clicked.connect(open)
         w.listView.doubleClicked.connect(open)
 
     def IsActive(self): return True
 
 
-FreeCAD.Gui.addCommand('OpenExample', OpenExample())
+FreeCAD.Gui.addCommand('addFCAssistant', addFCAssistant())

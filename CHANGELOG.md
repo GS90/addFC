@@ -30,3 +30,8 @@
 * Added: Sheet metal settings: radius, k-factor calculation.
 * Added: Sheet metal part settings: color and density.
 * HotFix.
+
+#### 2024.07.17 (**0.4.4**):
+* Minor changes.
+* Refactoring.
+* Documentation on main functions is available in English and Russian.
