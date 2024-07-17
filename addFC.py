@@ -489,12 +489,21 @@ FreeCAD.Gui.addCommand('AddFCSpecification', AddFCSpecification())
 
 
 def parse_label(label: str) -> tuple[str, str]:
-    # name template: 'Index. Name - Copy'
+    # name template: 'Index (sep) Name (sep) Copy'
     index = '0'
     if len(label) > 3:
         if '. ' in label[:4]:
             try:
                 sp = label.split('. ', 1)
+                if len(sp) > 1:
+                    if len(sp[1].strip()) > 1:
+                        index = sp[0].replace('0', '').strip()
+                        label = sp[1].strip()
+            except BaseException:
+                pass
+        if ' - ' in label[:6]:
+            try:
+                sp = label.split(' - ', 1)
                 if len(sp) > 1:
                     if len(sp[1].strip()) > 1:
                         index = sp[0].replace('0', '').strip()
