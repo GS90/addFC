@@ -39,6 +39,15 @@ Documentation available in PDF format:
 * [Russian](repo/doc/documentation_RU.pdf)
 
 
+### Notes
+
+The workbench is under development.
+
+If you encounter problems after the update, try deleting the preferences directory:
+
+`FreeCAD/Mod/addFC/pref`
+
+
 ## Installation
 
 Download the [archive](https://github.com/GS90/addFC/archive/main.zip), unzip it and move the __addFC__ folder to the directory containing all additional FreeCAD modules:
@@ -71,15 +80,6 @@ For full functionality, you need:
 The easiest way to install is to use the Python package management system - [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)):
 
 * `pip install ezdxf numpy`
-
-
-### Notes
-
-The workbench is under development.
-
-If you encounter problems after the update, try deleting the preferences directory:
-
-`FreeCAD/Mod/addFC/pref`
 
 
 ## License

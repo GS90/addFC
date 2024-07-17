@@ -32,6 +32,6 @@
 * HotFix.
 
 #### 2024.07.17 (**0.4.4**):
-* Minor changes.
+* Minor changes and fixes.
 * Refactoring.
 * Documentation on main functions is available in English and Russian.
