@@ -33,10 +33,10 @@ At the moment it is:
 
 ### Documentation
 
-Documentation available in PDF format:
+[Documentation](repo/doc) available in PDF format:
 
-* [English](repo/doc/documentation_EN.pdf)
-* [Russian](repo/doc/documentation_RU.pdf)
+* [English](https://digiroad.tech/share/addFC/documentation_EN.pdf)
+* [Russian](https://digiroad.tech/share/addFC/documentation_RU.pdf)
 
 
 ### Notes
