@@ -21,7 +21,7 @@ At the moment it is:
 
 ### Toolbox
 
-![](repo/doc/img/icon.png)
+![](repo/doc/img/icon.svg)
 
 1. Open last working file
 2. Isometry and fit all
