@@ -76,13 +76,10 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
     save_stp = w.STP.isChecked()
 
     signature = [False, '']  # prefix
-    match w.comboBoxSignature.currentText():
-        case 'Index':
-            signature[0] = True
-        case 'Prefix' | 'Prefix + Index':
-            prefix = str(w.lineEditPrefix.text()).strip()
-            if prefix != '':
-                signature = [True, prefix]
+    if w.comboBoxSignature.currentText() != 'None':
+        signature[0] = True
+        if 'Prefix' in w.comboBoxSignature.currentText():
+            signature[1] = str(w.lineEditPrefix.text()).strip()
 
     ad = FreeCAD.ActiveDocument
 
@@ -200,20 +197,24 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         ad.addObject('Part::Feature', 'Reproduction').Shape = shape
         body = ad.ActiveObject
 
-        # find the largest face:
-        target = [0.0, 0]
+        # find the largest face (2:spare):
+        target = [0.0, 0, 0]
         faces = body.Shape.Faces
         n = 0
         for f in faces:
             n += 1
-            # TODO f.Orientation: Forward, Reversed
+            # todo: spare surface
             if f.Area > target[0]:
+                target[2] = target[1]  # spare
                 target[0] = f.Area
                 target[1] = n
 
         # selection:
         FreeCAD.Gui.Selection.clearSelection()
-        face = 'Face' + str(target[1])
+        if 'UnfoldReverse' in details[d]:
+            face = 'Face' + str(target[2])  # most likely it's the other side
+        else:
+            face = 'Face' + str(target[1])
         FreeCAD.Gui.Selection.addSelection(ad.Name, body.Name, face, 0, 0, 0)
 
         # k-factor:
@@ -266,22 +267,41 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         if not os.path.exists(target):
             os.makedirs(target)
 
-        sign = signature[1]
         file = re.sub('[' + chars + ']', '_', d)
 
+        code, index, sign = '', '', signature[1]  # prefix
+
+        if 'Code' in details[d] and details[d]['Code'] != '':
+            code = re.sub('[' + chars + ']', '_', details[d]['Code'])
         if 'Index' in details[d] and details[d]['Index'] != '':
             index = re.sub('[' + chars + ']', '_', details[d]['Index'])
-            if signature[0]:
-                match w.comboBoxSignature.currentText():
-                    case 'Index':
-                        sign = index
-                    case 'Prefix + Index':
-                        sign = f'{signature[1]}_{index}'
 
-        if w.comboBoxName.currentText() == 'Index':
-            file = index
-        elif w.comboBoxName.currentText() == 'Index + Name':
-            file = f'({index}) {file}'
+        match w.comboBoxName.currentText():
+            case 'Code':
+                if code != '':
+                    file = code
+            case 'Index':
+                if index != '':
+                    file = index
+            case 'Code + Name':
+                if code != '':
+                    file = f'({code}) {file}'
+            case 'Index + Name':
+                if index != '':
+                    file = f'({index}) {file}'
+
+        if signature[0]:
+            match w.comboBoxSignature.currentText():
+                case 'Code':
+                    if code != '':
+                        sign = code
+                case 'Prefix + Code':
+                    if code != '':
+                        sign = f'{signature[1]}_{code}'
+
+        # checking empty signature:
+        if sign == '':
+            signature[0] = False
 
         # save:
         for i in range(int(details[d]['Quantity'])):

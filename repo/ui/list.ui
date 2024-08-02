@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>300</height>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -67,6 +67,9 @@
     <widget class="QListView" name="listView">
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

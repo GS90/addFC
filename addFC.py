@@ -7,9 +7,12 @@ from zipfile import ZipFile
 import addFC_Preference as P
 import addFC_Specification as S
 import addFC_Unfold
+import datetime
 import FreeCAD
 import importlib.machinery
 import os
+import subprocess
+import sys
 import webbrowser
 
 
@@ -17,11 +20,24 @@ exporting: dict = {
     'JSON': ['JSON (*.json)'],
     'CSV': ['CSV (*.csv)'],
     'Spreadsheet': [],
+    'RU std: Spreadsheet': [],
+    'RU std: TechDraw': [],
 }
 
-unfold_name: tuple = ('Index', 'Name', 'Index + Name')
-unfold_signature: tuple = ('None', 'Index', 'Prefix', 'Prefix + Index')
+unfold_name: tuple = (
+    'Name',
+    'Code',
+    'Index',
+    'Code + Name',
+    'Index + Name',
+)
 
+unfold_signature: tuple = (
+    'None',
+    'Code',
+    'Prefix',
+    'Prefix + Code',
+)
 
 unfold_index: int = 0
 name_index: int = 0
@@ -168,11 +184,18 @@ class AddFCSpecification():
 
         forbidden = ('Unit', 'Body')
 
-        def specification_update(startup=False) -> None:
-            specification_purge(startup)
+        def specification_update(startup: bool = False,
+                                 indexing: bool = False,
+                                 update_enumerations: bool = False) -> None:
 
-            strict = True if w.checkBoxStrict.isChecked() else False
-            info, info_h, details, details_h = S.get_specification(strict)
+            specification_purge(startup)
+            if not startup:
+                w.info.setText('...')
+                FreeCAD.Gui.updateGui()
+
+            info, info_h, details, details_h = S.get_specification(
+                w.checkBoxStrict.isChecked(), indexing, update_enumerations
+            )
 
             if len(info) == 0:
                 return
@@ -315,6 +338,14 @@ class AddFCSpecification():
         w.pushButtonUpdate.clicked.connect(specification_update)
         w.pushButtonClear.clicked.connect(specification_purge)
 
+        def indexing() -> None:
+            specification_update(False, True, False)
+        w.pushButtonIndexing.clicked.connect(indexing)
+
+        def update_enumerations() -> None:
+            specification_update(False, False, True)
+        w.pushButtonUE.clicked.connect(update_enumerations)
+
         def spec_export_settings() -> None:
             properties = P.load_properties()
             es = FreeCAD.Gui.PySideUic.loadUi(
@@ -385,9 +416,19 @@ class AddFCSpecification():
                     fd.setNameFilters(exporting[target])
                     if fd.exec_() == QtGui.QDialog.Accepted:
                         path = fd.selectedFiles()[0]
+                        w.info.setText('...')
+                        FreeCAD.Gui.updateGui()
                         w.info.setText(S.export_specification(
                             path, target, w.checkBoxStrict.isChecked()))
                 case 'Spreadsheet':
+                    w.info.setText('...')
+                    FreeCAD.Gui.updateGui()
+                    w.info.setText(S.export_specification(
+                        '', target, w.checkBoxStrict.isChecked()))
+                # russian standard:
+                case 'RU std: Spreadsheet' | 'RU std: TechDraw':
+                    w.info.setText('...')
+                    FreeCAD.Gui.updateGui()
                     w.info.setText(S.export_specification(
                         '', target, w.checkBoxStrict.isChecked()))
         w.pushButtonExport.clicked.connect(specification_export)
@@ -609,9 +650,9 @@ class AddFCProperties():
                         continue
                     text = item.text()
                     p = group + '_' + text
+                    t = 'App::Property' + properties[text][0]
+                    e = properties[text][2]
                     if p not in i.PropertiesList:
-                        t = 'App::Property' + properties[text][0]
-                        e = properties[text][2]
                         if len(e) > 0:  # enumeration
                             i.addProperty(t, p, group)
                             setattr(i, p, e)
@@ -644,6 +685,16 @@ class AddFCProperties():
                             # sheet metal part:
                             if _smp and text == 'Weight':
                                 set_weight(i, p, configuration['smp_density'])
+                    # enumeration, checking and filling:
+                    elif len(e) > 0:
+                        e.sort()
+                        try:
+                            ep = i.getEnumerationsOfProperty(p)
+                            ep.sort()
+                            if e != ep and len(e) > len(ep):
+                                setattr(i, p, e)
+                        except BaseException:
+                            pass
             FreeCAD.activeDocument().recompute()
         w.pushButtonAdd.clicked.connect(add)
 
@@ -683,7 +734,14 @@ class AddFCProperties():
             w.comboBoxSMP.setEnabled(True)
             w.checkBoxLT.setEnabled(True)
             w.checkBoxLT.setChecked(True)
-            values = ['Index', 'Material', 'MetalThickness', 'Unfold']  # core
+            values = [
+                # core:
+                'Code',
+                'Index',
+                'Material',
+                'MetalThickness',
+                'Unfold',
+            ]
             for key in properties:
                 if key == 'Type' or key == 'Weight':
                     values.append(key)
@@ -755,12 +813,96 @@ FreeCAD.Gui.addCommand('AddFCExplode', AddFCExplode())
 # ------------------------------------------------------------------------------
 
 
+def stamp_fill(ed: dict) -> dict:
+    conf = P.load_configuration()
+    if 'ru_std_tpl_stamp' not in conf:
+        return ed
+    today = datetime.date.today().strftime('%d.%m.%y')
+    dt = ('Author', 'Inspector', 'Control 1', 'Control 2', 'Approver')
+    stamp = conf['ru_std_tpl_stamp']
+    for i in stamp:
+        if i in ed:
+            v = stamp[i]
+            ed[i] = v
+            if i in dt:
+                ed[f'{i} - date'] = today if v != '' else ''
+    return ed
+
+
+class addFCInsert():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.add_icon, 'insert.svg'),
+                'Accel': 'Alt+Shift+I',
+                'MenuText': 'Creating a Drawing',
+                'ToolTip': 'Create a drawing based on a template'}
+
+    def Activated(self):
+        ui = os.path.join(P.add_base, 'repo', 'ui', 'list.ui')
+        w = FreeCAD.Gui.PySideUic.loadUi(ui)
+
+        if not FreeCAD.ActiveDocument:
+            FreeCAD.newDocument('Unnamed')
+            FreeCAD.Gui.activeDocument().activeView().viewDefaultOrientation()
+
+        ad = FreeCAD.ActiveDocument
+
+        tpl, svg = {}, '.svg'
+
+        for i in os.listdir(os.path.join(P.ru_std_tpl_path, 'ЕСКД')):
+            if i.endswith(svg):
+                tpl[i] = os.path.join(P.ru_std_tpl_path, 'ЕСКД', i)
+        for i in os.listdir(os.path.join(P.ru_std_tpl_path, 'СПДС')):
+            if i.endswith(svg):
+                tpl[i] = os.path.join(P.ru_std_tpl_path, 'СПДС', i)
+
+        tpl = dict(sorted(tpl.items()))
+
+        w.show()
+        model = QtGui.QStandardItemModel()
+        w.listView.setModel(model)
+        for i in tpl.keys():
+            model.appendRow(QtGui.QStandardItem(i.rstrip(svg)))
+
+        w.label.setText('Select a template to create a drawing.')
+
+        def open() -> None:
+            for i in w.listView.selectedIndexes():
+                item = w.listView.model().itemFromIndex(i).text()
+                w.close()
+                p = ad.addObject('TechDraw::DrawPage', 'Page')
+                t = ad.addObject('TechDraw::DrawSVGTemplate', 'Template')
+                t.Template = tpl[item + svg]
+                t.EditableTexts = stamp_fill(t.EditableTexts)
+                p.Template = t
+                ad.recompute()
+                # display:
+                p.ViewObject.doubleClicked()
+                FreeCAD.Gui.updateGui()
+                FreeCAD.Gui.SendMsgToActiveView('ViewFit')
+
+        w.pushButtonOpen.clicked.connect(open)
+        w.listView.doubleClicked.connect(open)
+
+    def IsActive(self): return True
+
+
+FreeCAD.Gui.addCommand('addFCInsert', addFCInsert())
+
+
+# ------------------------------------------------------------------------------
+
+
 documentation_path: str = os.path.join(P.add_base, 'repo', 'doc')
 examples_path: str = os.path.join(P.add_base, 'repo', 'example')
 examples_path_zip: str = os.path.join(P.add_base, 'repo', 'example.zip')
 
-
 examples: dict = {
+    'addFC: Additional files': (
+        os.path.join(P.add_base, 'repo', 'add'),
+        'Supporting files such as templates, fonts.',
+    ),
+    # documentation:
     'Documentation - English': (
         os.path.join(documentation_path, 'documentation_EN.pdf'),
         'Documentation in PDF format - English.',
@@ -769,6 +911,7 @@ examples: dict = {
         os.path.join(documentation_path, 'documentation_RU.pdf'),
         'Документация в формате PDF на русском языке.',
     ),
+    # examples:
     'Assembly': (
         os.path.join(examples_path, 'noAssembly.FCStd'),
         'An example of a complex parametric assembly, '
@@ -784,6 +927,16 @@ examples: dict = {
         os.path.join(examples_path, 'pipe.FCStd'),
         'An example for creating a pipeline by points.',
     ),
+    'RU std: ЕСКД - Модель': (
+        os.path.join(examples_path, 'stdRU.FCStd'),
+        'Простой пример оформления конструкторской документации по '
+        'стандартам ЕСКД.',
+    ),
+    'RU std: ЕСКД - Конструкторская документация': (
+        os.path.join(documentation_path, 'stdRU.pdf'),
+        'Простой пример оформления конструкторской документации по '
+        'стандартам ЕСКД.',
+    ),
 }
 
 
@@ -791,8 +944,8 @@ class addFCAssistant():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.add_icon, 'help.svg'),
-                'MenuText': 'Help and example',
-                'ToolTip': 'Help and example'}
+                'MenuText': 'Help and Example',
+                'ToolTip': 'Help and Example'}
 
     def Activated(self):
         ui = os.path.join(P.add_base, 'repo', 'ui', 'list.ui')
@@ -819,7 +972,9 @@ class addFCAssistant():
                 item = w.listView.model().itemFromIndex(index).text()
                 path = examples[item][0]
                 w.close()
-                if '.pdf' in path:
+                if 'files' in item:
+                    open_dir(path)
+                elif path.endswith('.pdf'):
                     webbrowser.open_new_tab(path)
                 else:
                     unzip(True if not os.path.exists(path) else False)
@@ -831,3 +986,10 @@ class addFCAssistant():
 
 
 FreeCAD.Gui.addCommand('addFCAssistant', addFCAssistant())
+
+
+def open_dir(path: str) -> None:
+    match sys.platform:
+        case 'win32': subprocess.run(['explorer', path])
+        case 'darwin': subprocess.run(['open', path])
+        case _: subprocess.run(['xdg-open', path])

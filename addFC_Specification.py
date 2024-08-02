@@ -3,9 +3,11 @@
 
 
 import addFC_Preference as P
+import csv
+import datetime
 import FreeCAD
 import json
-import csv
+import os
 
 
 base_enumeration = tuple(['',] + [str(i).rjust(3, '0') for i in range(1, 51)])
@@ -43,19 +45,27 @@ def define_thickness(body, bind=False, property='') -> float | int | str:
 # ------------------------------------------------------------------------------
 
 
-def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
+def get_specification(strict: bool = True,
+                      indexing: bool = False,
+                      update_enumerations: bool = False,
+                      ) -> tuple[dict, dict, dict, dict]:
+
     configuration = P.load_configuration()
     properties = P.load_properties()
 
     group = configuration['properties_group'] + '_'
 
+    index_pt = 'App::PropertyString'  # important, type: string
+    index_exception = (group + 'Section', 'Документация')
+
     # required:
     name = group + 'Name'
+    index = group + 'Index'
+    thickness = group + 'MetalThickness'
     quantity = group + 'Quantity'
     unfold = group + 'Unfold'
-    thickness = group + 'MetalThickness'
 
-    required = (name, quantity, unfold, thickness)
+    required = (name, index, thickness, quantity, unfold)
 
     # extra:
     properties_extra = {}
@@ -107,6 +117,10 @@ def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
                             analysis(i.Base.getLinkedObject(), i.Count)
                     else:
                         analysis(i)
+                case 'TechDraw::DrawPage':
+                    analysis(i)  # active drawing
+        elif i.TypeId == 'TechDraw::DrawPage':
+            analysis(i)  # inactive drawing
 
     for i in heap:
         o = i.getLinkedObject()
@@ -153,7 +167,7 @@ def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
                 case _:
                     analysis(o)
 
-    info = {}
+    info, count = {}, 1
 
     for i in selection:
 
@@ -179,6 +193,18 @@ def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
                             info[key][p.replace(group, '')] += value
 
         else:
+            if indexing:
+                exception = False
+                if index_exception[0] in i.PropertiesList:
+                    value = i.getPropertyByName(index_exception[0])
+                    if index_exception[1] == value:
+                        exception = True
+                if not exception:
+                    if index not in i.PropertiesList:
+                        i.addProperty(index_pt, index, group[:-1])
+                    setattr(i, index, str(count).rjust(2, '0'))
+                    count += 1
+
             q = 1
             if quantity in i.PropertiesList:
                 value = i.getPropertyByName(quantity)
@@ -195,6 +221,21 @@ def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
 
             for p in i.PropertiesList:
                 if group in p and p != quantity and p != thickness:
+
+                    # enumeration, checking and filling:
+                    if update_enumerations:
+                        _p = p.lstrip(f'{group}_')
+                        if _p in properties:
+                            _e = properties[_p][2]
+                            if len(_e) > 0:
+                                _e.sort()
+                                try:
+                                    _ep = i.getEnumerationsOfProperty(p)
+                                    _ep.sort()
+                                    if _e != _ep and len(_e) > len(_ep):
+                                        setattr(i, p, _e)
+                                except BaseException:
+                                    pass
 
                     # sheet metal part:
                     if p == unfold:
@@ -240,9 +281,9 @@ def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
                         if value != 0:
                             info[key][p.replace(group, '')] = value
 
-    details = {}
+    FreeCAD.activeDocument().recompute()
 
-    info_headers, details_headers = {}, {}
+    details, info_headers, details_headers = {}, {}, {}
 
     def addition(s: str) -> bool:
         if s == 'Quantity':
@@ -293,6 +334,61 @@ def get_specification(strict: bool) -> tuple[dict, dict, dict, dict]:
 # ------------------------------------------------------------------------------
 
 
+unit_ru: dict = {
+    '-': '',
+    'm': 'м.',
+    'kg': 'кг.',
+    'm²': 'м²',
+    'm³': 'м³',
+}
+
+# order and alignment:
+section_ru: dict = {
+    'Документация': 16,
+    'Комплексы': 18,
+    'Сборочные единицы': 14,
+    'Детали': 20,
+    'Стандартные изделия': 12,
+    'Прочие изделия': 15,
+    'Материалы': 18,
+    'Комплекты': 18,
+}
+
+
+# todo: natural sort?
+def organize(merger: str, sort: str, skip: list, specification: dict):
+    result = {}
+
+    for i in specification:
+        unit = specification[i]
+        for j in skip:
+            if j in unit:
+                unit.pop(j)
+        if merger not in unit:
+            unit[merger] = '-'  # null
+        if unit[merger] in result:
+            result[unit[merger]].append(unit)
+        else:
+            result[unit[merger]] = [unit,]
+
+    if merger == 'Section':
+        sort = {}
+        for i in section_ru:
+            if i in result:
+                sort[i] = result[i]
+        result = sort
+    else:
+        result = dict(sorted(result.items()))
+
+    for i in result:
+        try:
+            result[i] = sorted(result[i], key=lambda x: x[sort])
+        except BaseException:
+            pass
+
+    return result
+
+
 def export_specification(path: str, target: str, strict: bool) -> str:
     specification = get_specification(strict)
     if len(specification[0]) == 0:
@@ -307,6 +403,8 @@ def export_specification(path: str, target: str, strict: bool) -> str:
     merger = conf['spec_export_merger']
     sort = conf['spec_export_sort']
     skip = conf['spec_export_skip']
+
+    center = 'center|vcenter|vimplied'
 
     match target:
 
@@ -350,27 +448,9 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                                     result[i][j]).replace('.', ',')
                         writer.writerow(result[i])
                     file.close()
-            return 'Export complete'
 
         case 'Spreadsheet':
-            result = {}
-            for i in specification[0]:
-                unit = specification[0][i]
-                for j in skip:
-                    if j in unit:
-                        unit.pop(j)
-                if merger not in unit:
-                    unit[merger] = '-'  # null
-                if unit[merger] in result:
-                    result[unit[merger]].append(unit)
-                else:
-                    result[unit[merger]] = [unit,]
-            result = dict(sorted(result.items()))
-            for i in result:
-                try:
-                    result[i] = sorted(result[i], key=lambda x: x[sort])
-                except BaseException:
-                    pass
+            result = organize(merger, sort, skip, specification[0])
 
             ad = FreeCAD.ActiveDocument
             s = ad.getObjectsByLabel('addFC_BOM')
@@ -381,7 +461,6 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                 s.clearAll()
 
             alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-            center = 'center|vcenter|vimplied'
 
             columns, columns_width = {}, {}
 
@@ -429,4 +508,254 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                     s.removeColumns(i, 1)
 
             ad.recompute()
-            return 'Export complete'
+
+        case 'RU std: TechDraw' | 'RU std: Spreadsheet':
+            result = organize('Section', sort, skip, specification[0])
+
+            info, count = {}, 0
+
+            for i in result:
+                for j in result[i]:
+                    count += 1
+                    r = {
+                        'Format': '',
+                        'Index': '',
+                        'Code': '',
+                        'Name': '',
+                        'Quantity': '',
+                        'Note': '',
+                    }
+
+                    if 'Section' in j:
+                        section = j['Section']
+                        if section == '-':
+                            section = 'Прочие изделия'
+                    else:
+                        section = 'Прочие изделия'
+
+                    for k in j:
+                        if k in r:
+                            v = str(j[k])
+                            if v == '-':
+                                continue
+                            if k == 'Quantity':
+                                v = v.replace('.', ',')
+                            r[k] = v
+
+                    # empty note is replaced by unit of measurement:
+                    if r['Note'] == '':
+                        if 'Unit' in j:
+                            u = j['Unit']
+                            if u != '' and u != '-':
+                                if u in unit_ru:
+                                    r['Note'] = unit_ru[u]
+                                else:
+                                    r['Note'] = u
+
+                    if section in info:
+                        info[section].append(r)
+                    else:
+                        info[section] = [r,]
+                        count += 1
+
+            separation = True
+            if len(info) == 1:
+                separation = False
+                count -= 1
+
+            ad = FreeCAD.ActiveDocument
+
+            ############
+            # TechDraw #
+            ############
+
+            if target == 'RU std: TechDraw':
+
+                path_tpl = os.path.join(
+                    P.add_base, 'repo', 'add', 'stdRU', 'tpl', 'ЕСКД',
+                )
+
+                dp, dt = 'TechDraw::DrawPage', 'TechDraw::DrawSVGTemplate'
+
+                tpl = conf['ru_std_tpl_text']
+
+                uno_tpl = os.path.join(path_tpl, tpl)
+                dos_tpl = os.path.join(path_tpl, 'RU_Portrait_A4_T_1a.svg')
+
+                pages = {'n': 1, 'p': [], 't': [], 'e': {}}
+
+                limit = (29, 61)  # uno, dos
+                if tpl == 'RU_Portrait_A4_T_1_Full.svg':
+                    limit = (25, 57)
+
+                # do you need more pages?
+                if count > limit[0] + limit[1] * 2:
+                    w = 'The allowed number of elements has been exceeded!\n'
+                    FreeCAD.Console.PrintWarning(w)
+
+                if count > limit[0] + limit[1]:
+                    pages['n'] = 3
+                elif count > limit[0]:
+                    pages['n'] = 2
+
+                for i in range(pages['n']):
+                    postfix = '' if pages['n'] == 1 else '_' + str(i + 1)
+                    label = f'RU_addFC_BOM{postfix}'
+                    if len(ad.getObjectsByLabel(label)) > 0:
+                        # cleaning:
+                        ad.removeObject(label)
+                        ad.recompute()
+                    pages['p'].append(ad.addObject(dp, label))
+                    pages['t'].append(ad.addObject(dt, f'RU_Tpl{postfix}'))
+                    pages['t'][i].Template = uno_tpl if i == 0 else dos_tpl
+                    pages['p'][i].Template = pages['t'][i]
+                    pages['e'][i] = pages['t'][i].EditableTexts
+
+                p, x, count = 0, 1, 1
+
+                for i in info:
+
+                    if count > limit[0] and p == 0:  # go to the second page
+                        p, x = 1, 1
+                    if count > limit[1] and p == 1:  # go to the third page
+                        p, x = 2, 1
+
+                    if separation:
+                        # center alignment:
+                        if i in section_ru:
+                            w = section_ru[i]
+                        else:
+                            w = int((45 - len(i)) / 2)
+                        n = str(i).rjust(w + len(i), ' ')
+                        pages['e'][p][f'Name {x}'] = n
+                        x += 1
+                        count += 1
+
+                    for j in range(len(info[i])):
+
+                        if count > limit[0] and p == 0:
+                            # go to the second page:
+                            p, x = 1, 1
+                        if count > limit[1] and p == 1:
+                            # go to the third page:
+                            p, x = 2, 1
+
+                        pages['e'][p][f'Format {x}'] = info[i][j]['Format']
+                        pages['e'][p][f'Index {x}'] = info[i][j]['Index']
+                        pages['e'][p][f'Code {x}'] = info[i][j]['Code']
+
+                        # name length check:
+                        n = str(info[i][j]['Name'])
+                        if len(n) > 34:
+                            sp = int(len(n) / 2)
+                            uno, dos = n[:sp], n[sp:]
+                            s_uno = uno.rsplit(' ', 1)
+                            if len(s_uno) == 2:
+                                uno = s_uno[0]
+                                dos = s_uno[-1] + dos
+                            else:
+                                s_dos = dos.split(' ', 1)
+                                if len(s_dos) == 2:
+                                    uno = uno + dos[0]
+                                    dos = s_dos[-1]
+                            pages['e'][p][f'Name {x}'] = uno
+                            x += 1
+                            count += 1
+                            pages['e'][p][f'Name {x}'] = dos
+                        else:
+                            pages['e'][p][f'Name {x}'] = n
+
+                        pages['e'][p][f'Quantity {x}'] = info[i][j]['Quantity']
+                        pages['e'][p][f'Note {x}'] = info[i][j]['Note']
+                        x += 1
+                        count += 1
+
+                conf = P.load_configuration()
+                stamp = conf['ru_std_tpl_stamp']
+                today = datetime.date.today().strftime('%d.%m.%y')
+
+                fields = {
+                    'Author': True,
+                    'Inspector': True,
+                    'Control 2': True,
+                    'Approver': True,
+                    'Company 1': False,
+                    'Company 2': False,
+                    'Company 3': False,
+                    'Letter 1': False,
+                    'Letter 2': False,
+                    'Letter 3': False,
+                }
+
+                for i in range(pages['n']):
+                    pages['e'][i]['Designation'] = stamp['Designation']
+                    pages['e'][i]['Sheet'] = str(i + 1)
+                    if i == 0:
+                        # general page:
+                        pages['e'][i]['Sheets'] = str(pages['n'])
+                        for j in fields:
+                            if j in stamp:
+                                v = stamp[j]
+                                pages['e'][i][j] = v
+                                if fields[j]:
+                                    if v != '':
+                                        pages['e'][i][f'{j} - date'] = today
+                                    else:
+                                        pages['e'][i][f'{j} - date'] = ''
+                    # fill:
+                    pages['t'][i].EditableTexts = pages['e'][i]
+
+            ###############
+            # Spreadsheet #
+            ###############
+
+            elif target == 'RU std: Spreadsheet':
+
+                s = ad.getObjectsByLabel('RU_addFC_BOM_S')
+                if len(s) == 0:
+                    s = ad.addObject('Spreadsheet::Sheet', 'RU_addFC_BOM_S')
+                else:
+                    s = s[0]
+                    s.clearAll()
+
+                headers = {
+                    'A': ('Формат', 70),
+                    'B': ('Зона', 60),
+                    'C': ('Позиция', 70),
+                    'D': ('Обозначение', 160),
+                    'E': ('Наименование', 280),
+                    'F': ('Кол-во', 60),
+                    'G': ('Примечание', 100),
+                }
+
+                for i in headers:
+                    s.set(f'{i}1', headers[i][0])
+                    s.setColumnWidth(i, headers[i][1])
+
+                s.setRowHeight('1', 40)
+                s.setAlignment('A1:G1', center)
+
+                x = 2
+                for i in info:
+                    if separation:
+                        s.set(f'E{x}', str(i))
+                        s.setAlignment(f'E{x}', center)
+                        x += 1
+                    for j in range(len(info[i])):
+                        s.set(f'A{x}', info[i][j]['Format'])
+                        s.set(f'C{x}', info[i][j]['Index'])
+                        s.set(f'D{x}', info[i][j]['Code'])
+                        s.set(f'E{x}', info[i][j]['Name'])
+                        s.set(f'F{x}', info[i][j]['Quantity'])
+                        s.set(f'G{x}', info[i][j]['Note'])
+                        x += 1
+
+                x -= 1
+                s.setAlignment(f'A2:A{x}', center)
+                s.setAlignment(f'B2:B{x}', center)
+                s.setAlignment(f'C2:C{x}', center)
+                s.setAlignment(f'F2:F{x}', center)
+
+            ad.recompute()
+
+    return 'Export complete'

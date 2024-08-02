@@ -15,13 +15,14 @@ import time
 is_available_NP: bool = True
 is_available_FF: bool = True
 
+
 try:
     import numpy as np
 except ImportError:
     is_available_NP = False
 
 try:
-    r = subprocess.run(['ffmpeg', '-version'])  # TODO Windows, macOS
+    r = subprocess.run(['ffmpeg', '-version'])  # todo: Windows, macOS
     if r.returncode != 0:
         is_available_FF: bool = False
 except BaseException:
@@ -566,7 +567,7 @@ def dialog() -> None:
             round(fuse['tree']['ypr'][:-1][-1][1]),
             round(fuse['tree']['ypr'][:-1][-1][2]),
         )
-        # TODO need to think about this...
+        # todo: need to think about this...
         if ypr[0] == -180:
             start[0] = -start[0]    # X
             start[1] = -start[1]    # Y
@@ -701,7 +702,7 @@ def dialog() -> None:
             if guides is not None:
                 guide = ad.getObject(fuse['line'])
                 guide.Visibility = True
-                # TODO is it working?
+                # todo: is it working?
                 _, dos = guide_position(fuse)
                 if guide.X1 != dos[0]:
                     guide.X2 = dos[0]

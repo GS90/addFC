@@ -35,3 +35,16 @@
 * Minor changes and fixes.
 * Refactoring.
 * Documentation on main functions is available in English and Russian.
+
+#### 2024.08.02 (**0.6.0**):
+* Updating standard properties (added: Code, Format, Note, Section).
+* Preferences: Ability to change FreeCAD font.
+* Specification: Automatic indexing of element positions.
+* Specification: Updating enumerations properties in objects.
+* Unified System for Design Documentation, USDD - Russia:
+    + Possibility of exporting specifications according to the standard.
+    + New function: Create a drawing based on a template.
+    + Automatic filling of the template stamp.
+    + Additional files added: [templates and font](/repo/add/stdRU)
+    + Added a special example of work and design: stdRU.
+* Updating documentation and fixes.

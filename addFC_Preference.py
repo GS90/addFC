@@ -23,6 +23,7 @@ reserved_str: str = 'Body'
 
 
 configuration: dict = {
+    'interface_font': [False, 'Sans Serif', 10],
     'working_directory': '',
     'properties_group': 'Add',
     # unfold:
@@ -43,6 +44,23 @@ configuration: dict = {
     # sheet metal part:
     'smp_density': 7800,
     'smp_color': tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)),
+    # ru std: template
+    'ru_std_tpl_drawing': 'RU_Portrait_A4.svg',
+    'ru_std_tpl_text': 'RU_Portrait_A4_T_1.svg',
+    'ru_std_tpl_stamp': {
+        'Author': 'Иванов И. И.',
+        'Inspector': '',
+        'Control 1': '',
+        'Control 2': '',
+        'Approver': '',
+        'Designation': 'XXXX.XXXXXX.XXX',
+        'Company 1': '',
+        'Company 2': 'Организация',
+        'Company 3': '',
+        'Letter 1': 'П',
+        'Letter 2': '',
+        'Letter 3': '',
+    },
 }
 
 
@@ -52,6 +70,7 @@ specification_properties_core: dict = {
     # required:
     'Name': ['String', False, [], ''],
     # core:
+    'Code': ['String', False, [], ''],
     'Index': ['String', False, [], ''],
     'Material': ['Enumeration', False, [
         '-', 'Steel', 'Galvanized', 'Stainless', 'AISI 304', 'AISI 316'], ''],
@@ -62,11 +81,25 @@ specification_properties_core: dict = {
 }
 
 specification_properties_add: dict = {  # recommended
-    'Id': ['Integer', False, [], ''],
+    'Format': ['Enumeration', False, ['A0', 'A1', 'A2', 'A3', 'A4'], ''],
+    'Id': ['String', False, [], ''],
+    'Note': ['String', False, [], ''],
     'Price': ['Float', True, [], ''],
     'Type': ['Enumeration', False, [
         '-', 'Node', 'Part', 'Sheet metal part', 'Fastener', 'Material'], ''],
     'Weight': ['Float', True, [], ''],
+    # разделы спецификации ЕСКД:
+    'Section': ['Enumeration', False, [
+        '-',
+        'Документация',
+        'Комплексы',
+        'Сборочные единицы',
+        'Детали',
+        'Стандартные изделия',
+        'Прочие изделия',
+        'Материалы',
+        'Комплекты',
+    ], ''],
 }
 
 available_properties: tuple = (
@@ -87,7 +120,7 @@ def check_configuration() -> None:
         os.makedirs(d)
     if not os.path.exists(pref_configuration):
         file = open(pref_configuration, 'w+', encoding='utf-8')
-        json.dump(configuration, file, ensure_ascii=False)
+        json.dump(configuration, file, ensure_ascii=False, indent=4)
         file.close()
     elif not os.path.isfile(pref_configuration):
         os.remove(pref_configuration)
@@ -111,7 +144,7 @@ def save_configuration(conf: dict) -> dict:
     result = load_configuration() | conf
     try:
         file = open(pref_configuration, 'w+', encoding='utf-8')
-        json.dump(result, file, ensure_ascii=False)
+        json.dump(result, file, ensure_ascii=False, indent=4)
         file.close()
     except BaseException as e:
         FreeCAD.Console.PrintError(str(e) + '\n')
@@ -127,7 +160,7 @@ def check_properties() -> None:
     if not os.path.exists(pref_properties):
         file = open(pref_properties, 'w+', encoding='utf-8')
         result = specification_properties_core | specification_properties_add
-        json.dump(result, file, ensure_ascii=False)
+        json.dump(result, file, ensure_ascii=False, indent=4)
         file.close()
     elif not os.path.isfile(pref_properties):
         os.remove(pref_properties)
@@ -166,7 +199,7 @@ def save_properties(properties: dict, init: bool = False) -> None:
         return
     try:
         file = open(pref_properties, 'w+', encoding='utf-8')
-        json.dump(properties, file, ensure_ascii=False)
+        json.dump(properties, file, ensure_ascii=False, indent=4)
         file.close()
     except BaseException as e:
         FreeCAD.Console.PrintError(str(e) + '\n')
@@ -405,7 +438,7 @@ class addFCPreferenceSpecification():
             if p_title in properties:
                 if tableValues.item(row, 1) is None:
                     continue
-                split = tableValues.item(row, 1).text().split(', ')
+                split = tableValues.item(row, 1).text().split(',')
                 for s in split:
                     v = s.strip()
                     if v != '':
@@ -446,7 +479,7 @@ def check_steel() -> None:
         os.makedirs(d)
     if not os.path.exists(pref_steel):
         file = open(pref_steel, 'w+', encoding='utf-8')
-        json.dump(steel, file, ensure_ascii=False)
+        json.dump(steel, file, ensure_ascii=False, indent=4)
         file.close()
     elif not os.path.isfile(pref_steel):
         os.remove(pref_steel)
@@ -470,7 +503,7 @@ def save_steel(s: dict) -> dict:
     result = load_steel() | s
     try:
         file = open(pref_steel, 'w+', encoding='utf-8')
-        json.dump(result, file, ensure_ascii=False)
+        json.dump(result, file, ensure_ascii=False, indent=4)
         file.close()
     except BaseException as e:
         FreeCAD.Console.PrintError(str(e) + '\n')
@@ -622,6 +655,85 @@ class addFCPreferenceSM():
 # ------------------------------------------------------------------------------
 
 
+ru_std_tpl_path: str = os.path.join(add_base, 'repo', 'add', 'stdRU', 'tpl')
+
+
+class addFCPreferenceOther():
+    def __init__(self):
+        ui = os.path.join(add_base, 'repo', 'ui', 'pref_other.ui')
+        self.form = FreeCAD.Gui.PySideUic.loadUi(ui)
+
+        conf = load_configuration()
+        if 'interface_font' not in conf:
+            return
+        font = conf['interface_font']
+
+        self.form.fontCheckBox.setChecked(font[0]),
+        self.form.fontComboBox.setCurrentText(font[1]),
+        self.form.fontSpinBox.setValue(font[2]),
+
+        if 'ru_std_tpl_stamp' not in conf:
+            return
+        stamp = conf['ru_std_tpl_stamp']
+
+        self.form.Author.setText(stamp['Author'])
+        self.form.Inspector.setText(stamp['Inspector'])
+        self.form.Control1.setText(stamp['Control 1'])
+        self.form.Control2.setText(stamp['Control 2'])
+        self.form.Approver.setText(stamp['Approver'])
+        self.form.Designation.setText(stamp['Designation'])
+        self.form.Company1.setText(stamp['Company 1'])
+        self.form.Company2.setText(stamp['Company 2'])
+        self.form.Company3.setText(stamp['Company 3'])
+        self.form.Letter.setText(stamp['Letter 1'])
+
+        drawing, text = [], []
+
+        for i in os.listdir(os.path.join(ru_std_tpl_path, 'ЕСКД')):
+            if i.endswith('.svg'):
+                text.append(i) if '_T_' in i else drawing.append(i)
+        for i in os.listdir(os.path.join(ru_std_tpl_path, 'СПДС')):
+            if i.endswith('.svg'):
+                text.append(i) if '_T_' in i else drawing.append(i)
+
+        self.form.Drawing.addItems(drawing)
+        self.form.Text.addItems(text)
+
+        self.form.Drawing.setCurrentText(conf['ru_std_tpl_drawing'])
+        self.form.Text.setCurrentText(conf['ru_std_tpl_text'])
+
+        return
+
+    def __del__(self):
+        save_configuration(
+            {
+                'interface_font': [
+                    self.form.fontCheckBox.isChecked(),
+                    self.form.fontComboBox.currentText(),
+                    self.form.fontSpinBox.value(),
+                ],
+                'ru_std_tpl_drawing': self.form.Drawing.currentText(),
+                'ru_std_tpl_text': self.form.Text.currentText(),
+                'ru_std_tpl_stamp': {
+                    'Author': self.form.Author.text(),
+                    'Inspector': self.form.Inspector.text(),
+                    'Control 1': self.form.Control1.text(),
+                    'Control 2': self.form.Control2.text(),
+                    'Approver': self.form.Approver.text(),
+                    'Designation': self.form.Designation.text(),
+                    'Company 1': self.form.Company1.text(),
+                    'Company 2': self.form.Company2.text(),
+                    'Company 3': self.form.Company3.text(),
+                    'Letter 1': self.form.Letter.text(),
+                    'Letter 2': '',
+                    'Letter 3': '',
+                }}
+        )
+
+
+# ------------------------------------------------------------------------------
+
+
 exploded: dict = {
     'export_size': '1080p (FHD)',
     'export_width': 1920,
@@ -641,7 +753,7 @@ def check_explosion() -> None:
         os.makedirs(d)
     if not os.path.exists(pref_explosion):
         file = open(pref_explosion, 'w+', encoding='utf-8')
-        json.dump(exploded, file, ensure_ascii=False)
+        json.dump(exploded, file, ensure_ascii=False, indent=4)
         file.close()
     elif not os.path.isfile(pref_explosion):
         os.remove(pref_explosion)
@@ -665,7 +777,7 @@ def save_explosion(d: dict) -> dict:
     result = load_explosion() | d
     try:
         file = open(pref_explosion, 'w+', encoding='utf-8')
-        json.dump(result, file, ensure_ascii=False)
+        json.dump(result, file, ensure_ascii=False, indent=4)
         file.close()
     except BaseException as e:
         FreeCAD.Console.PrintError(str(e) + '\n')

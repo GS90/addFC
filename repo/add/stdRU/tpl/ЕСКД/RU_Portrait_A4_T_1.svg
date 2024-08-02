@@ -1,0 +1,2606 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg2"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:freecad="http://www.freecadweb.org/wiki/index.php?title=Svg_Namespace">
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="33.520061"
+     id="text97"
+     freecad:editable="Quantity 2"><tspan
+       id="tspan97"
+       x="179.07614"
+       y="33.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="33.520061"
+     id="text98"
+     freecad:editable="Note 2"><tspan
+       id="tspan98"
+       x="185.14011"
+       y="33.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="41.520061"
+     id="text105"
+     freecad:editable="Note 3"><tspan
+       id="tspan105"
+       x="185.14011"
+       y="41.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="41.520061"
+     id="text104"
+     freecad:editable="Quantity 3"><tspan
+       id="tspan104"
+       x="179.07614"
+       y="41.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="49.520061"
+     id="text111"
+     freecad:editable="Quantity 4"><tspan
+       id="tspan111"
+       x="179.07614"
+       y="49.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="49.520061"
+     id="text112"
+     freecad:editable="Note 4"><tspan
+       id="tspan112"
+       x="185.14011"
+       y="49.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="57.520061"
+     id="text118"
+     freecad:editable="Quantity 5"><tspan
+       id="tspan118"
+       x="179.07614"
+       y="57.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="57.520061"
+     id="text119"
+     freecad:editable="Note 5"><tspan
+       id="tspan119"
+       x="185.14011"
+       y="57.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="65.520065"
+     id="text126"
+     freecad:editable="Note 6"><tspan
+       id="tspan126"
+       x="185.14011"
+       y="65.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="65.520065"
+     id="text125"
+     freecad:editable="Quantity 6"><tspan
+       id="tspan125"
+       x="179.07614"
+       y="65.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="73.520065"
+     id="text132"
+     freecad:editable="Quantity 7"><tspan
+       id="tspan132"
+       x="179.07614"
+       y="73.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="73.520065"
+     id="text133"
+     freecad:editable="Note 7"><tspan
+       id="tspan133"
+       x="185.14011"
+       y="73.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="81.520065"
+     id="text139"
+     freecad:editable="Quantity 8"><tspan
+       id="tspan139"
+       x="179.07614"
+       y="81.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="81.520065"
+     id="text140"
+     freecad:editable="Note 8"><tspan
+       id="tspan140"
+       x="185.14011"
+       y="81.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="89.520065"
+     id="text147"
+     freecad:editable="Note 9"><tspan
+       id="tspan147"
+       x="185.14011"
+       y="89.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="89.520065"
+     id="text146"
+     freecad:editable="Quantity 9"><tspan
+       id="tspan146"
+       x="179.07614"
+       y="89.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="97.520065"
+     id="text153"
+     freecad:editable="Quantity 10"><tspan
+       id="tspan153"
+       x="179.07614"
+       y="97.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="97.520065"
+     id="text154"
+     freecad:editable="Note 10"><tspan
+       id="tspan154"
+       x="185.14011"
+       y="97.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="105.52007"
+     id="text168"
+     freecad:editable="Note 11"><tspan
+       id="tspan168"
+       x="185.14011"
+       y="105.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="105.52007"
+     id="text167"
+     freecad:editable="Quantity 11"><tspan
+       id="tspan167"
+       x="179.07614"
+       y="105.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="113.52007"
+     id="text181"
+     freecad:editable="Quantity 12"><tspan
+       id="tspan181"
+       x="179.07614"
+       y="113.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="113.52007"
+     id="text182"
+     freecad:editable="Note 12"><tspan
+       id="tspan182"
+       x="185.14011"
+       y="113.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="121.52007"
+     id="text196"
+     freecad:editable="Note 13"><tspan
+       id="tspan196"
+       x="185.14011"
+       y="121.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="121.52007"
+     id="text195"
+     freecad:editable="Quantity 13"><tspan
+       id="tspan195"
+       x="179.07614"
+       y="121.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="129.52007"
+     id="text210"
+     freecad:editable="Note 14"><tspan
+       id="tspan210"
+       x="185.14011"
+       y="129.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="129.52007"
+     id="text209"
+     freecad:editable="Quantity 14"><tspan
+       id="tspan209"
+       x="179.07614"
+       y="129.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="137.52007"
+     id="text223"
+     freecad:editable="Quantity 15"><tspan
+       id="tspan223"
+       x="179.07614"
+       y="137.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="137.52007"
+     id="text224"
+     freecad:editable="Note 15"><tspan
+       id="tspan224"
+       x="185.14011"
+       y="137.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="145.52007"
+     id="text238"
+     freecad:editable="Note 16"><tspan
+       id="tspan238"
+       x="185.14011"
+       y="145.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="145.52007"
+     id="text237"
+     freecad:editable="Quantity 16"><tspan
+       id="tspan237"
+       x="179.07614"
+       y="145.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="153.52007"
+     id="text251"
+     freecad:editable="Quantity 17"><tspan
+       id="tspan251"
+       x="179.07614"
+       y="153.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="153.52007"
+     id="text252"
+     freecad:editable="Note 17"><tspan
+       id="tspan252"
+       x="185.14011"
+       y="153.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="161.52007"
+     id="text266"
+     freecad:editable="Note 18"><tspan
+       id="tspan266"
+       x="185.14011"
+       y="161.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="161.52007"
+     id="text265"
+     freecad:editable="Quantity 18"><tspan
+       id="tspan265"
+       x="179.07614"
+       y="161.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="169.52007"
+     id="text279"
+     freecad:editable="Quantity 19"><tspan
+       id="tspan279"
+       x="179.07614"
+       y="169.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="169.52007"
+     id="text280"
+     freecad:editable="Note 19"><tspan
+       id="tspan280"
+       x="185.14011"
+       y="169.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="177.52007"
+     id="text294"
+     freecad:editable="Note 20"><tspan
+       id="tspan294"
+       x="185.14011"
+       y="177.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="177.52007"
+     id="text293"
+     freecad:editable="Quantity 20"><tspan
+       id="tspan293"
+       x="179.07614"
+       y="177.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="185.52007"
+     id="text307"
+     freecad:editable="Quantity 21"><tspan
+       id="tspan307"
+       x="179.07614"
+       y="185.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="185.52007"
+     id="text308"
+     freecad:editable="Note 21"><tspan
+       id="tspan308"
+       x="185.14011"
+       y="185.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="193.52007"
+     id="text322"
+     freecad:editable="Note 22"><tspan
+       id="tspan322"
+       x="185.14011"
+       y="193.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="193.52007"
+     id="text321"
+     freecad:editable="Quantity 22"><tspan
+       id="tspan321"
+       x="179.07614"
+       y="193.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="201.52007"
+     id="text336"
+     freecad:editable="Note 23"><tspan
+       id="tspan336"
+       x="185.14011"
+       y="201.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="201.52007"
+     id="text335"
+     freecad:editable="Quantity 23"><tspan
+       id="tspan335"
+       x="179.07614"
+       y="201.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="209.52007"
+     id="text349"
+     freecad:editable="Quantity 24"><tspan
+       id="tspan349"
+       x="179.07614"
+       y="209.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="209.52007"
+     id="text350"
+     freecad:editable="Note 24"><tspan
+       id="tspan350"
+       x="185.14011"
+       y="209.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="217.52007"
+     id="text364"
+     freecad:editable="Note 25"><tspan
+       id="tspan364"
+       x="185.14011"
+       y="217.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="217.52007"
+     id="text363"
+     freecad:editable="Quantity 25"><tspan
+       id="tspan363"
+       x="179.07614"
+       y="217.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="217.52007"
+     id="text365"
+     freecad:editable="Name 25"><tspan
+       id="tspan365"
+       x="111.3401"
+       y="217.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="209.52007"
+     id="text351"
+     freecad:editable="Name 24"><tspan
+       id="tspan351"
+       x="111.3401"
+       y="209.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="201.52007"
+     id="text337"
+     freecad:editable="Name 23"><tspan
+       id="tspan337"
+       x="111.3401"
+       y="201.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="193.52007"
+     id="text323"
+     freecad:editable="Name 22"><tspan
+       id="tspan323"
+       x="111.3401"
+       y="193.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="185.52007"
+     id="text309"
+     freecad:editable="Name 21"><tspan
+       id="tspan309"
+       x="111.3401"
+       y="185.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="177.52007"
+     id="text295"
+     freecad:editable="Name 20"><tspan
+       id="tspan295"
+       x="111.3401"
+       y="177.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="169.52007"
+     id="text281"
+     freecad:editable="Name 19"><tspan
+       id="tspan281"
+       x="111.3401"
+       y="169.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="161.52007"
+     id="text267"
+     freecad:editable="Name 18"><tspan
+       id="tspan267"
+       x="111.3401"
+       y="161.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="153.52007"
+     id="text253"
+     freecad:editable="Name 17"><tspan
+       id="tspan253"
+       x="111.3401"
+       y="153.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="145.52007"
+     id="text239"
+     freecad:editable="Name 16"><tspan
+       id="tspan239"
+       x="111.3401"
+       y="145.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="137.52007"
+     id="text225"
+     freecad:editable="Name 15"><tspan
+       id="tspan225"
+       x="111.3401"
+       y="137.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="129.52007"
+     id="text211"
+     freecad:editable="Name 14"><tspan
+       id="tspan211"
+       x="111.3401"
+       y="129.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="121.52007"
+     id="text197"
+     freecad:editable="Name 13"><tspan
+       id="tspan197"
+       x="111.3401"
+       y="121.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="113.52007"
+     id="text183"
+     freecad:editable="Name 12"><tspan
+       id="tspan183"
+       x="111.3401"
+       y="113.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="105.52007"
+     id="text169"
+     freecad:editable="Name 11"><tspan
+       id="tspan169"
+       x="111.3401"
+       y="105.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="97.520065"
+     id="text155"
+     freecad:editable="Name 10"><tspan
+       id="tspan155"
+       x="111.3401"
+       y="97.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="89.520065"
+     id="text148"
+     freecad:editable="Name 9"><tspan
+       id="tspan148"
+       x="111.3401"
+       y="89.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="81.520065"
+     id="text141"
+     freecad:editable="Name 8"><tspan
+       id="tspan141"
+       x="111.3401"
+       y="81.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="73.520065"
+     id="text134"
+     freecad:editable="Name 7"><tspan
+       id="tspan134"
+       x="111.3401"
+       y="73.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="65.520065"
+     id="text127"
+     freecad:editable="Name 6"><tspan
+       id="tspan127"
+       x="111.3401"
+       y="65.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="57.520061"
+     id="text120"
+     freecad:editable="Name 5"><tspan
+       id="tspan120"
+       x="111.3401"
+       y="57.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="49.520061"
+     id="text113"
+     freecad:editable="Name 4"><tspan
+       id="tspan113"
+       x="111.3401"
+       y="49.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="41.520061"
+     id="text106"
+     freecad:editable="Name 3"><tspan
+       id="tspan106"
+       x="111.3401"
+       y="41.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="33.520061"
+     id="text99"
+     freecad:editable="Name 2"><tspan
+       id="tspan99"
+       x="111.3401"
+       y="33.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="25.520061"
+     id="text14"
+     freecad:editable="Name 1"><tspan
+       id="tspan14"
+       x="111.3401"
+       y="25.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="33.520061"
+     id="text100"
+     freecad:editable="Code 2"><tspan
+       id="tspan100"
+       x="41.340103"
+       y="33.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="33.520061"
+     id="text96"
+     freecad:editable="Index 2"><tspan
+       id="tspan96"
+       x="36.076138"
+       y="33.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="33.520061"
+     id="text94"
+     freecad:editable="Area 2"><tspan
+       id="tspan94"
+       x="29.076138"
+       y="33.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="41.520061"
+     id="text101"
+     freecad:editable="Area 3"><tspan
+       id="tspan101"
+       x="29.076138"
+       y="41.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="41.520061"
+     id="text103"
+     freecad:editable="Index 3"><tspan
+       id="tspan103"
+       x="36.076138"
+       y="41.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="41.520061"
+     id="text107"
+     freecad:editable="Code 3"><tspan
+       id="tspan107"
+       x="41.340103"
+       y="41.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="49.520061"
+     id="text114"
+     freecad:editable="Code 4"><tspan
+       id="tspan114"
+       x="41.340103"
+       y="49.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="49.520061"
+     id="text110"
+     freecad:editable="Index 4"><tspan
+       id="tspan110"
+       x="36.076138"
+       y="49.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="49.520061"
+     id="text108"
+     freecad:editable="Area 4"><tspan
+       id="tspan108"
+       x="29.076138"
+       y="49.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="57.520061"
+     id="text115"
+     freecad:editable="Area 5"><tspan
+       id="tspan115"
+       x="29.076138"
+       y="57.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="57.520061"
+     id="text117"
+     freecad:editable="Index 5"><tspan
+       id="tspan117"
+       x="36.076138"
+       y="57.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="57.520061"
+     id="text121"
+     freecad:editable="Code 5"><tspan
+       id="tspan121"
+       x="41.340103"
+       y="57.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="65.520065"
+     id="text128"
+     freecad:editable="Code 6"><tspan
+       id="tspan128"
+       x="41.340103"
+       y="65.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="65.520065"
+     id="text124"
+     freecad:editable="Index 6"><tspan
+       id="tspan124"
+       x="36.076138"
+       y="65.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="65.520065"
+     id="text122"
+     freecad:editable="Area 6"><tspan
+       id="tspan122"
+       x="29.076138"
+       y="65.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="73.520065"
+     id="text129"
+     freecad:editable="Area 7"><tspan
+       id="tspan129"
+       x="29.076138"
+       y="73.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="73.520065"
+     id="text131"
+     freecad:editable="Index 7"><tspan
+       id="tspan131"
+       x="36.076138"
+       y="73.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="73.520065"
+     id="text135"
+     freecad:editable="Code 7"><tspan
+       id="tspan135"
+       x="41.340103"
+       y="73.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="81.520065"
+     id="text136"
+     freecad:editable="Area 8"><tspan
+       id="tspan136"
+       x="29.076138"
+       y="81.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="81.520065"
+     id="text138"
+     freecad:editable="Index 8"><tspan
+       id="tspan138"
+       x="36.076138"
+       y="81.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="81.520065"
+     id="text142"
+     freecad:editable="Code 8"><tspan
+       id="tspan142"
+       x="41.340103"
+       y="81.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="89.520065"
+     id="text149"
+     freecad:editable="Code 9"><tspan
+       id="tspan149"
+       x="41.340103"
+       y="89.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="89.520065"
+     id="text145"
+     freecad:editable="Index 9"><tspan
+       id="tspan145"
+       x="36.076138"
+       y="89.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="89.520065"
+     id="text143"
+     freecad:editable="Area 9"><tspan
+       id="tspan143"
+       x="29.076138"
+       y="89.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="97.520065"
+     id="text150"
+     freecad:editable="Area 10"><tspan
+       id="tspan150"
+       x="29.076138"
+       y="97.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="97.520065"
+     id="text152"
+     freecad:editable="Index 10"><tspan
+       id="tspan152"
+       x="36.076138"
+       y="97.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="97.520065"
+     id="text156"
+     freecad:editable="Code 10"><tspan
+       id="tspan156"
+       x="41.340103"
+       y="97.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="105.52007"
+     id="text170"
+     freecad:editable="Code 11"><tspan
+       id="tspan170"
+       x="41.340103"
+       y="105.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="105.52007"
+     id="text166"
+     freecad:editable="Index 11"><tspan
+       id="tspan166"
+       x="36.076138"
+       y="105.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="105.52007"
+     id="text164"
+     freecad:editable="Area 11"><tspan
+       id="tspan164"
+       x="29.076138"
+       y="105.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="113.52007"
+     id="text178"
+     freecad:editable="Area 12"><tspan
+       id="tspan178"
+       x="29.076138"
+       y="113.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="113.52007"
+     id="text180"
+     freecad:editable="Index 12"><tspan
+       id="tspan180"
+       x="36.076138"
+       y="113.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="113.52007"
+     id="text184"
+     freecad:editable="Code 12"><tspan
+       id="tspan184"
+       x="41.340103"
+       y="113.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="121.52007"
+     id="text198"
+     freecad:editable="Code 13"><tspan
+       id="tspan198"
+       x="41.340103"
+       y="121.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="121.52007"
+     id="text194"
+     freecad:editable="Index 13"><tspan
+       id="tspan194"
+       x="36.076138"
+       y="121.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="121.52007"
+     id="text192"
+     freecad:editable="Area 13"><tspan
+       id="tspan192"
+       x="29.076138"
+       y="121.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="129.52007"
+     id="text206"
+     freecad:editable="Area 14"><tspan
+       id="tspan206"
+       x="29.076138"
+       y="129.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="129.52007"
+     id="text208"
+     freecad:editable="Index 14"><tspan
+       id="tspan208"
+       x="36.076138"
+       y="129.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="129.52007"
+     id="text212"
+     freecad:editable="Code 14"><tspan
+       id="tspan212"
+       x="41.340103"
+       y="129.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="137.52007"
+     id="text226"
+     freecad:editable="Code 15"><tspan
+       id="tspan226"
+       x="41.340103"
+       y="137.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="137.52007"
+     id="text222"
+     freecad:editable="Index 15"><tspan
+       id="tspan222"
+       x="36.076138"
+       y="137.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="137.52007"
+     id="text220"
+     freecad:editable="Area 15"><tspan
+       id="tspan220"
+       x="29.076138"
+       y="137.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="145.52007"
+     id="text234"
+     freecad:editable="Area 16"><tspan
+       id="tspan234"
+       x="29.076138"
+       y="145.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="145.52007"
+     id="text236"
+     freecad:editable="Index 16"><tspan
+       id="tspan236"
+       x="36.076138"
+       y="145.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="145.52007"
+     id="text240"
+     freecad:editable="Code 16"><tspan
+       id="tspan240"
+       x="41.340103"
+       y="145.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="153.52007"
+     id="text254"
+     freecad:editable="Code 17"><tspan
+       id="tspan254"
+       x="41.340103"
+       y="153.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="153.52007"
+     id="text250"
+     freecad:editable="Index 17"><tspan
+       id="tspan250"
+       x="36.076138"
+       y="153.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="153.52007"
+     id="text248"
+     freecad:editable="Area 17"><tspan
+       id="tspan248"
+       x="29.076138"
+       y="153.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="161.52007"
+     id="text262"
+     freecad:editable="Area 18"><tspan
+       id="tspan262"
+       x="29.076138"
+       y="161.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="161.52007"
+     id="text264"
+     freecad:editable="Index 18"><tspan
+       id="tspan264"
+       x="36.076138"
+       y="161.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="161.52007"
+     id="text268"
+     freecad:editable="Code 18"><tspan
+       id="tspan268"
+       x="41.340103"
+       y="161.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="169.52007"
+     id="text282"
+     freecad:editable="Code 19"><tspan
+       id="tspan282"
+       x="41.340103"
+       y="169.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="169.52007"
+     id="text278"
+     freecad:editable="Index 19"><tspan
+       id="tspan278"
+       x="36.076138"
+       y="169.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="169.52007"
+     id="text276"
+     freecad:editable="Area 19"><tspan
+       id="tspan276"
+       x="29.076138"
+       y="169.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="177.52007"
+     id="text290"
+     freecad:editable="Area 20"><tspan
+       id="tspan290"
+       x="29.076138"
+       y="177.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="177.52007"
+     id="text292"
+     freecad:editable="Index 20"><tspan
+       id="tspan292"
+       x="36.076138"
+       y="177.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="177.52007"
+     id="text296"
+     freecad:editable="Code 20"><tspan
+       id="tspan296"
+       x="41.340103"
+       y="177.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="185.52007"
+     id="text310"
+     freecad:editable="Code 21"><tspan
+       id="tspan310"
+       x="41.340103"
+       y="185.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="185.52007"
+     id="text306"
+     freecad:editable="Index 21"><tspan
+       id="tspan306"
+       x="36.076138"
+       y="185.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="185.52007"
+     id="text304"
+     freecad:editable="Area 21"><tspan
+       id="tspan304"
+       x="29.076138"
+       y="185.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="193.52007"
+     id="text318"
+     freecad:editable="Area 22"><tspan
+       id="tspan318"
+       x="29.076138"
+       y="193.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="193.52007"
+     id="text320"
+     freecad:editable="Index 22"><tspan
+       id="tspan320"
+       x="36.076138"
+       y="193.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="193.52007"
+     id="text324"
+     freecad:editable="Code 22"><tspan
+       id="tspan324"
+       x="41.340103"
+       y="193.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="201.52007"
+     id="text338"
+     freecad:editable="Code 23"><tspan
+       id="tspan338"
+       x="41.340103"
+       y="201.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="201.52007"
+     id="text334"
+     freecad:editable="Index 23"><tspan
+       id="tspan334"
+       x="36.076138"
+       y="201.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="201.52007"
+     id="text332"
+     freecad:editable="Area 23"><tspan
+       id="tspan332"
+       x="29.076138"
+       y="201.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="209.52007"
+     id="text346"
+     freecad:editable="Area 24"><tspan
+       id="tspan346"
+       x="29.076138"
+       y="209.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="209.52007"
+     id="text348"
+     freecad:editable="Index 24"><tspan
+       id="tspan348"
+       x="36.076138"
+       y="209.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="209.52007"
+     id="text352"
+     freecad:editable="Code 24"><tspan
+       id="tspan352"
+       x="41.340103"
+       y="209.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="217.52007"
+     id="text366"
+     freecad:editable="Code 25"><tspan
+       id="tspan366"
+       x="41.340103"
+       y="217.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="217.52007"
+     id="text362"
+     freecad:editable="Index 25"><tspan
+       id="tspan362"
+       x="36.076138"
+       y="217.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="217.52007"
+     id="text360"
+     freecad:editable="Area 25"><tspan
+       id="tspan360"
+       x="29.076138"
+       y="217.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="217.52007"
+     id="text361"
+     freecad:editable="Format 25"><tspan
+       id="tspan361"
+       x="23.276136"
+       y="217.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="209.52007"
+     id="text347"
+     freecad:editable="Format 24"><tspan
+       id="tspan347"
+       x="23.276136"
+       y="209.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="201.52007"
+     id="text333"
+     freecad:editable="Format 23"><tspan
+       id="tspan333"
+       x="23.276136"
+       y="201.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="193.52007"
+     id="text319"
+     freecad:editable="Format 22"><tspan
+       id="tspan319"
+       x="23.276136"
+       y="193.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="185.52007"
+     id="text305"
+     freecad:editable="Format 21"><tspan
+       id="tspan305"
+       x="23.276136"
+       y="185.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="177.52007"
+     id="text291"
+     freecad:editable="Format 20"><tspan
+       id="tspan291"
+       x="23.276136"
+       y="177.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="169.52007"
+     id="text277"
+     freecad:editable="Format 19"><tspan
+       id="tspan277"
+       x="23.276136"
+       y="169.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="161.52007"
+     id="text263"
+     freecad:editable="Format 18"><tspan
+       id="tspan263"
+       x="23.276136"
+       y="161.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="153.52007"
+     id="text249"
+     freecad:editable="Format 17"><tspan
+       id="tspan249"
+       x="23.276136"
+       y="153.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="145.52007"
+     id="text235"
+     freecad:editable="Format 16"><tspan
+       id="tspan235"
+       x="23.276136"
+       y="145.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="137.52007"
+     id="text221"
+     freecad:editable="Format 15"><tspan
+       id="tspan221"
+       x="23.276136"
+       y="137.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="129.52007"
+     id="text207"
+     freecad:editable="Format 14"><tspan
+       id="tspan207"
+       x="23.276136"
+       y="129.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="121.52007"
+     id="text193"
+     freecad:editable="Format 13"><tspan
+       id="tspan193"
+       x="23.276136"
+       y="121.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="113.52007"
+     id="text179"
+     freecad:editable="Format 12"><tspan
+       id="tspan179"
+       x="23.276136"
+       y="113.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="105.52007"
+     id="text165"
+     freecad:editable="Format 11"><tspan
+       id="tspan165"
+       x="23.276136"
+       y="105.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="97.520065"
+     id="text151"
+     freecad:editable="Format 10"><tspan
+       id="tspan151"
+       x="23.276136"
+       y="97.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="89.520065"
+     id="text144"
+     freecad:editable="Format 9"><tspan
+       id="tspan144"
+       x="23.276136"
+       y="89.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="81.520065"
+     id="text137"
+     freecad:editable="Format 8"><tspan
+       id="tspan137"
+       x="23.276136"
+       y="81.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="73.520065"
+     id="text130"
+     freecad:editable="Format 7"><tspan
+       id="tspan130"
+       x="23.276136"
+       y="73.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="65.520065"
+     id="text123"
+     freecad:editable="Format 6"><tspan
+       id="tspan123"
+       x="23.276136"
+       y="65.520065" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="57.520061"
+     id="text116"
+     freecad:editable="Format 5"><tspan
+       id="tspan116"
+       x="23.276136"
+       y="57.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="49.520061"
+     id="text109"
+     freecad:editable="Format 4"><tspan
+       id="tspan109"
+       x="23.276136"
+       y="49.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="41.520061"
+     id="text102"
+     freecad:editable="Format 3"><tspan
+       id="tspan102"
+       x="23.276136"
+       y="41.520061" /></text>
+  <!-- Working space 10 10 287 200 -->
+  <!-- Title block 147 153 287 200 -->
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="33.520061"
+     id="text95"
+     freecad:editable="Format 2"><tspan
+       id="tspan95"
+       x="23.276136"
+       y="33.520061" /></text>
+  <metadata
+     id="metadata849">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Golodnikov Sergey</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs847" />
+  <g
+     id="g452"
+     style="fill:none;stroke:#000000;stroke-width:0.13;stroke-linecap:butt;stroke-linejoin:miter" />
+  <!-- DrawingContent -->
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 205,292 V 5 H 20 v 287 z"
+     id="path7777" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 205,252.00001 v 40 H 20 v -40 z"
+     id="path7779" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,257 H 84.99981"
+     id="path4360" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,262 H 84.99981"
+     id="path4362" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,277 H 84.99981"
+     id="path4366" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,282 H 84.99981"
+     id="path4368" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,287 H 84.99981"
+     id="path4370" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,267 H 205"
+     id="path4358-5" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,272 H 84.99981"
+     id="path4358-3" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+     d="m 85,252 v 40"
+     id="path4374-5" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 155,277 h 50"
+     id="path4356-9-0" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 155,267 v 25"
+     id="path4374-5-8" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 155,272 h 50"
+     id="path4364-7" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 170,267 v 10"
+     id="path4358-1-3-9" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 187,267 v 10"
+     id="path4358-1-3-9-8" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 160,272 v 5"
+     id="path4358-1-3-9-87" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 165,272 v 5"
+     id="path4358-1-3-9-2" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 75,252 v 40"
+     id="path4358-1-3-9-87-5" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 60,252 v 40"
+     id="path4358-1-3-9-87-5-1" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 26.999997,251.99999 v 15"
+     id="path4358-1-3-9-87-5-1-7" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 37,252 v 40"
+     id="path4358-1-3-9-87-5-1-7-6" />
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="159.36264"
+     y="270.92007"
+     id="text1044"><tspan
+       id="tspan1042"
+       x="159.36264"
+       y="270.92007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Лит.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="174.56264"
+     y="270.92007"
+     id="text1056"><tspan
+       id="tspan1054"
+       x="174.56264"
+       y="270.92007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Лист</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="190.26263"
+     y="270.92007"
+     id="text1060"><tspan
+       id="tspan1058"
+       x="190.26263"
+       y="270.92007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Листов</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="20.562634"
+     y="265.82007"
+     id="text1064"><tspan
+       id="tspan1062"
+       x="20.562634"
+       y="265.82007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Изм.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="27.962633"
+     y="265.82007"
+     id="text1068"><tspan
+       id="tspan1066"
+       x="27.962633"
+       y="265.82007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Лист</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.762634"
+     y="265.82007"
+     id="text1072"><tspan
+       id="tspan5"
+       x="41.762634"
+       y="265.82007">№ докум.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="61.562634"
+     y="265.82007"
+     id="text1076"><tspan
+       id="tspan1074"
+       x="61.562634"
+       y="265.82007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Подпись</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="76.020859"
+     y="265.82007"
+     id="text1080"><tspan
+       id="tspan1078"
+       x="76.020859"
+       y="265.82007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Дата</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="20.762632"
+     y="270.82007"
+     id="text1084"><tspan
+       id="tspan1082"
+       x="20.762632"
+       y="270.82007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Разработ.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="20.762632"
+     y="275.82007"
+     id="text1088"><tspan
+       id="tspan1086"
+       x="20.762632"
+       y="275.82007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Проверил</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="20.762632"
+     y="285.72006"
+     id="text1096"><tspan
+       id="tspan1094"
+       x="20.762632"
+       y="285.72006"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Н. контр.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="20.556616"
+     y="290.72006"
+     id="text1100"><tspan
+       id="tspan1098"
+       x="20.556616"
+       y="290.72006"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Утвердил</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="37.738358"
+     y="270.84619"
+     id="text7917"
+     freecad:editable="Author"><tspan
+       id="tspan2"
+       x="37.738358"
+       y="270.84619">Фамилия И. О.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="37.738358"
+     y="290.74622"
+     id="text7917-2"
+     freecad:editable="Approver"><tspan
+       id="tspan4"
+       x="37.738358"
+       y="290.74622">Фамилия И. О.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="177.20729"
+     y="276.12006"
+     id="text8200"
+     freecad:editable="Sheet"><tspan
+       id="tspan8198"
+       x="177.20729"
+       y="276.12006"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">1</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="194.20729"
+     y="276.12006"
+     id="text8204"
+     freecad:editable="Sheets"><tspan
+       id="tspan8202"
+       x="194.20729"
+       y="276.12006"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">1</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="75.733353"
+     y="270.72159"
+     id="text8234"
+     freecad:editable="Author - date"><tspan
+       id="tspan8232"
+       x="75.733353"
+       y="270.72159"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">00.00.00</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="75.733353"
+     y="275.72159"
+     id="text8234-0"
+     freecad:editable="Inspector - date"><tspan
+       id="tspan8232-6"
+       x="75.733353"
+       y="275.72159"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">00.00.00</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="37.738358"
+     y="275.84619"
+     id="text7917-2-3"
+     freecad:editable="Inspector"><tspan
+       id="tspan3"
+       x="37.738358"
+       y="275.84619">Фамилия И. О.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="75.733353"
+     y="290.62158"
+     id="text644"
+     freecad:editable="Approver - date"><tspan
+       id="tspan642"
+       x="75.733353"
+       y="290.62158"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">00.00.00</tspan></text>
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,20 H 205"
+     id="path11365" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,44 H 205"
+     id="path12203" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,36 H 205"
+     id="path12205" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,28 H 205"
+     id="path12207" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,52 H 205"
+     id="path12209" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,60 H 205"
+     id="path12211" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,68 H 205"
+     id="path12213" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,76 H 205"
+     id="path12215" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,84 H 205"
+     id="path12217" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,92 H 205"
+     id="path12219" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,100 H 205"
+     id="path12221" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,108 H 205"
+     id="path12223" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,116 H 205"
+     id="path12225" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,124 H 205"
+     id="path12227" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,132 H 205"
+     id="path12229" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,140 H 205"
+     id="path12231" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,148 H 205"
+     id="path12233" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,156 H 205"
+     id="path12235" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,164 H 205"
+     id="path12237" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,172 H 205"
+     id="path12239" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,180 H 205"
+     id="path12241" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,188 H 205"
+     id="path12243" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,196 H 205"
+     id="path12245" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,204 H 205"
+     id="path12247" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,212 H 205"
+     id="path12249" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,220 H 205"
+     id="path12251" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 26,5 V 252"
+     id="path12259" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 32,5 V 252"
+     id="path12987" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 40,5 V 252"
+     id="path12989" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 110,5 V 252"
+     id="path12991" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 174,5 V 252"
+     id="path12993" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 184,5 V 252"
+     id="path12995" />
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-18.892282"
+     y="24.120062"
+     id="text14673"
+     transform="rotate(-90)"><tspan
+       id="tspan14671"
+       x="-18.892282"
+       y="24.120062"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Формат</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-16.197147"
+     y="30.220062"
+     id="text14779"
+     transform="rotate(-90)"><tspan
+       id="tspan14777"
+       x="-16.197147"
+       y="30.220062"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Зона</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-18.580317"
+     y="37.120064"
+     id="text14783"
+     transform="rotate(-90)"><tspan
+       id="tspan14781"
+       x="-18.580317"
+       y="37.120064"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Позиция</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="60.407444"
+     y="14.692408"
+     id="text14787"><tspan
+       id="tspan14785"
+       x="60.407444"
+       y="14.692408"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Обозначение</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="126.63482"
+     y="14.692408"
+     id="text15154"><tspan
+       id="tspan15152"
+       x="126.63482"
+       y="14.692408"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Наименование</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.76263"
+     y="13.920062"
+     id="text15158"><tspan
+       id="tspan15156"
+       x="185.76263"
+       y="13.920062"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Примечание</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-17.572355"
+     y="180.32007"
+     id="text15162"
+     transform="rotate(-90)"><tspan
+       id="tspan15160"
+       x="-17.572355"
+       y="180.32007"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Кол-во</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="37.738358"
+     y="285.74622"
+     id="text6"
+     freecad:editable="Control 2"><tspan
+       id="tspan6"
+       x="37.738358"
+       y="285.74622">Фамилия И. О.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="75.733353"
+     y="285.62158"
+     id="text7"
+     freecad:editable="Control 2 - date"><tspan
+       id="tspan7"
+       x="75.733353"
+       y="285.62158"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">00.00.00</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="25.520061"
+     id="text13"
+     freecad:editable="Area 1"><tspan
+       id="tspan13"
+       x="29.076138"
+       y="25.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="172.33836"
+     y="295.24622"
+     id="text14-3"><tspan
+       id="tspan14-6"
+       x="172.33836"
+       y="295.24622">Формат А4</tspan></text>
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,147 V 292 H 8 V 147 Z"
+     id="path1" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 13,147 V 292"
+     id="path2" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 8,267 H 20"
+     id="path3" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 8,232 H 20"
+     id="path4" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 8,207 H 20"
+     id="path5" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 8,182 H 20"
+     id="path6" />
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-288.42792"
+     y="11.720062"
+     id="text1084-3"
+     transform="rotate(-90)"><tspan
+       id="tspan15-0"
+       x="-288.42792"
+       y="11.720062">Инв. № подл.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-261.43665"
+     y="11.720062"
+     id="text16-6"
+     transform="rotate(-90)"><tspan
+       id="tspan16-3"
+       x="-261.43665"
+       y="11.720062">Подпись и дата</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-228.78334"
+     y="11.720062"
+     id="text17-2"
+     transform="rotate(-90)"><tspan
+       id="tspan17-0"
+       x="-228.78334"
+       y="11.720062">Взам. инв. №</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-203.42793"
+     y="11.720062"
+     id="text18-6"
+     transform="rotate(-90)"><tspan
+       id="tspan18-1"
+       x="-203.42793"
+       y="11.720062">Инв. № дубл.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-176.43663"
+     y="11.720062"
+     id="text19-5"
+     transform="rotate(-90)"><tspan
+       id="tspan19-5"
+       x="-176.43663"
+       y="11.720062">Подпись и дата</tspan></text>
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,5 V 125 H 8 V 5 Z"
+     id="path19" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 8,65 H 20"
+     id="path20" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 13,5 V 125"
+     id="path21" />
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-100.87765"
+     y="11.720062"
+     id="text21-4"
+     transform="rotate(-90)"><tspan
+       id="tspan21-7"
+       x="-100.87765"
+       y="11.720062">Справ. №</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="-44.677464"
+     y="11.720062"
+     id="text22-6"
+     transform="rotate(-90)"><tspan
+       id="tspan22-5"
+       x="-44.677464"
+       y="11.720062">Перв. примен.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="113.81741"
+     y="295.24622"
+     id="text27-7"><tspan
+       id="tspan27-9"
+       x="113.81741"
+       y="295.24622">Копировал</tspan></text>
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 195,257 h 10"
+     id="path48" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 195,252 v 15"
+     id="path49" />
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="197.06711"
+     y="255.82007"
+     id="text49"><tspan
+       id="tspan49"
+       x="197.06711"
+       y="255.82007">Вер.</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="120.25902"
+     y="275.39392"
+     id="text4951-2"
+     freecad:editable="Title 1"><tspan
+       id="tspan39"
+       x="120.25902"
+       y="275.39392">Наименование</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="120.25902"
+     y="281.39392"
+     id="text4951-2-9"
+     freecad:editable="Title 2"><tspan
+       id="tspan40"
+       x="120.25902"
+       y="281.39392">Наименование</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="120.25902"
+     y="287.39392"
+     id="text6447"
+     freecad:editable="Title 3"><tspan
+       id="tspan41"
+       x="120.25902"
+       y="287.39392">Наименование</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="142.2979"
+     y="261.69241"
+     id="text4951"
+     freecad:editable="Designation"><tspan
+       id="tspan38"
+       x="142.2979"
+       y="261.69241">Обозначение</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="180.00142"
+     y="285.82007"
+     id="text8208-6-3"
+     freecad:editable="Company 2"><tspan
+       id="tspan6-3"
+       x="180.00142"
+       y="285.82007">Название организации</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="180.00142"
+     y="289.82007"
+     id="text8208-6-3-5"
+     freecad:editable="Company 3"><tspan
+       id="tspan6-0"
+       x="180.00142"
+       y="289.82007">Название организации</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="180.00142"
+     y="281.82007"
+     id="text8208-6-3-4"
+     freecad:editable="Company 1"><tspan
+       id="tspan6-9"
+       x="180.00142"
+       y="281.82007">Название организации</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="162.49867"
+     y="276.12006"
+     id="text11"
+     freecad:editable="Letter 2"><tspan
+       id="tspan11"
+       x="162.49867"
+       y="276.12006">П</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="157.49867"
+     y="276.12006"
+     id="text12"
+     freecad:editable="Letter 1"><tspan
+       id="tspan12"
+       x="157.49867"
+       y="276.12006">П</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="167.49867"
+     y="276.12006"
+     id="text13-6"
+     freecad:editable="Letter 3"><tspan
+       id="tspan13-7"
+       x="167.49867"
+       y="276.12006">П</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="199.58359"
+     y="263.59393"
+     id="text50"
+     freecad:editable="Version"><tspan
+       id="tspan50"
+       x="199.58359"
+       y="263.59393">ДЭ</tspan></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="25.520061"
+     id="text1"
+     freecad:editable="Format 1"><tspan
+       id="tspan1"
+       x="23.276136"
+       y="25.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="25.520061"
+     id="text8"
+     freecad:editable="Index 1"><tspan
+       id="tspan8"
+       x="36.076138"
+       y="25.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="25.520061"
+     id="text9"
+     freecad:editable="Quantity 1"><tspan
+       id="tspan9"
+       x="179.07614"
+       y="25.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="25.520061"
+     id="text10"
+     freecad:editable="Note 1"><tspan
+       id="tspan10"
+       x="185.14011"
+       y="25.520061" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="25.520061"
+     id="text15"
+     freecad:editable="Code 1"><tspan
+       id="tspan15"
+       x="41.340103"
+       y="25.520061" /></text>
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,228 H 205"
+     id="path7" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,236 H 205"
+     id="path8" />
+  <path
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 20,244 H 205"
+     id="path9" />
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="225.52007"
+     id="text16"
+     freecad:editable="Note 26"><tspan
+       id="tspan16"
+       x="185.14011"
+       y="225.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="225.52007"
+     id="text17"
+     freecad:editable="Quantity 26"><tspan
+       id="tspan17"
+       x="179.07614"
+       y="225.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="225.52007"
+     id="text18"
+     freecad:editable="Name 26"><tspan
+       id="tspan18"
+       x="111.3401"
+       y="225.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="225.52007"
+     id="text19"
+     freecad:editable="Code 26"><tspan
+       id="tspan19"
+       x="41.340103"
+       y="225.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="225.52007"
+     id="text20"
+     freecad:editable="Index 26"><tspan
+       id="tspan20"
+       x="36.076138"
+       y="225.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="225.52007"
+     id="text21"
+     freecad:editable="Area 26"><tspan
+       id="tspan21"
+       x="29.076138"
+       y="225.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="225.52007"
+     id="text22"
+     freecad:editable="Format 26"><tspan
+       id="tspan22"
+       x="23.276136"
+       y="225.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="233.52007"
+     id="text23"
+     freecad:editable="Note 27"><tspan
+       id="tspan23"
+       x="185.14011"
+       y="233.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="233.52007"
+     id="text24"
+     freecad:editable="Quantity 27"><tspan
+       id="tspan24"
+       x="179.07614"
+       y="233.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="233.52007"
+     id="text25"
+     freecad:editable="Name 27"><tspan
+       id="tspan25"
+       x="111.3401"
+       y="233.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="233.52007"
+     id="text26"
+     freecad:editable="Code 27"><tspan
+       id="tspan26"
+       x="41.340103"
+       y="233.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="233.52007"
+     id="text27"
+     freecad:editable="Index 27"><tspan
+       id="tspan27"
+       x="36.076138"
+       y="233.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="233.52007"
+     id="text28"
+     freecad:editable="Area 27"><tspan
+       id="tspan28"
+       x="29.076138"
+       y="233.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="233.52007"
+     id="text29"
+     freecad:editable="Format 27"><tspan
+       id="tspan29"
+       x="23.276136"
+       y="233.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="241.52007"
+     id="text30"
+     freecad:editable="Note 28"><tspan
+       id="tspan30"
+       x="185.14011"
+       y="241.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="241.52007"
+     id="text31"
+     freecad:editable="Quantity 28"><tspan
+       id="tspan31"
+       x="179.07614"
+       y="241.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="241.52007"
+     id="text32"
+     freecad:editable="Name 28"><tspan
+       id="tspan32"
+       x="111.3401"
+       y="241.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="241.52007"
+     id="text33"
+     freecad:editable="Code 28"><tspan
+       id="tspan33"
+       x="41.340103"
+       y="241.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="241.52007"
+     id="text34"
+     freecad:editable="Index 28"><tspan
+       id="tspan34"
+       x="36.076138"
+       y="241.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="241.52007"
+     id="text35"
+     freecad:editable="Area 28"><tspan
+       id="tspan35"
+       x="29.076138"
+       y="241.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="241.52007"
+     id="text36"
+     freecad:editable="Format 28"><tspan
+       id="tspan36"
+       x="23.276136"
+       y="241.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="185.14011"
+     y="249.52007"
+     id="text37"
+     freecad:editable="Note 29"><tspan
+       id="tspan37"
+       x="185.14011"
+       y="249.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="179.07614"
+     y="249.52007"
+     id="text42"
+     freecad:editable="Quantity 29"><tspan
+       id="tspan42"
+       x="179.07614"
+       y="249.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="111.3401"
+     y="249.52007"
+     id="text43"
+     freecad:editable="Name 29"><tspan
+       id="tspan43"
+       x="111.3401"
+       y="249.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="41.340103"
+     y="249.52007"
+     id="text44"
+     freecad:editable="Code 29"><tspan
+       id="tspan44"
+       x="41.340103"
+       y="249.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="36.076138"
+     y="249.52007"
+     id="text45"
+     freecad:editable="Index 29"><tspan
+       id="tspan45"
+       x="36.076138"
+       y="249.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="29.076138"
+     y="249.52007"
+     id="text46"
+     freecad:editable="Area 29"><tspan
+       id="tspan46"
+       x="29.076138"
+       y="249.52007" /></text>
+  <text
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
+     x="23.276136"
+     y="249.52007"
+     id="text47"
+     freecad:editable="Format 29"><tspan
+       id="tspan47"
+       x="23.276136"
+       y="249.52007" /></text>
+</svg>

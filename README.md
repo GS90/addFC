@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 0.4.4 - [release notes](CHANGELOG.md).
+Current version 0.6.0 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -11,8 +11,10 @@ At the moment it is:
 
 1. Bill of materials - BOM.
 2. Batch processing of sheet metal parts.
-3. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
-4. Creating a pipeline.
+3. Creation of design documentation.
+4. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
+5. Creating a pipeline.
+6. Process automation.
 
 
 ## Description
@@ -28,7 +30,8 @@ At the moment it is:
 5. Add properties to an object
 6. Creating a pipe by points
 7. Exploded view
-8. Help and examples
+8. Create a drawing based on a template
+9. Documentation, help and examples
 
 
 ### Documentation
@@ -61,6 +64,7 @@ Or, while in the directory with modules, use [git](https://git-scm.com):
 `git clone https://github.com/GS90/addFC`
 
 To update the module, while in the __addFC__ directory, use:
+
 `git pull -r`
 
 
@@ -74,12 +78,12 @@ Requirements:
 For full functionality, you need:
 
 * [FreeCAD SheetMetal Workbench](https://github.com/shaise/FreeCAD_SheetMetal)
-* Additional Python Modules: [ezdxf](https://pypi.org/project/ezdxf) and [numpy](https://pypi.org/project/numpy)
+* Additional Python Modules: [ezdxf](https://pypi.org/project/ezdxf) and [numpy](https://pypi.org/project/numpy) (<= 1.26.0)
 * [FFmpeg](https://ffmpeg.org)
 
 The easiest way to install is to use the Python package management system - [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)):
 
-* `pip install ezdxf numpy`
+* `pip install ezdxf numpy==1.26.0`
 
 
 ## License
