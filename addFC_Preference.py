@@ -658,6 +658,21 @@ class addFCPreferenceSM():
 ru_std_tpl_path: str = os.path.join(add_base, 'repo', 'add', 'stdRU', 'tpl')
 
 
+def list_tpl() -> tuple[list, list, dict]:
+    drawing, text, tpl = [], [], {}
+    dirs = (
+        os.path.join(ru_std_tpl_path, 'ЕСКД'),
+        os.path.join(ru_std_tpl_path, 'СПДС'),
+    )
+    for d in dirs:
+        if os.path.exists(d):
+            for i in os.listdir(d):
+                if i.endswith('.svg'):
+                    text.append(i) if '_T_' in i else drawing.append(i)
+                    tpl[i] = os.path.join(d, i)
+    return drawing, text, tpl
+
+
 class addFCPreferenceOther():
     def __init__(self):
         ui = os.path.join(add_base, 'repo', 'ui', 'pref_other.ui')
@@ -687,14 +702,7 @@ class addFCPreferenceOther():
         self.form.Company3.setText(stamp['Company 3'])
         self.form.Letter.setText(stamp['Letter 1'])
 
-        drawing, text = [], []
-
-        for i in os.listdir(os.path.join(ru_std_tpl_path, 'ЕСКД')):
-            if i.endswith('.svg'):
-                text.append(i) if '_T_' in i else drawing.append(i)
-        for i in os.listdir(os.path.join(ru_std_tpl_path, 'СПДС')):
-            if i.endswith('.svg'):
-                text.append(i) if '_T_' in i else drawing.append(i)
+        drawing, text, _ = list_tpl()
 
         self.form.Drawing.addItems(drawing)
         self.form.Text.addItems(text)

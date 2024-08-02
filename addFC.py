@@ -847,22 +847,14 @@ class addFCInsert():
 
         ad = FreeCAD.ActiveDocument
 
-        tpl, svg = {}, '.svg'
-
-        for i in os.listdir(os.path.join(P.ru_std_tpl_path, 'ЕСКД')):
-            if i.endswith(svg):
-                tpl[i] = os.path.join(P.ru_std_tpl_path, 'ЕСКД', i)
-        for i in os.listdir(os.path.join(P.ru_std_tpl_path, 'СПДС')):
-            if i.endswith(svg):
-                tpl[i] = os.path.join(P.ru_std_tpl_path, 'СПДС', i)
-
+        _, _, tpl = P.list_tpl()
         tpl = dict(sorted(tpl.items()))
 
         w.show()
         model = QtGui.QStandardItemModel()
         w.listView.setModel(model)
         for i in tpl.keys():
-            model.appendRow(QtGui.QStandardItem(i.rstrip(svg)))
+            model.appendRow(QtGui.QStandardItem(i.rstrip('.svg')))
 
         w.label.setText('Select a template to create a drawing.')
 
@@ -872,7 +864,7 @@ class addFCInsert():
                 w.close()
                 p = ad.addObject('TechDraw::DrawPage', 'Page')
                 t = ad.addObject('TechDraw::DrawSVGTemplate', 'Template')
-                t.Template = tpl[item + svg]
+                t.Template = tpl[item + '.svg']
                 t.EditableTexts = stamp_fill(t.EditableTexts)
                 p.Template = t
                 ad.recompute()

@@ -36,7 +36,7 @@
 * Refactoring.
 * Documentation on main functions is available in English and Russian.
 
-#### 2024.08.02 (**0.6.0**):
+#### 2024.08.02 (**0.6.1**):
 * Updating standard properties (added: Code, Format, Note, Section).
 * Preferences: Ability to change FreeCAD font.
 * Specification: Automatic indexing of element positions.
@@ -48,3 +48,4 @@
     + Additional files added: [templates and font](/repo/add/stdRU)
     + Added a special example of work and design: stdRU.
 * Updating documentation and fixes.
+* Fixes.

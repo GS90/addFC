@@ -22,7 +22,11 @@ except ImportError:
     is_available_NP = False
 
 try:
-    r = subprocess.run(['ffmpeg', '-version'])  # todo: Windows, macOS
+    # todo: Windows, macOS
+    r = subprocess.run(
+        ['ffmpeg', '-version'],
+        stdout=subprocess.DEVNULL,
+    )
     if r.returncode != 0:
         is_available_FF: bool = False
 except BaseException:
