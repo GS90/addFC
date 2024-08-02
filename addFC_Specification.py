@@ -361,6 +361,14 @@ def organize(merger: str, sort: str, skip: list, specification: dict):
 
     for i in specification:
         unit = specification[i]
+
+        if merger == 'Section':  # USDD
+            if 'Section' in unit:
+                if unit['Section'] == '-':
+                    unit['Section'] = 'Прочие изделия'
+            else:
+                unit['Section'] = 'Прочие изделия'
+
         for j in skip:
             if j in unit:
                 unit.pop(j)
@@ -371,7 +379,7 @@ def organize(merger: str, sort: str, skip: list, specification: dict):
         else:
             result[unit[merger]] = [unit,]
 
-    if merger == 'Section':
+    if merger == 'Section':  # USDD
         sort = {}
         for i in section_ru:
             if i in result:
