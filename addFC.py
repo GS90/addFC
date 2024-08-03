@@ -869,6 +869,7 @@ class addFCInsert():
                 p.Template = t
                 ad.recompute()
                 # display:
+                FreeCAD.Gui.activateWorkbench('TechDrawWorkbench')
                 p.ViewObject.doubleClicked()
                 FreeCAD.Gui.updateGui()
                 FreeCAD.Gui.SendMsgToActiveView('ViewFit')
@@ -888,6 +889,7 @@ FreeCAD.Gui.addCommand('addFCInsert', addFCInsert())
 documentation_path: str = os.path.join(P.add_base, 'repo', 'doc')
 examples_path: str = os.path.join(P.add_base, 'repo', 'example')
 examples_path_zip: str = os.path.join(P.add_base, 'repo', 'example.zip')
+
 
 examples: dict = {
     'addFC: Additional files': (

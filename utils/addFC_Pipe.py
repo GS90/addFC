@@ -112,12 +112,23 @@ pipe_variations: dict = {
 
 pipe_materials: dict = {
     # name: (color, density)
-    'Default': (None, None),
-    'Copper': ((0.85, 0.54, 0.40, 0.00), 8960),           # pale copper
-    'Copper fittings': ((0.80, 0.42, 0.32, 0.00), 8960),  # copper red
-    'Steel': ((0.70, 0.75, 0.78, 0.00), 7800),
-    'Polyethylene': ((0.82, 0.84, 0.81, 0.00), 940),
+    'Default': (
+        None, None,
+    ),
+    'Copper': (
+        tuple(int('d78866'[i:i + 2], 16) for i in (0, 2, 4)), 8960,
+    ),
+    'Steel': (
+        tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)), 7800,
+    ),
+    'Polyethylene': (
+        tuple(int('d2d2d2'[i:i + 2], 16) for i in (0, 2, 4)), 940,
+    ),
 }
+
+copper_fittings_material: tuple = (
+    tuple(int('cc6c54'[i:i + 2], 16) for i in (0, 2, 4)), 8960,
+)
 
 
 relationship: dict = {
@@ -130,7 +141,7 @@ relationship: dict = {
 
 fittings: dict = {
     'allowed': False,
-    'color': (),
+    'color': None,
     'parent': '',
     'pipe': '',
     'points': [],
@@ -241,7 +252,12 @@ def dialog() -> None:
                 if select != 'Other':  # copper pipe
                     fittings['thread'] = select
             else:
-                diameter, radius = pipe, pipe
+                diameter = pipe
+                # minimum bending radius of the pipe:
+                if diameter < 20:
+                    radius = diameter * 2.5 + diameter / 2
+                else:
+                    radius = diameter * 3.5 + diameter / 2
                 thickness = (pipe - int(select.replace('DN ', ''))) / 2
                 fittings['thread'] = ''
             w.doubleSpinBoxDiameter.setValue(diameter)
@@ -280,8 +296,8 @@ def dialog() -> None:
 def create_pipe(diameter: float,
                 radius: float,
                 thickness: float,
-                color: tuple = None,
-                density: tuple = None) -> None:
+                color: tuple,
+                density: tuple) -> None:
 
     configuration = P.load_configuration()
     properties = P.load_properties()
@@ -345,6 +361,7 @@ def create_pipe(diameter: float,
 
     # fittings:
     global fittings
+    fittings['color'] = None
     fittings['parent'] = sl.Label
     fittings['points'] = points
     fittings['pipe'] = pipe.Label
@@ -354,8 +371,8 @@ def create_pipe(diameter: float,
     group = configuration['properties_group']
 
     if color is not None:
-        pipe.ViewObject.ShapeColor = color
-        fittings['color'] = pipe_materials['Copper fittings'][0]
+        pipe.ViewObject.ShapeColor = tuple(i / 255 for i in color)
+        fittings['color'] = copper_fittings_material[0]
 
     if density is not None:
         pipe.addProperty(weight_type, weight, group)
@@ -368,7 +385,6 @@ def create_pipe(diameter: float,
         pipe.restorePropertyContent(properties[i][1], properties[i][2])
 
     ad.recompute()
-
     FreeCAD.Gui.Selection.clearSelection()
     FreeCAD.Gui.Selection.addSelection(sl)
 
@@ -421,7 +437,9 @@ def add_fittings() -> None:
             continue
         shape = Part.getShape(d.Body, '', needSubElement=False, refine=True)
         ad.addObject('Part::Feature', f'{d.Body.Label}_{x}').Shape = shape
-        ad.ActiveObject.ViewObject.ShapeColor = fittings['color']
+        if fittings['color'] is not None:
+            color = tuple(i / 255 for i in fittings['color'])
+            ad.ActiveObject.ViewObject.ShapeColor = color
         ad.ActiveObject.Placement.Base = i
         ad.ActiveObject.Placement.Rotation = rotation
         x += 1

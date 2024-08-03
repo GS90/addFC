@@ -285,12 +285,12 @@
        y="286.4924">Обозначение</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="-55.497894"
-     y="-9.4924078"
+     x="55.497894"
+     y="9.4924078"
      id="text10"
      freecad:editable="Designation"
-     transform="scale(-1)"><tspan
+     transform="rotate(180, 55.497894, 9.4924078)"><tspan
        id="tspan10"
-       x="-55.497894"
-       y="-9.4924078">Обозначение</tspan></text>
+       x="55.497894"
+       y="9.4924078">Обозначение</tspan></text>
 </svg>

@@ -741,22 +741,22 @@
      id="path34" />
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="130.96292"
-     y="7.5200624"
+     x="131.56293"
+     y="6.9200621"
      id="text35"
      freecad:editable="Statement"
-     transform="rotate(180, 130.96292, 7.5200624)"><tspan
+     transform="rotate(180, 131.56293, 6.9200621)"><tspan
        id="tspan48"
-       x="130.96292"
-       y="7.5200624">Номер, год утверждения</tspan></text>
+       x="131.56293"
+       y="6.9200621">Номер, год утверждения</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="130.26407"
-     y="14.520062"
+     x="130.66408"
+     y="13.920062"
      id="text36"
      freecad:editable="Statement - letter"
-     transform="rotate(180, 130.26407, 14.520062)"><tspan
+     transform="rotate(180, 130.66408, 13.920062)"><tspan
        id="tspan47"
-       x="130.26407"
-       y="14.520062">Номер, год утверждения - лит.</tspan></text>
+       x="130.66408"
+       y="13.920062">Номер, год утверждения - лит.</tspan></text>
 </svg>
