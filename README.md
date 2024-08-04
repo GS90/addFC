@@ -19,12 +19,15 @@ At the moment it is:
 ### Preview
 
 Bill of materials - BOM:
+
 ![Bill of materials - BOM](repo/doc/img/specification_all.png)
 
 Pipeline and pipe fittings:
+
 ![Pipeline and pipe fittings](repo/doc/img/pipe_result.png)
 
 Explosion (30 FPS):
+
 ![Explosion (30 FPS)](repo/doc/other/explosion.gif)
 
 
