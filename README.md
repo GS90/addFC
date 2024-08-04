@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 0.6.2 - [release notes](CHANGELOG.md).
+Current version 0.6.3 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -15,6 +15,14 @@ At the moment it is:
 4. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
 5. Creating a pipeline.
 6. Process automation.
+
+### Preview
+
+![Bill of materials - BOM](repo/doc/img/specification_all.png)
+
+![Pipeline and pipe fittings](repo/doc/img/pipe_result.png)
+
+![Explosion (30 FPS)](repo/doc/other/explosion.gif)
 
 
 ## Description

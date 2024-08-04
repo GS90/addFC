@@ -87,16 +87,16 @@ def color_convert(hex: str):
 
 
 def placement_save(obj):
-    exp, base_obj = [], ''
+    exp, base_obj = [], None
     for i in obj.ExpressionEngine:
         if 'Placement' in i[0]:
             # saving and cleaning expressions:
             exp.append((i[0], i[1]))
             obj.setExpression(i[0], None)
-    if 'baseObject' in obj.PropertiesList:  # fasteners?
+    if 'BaseObject' in obj.PropertiesList:  # fasteners?
         # save and clean:
-        base_obj = obj.baseObject
-        obj.baseObject = None
+        base_obj = base_object_get(obj.BaseObject)
+        obj.BaseObject = None
     p_base = (
         obj.Placement.Base.x,
         obj.Placement.Base.y,
@@ -112,21 +112,39 @@ def placement_load(placement) -> FreeCAD.Placement:
     return p
 
 
+def base_object_get(BaseObject) -> tuple:
+    if BaseObject is not None:
+        return (BaseObject[0].Name, BaseObject[1])
+    else:
+        return None
+
+
+def base_object_set(baseObject: tuple) -> tuple | None:
+    try:
+        return (ad.getObject(baseObject[0]), baseObject[1])
+    except BaseException as e:
+        FreeCAD.Console.PrintWarning(str(e) + '\n')
+        return None
+
+
 def fuse_combine(fuse) -> None:
     obj = get(fuse['doc'], fuse['name'])
     obj.Placement = placement_load(fuse['start'])
     for i in fuse['expressions']:
         obj.setExpression(i[0], i[1])
-    if 'baseObject' in obj.PropertiesList:
-        obj.baseObject = fuse['baseObject']
+    if 'BaseObject' in obj.PropertiesList:
+        if fuse['baseObject'] is not None:
+            baseObject = base_object_set(fuse['baseObject'])
+            if baseObject is not None:
+                obj.BaseObject = baseObject
 
 
 def fuse_explode(obj, finish) -> None:
     for i in obj.ExpressionEngine:
         if 'Placement' in i[0]:
             obj.setExpression(i[0], None)
-    if 'baseObject' in obj.PropertiesList:
-        obj.baseObject = None
+    if 'BaseObject' in obj.PropertiesList:
+        obj.BaseObject = None
     obj.Placement = placement_load(finish)
 
 
@@ -279,7 +297,7 @@ def dialog() -> None:
                     pass
 
             try:
-                p = placement_save(i)  # (exp, base_obj, p_base, ypr)
+                p = placement_save(i)  # (exp, (base_obj), p_base, ypr)
                 group['fuses'].append({
                     'doc': i.Document.Name,
                     'name': i.Name,

@@ -50,5 +50,6 @@
 * Updating documentation and fixes.
 * Fixes.
 
-#### 2024.08.04 (**0.6.2**):
-* Fixes: templates, pipe
+#### 2024.08.04 (**0.6.3**):
+* Fixes: explode, pipe, templates.
+* Readme update.
