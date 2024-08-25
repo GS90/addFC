@@ -743,6 +743,14 @@ def dialog() -> None:
             'User parameter:BaseApp/Preferences/View').GetBool(
             'CornerCoordSystem')
 
+        # ban on camera animation:
+        animations = FreeCAD.ParamGet(
+            'User parameter:BaseApp/Preferences/View').GetBool(
+            'UseNavigationAnimations')
+        FreeCAD.ParamGet(
+            'User parameter:BaseApp/Preferences/View').SetBool(
+            'UseNavigationAnimations', False)
+
         if single:
             group['animation']['step'] = w.animationStep.value()
             group['animation']['split'] = w.animationSplit.isChecked()
@@ -852,6 +860,10 @@ def dialog() -> None:
 
         ad.recompute()
 
+        FreeCAD.ParamGet(
+            'User parameter:BaseApp/Preferences/View').SetBool(
+            'UseNavigationAnimations', animations)
+
         if single and export:
             make_video(' - ' + target)
             FreeCAD.ParamGet(
@@ -936,6 +948,10 @@ def dialog() -> None:
 
     def export_settings() -> None:
         es.comboBoxSize.clear()
+        es.comboBoxBackground.clear()
+        es.comboBoxMethod.clear()
+        es.comboBoxImageFormat.clear()
+
         es.comboBoxSize.addItems(export_properties['size'].keys())
         es.comboBoxBackground.addItems(export_properties['background'])
         es.comboBoxMethod.addItems(export_properties['method'].keys())

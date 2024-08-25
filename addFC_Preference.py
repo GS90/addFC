@@ -48,15 +48,22 @@ configuration: dict = {
     'ru_std_tpl_drawing': 'RU_Portrait_A4.svg',
     'ru_std_tpl_text': 'RU_Portrait_A4_T_1.svg',
     'ru_std_tpl_stamp': {
+        'Designation': 'XXXX.XXXXXX.XXX',
         'Author': 'Иванов И. И.',
         'Inspector': '',
         'Control 1': '',
         'Control 2': '',
         'Approver': '',
-        'Designation': 'XXXX.XXXXXX.XXX',
+        'Material 1': '',
+        'Material 2': '',
         'Company 1': '',
         'Company 2': 'Организация',
         'Company 3': '',
+        'Title 1': '',
+        'Title 2': 'Изделие',
+        'Title 3': '',
+        'Weight': '-',
+        'Scale': '1:1',
         'Letter 1': 'П',
         'Letter 2': '',
         'Letter 3': '',
@@ -691,16 +698,30 @@ class addFCPreferenceOther():
             return
         stamp = conf['ru_std_tpl_stamp']
 
+        # key verification:
+        for i in configuration['ru_std_tpl_stamp']:
+            if i not in stamp:
+                stamp[i] = configuration['ru_std_tpl_stamp'][i]
+
+        self.form.Designation.setText(stamp['Designation'])
         self.form.Author.setText(stamp['Author'])
         self.form.Inspector.setText(stamp['Inspector'])
         self.form.Control1.setText(stamp['Control 1'])
         self.form.Control2.setText(stamp['Control 2'])
         self.form.Approver.setText(stamp['Approver'])
-        self.form.Designation.setText(stamp['Designation'])
+        self.form.Material1.setText(stamp['Material 1'])
+        self.form.Material2.setText(stamp['Material 2'])
         self.form.Company1.setText(stamp['Company 1'])
         self.form.Company2.setText(stamp['Company 2'])
         self.form.Company3.setText(stamp['Company 3'])
-        self.form.Letter.setText(stamp['Letter 1'])
+        self.form.Title1.setText(stamp['Title 1'])
+        self.form.Title2.setText(stamp['Title 2'])
+        self.form.Title3.setText(stamp['Title 3'])
+        self.form.Weight.setText(stamp['Weight'])
+        self.form.Scale.setText(stamp['Scale'])
+        self.form.Letter1.setText(stamp['Letter 1'])
+        self.form.Letter2.setText(stamp['Letter 2'])
+        self.form.Letter3.setText(stamp['Letter 3'])
 
         drawing, text, _ = list_tpl()
 
@@ -723,18 +744,25 @@ class addFCPreferenceOther():
                 'ru_std_tpl_drawing': self.form.Drawing.currentText(),
                 'ru_std_tpl_text': self.form.Text.currentText(),
                 'ru_std_tpl_stamp': {
+                    'Designation': self.form.Designation.text(),
                     'Author': self.form.Author.text(),
                     'Inspector': self.form.Inspector.text(),
                     'Control 1': self.form.Control1.text(),
                     'Control 2': self.form.Control2.text(),
                     'Approver': self.form.Approver.text(),
-                    'Designation': self.form.Designation.text(),
+                    'Material 1': self.form.Material1.text(),
+                    'Material 2': self.form.Material2.text(),
                     'Company 1': self.form.Company1.text(),
                     'Company 2': self.form.Company2.text(),
                     'Company 3': self.form.Company3.text(),
-                    'Letter 1': self.form.Letter.text(),
-                    'Letter 2': '',
-                    'Letter 3': '',
+                    'Title 1': self.form.Title1.text(),
+                    'Title 2': self.form.Title2.text(),
+                    'Title 3': self.form.Title3.text(),
+                    'Weight': self.form.Weight.text(),
+                    'Scale': self.form.Scale.text(),
+                    'Letter 1': self.form.Letter1.text(),
+                    'Letter 2': self.form.Letter1.text(),
+                    'Letter 3': self.form.Letter1.text(),
                 }}
         )
 

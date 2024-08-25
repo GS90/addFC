@@ -174,7 +174,7 @@ rotations: dict = {
     '+Z-X': FreeCAD.Rotation(FreeCAD.Vector(0.00, 0.71, 0.71), -180.00),
     '+Z-Y': FreeCAD.Rotation(FreeCAD.Vector(-0.58, 0.58, 0.58), 240.00),
     '-Z+X': FreeCAD.Rotation(FreeCAD.Vector(1.00, 0.00, 0.00), 270.00),
-    '-Z+Y': FreeCAD.Rotation(FreeCAD.Vector(-0.58, 0.58, 0.58), 120.00),
+    '-Z+Y': FreeCAD.Rotation(FreeCAD.Vector(-0.58, -0.58, 0.58), 120.00),
     '-Z-X': FreeCAD.Rotation(FreeCAD.Vector(0.00, -0.71, 0.71), 180.00),
     '-Z-Y': FreeCAD.Rotation(FreeCAD.Vector(-0.58, 0.58, -0.58), 120.00),
 }

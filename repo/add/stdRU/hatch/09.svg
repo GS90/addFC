@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 64 64"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:round"
+       d="M 38,0 28,20"
+       id="path3" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:round"
+       d="M 34.0005,0 23,22"
+       id="path9" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:round"
+       d="M 42.0005,0 29.943669,23.969605"
+       id="path10" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:round"
+       d="M 58,0 45.943169,23.969605"
+       id="path11" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:round"
+       d="M 54.0005,0 43,22"
+       id="path12" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:round"
+       d="M 62.0005,0 52,20"
+       id="path13" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:round"
+       d="M 18,0 5.9431689,23.969605"
+       id="path14" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:round"
+       d="M 14.0005,0 4,20"
+       id="path15" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:round"
+       d="M 22.0005,0 11,22"
+       id="path16" />
+  </g>
+  <metadata
+     id="metadata16">
+    <rdf:RDF>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+      <cc:Work
+         rdf:about="">
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/4.0/" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Golodnikov Sergey</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -378,12 +378,12 @@
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">000 кг.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="405.34534"
+     x="406.14532"
      y="266.29391"
      id="text8208-6"
      freecad:editable="Scale"><tspan
        id="tspan8206-4"
-       x="405.34534"
+       x="406.14532"
        y="266.29391"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">1:1</tspan></text>
   <text
@@ -674,13 +674,13 @@
        y="240.82007">Вер.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="409.48358"
+     x="409.99329"
      y="248.59392"
      id="text50"
      freecad:editable="Version"><tspan
-       id="tspan50"
-       x="409.48358"
-       y="248.59392">ДЭ</tspan></text>
+       id="tspan29"
+       x="409.99329"
+       y="248.59392">1</tspan></text>
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      d="m 294.99999,229.00001 h 120"

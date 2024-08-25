@@ -53,3 +53,8 @@
 #### 2024.08.04 (**0.6.3**):
 * Fixes: explode, pipe, templates.
 * Readme update.
+
+#### 2024.08.25 (**0.7.0**):
+* Documentation completed.
+* Template updates (USDD - Russia).
+* Various fixes and updates.

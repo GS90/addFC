@@ -31,10 +31,10 @@
 \section{Goals and objectives}
 
 \begin{itemize}
-	\item Bill of materials -- BOM.
+	\item Generate a BOM based on the model.
 	\item Batch processing of sheet metal parts.
 	\item Creation of design documentation.
-	\item Process automation.\\
+	\item Process automation.
 \end{itemize}
 
 The main purpose of the workbench is to simplify the work with large and «complex» assemblies, especially with assemblies containing sheet metal parts.
@@ -321,7 +321,7 @@ All parts from the list generated based on the model (assembly), depending on th
 
 \textbf{Unfold prefix} -- the name of the directory in which the files will be saved, as well as an option for signing the part.\\
 
-\textbf{File signature} -- list of options for part signature. The signature is text in the file, inside the outline of the part, which can be useful when nesting. At the moment the function is only available for dxf format. When set to \textbf{None}, the signature is disabled.\\
+\textbf{File signature} -- list of options for part signature. The signature is text in the file, inside the outline of the part, which can be useful when nesting. At the moment the function is only available for dxf format. When set to \textbf{None}, the signature is disabled. Important: This function requires the Python module: \href{https://pypi.org/project/ezdxf}{ezdxf}.\\
 
 \textbf{File Name} -- the template by which the files will be named, for example,\\for the part \textbf{«E2 - Stand»} (\hyperref[sec:properties]{figure 5}) the names will be as follows:
 \begin{itemize}
@@ -434,15 +434,155 @@ For convenience, the graphical user interface is built into the FreeCAD sidebar;
 
 
 \section{Creating a pipeline using coordinates}
-To be continued ...
+
+The \hyperref[sec:6]{Pipe} command allows you to create a pipeline using specified coordinates, \emph{the source of\\coordinates must be points} - either \textbf{Point} (Draft) or \textbf{Datum Point} (PartDesign). The first option is preferable.
+
+Create and place points in 3D space, for convenience, they can be combined into a group, as shown in the example (figure 17).
+
+Select the group with dots or any other parent element (in the example, pipe and path) in the project tree and click \hyperref[sec:6]{Pipe} on the toolbar.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[scale=1]{img/pipe.png}
+	\caption{Coordinate points and interface \textbf{Pipe}}
+	\label{sec:pipe}
+\end{figure}
+
+The interface provides:
+\begin{itemize}
+	\item \textbf{Top drop down list} -- these are pipe templates, available options:
+	\begin{itemize}
+		\item \textbf{OD - Copper pipe} -- inch copper pipes, range from 1/4" to 4+1/8".
+		\item \textbf{DN - Nominal pipe size} -- NPS.
+		\item \textbf{DN - ВГП (водогазопроводная)} -- GOST 3262-75 (Russia).
+	\end{itemize}
+	\item \textbf{Pipe} -- pipe size option from selected template.
+	\item \textbf{Diameter} -- diameter, OD -- external, DN -- nominal bore.
+	\item \textbf{Fillet radius} -- pipe bending radius.
+	\item \textbf{Wall thickness} -- pipe wall thickness.
+	\item \textbf{Material} -- pipe material, color and density values.
+\end{itemize}
+
+If necessary, the values ​​of diameter, bend and wall thickness can be specified manually by changing the values ​​of the corresponding fields.\\
+
+After selecting the required parameters, click \textbf{Create pipe}.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=1\textwidth]{img/pipe_result.png}
+	\caption{The result of the \textbf{Pipe} operation}
+	\label{sec:pipe_result}
+\end{figure}
+
+The program will receive the coordinates of all points (the points themselves will be sorted by \textbf{Label}, in ascending order) and will build a pipeline with the previously specified parameters.
+
+The image shows the result of the team's work, on the right is an option with added fittings,\\command \textbf{And fittings}.
+
 % section end
+\pagebreak
 
 
 
 
 \section{Exploded view}
-To be continued ...
+
+The \hyperref[sec:7]{Explode} command is responsible for creating an exploded view -- a sketch view of a design (assembly) with its component parts exploded, which allows you to convey information about the product in a simpler and easier to understand form. The tool allows you to create, animate and save views.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[scale=0.42]{img/exploded_m_result.png}
+	\caption{\textbf{Explode}: exploded view of model}
+	\label{sec:exploded_m_result}
+\end{figure}
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[scale=0.42]{img/exploded_d_result.png}
+	\caption{\textbf{Explode}: export exploded view to drawing}
+	\label{sec:exploded_d_result}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=1\textwidth]{img/exploded.png}
+	\caption{\textbf{Explode} interface}
+	\label{sec:exploded}
+\end{figure}
+
+On the left side of the interface there are groups, a group is one or more combined elements. To create a group, you need to select objects in the project tree or 3D view window and click the \textbf{Add} button. Created groups can be \textbf{Remove} and moved by positions (arrows: up, down).
+
+Double clicking on the group name will make it active, area: \textbf{Selected group}.
+
+Elements of the active group can be moved by coordinates (\textbf{Position}) and rotated by axes\\(\textbf{Rotation}). All actions are displayed in the 3D view window and are automatically saved.
+
+The \textbf{Combine} button returns all elements in the group to their original positions.
+
+The \textbf{Explode} button moves the group objects to the location specified by the user.\\
+
+Список \textbf{Selection} - appearance of selected objects:
+\begin{itemize}
+	\item \textbf{Shape} -- fill an object with color (standard selection).
+	\item \textbf{BoundBox} -- frame around object.
+	\item \textbf{None} -- no selection.
+\end{itemize}
+
 % section end
+\pagebreak
+
+
+
+
+The \textbf{Trace} tab is responsible for guides - these are visual lines from the original position of the element to its current location specified by the user.
+\begin{itemize}
+	\item \textbf{Line style}, \textbf{Color} -- the style of the guide line and its color.
+	\item \textbf{Line width}, \textbf{Point size} -- line thickness and size of start and end points.
+	\item \textbf{Create}, \textbf{Remove} -- create and delete guide lines for a group.
+\end{itemize}
+An example of guides can be seen in images \hyperref[sec:exploded_m_result]{19} and \hyperref[sec:exploded_d_result]{20}.\\
+
+The \textbf{Animation} tab is responsible for animating the exploded view and exporting the animation to a video file. The general principle of operation is as follows: after moving and/or rotating an object, you can \textbf{Add key} frame, the program animates the movement and/or rotation of objects from the initial location to the position specified by the key frame. The number of frames is unlimited. The current number of frames is displayed in the field: \textbf{Key frames}. The \textbf{Clear} button will delete all created key frames for the group.\\
+
+\textbf{Speed} -- the animation playback speed for the current keyframe..
+
+\textbf{Split} -- if checked, the objects in the group will be animated sequentially.
+
+\textbf{Trace} -- display guide lines for objects during animation.\\
+
+\textbf{Animate} button -- play animation by keyframes.
+
+\textbf{Reverse} checkbox, if checked -- the animation will be played in reverse.
+
+\textbf{Auto fit} -- automatic camera positioning to display all elements.
+
+\textbf{Export} -- when playing, save the animation to a video file.\\
+
+Important: for full functionality you need:
+\begin{itemize}
+	\item Python \href{https://pypi.org/project/numpy}{NumPy} module for animation.
+	\item \href{https://www.ffmpeg.org}{FFmpeg} library for exporting animation to a video file.
+\end{itemize}
+
+% section end
+\pagebreak
+
+
+
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[scale=1]{img/exploded_es.png}
+	\caption{Export settings}
+	\label{sec:exploded_es}
+\end{figure}
+
+Export options are the video file \textbf{Resolution}, \textbf{Frame rate}, directory for saving the result -- the \textbf{Select a directory} button, and also some frame-by-frame image settings:
+
+\begin{itemize}
+	\item \textbf{Image format} -- PNG (higher quality) and JPG (faster).
+	\item \href{https://wiki.freecad.org/Std_ViewScreenShot}{\textbf{Background} and \textbf{Creation method.}}
+\end{itemize}
 
 
 

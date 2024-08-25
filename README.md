@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 0.6.3 - [release notes](CHANGELOG.md).
+Current version 0.7.0 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -9,7 +9,7 @@ This workbench contains tools that simplify the solution of some tasks in FreeCA
 
 At the moment it is:
 
-1. Bill of materials - BOM.
+1. Generate a BOM based on the model.
 2. Batch processing of sheet metal parts.
 3. Creation of design documentation.
 4. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
@@ -35,7 +35,7 @@ Explosion (30 FPS):
 
 ### Toolbox
 
-![](repo/doc/img/icon.svg)
+![](repo/doc/img/toolbar.svg)
 
 1. Open last working file
 2. Isometry and fit all
@@ -59,6 +59,8 @@ Explosion (30 FPS):
 ### Notes
 
 The workbench is under development.
+
+Testing is performed on stable versions of FreeCAD.
 
 If you encounter problems after the update, try deleting the preferences directory:
 
@@ -97,7 +99,7 @@ For full functionality, you need:
 
 The easiest way to install is to use the Python package management system - [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)):
 
-* `pip install ezdxf numpy==1.26.0`
+* `pip install numpy==1.26.0 ezdxf`
 
 
 ## License
