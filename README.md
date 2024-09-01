@@ -94,12 +94,12 @@ Requirements:
 For full functionality, you need:
 
 * [FreeCAD SheetMetal Workbench](https://github.com/shaise/FreeCAD_SheetMetal)
-* Additional Python Modules: [ezdxf](https://pypi.org/project/ezdxf) and [numpy](https://pypi.org/project/numpy) (<= 1.26.0)
+* Additional Python Modules: [ezdxf](https://pypi.org/project/ezdxf) and [numpy](https://pypi.org/project/numpy)
 * [FFmpeg](https://ffmpeg.org)
 
 The easiest way to install is to use the Python package management system - [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)):
 
-* `pip install numpy==1.26.0 ezdxf`
+* `pip install numpy ezdxf`
 
 
 ## License
