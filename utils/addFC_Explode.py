@@ -12,28 +12,8 @@ import subprocess
 import time
 
 
-is_available_NP: bool = True
-is_available_FF: bool = True
-
-
-try:
+if P.additions['numpy'][0]:
     import numpy as np
-except ImportError:
-    is_available_NP = False
-
-try:
-    # todo: Windows, macOS
-    r = subprocess.run(
-        ['ffmpeg', '-version'],
-        stdout=subprocess.DEVNULL,
-    )
-    if r.returncode != 0:
-        is_available_FF: bool = False
-except BaseException:
-    is_available_FF: bool = False
-
-
-# ------------------------------------------------------------------------------
 
 
 ad = FreeCAD.ActiveDocument
@@ -153,12 +133,12 @@ def fuse_explode(obj, finish) -> None:
 
 def dialog() -> None:
 
-    if not is_available_FF:
+    if not P.additions['ffmpeg'][0]:
         w.error.setText('FFmpeg is not available!')
         w.animationExport.setEnabled(False)
         w.exportSettings.setEnabled(False)
 
-    if not is_available_NP:
+    if not P.additions['numpy'][0]:
         w.error.setText('NumPy is not available!')
         w.animate.setEnabled(False)
         w.animateAll.setEnabled(False)
@@ -873,7 +853,7 @@ def dialog() -> None:
         w.animate.setEnabled(True)
         w.animationReverse.setEnabled(True)
         w.animationReverse.setChecked(reverse)
-        if is_available_FF:
+        if P.additions['ffmpeg'][0]:
             w.animationExport.setEnabled(True)
             w.animationExport.setChecked(export)
             w.exportSettings.setEnabled(True)

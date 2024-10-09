@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 0.7.0 - [release notes](CHANGELOG.md).
+Current version 0.7.2 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -61,6 +61,8 @@ Explosion (30 FPS):
 The workbench is under development.
 
 Testing is performed on stable versions of FreeCAD.
+
+__Potential sheet metal issues when working in version 1.0...__
 
 If you encounter problems after the update, try deleting the preferences directory:
 

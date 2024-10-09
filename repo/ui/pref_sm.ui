@@ -7,15 +7,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>780</width>
-    <height>600</height>
+    <width>800</width>
+    <height>640</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>780</width>
-    <height>0</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Sheet metal</string>
@@ -107,11 +101,11 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_1">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
       <widget class="QGroupBox" name="groupBoxGalvanized">
        <property name="title">
-        <string>Steel / Galvanized:</string>
+        <string>Steel / Galvanized</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -132,7 +126,7 @@
            <bool>false</bool>
           </property>
           <attribute name="horizontalHeaderMinimumSectionSize">
-           <number>80</number>
+           <number>100</number>
           </attribute>
           <attribute name="verticalHeaderMinimumSectionSize">
            <number>24</number>
@@ -183,7 +177,7 @@
      <item>
       <widget class="QGroupBox" name="groupBoxStainless">
        <property name="title">
-        <string>Stainless / AISI:</string>
+        <string>Stainless / AISI</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
@@ -204,7 +198,7 @@
            <bool>false</bool>
           </property>
           <attribute name="horizontalHeaderMinimumSectionSize">
-           <number>80</number>
+           <number>100</number>
           </attribute>
           <attribute name="verticalHeaderMinimumSectionSize">
            <number>24</number>

@@ -2,12 +2,70 @@
 # Copyright 2024 Golodnikov Sergey
 
 
+from importlib.metadata import version
 from PySide import QtGui, QtCore
 import copy
 import FreeCAD
 import json
 import math
 import os
+import subprocess
+import xml.etree.ElementTree as ET
+
+
+# ------------------------------------------------------------------------------
+
+
+additions: dict = {
+    'ezdxf': [True, '', 'color: #005500'],
+    'ffmpeg': [True, '', 'color: #005500'],
+    'numpy': [True, '', 'color: #005500'],
+    'sm': [True, '', 'color: #005500'],
+}
+
+
+try:
+    additions['ezdxf'][1] = version('ezdxf')
+except ImportError:
+    additions['ezdxf'][0] = False
+    additions['ezdxf'][2] = 'color: #aa0000'
+
+try:
+    # todo: Windows, macOS
+    r = subprocess.run(
+        ['ffmpeg', '-version'],
+        stdout=subprocess.DEVNULL,
+    )
+    if r.returncode == 0:
+        # todo: version number
+        pass
+    else:
+        additions['ffmpeg'][0] = False
+        additions['ffmpeg'][2] = 'color: #aa0000'
+except BaseException:
+    additions['ffmpeg'][0] = False
+    additions['ffmpeg'][2] = 'color: #aa0000'
+
+try:
+    additions['numpy'][1] = version('numpy')
+except ImportError:
+    additions['numpy'][0] = False
+    additions['numpy'][2] = 'color: #aa0000'
+
+try:
+    import SheetMetalCmd
+    f = os.path.join(os.path.dirname(SheetMetalCmd.__dir__), 'package.xml')
+    root = ET.parse(f).getroot()
+    for i in root:
+        if 'version' in i.tag:
+            additions['sm'][1] = i.text
+            break
+except ImportError:
+    additions['sm'][0] = False
+    additions['sm'][2] = 'color: #aa0000'
+
+
+# ------------------------------------------------------------------------------
 
 
 add_base: str = os.path.dirname(__file__)
@@ -690,9 +748,25 @@ class addFCPreferenceOther():
             return
         font = conf['interface_font']
 
-        self.form.fontCheckBox.setChecked(font[0]),
-        self.form.fontComboBox.setCurrentText(font[1]),
-        self.form.fontSpinBox.setValue(font[2]),
+        self.form.fontCheckBox.setChecked(font[0])
+        self.form.fontComboBox.setCurrentText(font[1])
+        self.form.fontSpinBox.setValue(font[2])
+
+        # additions:
+        self.form.sm.setChecked(additions['sm'][0])
+        self.form.sm.setStyleSheet(additions['sm'][2])
+        if additions['sm'][0]:
+            self.form.sm.setText(f"SheetMetal ({additions['sm'][1]})")
+        self.form.ezdxf.setChecked(additions['ezdxf'][0])
+        self.form.ezdxf.setStyleSheet(additions['ezdxf'][2])
+        if additions['ezdxf'][0]:
+            self.form.ezdxf.setText(f"ezdxf ({additions['ezdxf'][1]})")
+        self.form.numpy.setChecked(additions['numpy'][0])
+        self.form.numpy.setStyleSheet(additions['numpy'][2])
+        if additions['numpy'][0]:
+            self.form.numpy.setText(f"NumPy ({additions['numpy'][1]})")
+        self.form.ffmpeg.setChecked(additions['ffmpeg'][0])
+        self.form.ffmpeg.setStyleSheet(additions['ffmpeg'][2])
 
         if 'ru_std_tpl_stamp' not in conf:
             return

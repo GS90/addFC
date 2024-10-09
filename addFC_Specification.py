@@ -31,6 +31,10 @@ def define_thickness(body, bind=False, property='') -> float | int | str:
             thickness = float(o.Length)
             base = f'{o.Name}.Length'
             break
+        o = body.getObject('BaseFeature' + i)
+        if o is not None:
+            thickness = float(o.BaseFeature.Value)
+            base = f'{o.BaseFeature.Name}.Value'
     thickness = round(thickness, 2)
     if thickness == 0:
         w = f'{body.Label}: metal thickness is not determined\n'

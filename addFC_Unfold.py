@@ -15,18 +15,10 @@ import shutil
 import time
 
 
-is_available_SMU: bool = True
-is_available_ezdxf: bool = True
-
-try:
+if P.additions['sm'][0]:
     from SheetMetalUnfoldCmd import SMUnfoldUnattendedCommandClass as u
-except ImportError:
-    is_available_SMU = False
-
-try:
+if P.additions['ezdxf'][0]:
     import ezdxf
-except ImportError:
-    is_available_ezdxf = False
 
 
 garbage: tuple[str] = (
@@ -53,11 +45,11 @@ def add_signature(file: str, sign: str, width: float, size: int) -> None:
 
 def unfold(w, details: dict, path: str, skip: list = []) -> None:
     # checking the functionality:
-    if not is_available_SMU:
-        w.error.setText('Error: SheetMetalUnfold is not available!')
+    if not P.additions['sm'][0]:
+        w.message.setText('Warning: SheetMetal Workbench is not available!')
         return
-    if not is_available_ezdxf:
-        w.error.setText('Warning: ezdxf is not available!')
+    if not P.additions['ezdxf'][0]:
+        w.message.setText('Warning: ezdxf is not available!')
 
     if len(details) == 0 or len(details) == len(skip):
         w.progress.setValue(100)
@@ -197,24 +189,18 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         ad.addObject('Part::Feature', 'Reproduction').Shape = shape
         body = ad.ActiveObject
 
-        # find the largest face (2:spare):
-        target = [0.0, 0, 0]
+        # find the largest face:
         faces = body.Shape.Faces
-        n = 0
+        target, a, n = [0.0, 0], 0, 0
         for f in faces:
+            a = round(f.Area, 2)
             n += 1
-            # todo: spare surface
-            if f.Area > target[0]:
-                target[2] = target[1]  # spare
-                target[0] = f.Area
+            if a >= target[0]:
+                target[0] = a
                 target[1] = n
 
         # selection:
-        FreeCAD.Gui.Selection.clearSelection()
-        if 'UnfoldReverse' in details[d]:
-            face = 'Face' + str(target[2])  # most likely it's the other side
-        else:
-            face = 'Face' + str(target[1])
+        face = 'Face' + str(target[1])
         FreeCAD.Gui.Selection.addSelection(ad.Name, body.Name, face, 0, 0, 0)
 
         # k-factor:
@@ -315,7 +301,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                     size_verify = int(abs(unfold_height) - 10)
                     if size > size_verify:
                         size = size_verify
-                    if is_available_ezdxf:
+                    if P.additions['ezdxf'][0]:
                         add_signature(f, sign, unfold_width, size)
             if save_svg:
                 f = os.path.join(target, f'{file} ({i + 1}).svg')

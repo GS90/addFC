@@ -20,7 +20,7 @@
   <property name="windowTitle">
    <string>Specification - BOM</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -32,9 +32,9 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="horizontalLayout_f">
          <item>
-          <spacer name="horizontalSpacer">
+          <spacer name="horizontalSpacer_f">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -104,13 +104,13 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="Details">
+     <widget class="QWidget" name="SM">
       <attribute name="title">
        <string>Sheet metal</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayoutDetails" stretch="1,0">
+        <layout class="QHBoxLayout" name="horizontalLayoutSM" stretch="1,0">
          <item>
           <widget class="QTableWidget" name="detailsTable">
            <property name="editTriggers">
@@ -377,7 +377,31 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_1">
+    <layout class="QHBoxLayout" name="horizontalLayout_t">
+     <item>
+      <widget class="QLabel" name="message">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="error">
+       <property name="styleSheet">
+        <string notr="true">color: #aa0000</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_c">
      <item>
       <widget class="QPushButton" name="pushButtonExportSettings">
        <property name="minimumSize">
@@ -409,37 +433,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="info">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacerLeft">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="error">
-       <property name="styleSheet">
-        <string notr="true">color: #aa0000</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacerRight">
+      <spacer name="horizontalSpacer_c">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>

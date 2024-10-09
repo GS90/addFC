@@ -333,6 +333,13 @@ class AddFCSpecification():
 
         specification_update(True)
 
+        # checking the functionality:
+        if not P.additions['sm'][0]:
+            w.pushButtonUnfold.setEnabled(False)
+        if not P.additions['ezdxf'][0]:
+            w.comboBoxSignature.setCurrentText('None')
+            w.comboBoxSignature.setEnabled(False)
+
         w.show()
 
         w.pushButtonUpdate.clicked.connect(specification_update)
@@ -889,7 +896,6 @@ FreeCAD.Gui.addCommand('addFCInsert', addFCInsert())
 documentation_path: str = os.path.join(P.add_base, 'repo', 'doc')
 examples_path: str = os.path.join(P.add_base, 'repo', 'example')
 examples_path_zip: str = os.path.join(P.add_base, 'repo', 'example.zip')
-
 
 examples: dict = {
     'addFC: Additional files': (
