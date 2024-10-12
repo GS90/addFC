@@ -46,10 +46,10 @@ def add_signature(file: str, sign: str, width: float, size: int) -> None:
 def unfold(w, details: dict, path: str, skip: list = []) -> None:
     # checking the functionality:
     if not P.additions['sm'][0]:
-        w.message.setText('Warning: SheetMetal Workbench is not available!')
+        w.error.setText('Warning: SheetMetal Workbench is not available!')
         return
     if not P.additions['ezdxf'][0]:
-        w.message.setText('Warning: ezdxf is not available!')
+        w.error.setText('Warning: ezdxf is not available!')
 
     if len(details) == 0 or len(details) == len(skip):
         w.progress.setValue(100)

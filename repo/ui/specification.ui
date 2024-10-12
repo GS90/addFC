@@ -364,7 +364,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="labelTarget">
+          <widget class="QLabel" name="target">
            <property name="text">
             <string>... Desktop</string>
            </property>
@@ -379,7 +379,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_t">
      <item>
-      <widget class="QLabel" name="message">
+      <widget class="QLabel" name="info">
        <property name="text">
         <string>...</string>
        </property>

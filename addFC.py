@@ -157,7 +157,7 @@ class AddFCSpecification():
 
         if conf['working_directory'] == '':
             conf['working_directory'] = os.path.expanduser('~/Desktop')
-        w.labelTarget.setText(
+        w.target.setText(
             f"... {os.path.basename(conf['working_directory'])}")
 
         w.comboBoxExport.addItems(exporting.keys())
@@ -490,7 +490,7 @@ class AddFCSpecification():
             if d != '':
                 conf['working_directory'] = d
                 P.save_configuration(conf)
-                w.labelTarget.setText(f'... {os.path.basename(d)}')
+                w.target.setText(f'... {os.path.basename(d)}')
         w.pushButtonDir.clicked.connect(directory)
 
         def redefinition() -> list:
