@@ -3,8 +3,9 @@
   <name>AddFC Workbench</name>
   <description>Additional tools for FreeCAD.</description>
   <version>0.7.2</version>
-  <date>2024-10-09</date>
+  <date>2024-10-12</date>
   <maintainer email="nn19051990@gmail.com">Golodnikov Sergey</maintainer>
+  <author email="nn19051990@gmail.com">Golodnikov Sergey</author>
   <license file="LICENSE">LGPL-2.1-or-later</license>
   <url type="repository" branch="main">https://github.com/GS90/addFC</url>
   <url type="readme">https://github.com/GS90/addFC/blob/main/README.md</url>
@@ -14,7 +15,16 @@
     <workbench>
       <classname>AddFC</classname>
       <subdirectory>./</subdirectory>
-      <tag>add,BOM,specification,sheetmetal,exploded</tag>
+      <freecadmin>0.20.2</freecadmin>
+      <!-- dependencies -->
+      <depend>numpy</depend>
+      <depend>ezdxf</depend>
+      <!-- tags -->
+      <tag>add</tag>
+      <tag>BOM</tag>
+      <tag>specification</tag>
+      <tag>sheetmetal</tag>
+      <tag>exploded</tag>
     </workbench>
   </content>
 </package>

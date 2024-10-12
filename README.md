@@ -55,6 +55,8 @@ Explosion (30 FPS):
 * [English](https://digiroad.tech/share/addFC/documentation_EN.pdf)
 * [Russian](https://digiroad.tech/share/addFC/documentation_RU.pdf)
 
+[FreeCAD forum thread](https://forum.freecad.org/viewtopic.php?t=91328)
+
 
 ### Notes
 

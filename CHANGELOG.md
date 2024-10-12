@@ -59,7 +59,7 @@
 * Template updates (USDD - Russia).
 * Various fixes and updates.
 
-#### 2024.10.09 (**0.7.2**):
+#### 2024.10.12 (**0.7.2**):
 * Additions: processing and display in preferences.
 * Changes to the preferences interface.
 * Fixes: unfold and metal thickness.
