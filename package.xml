@@ -17,10 +17,10 @@
       <subdirectory>./</subdirectory>
       <freecadmin>0.20.2</freecadmin>
       <!-- dependencies -->
-      <depend>numpy</depend>
-      <depend>ezdxf</depend>
+      <depend optional="true" type="addon">sheetmetal</depend>
+      <depend optional="true" type="python">numpy</depend>
+      <depend optional="true" type="python">ezdxf</depend>
       <!-- tags -->
-      <tag>add</tag>
       <tag>BOM</tag>
       <tag>specification</tag>
       <tag>sheetmetal</tag>
