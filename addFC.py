@@ -65,23 +65,15 @@ class AddFCOpenRecentFile():
 
     def Activated(self):
         p = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/RecentFiles")
-        f = p.GetString('MRU0')
-        e = 'The file cannot be opened...\n'
-
-        if f == '':
-            FreeCAD.Console.PrintError(e)
-            return
-        elif not os.path.exists(f):
-            FreeCAD.Console.PrintError(e)
-            return
-        elif not os.path.isfile(f):
-            FreeCAD.Console.PrintError(e)
-            return
-
-        FreeCAD.openDocument(f)
-        FreeCAD.Gui.activeDocument().activeView().viewIsometric()
-        FreeCAD.Gui.SendMsgToActiveView('ViewFit')
-        return
+        n = p.GetInt('RecentFiles')
+        for i in range(n):
+            f = p.GetString('MRU' + str(i))
+            if f != '' and os.path.exists(f) and os.path.isfile(f):
+                FreeCAD.openDocument(f)
+                FreeCAD.Gui.activeDocument().activeView().viewIsometric()
+                FreeCAD.Gui.SendMsgToActiveView('ViewFit')
+                return
+        FreeCAD.Console.PrintError('The file cannot be opened...\n')
 
     def IsActive(self): return True
 
