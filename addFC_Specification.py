@@ -196,6 +196,14 @@ def get_specification(strict: bool = True,
                         if value != 0:
                             info[key][p.replace(group, '')] += value
 
+            # indexing duplicates:
+            if indexing:
+                original = index.replace(group, '')
+                if original in info[key]:
+                    if index not in i.PropertiesList:
+                        i.addProperty(index_pt, index, group[:-1])
+                        setattr(i, index, info[key][original])
+
         else:
             if indexing:
                 exception = False

@@ -185,7 +185,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                 steel['alias'] = f"{steel['alias']}_Steel"
 
         # reproduction:
-        shape = Part.getShape(body, '', needSubElement=False, refine=True)
+        shape = Part.getShape(body, '', needSubElement=False, refine=False)
         ad.addObject('Part::Feature', 'Reproduction').Shape = shape
         body = ad.ActiveObject
 

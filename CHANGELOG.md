@@ -64,3 +64,6 @@
 * Changes to the preferences interface.
 * Fixes: unfold and metal thickness.
 * Improvement: OpenRecentFile.
+
+#### 2024.10.19 (**0.7.4**):
+* Fix unfold and auto indexing.
