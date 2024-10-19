@@ -53,8 +53,8 @@ except ImportError:
     additions['numpy'][2] = 'color: #aa0000'
 
 try:
-    import SheetMetalCmd
-    f = os.path.join(os.path.dirname(SheetMetalCmd.__dir__), 'package.xml')
+    import smwb_locator
+    f = os.path.join(os.path.dirname(smwb_locator.__file__), 'package.xml')
     root = ET.parse(f).getroot()
     for i in root:
         if 'version' in i.tag:
