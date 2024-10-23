@@ -62,7 +62,7 @@ Explosion (30 FPS):
 
 The workbench is under development.
 
-Testing is performed on stable versions of FreeCAD.
+Testing is performed on stable versions (0.20 and 0.21) of FreeCAD.
 
 __Potential sheet metal issues when working in version 1.0...__
 
@@ -72,6 +72,12 @@ If you encounter problems after the update, try deleting the preferences directo
 
 
 ## Installation
+
+### Addon Manager
+
+This workbench is available through the FreeCAD [Addon Manager](https://github.com/FreeCAD/FreeCAD-addons/#1-builtin-addon-manager) (menu __Tools__ > __Addon Manager__). It is called __addFC__ in the Addon Repository.
+
+### Manual installation
 
 Download the [archive](https://github.com/GS90/addFC/archive/main.zip), unzip it and move the __addFC__ folder to the directory containing all additional FreeCAD modules:
 
