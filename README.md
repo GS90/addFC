@@ -77,6 +77,9 @@ If you encounter problems after the update, try deleting the preferences directo
 
 This workbench is available through the FreeCAD [Addon Manager](https://github.com/FreeCAD/FreeCAD-addons/#1-builtin-addon-manager) (menu __Tools__ > __Addon Manager__). It is called __addFC__ in the Addon Repository.
 
+<details>
+<summary><b>Manual Installation (Click to expand)</b></summary>
+
 ### Manual installation
 
 Download the [archive](https://github.com/GS90/addFC/archive/main.zip), unzip it and move the __addFC__ folder to the directory containing all additional FreeCAD modules:
@@ -93,6 +96,7 @@ To update the module, while in the __addFC__ directory, use:
 
 `git pull -r`
 
+</details>
 
 ### Dependencies
 
