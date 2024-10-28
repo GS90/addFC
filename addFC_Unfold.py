@@ -214,8 +214,8 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         u.Activated(None)
         FreeCAD.Gui.Selection.clearSelection()
 
-        # size:
-        bb = ad.Unfold_Sketch_Outline.Shape.BoundBox
+        us = ad.Unfold_Sketch
+        bb = us.Shape.BoundBox
 
         # location along the Y axis:
         if bb.XLength < bb.YLength:
@@ -229,7 +229,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             r = FreeCAD.Rotation(FreeCAD.Vector(0.00, 0.00, 1.00), 90.00)
             p = FreeCAD.Placement(FreeCAD.Vector(x, y, 0.00), r)
             try:
-                ad.getObject('Unfold_Sketch').Placement = p
+                us.Placement = p
             except BaseException:
                 pass
         else:
@@ -244,7 +244,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             r = FreeCAD.Rotation(FreeCAD.Vector(0.00, 0.00, 1.00), 0.00)
             p = FreeCAD.Placement(FreeCAD.Vector(x, y, 0.00), r)
             try:
-                ad.getObject('Unfold_Sketch').Placement = p
+                us.Placement = p
             except BaseException:
                 pass
 
@@ -293,7 +293,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         for i in range(int(details[d]['Quantity'])):
             if save_dxf:
                 f = os.path.join(target, f'{file} ({i + 1}).dxf')
-                importDXF.export([ad.getObject('Unfold_Sketch')], f)
+                importDXF.export([us], f)
                 # signature:
                 if signature[0] and len(sign) > 0:
                     size = int(abs(unfold_width) / len(sign))
@@ -305,7 +305,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                         add_signature(f, sign, unfold_width, size)
             if save_svg:
                 f = os.path.join(target, f'{file} ({i + 1}).svg')
-                importSVG.export([ad.getObject('Unfold_Sketch')], f)
+                importSVG.export([us], f)
             if save_stp:
                 f = os.path.join(target, f'{file} ({i + 1}).step')
                 ImportGui.export([body], f)

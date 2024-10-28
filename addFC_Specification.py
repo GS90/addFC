@@ -14,32 +14,40 @@ base_enumeration = tuple(['',] + [str(i).rjust(3, '0') for i in range(1, 51)])
 
 
 def define_thickness(body, bind=False, property='') -> float | int | str:
-    thickness, base = 0.0, ''
-    for i in base_enumeration:
-        o = body.getObject('BaseBend' + i)
-        if o is not None:
-            thickness = float(o.thickness)
-            base = f'{o.Name}.thickness'
-            break
-        o = body.getObject('BaseShape' + i)
-        if o is not None:
-            thickness = float(o.thickness)
-            base = f'{o.Name}.thickness'
-            break
-        o = body.getObject('Pad' + i)
-        if o is not None:
-            thickness = float(o.Length)
-            base = f'{o.Name}.Length'
-            break
-        o = body.getObject('BaseFeature' + i)
-        if o is not None:
-            thickness = float(o.BaseFeature.Value)
-            base = f'{o.BaseFeature.Name}.Value'
+    thickness, base, null = 0.0, '', '-'
+
+    try:
+        for i in base_enumeration:
+            o = body.getObject('BaseBend' + i)
+            if o is not None:
+                thickness = float(o.thickness)
+                base = f'{o.Name}.thickness'
+                break
+            o = body.getObject('BaseShape' + i)
+            if o is not None:
+                thickness = float(o.thickness)
+                base = f'{o.Name}.thickness'
+                break
+            o = body.getObject('Pad' + i)
+            if o is not None:
+                thickness = float(o.Length)
+                base = f'{o.Name}.Length'
+                break
+            o = body.getObject('BaseFeature' + i)
+            if o is not None:
+                thickness = float(o.BaseFeature.Value)
+                base = f'{o.BaseFeature.Name}.Value'
+    except BaseException as exception:
+        e = 'define_thickness: ' + str(exception) + '\n'
+        FreeCAD.Console.PrintError(e)
+        return null
+
     thickness = round(thickness, 2)
+
     if thickness == 0:
         w = f'{body.Label}: metal thickness is not determined\n'
         FreeCAD.Console.PrintWarning(w)
-        return '-'  # empty default value
+        return null
     else:
         if bind:
             body.setExpression(property, base)

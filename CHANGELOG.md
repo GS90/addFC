@@ -67,3 +67,6 @@
 
 #### 2024.10.19 (**0.7.4**):
 * Fix unfold and auto indexing.
+
+#### 2024.10.28 (**0.7.5**):
+* Fixes: unfold and specification.
