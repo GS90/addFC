@@ -9,6 +9,10 @@ def info(message: str) -> None:
     FreeCAD.Console.PrintMessage(f'addFC, info: {message}\n')
 
 
+def unfold(message: str) -> None:
+    FreeCAD.Console.PrintMessage(f'addFC, unfold: {message}\n')
+
+
 def warning(message: str) -> None:
     FreeCAD.Console.PrintWarning(f'addFC, warning: {message}\n')
 

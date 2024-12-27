@@ -38,7 +38,8 @@ GARBAGE = (
     VERIFICATION_SKETCH,
     'Unfold_Sketch_bends',
     'Unfold_Sketch_Internal',
-    'Unfold',  # object
+    # object, must be the last one:
+    'Unfold',
 )
 
 FORBIDDEN = re.escape('<>:"?*/|\\')
@@ -60,8 +61,6 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
     if not P.afc_additions['sm'][0]:
         w.error.setText('Warning: SheetMetal Workbench is not available!')
         return
-    if not P.afc_additions['ezdxf'][0]:
-        w.error.setText('Warning: ezdxf is not available!')
 
     if len(details) == 0 or len(details) == len(skip):
         w.progress.setValue(100)
@@ -182,7 +181,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             'manualKFactor', k_factor)
 
         # unfold:
-        Logger.log(f'{d}: {material} ({thickness}) {k_factor}')
+        Logger.unfold(f'{d}: {material} ({thickness}) {k_factor}')
         if u is not None:
             u.Activated(None)
         FreeCAD.Gui.Selection.clearSelection()

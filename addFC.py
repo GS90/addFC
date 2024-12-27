@@ -157,6 +157,9 @@ class AddFCSpecification():
         w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
             P.AFC_PATH, 'repo', 'ui', 'specification.ui'))
 
+        if not P.afc_additions['sm'][0]:
+            w.tabWidget.setTabEnabled(1, False)
+
         global specification
         specification = S.get_specification()
 

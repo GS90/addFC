@@ -71,13 +71,15 @@
 #### 2024.10.28 (**0.7.5**):
 * Fixes: unfold and specification.
 
-#### 2024.12.27 (**1.0.0**):
+#### 2024.12.27 (**1.0.1**):
 * The name for the property group is now standard ("Add") and unchangeable.
 * The properties "Weight" and "Price" have been moved to the basic group.
 * Added basic property "Node" to separate bill of materials.
 * Added materials for automatic calculation of mass and cost of objects.
+* Some properties can be edited in the specification graphical interface.
 * Increased stability in batch processing of sheet metal parts.
 * Added an experimental version of the library of elements and nodes.
 * A standard library has been created as part of the workbench.
+* SheetMetal Workbench has been removed from required dependencies.
 * Many other changes, fixes and improvements.
 * Backward compatibility may be broken...

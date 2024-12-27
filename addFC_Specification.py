@@ -114,6 +114,11 @@ def equation_price(obj, material: list) -> None:
             obj.setExpression(p, f'{v} / 10 ^ 9 * {price}')
 
 
+def get_doc_name(dn: str) -> str:
+    label = FreeCAD.getDocument(dn).Label
+    return dn if label == '' else label
+
+
 # ------------------------------------------------------------------------------
 
 
@@ -178,7 +183,7 @@ def get_specification(strict: bool = True,
 
     def visibility_full(inList: list) -> bool:
         for i in inList:
-            if not i.Visibility:
+            if i.TypeId != 'App::Link' and not i.Visibility:
                 return False
         return True
 
@@ -256,11 +261,11 @@ def get_specification(strict: bool = True,
 
         if property_node in i.PropertiesList:
             if i.Add_Node == '':
-                i.Add_Node = dn
+                i.Add_Node = get_doc_name(dn)
                 i.recompute(True)
             node = i.Add_Node
         else:
-            node = dn
+            node = get_doc_name(dn)
 
         nodes[node] = None
 

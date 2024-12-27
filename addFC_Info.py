@@ -55,7 +55,7 @@ configuration = {
         'panel': True,
         'recent': 'DIN',
         'sic': False,
-        'variation': 'Link',
+        'variation': 'Simple',
     },
     'library_list': {
         # standard:

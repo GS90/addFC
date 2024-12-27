@@ -373,7 +373,7 @@ class widget():
             else:
                 dp = os.path.join(library_path, catalog, file)
 
-            placement, part = extra(replace)
+            placement, root = extra(replace)
 
             add_object(
                 dp,
@@ -383,7 +383,7 @@ class widget():
                 self.form.variation.currentText(),
                 self.form.lcoc.currentText(),
                 placement,
-                part,
+                root,
             )
 
         def add() -> None: integration(False)
@@ -625,7 +625,7 @@ def add_object(dp: str,
                var: str,
                lcoc: str,
                placement: FreeCAD.Placement,
-               part: str) -> None:
+               root: str) -> None:
 
     ld = FreeCAD.listDocuments()
 
@@ -685,8 +685,8 @@ def add_object(dp: str,
             if not opened:
                 FreeCAD.closeDocument(doc.Name)
 
-    if part != '':
-        ad.getObject(part).addObject(dst)
+    if root != '':
+        ad.getObject(root).addObject(dst)
 
     ad.recompute()
 
@@ -709,14 +709,20 @@ def rename(src, dst) -> None:
 
 
 def extra(replace: bool) -> tuple[FreeCAD.Placement, str]:
-    placement, part = FreeCAD.Placement(), ''
+    placement, root = FreeCAD.Placement(), ''
+
+    objects = ad.findObjects('App::Part')
+    if len(objects) > 0:
+        obj = objects[0]
+        match obj.TypeId:
+            case 'App::Part' | 'Assembly::AssemblyObject': root = obj.Name
 
     vector, obj = FreeCAD.Vector(), None
 
     try:
         selection = FreeCAD.Gui.Selection.getSelectionEx('', 0)
         if len(selection) == 0:
-            return placement, part
+            return placement, root
         selection = selection[0]
         if selection.HasSubObjects:
             vector += selection.SubObjects[0].BoundBox.Center
@@ -727,7 +733,7 @@ def extra(replace: bool) -> tuple[FreeCAD.Placement, str]:
             sol = selection.Object.getSubObjectList(sen)
             zero = sol[0]
             if zero.TypeId == 'App::Part':
-                part = zero.Name
+                root = zero.Name
             if len(sol) == 1:
                 obj = zero
             else:
@@ -760,10 +766,10 @@ def extra(replace: bool) -> tuple[FreeCAD.Placement, str]:
                     Logger.warning('unsupported object to replace...')
             case _:
                 Logger.warning('unsupported object type to replace...')
-                part = ''
+                root = ''
         ad.recompute()
 
-    return placement, part
+    return placement, root
 
 
 # ------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 1.0.0 beta - [release notes](CHANGELOG.md).
+Current version 1.0.2 beta - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -72,7 +72,7 @@ The workbench is under development.
 
 Testing is performed on stable versions (0.20 and 0.21) of FreeCAD.
 
-__Potential sheet metal issues when working in version 1.0...__
+__Potential sheet metal issues when running version 1 and above.__
 
 If you encounter problems after the update, try deleting the preferences directory:
 
@@ -116,7 +116,7 @@ Requirements:
 For full functionality, you need:
 
 * [FreeCAD SheetMetal Workbench](https://github.com/shaise/FreeCAD_SheetMetal)
-* Additional Python Modules: [ezdxf](https://pypi.org/project/ezdxf) and [numpy](https://pypi.org/project/numpy)
+* Additional Python Modules: [numpy](https://pypi.org/project/numpy) and [ezdxf](https://pypi.org/project/ezdxf)
 * [FFmpeg](https://ffmpeg.org)
 
 When installing the workbench using __Addon Manager__, all dependencies (except FFmpeg) will be installed automatically.
