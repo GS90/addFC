@@ -4,11 +4,14 @@
 
 from importlib.metadata import version
 from PySide import QtGui, QtCore
+import addFC_Info as Info
+import addFC_Logger as Logger
 import copy
 import FreeCAD
 import json
 import math
 import os
+import re
 import subprocess
 import xml.etree.ElementTree as ET
 
@@ -16,7 +19,7 @@ import xml.etree.ElementTree as ET
 # ------------------------------------------------------------------------------
 
 
-additions: dict = {
+afc_additions = {
     'ezdxf': [True, '', 'color: #005500'],
     'ffmpeg': [True, '', 'color: #005500'],
     'numpy': [True, '', 'color: #005500'],
@@ -25,32 +28,32 @@ additions: dict = {
 
 
 try:
-    additions['ezdxf'][1] = version('ezdxf')
+    afc_additions['ezdxf'][1] = version('ezdxf')
 except ImportError:
-    additions['ezdxf'][0] = False
-    additions['ezdxf'][2] = 'color: #aa0000'
+    afc_additions['ezdxf'][0] = False
+    afc_additions['ezdxf'][2] = 'color: #aa0000'
 
 try:
     # todo: Windows, macOS
-    r = subprocess.run(
+    cp = subprocess.run(
         ['ffmpeg', '-version'],
         stdout=subprocess.DEVNULL,
     )
-    if r.returncode == 0:
+    if cp.returncode == 0:
         # todo: version number
         pass
     else:
-        additions['ffmpeg'][0] = False
-        additions['ffmpeg'][2] = 'color: #aa0000'
+        afc_additions['ffmpeg'][0] = False
+        afc_additions['ffmpeg'][2] = 'color: #aa0000'
 except BaseException:
-    additions['ffmpeg'][0] = False
-    additions['ffmpeg'][2] = 'color: #aa0000'
+    afc_additions['ffmpeg'][0] = False
+    afc_additions['ffmpeg'][2] = 'color: #aa0000'
 
 try:
-    additions['numpy'][1] = version('numpy')
+    afc_additions['numpy'][1] = version('numpy')
 except ImportError:
-    additions['numpy'][0] = False
-    additions['numpy'][2] = 'color: #aa0000'
+    afc_additions['numpy'][0] = False
+    afc_additions['numpy'][2] = 'color: #aa0000'
 
 try:
     import smwb_locator
@@ -58,116 +61,28 @@ try:
     root = ET.parse(f).getroot()
     for i in root:
         if 'version' in i.tag:
-            additions['sm'][1] = i.text
+            afc_additions['sm'][1] = i.text
             break
 except ImportError:
-    additions['sm'][0] = False
-    additions['sm'][2] = 'color: #aa0000'
+    afc_additions['sm'][0] = False
+    afc_additions['sm'][2] = 'color: #aa0000'
 
 
 # ------------------------------------------------------------------------------
 
 
-add_base: str = os.path.dirname(__file__)
-add_icon: str = os.path.join(add_base, 'repo', 'icon')
+FC_VERSION = tuple(FreeCAD.Version()[0:3])
 
-pref_configuration: str = os.path.join(add_base, 'pref', 'configuration.json')
-pref_properties: str = os.path.join(add_base, 'pref', 'properties.json')
-pref_steel: str = os.path.join(add_base, 'pref', 'steel.json')
-pref_explosion: str = os.path.join(add_base, 'pref', 'explosion.json')
+AFC_PATH = os.path.normpath(os.path.dirname(__file__))
+AFC_PATH_ICON = os.path.join(AFC_PATH, 'repo', 'icon')
 
+PATH_CONFIGURATION = os.path.join(AFC_PATH, 'pref', 'configuration.json')
+PATH_EXPLOSION = os.path.join(AFC_PATH, 'pref', 'explosion.json')
+PATH_MATERIALS = os.path.join(AFC_PATH, 'pref', 'materials.json')
+PATH_PROPERTIES = os.path.join(AFC_PATH, 'pref', 'properties.json')
+PATH_STEEL = os.path.join(AFC_PATH, 'pref', 'steel.json')
 
-reserved_str: str = 'Body'
-
-
-configuration: dict = {
-    'interface_font': [False, 'Sans Serif', 10],
-    'working_directory': '',
-    'properties_group': 'Add',
-    # unfold:
-    'unfold_dxf': True,
-    'unfold_svg': False,
-    'unfold_stp': False,
-    'unfold_file_name': 'Index',
-    'unfold_file_signature': 'None',
-    'unfold_prefix': 'Unfold',
-    # export specification:
-    'spec_export_type': 'Spreadsheet',
-    'spec_export_json_use_alias': False,
-    'spec_export_csv_use_alias': True,
-    'spec_export_spreadsheet_use_alias': True,
-    'spec_export_merger': 'Type',
-    'spec_export_sort': 'Name',
-    'spec_export_skip': ['Body',],
-    # sheet metal part:
-    'smp_density': 7800,
-    'smp_color': tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)),
-    # ru std: template
-    'ru_std_tpl_drawing': 'RU_Portrait_A4.svg',
-    'ru_std_tpl_text': 'RU_Portrait_A4_T_1.svg',
-    'ru_std_tpl_stamp': {
-        'Designation': 'XXXX.XXXXXX.XXX',
-        'Author': 'Иванов И. И.',
-        'Inspector': '',
-        'Control 1': '',
-        'Control 2': '',
-        'Approver': '',
-        'Material 1': '',
-        'Material 2': '',
-        'Company 1': '',
-        'Company 2': 'Организация',
-        'Company 3': '',
-        'Title 1': '',
-        'Title 2': 'Изделие',
-        'Title 3': '',
-        'Weight': '-',
-        'Scale': '1:1',
-        'Letter 1': 'П',
-        'Letter 2': '',
-        'Letter 3': '',
-    },
-}
-
-
-# specification_properties: title: [type, addition, [enumeration], alias]
-
-specification_properties_core: dict = {
-    # required:
-    'Name': ['String', False, [], ''],
-    # core:
-    'Code': ['String', False, [], ''],
-    'Index': ['String', False, [], ''],
-    'Material': ['Enumeration', False, [
-        '-', 'Steel', 'Galvanized', 'Stainless', 'AISI 304', 'AISI 316'], ''],
-    'MetalThickness': ['Float', False, [], ''],
-    'Quantity': ['Float', True, [], ''],
-    'Unfold': ['Bool', False, [], ''],
-    'Unit': ['Enumeration', False, ['-', 'm', 'kg', 'm²', 'm³'], ''],
-}
-
-specification_properties_add: dict = {  # recommended
-    'Format': ['Enumeration', False, ['A0', 'A1', 'A2', 'A3', 'A4'], ''],
-    'Id': ['String', False, [], ''],
-    'Note': ['String', False, [], ''],
-    'Price': ['Float', True, [], ''],
-    'Type': ['Enumeration', False, [
-        '-', 'Node', 'Part', 'Sheet metal part', 'Fastener', 'Material'], ''],
-    'Weight': ['Float', True, [], ''],
-    # разделы спецификации ЕСКД:
-    'Section': ['Enumeration', False, [
-        '-',
-        'Документация',
-        'Комплексы',
-        'Сборочные единицы',
-        'Детали',
-        'Стандартные изделия',
-        'Прочие изделия',
-        'Материалы',
-        'Комплекты',
-    ], ''],
-}
-
-available_properties: tuple = (
+AVAILABLE_PROPERTY_TYPES = (
     'Bool',
     'Enumeration',
     'Float',
@@ -175,99 +90,118 @@ available_properties: tuple = (
     'String',
 )
 
+SYSTEM_PROPERTIES = ('!Body', '!Trace')
 
-# ------------------------------------------------------------------------------
-
-
-def check_configuration() -> None:
-    d = os.path.dirname(pref_configuration)
-    if not os.path.exists(d):
-        os.makedirs(d)
-    if not os.path.exists(pref_configuration):
-        file = open(pref_configuration, 'w+', encoding='utf-8')
-        json.dump(configuration, file, ensure_ascii=False, indent=4)
-        file.close()
-    elif not os.path.isfile(pref_configuration):
-        os.remove(pref_configuration)
-        check_properties()
-
-
-def load_configuration() -> dict:
-    check_configuration()
-    try:
-        file = open(pref_configuration, 'r', encoding='utf-8')
-        result = configuration | json.load(file)
-        file.close()
-    except BaseException as e:
-        FreeCAD.Console.PrintError(str(e) + '\n')
-        result = configuration
-    return result
-
-
-def save_configuration(conf: dict) -> dict:
-    check_configuration()
-    result = load_configuration() | conf
-    try:
-        file = open(pref_configuration, 'w+', encoding='utf-8')
-        json.dump(result, file, ensure_ascii=False, indent=4)
-        file.close()
-    except BaseException as e:
-        FreeCAD.Console.PrintError(str(e) + '\n')
+AVAILABLE_CHARACTERS = re.compile('[^A-Za-z0-9]')
 
 
 # ------------------------------------------------------------------------------
 
 
-def check_properties() -> None:
-    d = os.path.dirname(pref_properties)
+def check_pref(path: str, std: dict) -> None:
+    d = os.path.dirname(path)
     if not os.path.exists(d):
         os.makedirs(d)
-    if not os.path.exists(pref_properties):
-        file = open(pref_properties, 'w+', encoding='utf-8')
-        result = specification_properties_core | specification_properties_add
-        json.dump(result, file, ensure_ascii=False, indent=4)
+    if not os.path.exists(path):
+        file = open(path, 'w+', encoding='utf-8')
+        json.dump(std, file, ensure_ascii=False, indent=4)
         file.close()
-    elif not os.path.isfile(pref_properties):
-        os.remove(pref_properties)
-        check_properties()
+    elif not os.path.isfile(path):
+        os.remove(path)
+        check_pref(path, std)
+
+
+def load_pref(path: str, std: dict, conf=False) -> dict:
+    check_pref(path, std)
+    try:
+        file = open(path, 'r', encoding='utf-8')
+        result = std | json.load(file)
+        file.close()
+        if conf:
+            # outdated parameters:
+            for i in list(result):
+                if i not in Info.configuration:
+                    _ = result.pop(i, None)
+            # completeness:
+            for i in Info.configuration:
+                if i not in result:
+                    result[i] = Info.configuration[i]
+                value = Info.configuration[i]
+                if type(value) is dict:
+                    if type(result[i]) is not dict:
+                        result[i] = value
+                    else:
+                        for j in value:
+                            if j not in result[i]:
+                                result[i][j] = value[j]
+        return result
+    except BaseException as e:
+        Logger.error(f'load, pref: {e}')
+        return std
 
 
 def load_properties() -> dict:
-    check_properties()
+    check_pref(PATH_PROPERTIES, Info.properties_core | Info.properties_add)
     try:
-        file = open(pref_properties, 'r', encoding='utf-8')
+        file = open(PATH_PROPERTIES, 'r', encoding='utf-8')
         result = json.load(file)
         file.close()
     except BaseException as e:
-        FreeCAD.Console.PrintError(str(e) + '\n')
-        result = specification_properties_add
-    properties = result | copy.deepcopy(specification_properties_core)
-    # processing values:
+        Logger.error(f'load, prop: {e}')
+        result = Info.properties_add
+    properties = copy.deepcopy(Info.properties_core)
     for key in result:
-        value = result[key]
-        if result[key][0] == 'Enumeration':
-            # removing duplicate values:
-            value[2] = list(dict.fromkeys(value[2]))
-        if key == 'Material':
-            # checking the required values:
-            for i in value[2]:
-                if i not in properties[key][2]:
-                    properties[key][2].append(i)
-        if len(value) > 3:  # alias
-            properties[key][3] = value[3]
+        if key not in properties:
+            properties[re.sub(AVAILABLE_CHARACTERS, '', key)] = result[key]
+            if len(properties[key][2]) > 0:  # enumeration
+                # remove duplicates:
+                enum = list(dict.fromkeys(properties[key][2]))
+                # default value:
+                if '-' not in enum:
+                    enum.insert(0, '-')
+                else:
+                    i = enum.index('-')
+                    if i != 0:
+                        enum[i], enum[0] = enum[0], enum[i]
+                #
+                properties[key][2] = enum
     return properties
 
 
-def save_properties(properties: dict, init: bool = False) -> None:
-    check_properties()
-    if init:
-        return
+def load_steel() -> dict:
+    check_pref(PATH_STEEL, Info.steel)
     try:
-        file = open(pref_properties, 'w+', encoding='utf-8')
-        json.dump(properties, file, ensure_ascii=False, indent=4)
+        file = open(PATH_STEEL, 'r', encoding='utf-8')
+        result = json.load(file)
         file.close()
     except BaseException as e:
-        FreeCAD.Console.PrintError(str(e) + '\n')
+        Logger.error(f'load steel: {e}')
+        result = Info.steel
+    steel = {}
+    for i in result:
+        steel[i] = {}
+        for j in result[i]:
+            try:
+                steel[i][float(j)] = result[i][j]
+            except ValueError:
+                pass
+    return steel
+
+
+def save_pref(path: str, pref: dict, indent=4) -> None:
+    try:
+        file = open(path, 'w+', encoding='utf-8')
+        json.dump(pref, file, ensure_ascii=False, indent=indent)
+        file.close()
+    except BaseException as e:
+        Logger.error(f'save pref: {e}')
+
+
+pref_configuration = load_pref(PATH_CONFIGURATION, Info.configuration, True)
+pref_explosion = load_pref(PATH_EXPLOSION, Info.explosion)
+pref_materials = load_pref(PATH_MATERIALS, Info.materials)
+pref_properties = load_properties()
+pref_steel = load_steel()
 
 
 # ------------------------------------------------------------------------------
@@ -275,222 +209,283 @@ def save_properties(properties: dict, init: bool = False) -> None:
 
 class addFCPreferenceSpecification():
     def __init__(self):
-        ui = os.path.join(add_base, 'repo', 'ui', 'pref_specification.ui')
-        self.form = FreeCAD.Gui.PySideUic.loadUi(ui)
-
-        conf = load_configuration()
-        self.form.lineEditGroup.setText(conf['properties_group'])
-
-        properties, enumerated = load_properties(), {}
+        self.form = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            AFC_PATH, 'repo', 'ui', 'pref_specification.ui'))
 
         headers_properties = ('Title', 'Type', 'Addition', 'Alias')
         headers_values = ('Property', 'Values')
 
-        color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
+        color_black = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
+        color_grey = QtGui.QBrush(QtGui.QColor(100, 100, 100))
+        color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
 
-        tableProperties = self.form.tableProperties
-        tableValues = self.form.tableValues
+        table_properties = self.form.tableProperties
+        table_values = self.form.tableValues
 
         def align(t, i: int) -> None:
             t.resizeColumnsToContents()
             t.resizeRowsToContents()
             t.horizontalHeader().setResizeMode(i, QtGui.QHeaderView.Stretch)
 
-        #####################
-        # table: properties #
-        #####################
+        # ---------- #
+        # properties #
+        # ---------- #
 
-        tableProperties.setColumnCount(len(headers_properties))
-        tableProperties.setHorizontalHeaderLabels(headers_properties)
-        tableProperties.setRowCount(len(properties))
+        table_properties.setColumnCount(len(headers_properties))
+        table_properties.setHorizontalHeaderLabels(headers_properties)
+        table_properties.setRowCount(len(pref_properties))
+
+        enum = {}
 
         addition_flags = QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
         x = 0
-        for key in properties:
-            value = properties[key]
+        for key in pref_properties:
+            value = pref_properties[key]
             if value[0] == 'Enumeration':
-                enumerated[key] = value[2]
-            core = True if key in specification_properties_core else False
+                enum[key] = value[2]
+            core = True if key in Info.properties_core else False
             # title:
             i = QtGui.QTableWidgetItem(key)
             if core:
                 i.setFlags(QtCore.Qt.NoItemFlags)
-            tableProperties.setItem(x, 0, i)
+            table_properties.setItem(x, 0, i)
             # type:
             i = QtGui.QTableWidgetItem(value[0])
             if core:
                 i.setFlags(QtCore.Qt.NoItemFlags)
             else:
-                i.setForeground(color_blue)
-            tableProperties.setItem(x, 1, i)
+                if value[0] in AVAILABLE_PROPERTY_TYPES:
+                    i.setForeground(color_blue)
+                else:
+                    i.setForeground(color_red)
+            table_properties.setItem(x, 1, i)
             # addition:
-            i = QtGui.QTableWidgetItem(str(value[1]))
+            b = value[1]
+            i = QtGui.QTableWidgetItem(str(b))
             if core:
                 i.setFlags(QtCore.Qt.NoItemFlags)
             else:
                 i.setFlags(addition_flags)
-            tableProperties.setItem(x, 2, i)
+                i.setForeground(color_black if b else color_grey)
+            table_properties.setItem(x, 2, i)
             # alias:
             i = QtGui.QTableWidgetItem(str(value[3]))
-            tableProperties.setItem(x, 3, i)
+            table_properties.setItem(x, 3, i)
             #
             x += 1
 
-        align(tableProperties, headers_properties.index('Title'))
+        align(table_properties, headers_properties.index('Title'))
 
-        #################
-        # table: values #
-        #################
+        # ------ #
+        # values #
+        # ------ #
 
-        tableValues.setColumnCount(len(headers_values))
-        tableValues.setHorizontalHeaderLabels(headers_values)
-        tableValues.setRowCount(len(enumerated))
+        table_values.setColumnCount(len(headers_values))
+        table_values.setHorizontalHeaderLabels(headers_values)
+        table_values.setRowCount(len(enum))
 
         x = 0
-        for key in enumerated:
+        for key in enum:
             i = QtGui.QTableWidgetItem(key)
             i.setFlags(QtCore.Qt.NoItemFlags)
-            tableValues.setItem(x, 0, i)
-            i = QtGui.QTableWidgetItem(', '.join(enumerated[key]))
-            if key == 'Unit':
+            table_values.setItem(x, 0, i)
+            if key == 'Material':
+                i = QtGui.QTableWidgetItem('... use the materials tab')
                 i.setFlags(QtCore.Qt.NoItemFlags)
-            tableValues.setItem(x, 1, i)
+                table_values.setItem(x, 1, i)
+            elif key == 'Unit':
+                i = QtGui.QTableWidgetItem(', '.join(enum[key]))
+                i.setFlags(QtCore.Qt.NoItemFlags)
+                table_values.setItem(x, 1, i)
+            else:
+                i = QtGui.QTableWidgetItem(', '.join(enum[key]))
+                table_values.setItem(x, 1, i)
             x += 1
 
-        align(tableValues, headers_values.index('Values'))
+        align(table_values, headers_values.index('Values'))
 
-        ###########
+        # ------- #
         # actions #
-        ###########
+        # ------- #
 
         def remove() -> None:
-            tableProperties.removeRow(tableProperties.currentRow())
+            table_properties.removeRow(table_properties.currentRow())
             check_values()
         self.form.pushButtonRemove.clicked.connect(remove)
 
         def add() -> None:
-            tableProperties.insertRow(tableProperties.rowCount())
-            align(tableProperties, headers_properties.index('Title'))
+            count = table_properties.rowCount()
+            table_properties.insertRow(count)
+            i = QtGui.QTableWidgetItem('String')  # type
+            i.setForeground(color_blue)
+            table_properties.setItem(count, 1, i)
+            i = QtGui.QTableWidgetItem('False')  # addition
+            i.setFlags(addition_flags)
+            i.setForeground(color_grey)
+            table_properties.setItem(count, 2, i)
         self.form.pushButtonAdd.clicked.connect(add)
 
-        def check_values() -> None:
-            properties = []
-            for row in range(tableProperties.rowCount()):
-                t = tableProperties.item(row, 1)
-                if t is not None:
-                    if t.text() == 'Enumeration':
-                        properties.append(tableProperties.item(row, 0).text())
-            for row in range(tableValues.rowCount()):
-                n = tableValues.item(row, 0).text()
-                if n not in properties:
-                    tableValues.removeRow(row)
+        def check_values(r: None | str = None) -> None:
+            prop, backup = [], None
+            for row in range(table_properties.rowCount()):
+                i = table_properties.item(row, 1)  # type
+                if i is not None:
+                    if i.text() == 'Enumeration':
+                        title = table_properties.item(row, 0)
+                        if title is None:
+                            return
+                        if title.text() == '':
+                            return
+                        prop.append(title.text())
+            for row in range(table_values.rowCount()):
+                i = table_values.item(row, 0).text()  # title
+                if i not in prop:
+                    if r is None:
+                        table_values.removeRow(row)
+                    else:  # renaming
+                        if table_values.item(row, 1) is not None:
+                            backup = table_values.item(row, 1).text()
+                        table_values.removeRow(row)
                 else:
-                    properties.remove(n)
-            for n in properties:
-                count = tableValues.rowCount()
-                tableValues.insertRow(count)
-                i = QtGui.QTableWidgetItem(n)
-                i.setFlags(QtCore.Qt.NoItemFlags)
-                tableValues.setItem(count, 0, i)
+                    prop.remove(i)
+            for i in prop:
+                count = table_values.rowCount()
+                table_values.insertRow(count)
+                item = QtGui.QTableWidgetItem(i)
+                item.setFlags(QtCore.Qt.NoItemFlags)
+                table_values.setItem(count, 0, item)
+                if backup is not None:
+                    item = QtGui.QTableWidgetItem(backup)
+                    table_values.setItem(count, 1, item)
 
-        def changed(item) -> None:
-            if item.column() == 0:
-                if item is not None:
-                    # reserved:
-                    if item.text() == reserved_str:
-                        item.setText(f'{item.text()} (reserved)')
-                    # duplicates:
-                    for row in range(tableProperties.rowCount()):
-                        if row == item.row():
-                            continue
-                        i = tableProperties.item(row, 0)
-                        if i is not None:
-                            if i.text() == item.text():
-                                item.setText(f'{item.text()} (duplicate)')
+        def changed(item) -> None | str:  # title, if renaming
+            if item is None:
                 return
+            text = item.text()
+
+            if item.column() == 0:
+                t = table_properties.item(item.row(), 1)  # type
+                t = '' if t is None else t.text()
+                text = re.sub(AVAILABLE_CHARACTERS, '', text)
+                if text == '':
+                    return
+                # duplicates:
+                for row in range(table_properties.rowCount()):
+                    if row == item.row():
+                        continue
+                    i = table_properties.item(row, 0)
+                    if i is not None:
+                        if i.text() == text:
+                            text += ' (duplicate)'
+                #
+                item.setText(text)
+                return text if t == 'Enumeration' else None
 
             if item.column() != 1:
                 return
-            elif item is None:
-                return
-            elif item.text() == '':
+            elif text == '':
                 return
 
-            n = tableProperties.item(item.row(), 0)
-            if n is None:
+            title = table_properties.item(item.row(), 0)
+            if title is None:
                 return
-            elif n.text() == '':
+            elif title.text() == '':
                 return
 
-            if item.text() in available_properties:
+            if text in AVAILABLE_PROPERTY_TYPES:
                 item.setForeground(color_blue)
             else:
-                item.setForeground(color_red)
-                return
-            if item.text() == 'Enumeration':
+                replaced = False
+                for i in AVAILABLE_PROPERTY_TYPES:
+                    if text.lower() in i.lower():
+                        item.setText(i)
+                        replaced = True
+                if not replaced:
+                    item.setForeground(color_red)
+                    return
+            if text == 'Enumeration':
                 # duplicates:
-                for row in range(tableValues.rowCount()):
-                    if tableValues.item(row, 0).text() == n.text():
+                for row in range(table_values.rowCount()):
+                    if table_values.item(row, 0).text() == title.text():
                         return
-                # add:
-                count = tableValues.rowCount()
-                tableValues.insertRow(count)
-                i = QtGui.QTableWidgetItem(n.text())
+                # insert:
+                count = table_values.rowCount()
+                table_values.insertRow(count)
+                i = QtGui.QTableWidgetItem(title.text())
                 i.setFlags(QtCore.Qt.NoItemFlags)
-                tableValues.setItem(count, 0, i)
+                table_values.setItem(count, 0, i)
 
         def changed_wrapper(item) -> None:
-            changed(item)
-            check_values()
-            align(tableProperties, headers_properties.index('Title'))
-            align(tableValues, headers_values.index('Values'))
+            check_values(changed(item))
+            align(table_properties, headers_properties.index('Title'))
+            align(table_values, headers_values.index('Values'))
 
         def switch(item) -> None:
+            if item is None:
+                return
             if item.column() == 2:
-                if item is not None:
-                    v = 'True' if item.text() == 'False' else 'False'
-                    item.setText(v)
+                if item.text() == 'True':
+                    item.setText('False')
+                    item.setForeground(color_grey)
+                else:
+                    item.setText('True')
+                    item.setForeground(color_black)
 
         self.form.tableProperties.itemChanged.connect(changed_wrapper)
         self.form.tableProperties.itemDoubleClicked.connect(switch)
 
+        def check_current_value(item):
+            if item.column() != 1:
+                return
+            values = table_values.item(item.row(), 1)
+            if values is None:
+                return
+            values = values.text()
+            if values == '':
+                return
+            split, enum = values.split(','), []
+            for s in split:
+                v = s.strip()
+                if v != '' and v not in enum:
+                    enum.append(v)
+            if '-' not in enum:
+                enum.insert(0, '-')
+            else:
+                index = enum.index('-')
+                if index != 0:
+                    enum[index], enum[0] = enum[0], enum[index]
+            item.setText(', '.join(enum))
+
+        self.form.tableValues.itemChanged.connect(check_current_value)
+
         return
 
-    def __del__(self):
-        # configuration:
-        properties_group = self.form.lineEditGroup.text().strip()
-        if properties_group != '':
-            global configuration
-            if properties_group != configuration['properties_group']:
-                configuration['properties_group'] = properties_group
-                save_configuration(configuration)
+    def saveSettings(self):
+        table_properties = self.form.tableProperties
+        table_values = self.form.tableValues
 
-        tableProperties = self.form.tableProperties
-        tableValues = self.form.tableValues
         properties = {}
 
-        for row in range(tableProperties.rowCount()):
+        for row in range(table_properties.rowCount()):
             # title and type:
-            p_title = tableProperties.item(row, 0)
-            p_type = tableProperties.item(row, 1)
+            p_title = table_properties.item(row, 0)
+            p_type = table_properties.item(row, 1)
             if p_title is None or p_type is None:
                 continue
             p_title = p_title.text().strip()
             p_type = p_type.text().strip()
-            if p_title == '' or p_type == '':
+            if p_title == '' or p_type not in AVAILABLE_PROPERTY_TYPES:
                 continue
             # addition:
-            p_addition = tableProperties.item(row, 2)
+            p_addition = table_properties.item(row, 2)
             if p_addition is None:
                 p_addition = 'False'
             else:
                 p_addition = p_addition.text().strip()
-            if p_type != 'Float' and p_type != 'Integer':
-                p_addition = 'False'
-            p_addition = False if p_addition == 'False' else True
+            p_addition = True if p_addition == 'True' else False
             # alias:
-            p_alias = tableProperties.item(row, 3)
+            p_alias = table_properties.item(row, 3)
             if p_alias is None:
                 p_alias = ''
             else:
@@ -498,98 +493,280 @@ class addFCPreferenceSpecification():
             # result:
             properties[p_title] = [p_type, p_addition, [], p_alias]
 
-        for row in range(tableValues.rowCount()):
-            p_title = tableValues.item(row, 0).text()
-            if p_title in properties:
-                if tableValues.item(row, 1) is None:
-                    continue
-                split = tableValues.item(row, 1).text().split(',')
+        for row in range(table_values.rowCount()):
+            p_title = table_values.item(row, 0).text()
+            if p_title not in properties or table_values.item(row, 1) is None:
+                continue
+            if p_title == 'Material':
+                # core, only:
+                properties[p_title][2] = Info.properties_core['Material'][2]
+            else:
+                split = table_values.item(row, 1).text().split(',')
                 for s in split:
                     v = s.strip()
                     if v != '':
                         properties[p_title][2].append(v)
 
-        save_properties(properties)
+        global pref_properties
+        pref_properties = properties
+        save_pref(PATH_PROPERTIES, pref_properties, None)
 
 
 # ------------------------------------------------------------------------------
 
 
-steel: dict = {
-    # title: {thickness: radius, k-factor, alias}
-    'galvanized': {
-        0.5: [1.3, 0.473, 'A',],
-        0.8: [1.3, 0.460, 'B',],
-        1.0: [1.3, 0.453, 'C',],
-        1.2: [1.7, 0.456, 'D',],
-        1.5: [1.7, 0.448, 'D',],
-        2.0: [2.7, 0.454, 'E',],
-        3.0: [3.3, 0.446, 'F',],
-    },
-    'stainless': {
-        0.5: [1.3, 0.473, 'AS',],
-        0.8: [1.3, 0.460, 'BS',],
-        1.0: [1.3, 0.453, 'CS',],
-        1.2: [1.7, 0.456, 'DS',],
-        1.5: [1.7, 0.448, 'DS',],
-        2.0: [2.7, 0.454, 'ES',],
-        3.0: [3.3, 0.446, 'FS',],
-    },
-}
-
-
-def check_steel() -> None:
-    d = os.path.dirname(pref_steel)
-    if not os.path.exists(d):
-        os.makedirs(d)
-    if not os.path.exists(pref_steel):
-        file = open(pref_steel, 'w+', encoding='utf-8')
-        json.dump(steel, file, ensure_ascii=False, indent=4)
-        file.close()
-    elif not os.path.isfile(pref_steel):
-        os.remove(pref_steel)
-        check_properties()
-
-
-def load_steel() -> dict:
-    check_steel()
-    try:
-        file = open(pref_steel, 'r', encoding='utf-8')
-        result = steel | json.load(file)
-        file.close()
-    except BaseException as e:
-        FreeCAD.Console.PrintError(str(e) + '\n')
-        result = steel
-    return result
-
-
-def save_steel(s: dict) -> dict:
-    check_steel()
-    result = load_steel() | s
-    try:
-        file = open(pref_steel, 'w+', encoding='utf-8')
-        json.dump(result, file, ensure_ascii=False, indent=4)
-        file.close()
-    except BaseException as e:
-        FreeCAD.Console.PrintError(str(e) + '\n')
-
-
-class addFCPreferenceSM():
+class addFCPreferenceMaterials():
     def __init__(self):
-        ui = os.path.join(add_base, 'repo', 'ui', 'pref_sm.ui')
-        self.form = FreeCAD.Gui.PySideUic.loadUi(ui)
+        self.form = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            AFC_PATH, 'repo', 'ui', 'pref_materials.ui'))
 
-        tableGalvanized = self.form.tableGalvanized
-        tableStainless = self.form.tableStainless
+        headers = ('Title', 'Category', 'Density', 'Unit', 'Price per unit')
 
-        headers = ('Thickness', 'Radius', 'K-Factor', 'Alias')
+        table = self.form.tableMaterials
+        units = Info.properties_core['Unit'][2]  # standard
 
-        d = load_steel()
+        color_black = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
+        color_grey = QtGui.QBrush(QtGui.QColor(100, 100, 100))
+        color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
+
+        def set_default_material(default='') -> None:
+            current = self.form.comboBoxDM.currentText()
+            materials = []
+            for row in range(table.rowCount()):
+                i = table.item(row, 0)
+                if i is not None:
+                    text = i.text()
+                    if text != '-':
+                        materials.append(text)
+            self.form.comboBoxDM.clear()
+            self.form.comboBoxDM.addItems(materials)
+            if default != '' and default in materials:
+                self.form.comboBoxDM.setCurrentText(default)
+            elif current in materials:
+                self.form.comboBoxDM.setCurrentText(current)
 
         def align(t, i: int) -> None:
             t.resizeColumnsToContents()
             t.resizeRowsToContents()
             t.horizontalHeader().setResizeMode(i, QtGui.QHeaderView.Stretch)
+
+        def purge() -> None:
+            table.setSortingEnabled(False)
+            table.clearSelection()
+            table.clearContents()
+            table.setColumnCount(0)
+            table.setRowCount(0)
+
+        def fill() -> None:
+            purge()
+            table.setColumnCount(len(headers))
+            table.setHorizontalHeaderLabels(headers)
+            table.setRowCount(len(pref_materials) - 1)  # without '-'
+            x = 0
+            for key in pref_materials:
+                if key == '-':
+                    continue
+                if key == 'Galvanized' or key == 'Stainless':
+                    std = True
+                else:
+                    std = False
+                value = pref_materials[key]
+                # title and category:
+                i = QtGui.QTableWidgetItem(key)
+                if std:
+                    i.setFlags(QtCore.Qt.NoItemFlags)
+                else:
+                    if ' (duplicate)' in key:
+                        i.setForeground(color_red)
+                    else:
+                        i.setForeground(color_black)
+                table.setItem(x, 0, i)  # title
+                i = QtGui.QTableWidgetItem(value[0])
+                if std:
+                    i.setFlags(QtCore.Qt.NoItemFlags)
+                table.setItem(x, 1, i)  # category
+                # density:
+                density = value[1]
+                i = QtGui.QTableWidgetItem(str(density))
+                i.setForeground(color_grey if density == 0 else color_black)
+                table.setItem(x, 2, i)
+                # unit:
+                unit = value[2]
+                if unit not in units:
+                    unit = '-'
+                i = QtGui.QTableWidgetItem(unit)
+                i.setForeground(color_blue)
+                table.setItem(x, 3, i)
+                # price:
+                price = value[3]
+                i = QtGui.QTableWidgetItem(str(price))
+                i.setForeground(color_grey if price == 0 else color_black)
+                table.setItem(x, 4, i)
+                #
+                x += 1
+            align(table, headers.index('Title'))
+            table.setSortingEnabled(True)
+
+        fill()
+        set_default_material(pref_configuration['default_material'])
+
+        def default() -> None:
+            global pref_materials
+            pref_materials = Info.materials
+            save_pref(PATH_MATERIALS, pref_materials, None)
+            fill()
+            set_default_material(pref_configuration['default_material'])
+        self.form.pushButtonDefault.clicked.connect(default)
+
+        def remove() -> None:
+            title = table.item(table.currentRow(), 0)
+            if title is not None:
+                title = title.text()
+                if title == 'Galvanized' or title == 'Stainless':  # standard
+                    return
+            table.removeRow(table.currentRow())
+            set_default_material()
+        self.form.pushButtonRemove.clicked.connect(remove)
+
+        def add() -> None:
+            x = table.rowCount()
+            table.insertRow(x)
+            table.setItem(x, 1, QtGui.QTableWidgetItem('User'))  # category
+            table.setItem(x, 2, QtGui.QTableWidgetItem('0'))     # density
+            table.setItem(x, 3, QtGui.QTableWidgetItem('kg'))    # unit
+            table.setItem(x, 4, QtGui.QTableWidgetItem('0'))     # price
+        self.form.pushButtonAdd.clicked.connect(add)
+
+        def changed(item) -> None:
+            if item is None:
+                return
+            text = item.text()
+            match item.column():
+                case 0:  # title
+                    if text == '':
+                        return
+                    # duplicate = False
+                    for row in range(table.rowCount()):
+                        if row == item.row():
+                            continue
+                        i = table.item(row, 0)
+                        if i is not None:
+                            if i.text() == text:
+                                text += ' (duplicate)'
+                                # duplicate = True
+                    item.setText(text)
+                    if ' (duplicate)' in text:
+                        item.setForeground(color_red)
+                    else:
+                        item.setForeground(color_black)
+                case 1:  # category
+                    if text == '':
+                        item.setText('User')
+                case 2 | 4:  # density and price
+                    try:
+                        i = int(text)
+                        color = color_grey if i == 0 else color_black
+                    except BaseException:
+                        i = 0
+                        color = color_grey
+                    item.setText(str(i))
+                    item.setForeground(color)
+                case 3:  # unit
+                    if text not in units:
+                        if text == '':
+                            item.setText('kg')
+                        else:
+                            item.setForeground(color_red)
+                    else:
+                        item.setForeground(color_blue)
+
+        def changed_wrapper(item) -> None:
+            changed(item)
+            set_default_material()
+            align(table, headers.index('Title'))
+
+        self.form.tableMaterials.itemChanged.connect(changed_wrapper)
+
+        return
+
+    def saveSettings(self):
+        dm = self.form.comboBoxDM.currentText()
+        if pref_configuration['default_material'] != dm:
+            pref_configuration['default_material'] = dm
+            save_pref(PATH_CONFIGURATION, pref_configuration)
+
+        table = self.form.tableMaterials
+        units = Info.properties_core['Unit'][2]  # standard
+
+        materials = {}
+
+        for row in range(table.rowCount()):
+            # title and category:
+            title, category = table.item(row, 0), table.item(row, 1)
+            if title is None or category is None:
+                continue
+            title, category = title.text().strip(), category.text().strip()
+            if title == '':
+                continue
+            if category == '':
+                category = 'User'
+            # density:
+            density = table.item(row, 2)
+            if density is None:
+                density = 0
+            else:
+                try:
+                    density = int(density.text())
+                except ValueError:
+                    density = 0
+            # unit, price per unit:
+            unit, price = table.item(row, 3), table.item(row, 4)
+            if unit is None:
+                unit = '-'
+            else:
+                unit = unit.text()
+                if unit not in units:
+                    unit = '-'
+            if price is None:
+                price = 0
+            else:
+                try:
+                    price = int(price.text())
+                except ValueError:
+                    price = 0
+            # store:
+            materials[title] = [category, density, unit, price]
+
+        # standard values:
+        materials['-'] = None
+        if 'Galvanized' not in materials:
+            materials['Galvanized'] = Info.materials['Galvanized']
+        if 'Stainless' not in materials:
+            materials['Stainless'] = Info.materials['Stainless']
+
+        global pref_materials
+        pref_materials = materials
+        save_pref(PATH_MATERIALS, pref_materials, None)
+
+
+# ------------------------------------------------------------------------------
+
+
+class addFCPreferenceSM():
+    def __init__(self):
+        self.form = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            AFC_PATH, 'repo', 'ui', 'pref_sm.ui'))
+
+        table_galvanized = self.form.tableGalvanized
+        table_stainless = self.form.tableStainless
+
+        headers = ('Thickness', 'Radius', 'K-Factor')
+
+        def align(t) -> None:
+            t.resizeColumnsToContents()
+            t.resizeRowsToContents()
+            t.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
 
         def fill(t, d: dict) -> None:
             t.setColumnCount(len(headers))
@@ -599,27 +776,26 @@ class addFCPreferenceSM():
             i = QtGui.QTableWidgetItem
             for key in d:
                 value = d[key]
-                t.setItem(x, 0, i(str(key)))       # Thickness
-                t.setItem(x, 1, i(str(value[0])))  # Radius
-                t.setItem(x, 2, i(str(value[1])))  # K-Factor
-                t.setItem(x, 3, i(value[2]))       # Alias
+                t.setItem(x, 0, i(str(key)))       # thickness
+                t.setItem(x, 1, i(str(value[0])))  # radius
+                t.setItem(x, 2, i(str(value[1])))  # k-factor
                 x += 1
-            align(t, headers.index('Alias'))
+            align(t)
 
-        fill(tableGalvanized, d['galvanized'])
-        fill(tableStainless, d['stainless'])
+        fill(table_galvanized, pref_steel['Galvanized'])
+        fill(table_stainless, pref_steel['Stainless'])
 
         def calculate_factor() -> None:
-            for table in (tableGalvanized, tableStainless):
+            for table in (table_galvanized, table_stainless):
                 for row in range(table.rowCount()):
-                    t = table.item(row, 0)  # Thickness
+                    t = table.item(row, 0)  # thickness
                     if t is None:
                         continue
                     try:
                         t = max(0.1, float(t.text().replace(',', '.')))
                     except BaseException:
                         continue
-                    r = table.item(row, 1)  # Radius
+                    r = table.item(row, 1)  # radius
                     if r is None:
                         r = t
                     else:
@@ -629,39 +805,40 @@ class addFCPreferenceSM():
                             r = t
                     k = 1 / math.log(1 + t / r) - r / t
                     i = table.item(row, 2)
-                    i.setText(str(round(k, 3)))  # K-Factor
+                    i.setText(str(round(k, 3)))  # k-factor
         self.form.calculate.clicked.connect(calculate_factor)
 
         def galvanized_default() -> None:
-            fill(tableGalvanized, steel['galvanized'])
+            fill(table_galvanized, Info.steel['Galvanized'])
         self.form.galvanizedDefault.clicked.connect(galvanized_default)
 
         def galvanized_remove() -> None:
-            tableGalvanized.removeRow(tableGalvanized.currentRow())
+            table_galvanized.removeRow(table_galvanized.currentRow())
         self.form.galvanizedRemove.clicked.connect(galvanized_remove)
 
         def galvanized_add() -> None:
-            tableGalvanized.insertRow(tableGalvanized.rowCount())
-            align(tableGalvanized, headers.index('Alias'))
+            table_galvanized.insertRow(table_galvanized.rowCount())
+            align(table_galvanized)
         self.form.galvanizedAdd.clicked.connect(galvanized_add)
 
         def stainless_default() -> None:
-            fill(tableStainless, steel['stainless'])
+            fill(table_stainless, Info.steel['Stainless'])
         self.form.stainlessDefault.clicked.connect(stainless_default)
 
         def stainless_remove() -> None:
-            tableStainless.removeRow(tableStainless.currentRow())
+            table_stainless.removeRow(table_stainless.currentRow())
         self.form.stainlessRemove.clicked.connect(stainless_remove)
 
         def stainless_add() -> None:
-            tableStainless.insertRow(tableStainless.rowCount())
-            align(tableStainless, headers.index('Alias'))
+            table_stainless.insertRow(table_stainless.rowCount())
+            align(table_stainless)
         self.form.stainlessAdd.clicked.connect(stainless_add)
 
         def color_set(color: tuple | list) -> None:
             color = QtGui.QColor(*color).name()
             self.form.color.setText(color)
-            self.form.color.setStyleSheet('QPushButton {color:' + color + '}')
+            self.form.color.setStyleSheet(
+                'QPushButton {color:' + str(color) + '}')
 
         def color_get() -> None:
             color = QtGui.QColorDialog.getColor()
@@ -669,10 +846,13 @@ class addFCPreferenceSM():
                 color_set(color.getRgb()[:-1])
         self.form.color.clicked.connect(color_get)
 
+        color = QtGui.QColor(*pref_configuration['smp_color'])
+        color_set(color.getRgb()[:-1])
+
         return
 
-    def __del__(self):
-        result = {'galvanized': {}, 'stainless': {}}
+    def saveSettings(self):
+        steel = {'Galvanized': {}, 'Stainless': {}}
 
         def read(table, key: str) -> None:
             for row in range(table.rowCount()):
@@ -683,11 +863,6 @@ class addFCPreferenceSM():
                     continue
                 if radius is None:
                     radius = thickness
-                alias = table.item(row, 3)
-                if alias is None:
-                    alias == ''
-                else:
-                    alias = alias.text().strip()
                 try:
                     thickness = float(thickness.text().replace(',', '.'))
                 except BaseException:
@@ -701,33 +876,33 @@ class addFCPreferenceSM():
                     factor = max(0.0, min(factor, 1.0))
                 except BaseException:
                     factor = 0.42
-                result[key][thickness] = [radius, factor, alias]
+                steel[key][thickness] = [radius, factor]
 
-        read(self.form.tableGalvanized, 'galvanized')
-        read(self.form.tableStainless, 'stainless')
+        read(self.form.tableGalvanized, 'Galvanized')
+        read(self.form.tableStainless, 'Stainless')
 
-        save_steel(result)
+        global pref_steel
+        pref_steel = steel
+        save_pref(PATH_STEEL, pref_steel, None)
 
         color = self.form.color.text().lstrip('#')
-        save_configuration({
-            'smp_density': int(self.form.density.value()),
-            'smp_color': tuple(int(color[i:i + 2], 16) for i in (0, 2, 4)),
-        })
-
+        color = tuple(int(color[i:i + 2], 16) for i in (0, 2, 4))
+        pref_configuration['smp_color'] = color
+        save_pref(PATH_CONFIGURATION, pref_configuration)
         return
 
 
 # ------------------------------------------------------------------------------
 
 
-ru_std_tpl_path: str = os.path.join(add_base, 'repo', 'add', 'stdRU', 'tpl')
+PATH_RU_TPL = os.path.join(AFC_PATH, 'repo', 'add', 'stdRU', 'tpl')
 
 
-def list_tpl() -> tuple[list, list, dict]:
+def get_tpl() -> tuple[list, list, dict]:
     drawing, text, tpl = [], [], {}
     dirs = (
-        os.path.join(ru_std_tpl_path, 'ЕСКД'),
-        os.path.join(ru_std_tpl_path, 'СПДС'),
+        os.path.join(PATH_RU_TPL, 'ЕСКД'),
+        os.path.join(PATH_RU_TPL, 'СПДС'),
     )
     for d in dirs:
         if os.path.exists(d):
@@ -740,42 +915,32 @@ def list_tpl() -> tuple[list, list, dict]:
 
 class addFCPreferenceOther():
     def __init__(self):
-        ui = os.path.join(add_base, 'repo', 'ui', 'pref_other.ui')
-        self.form = FreeCAD.Gui.PySideUic.loadUi(ui)
+        self.form = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            AFC_PATH, 'repo', 'ui', 'pref_other.ui'))
 
-        conf = load_configuration()
-        if 'interface_font' not in conf:
-            return
-        font = conf['interface_font']
+        font = pref_configuration['interface_font']
 
         self.form.fontCheckBox.setChecked(font[0])
         self.form.fontComboBox.setCurrentText(font[1])
         self.form.fontSpinBox.setValue(font[2])
 
         # additions:
-        self.form.sm.setChecked(additions['sm'][0])
-        self.form.sm.setStyleSheet(additions['sm'][2])
-        if additions['sm'][0]:
-            self.form.sm.setText(f"SheetMetal ({additions['sm'][1]})")
-        self.form.ezdxf.setChecked(additions['ezdxf'][0])
-        self.form.ezdxf.setStyleSheet(additions['ezdxf'][2])
-        if additions['ezdxf'][0]:
-            self.form.ezdxf.setText(f"ezdxf ({additions['ezdxf'][1]})")
-        self.form.numpy.setChecked(additions['numpy'][0])
-        self.form.numpy.setStyleSheet(additions['numpy'][2])
-        if additions['numpy'][0]:
-            self.form.numpy.setText(f"NumPy ({additions['numpy'][1]})")
-        self.form.ffmpeg.setChecked(additions['ffmpeg'][0])
-        self.form.ffmpeg.setStyleSheet(additions['ffmpeg'][2])
+        self.form.sm.setChecked(afc_additions['sm'][0])
+        self.form.sm.setStyleSheet(afc_additions['sm'][2])
+        if afc_additions['sm'][0]:
+            self.form.sm.setText(f"SheetMetal ({afc_additions['sm'][1]})")
+        self.form.ezdxf.setChecked(afc_additions['ezdxf'][0])
+        self.form.ezdxf.setStyleSheet(afc_additions['ezdxf'][2])
+        if afc_additions['ezdxf'][0]:
+            self.form.ezdxf.setText(f"ezdxf ({afc_additions['ezdxf'][1]})")
+        self.form.numpy.setChecked(afc_additions['numpy'][0])
+        self.form.numpy.setStyleSheet(afc_additions['numpy'][2])
+        if afc_additions['numpy'][0]:
+            self.form.numpy.setText(f"NumPy ({afc_additions['numpy'][1]})")
+        self.form.ffmpeg.setChecked(afc_additions['ffmpeg'][0])
+        self.form.ffmpeg.setStyleSheet(afc_additions['ffmpeg'][2])
 
-        if 'ru_std_tpl_stamp' not in conf:
-            return
-        stamp = conf['ru_std_tpl_stamp']
-
-        # key verification:
-        for i in configuration['ru_std_tpl_stamp']:
-            if i not in stamp:
-                stamp[i] = configuration['ru_std_tpl_stamp'][i]
+        stamp = pref_configuration['ru_std_tpl_stamp']
 
         self.form.Designation.setText(stamp['Designation'])
         self.form.Author.setText(stamp['Author'])
@@ -797,97 +962,60 @@ class addFCPreferenceOther():
         self.form.Letter2.setText(stamp['Letter 2'])
         self.form.Letter3.setText(stamp['Letter 3'])
 
-        drawing, text, _ = list_tpl()
+        drawing, text, _ = get_tpl()
 
         self.form.Drawing.addItems(drawing)
         self.form.Text.addItems(text)
 
-        self.form.Drawing.setCurrentText(conf['ru_std_tpl_drawing'])
-        self.form.Text.setCurrentText(conf['ru_std_tpl_text'])
+        self.form.Drawing.setCurrentText(
+            pref_configuration['ru_std_tpl_drawing'])
+        self.form.Text.setCurrentText(
+            pref_configuration['ru_std_tpl_text'])
 
         return
 
-    def __del__(self):
-        save_configuration(
-            {
-                'interface_font': [
-                    self.form.fontCheckBox.isChecked(),
-                    self.form.fontComboBox.currentText(),
-                    self.form.fontSpinBox.value(),
-                ],
-                'ru_std_tpl_drawing': self.form.Drawing.currentText(),
-                'ru_std_tpl_text': self.form.Text.currentText(),
-                'ru_std_tpl_stamp': {
-                    'Designation': self.form.Designation.text(),
-                    'Author': self.form.Author.text(),
-                    'Inspector': self.form.Inspector.text(),
-                    'Control 1': self.form.Control1.text(),
-                    'Control 2': self.form.Control2.text(),
-                    'Approver': self.form.Approver.text(),
-                    'Material 1': self.form.Material1.text(),
-                    'Material 2': self.form.Material2.text(),
-                    'Company 1': self.form.Company1.text(),
-                    'Company 2': self.form.Company2.text(),
-                    'Company 3': self.form.Company3.text(),
-                    'Title 1': self.form.Title1.text(),
-                    'Title 2': self.form.Title2.text(),
-                    'Title 3': self.form.Title3.text(),
-                    'Weight': self.form.Weight.text(),
-                    'Scale': self.form.Scale.text(),
-                    'Letter 1': self.form.Letter1.text(),
-                    'Letter 2': self.form.Letter1.text(),
-                    'Letter 3': self.form.Letter1.text(),
-                }}
-        )
+    def saveSettings(self):
+        if self.form.fontCheckBox.isChecked():
+            add_autoload()
+        fresh = {
+            'interface_font': [
+                self.form.fontCheckBox.isChecked(),
+                self.form.fontComboBox.currentText(),
+                self.form.fontSpinBox.value(),
+            ],
+            'ru_std_tpl_drawing': self.form.Drawing.currentText(),
+            'ru_std_tpl_text': self.form.Text.currentText(),
+            'ru_std_tpl_stamp': {
+                'Designation': self.form.Designation.text(),
+                'Author': self.form.Author.text(),
+                'Inspector': self.form.Inspector.text(),
+                'Control 1': self.form.Control1.text(),
+                'Control 2': self.form.Control2.text(),
+                'Approver': self.form.Approver.text(),
+                'Material 1': self.form.Material1.text(),
+                'Material 2': self.form.Material2.text(),
+                'Company 1': self.form.Company1.text(),
+                'Company 2': self.form.Company2.text(),
+                'Company 3': self.form.Company3.text(),
+                'Title 1': self.form.Title1.text(),
+                'Title 2': self.form.Title2.text(),
+                'Title 3': self.form.Title3.text(),
+                'Weight': self.form.Weight.text(),
+                'Scale': self.form.Scale.text(),
+                'Letter 1': self.form.Letter1.text(),
+                'Letter 2': self.form.Letter1.text(),
+                'Letter 3': self.form.Letter1.text(),
+            }}
+        pref_configuration.update(fresh)
+        save_pref(PATH_CONFIGURATION, pref_configuration)
 
 
-# ------------------------------------------------------------------------------
-
-
-exploded: dict = {
-    'export_size': '1080p (FHD)',
-    'export_width': 1920,
-    'export_height': 1080,
-    'export_background': 'Current',
-    'export_method': 'Framebuffer',
-    'export_ccs': False,
-    'export_image_format': 'PNG',
-    'export_framerate': 60,
-    'export_dir': os.path.expanduser('~/Desktop'),
-}
-
-
-def check_explosion() -> None:
-    d = os.path.dirname(pref_explosion)
-    if not os.path.exists(d):
-        os.makedirs(d)
-    if not os.path.exists(pref_explosion):
-        file = open(pref_explosion, 'w+', encoding='utf-8')
-        json.dump(exploded, file, ensure_ascii=False, indent=4)
-        file.close()
-    elif not os.path.isfile(pref_explosion):
-        os.remove(pref_explosion)
-        check_properties()
-
-
-def load_explosion() -> dict:
-    check_explosion()
-    try:
-        file = open(pref_explosion, 'r', encoding='utf-8')
-        result = exploded | json.load(file)
-        file.close()
-    except BaseException as e:
-        FreeCAD.Console.PrintError(str(e) + '\n')
-        result = exploded
-    return result
-
-
-def save_explosion(d: dict) -> dict:
-    check_explosion()
-    result = load_explosion() | d
-    try:
-        file = open(pref_explosion, 'w+', encoding='utf-8')
-        json.dump(result, file, ensure_ascii=False, indent=4)
-        file.close()
-    except BaseException as e:
-        FreeCAD.Console.PrintError(str(e) + '\n')
+def add_autoload() -> None:
+    autoload = FreeCAD.ParamGet(
+        'User parameter:BaseApp/Preferences/General').GetString(
+            'BackgroundAutoloadModules')
+    if 'addFC' not in autoload:
+        autoload += ',addFC'
+        FreeCAD.ParamGet(
+            'User parameter:BaseApp/Preferences/General').SetString(
+                'BackgroundAutoloadModules', autoload)

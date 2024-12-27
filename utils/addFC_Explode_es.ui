@@ -7,7 +7,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
+    <width>320</width>
     <height>472</height>
    </rect>
   </property>
@@ -23,8 +23,11 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="resolution">
+     <property name="styleSheet">
+      <string notr="true">QGroupBox:title {color: #666}</string>
+     </property>
      <property name="title">
-      <string>Resolution:</string>
+      <string>Resolution</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -32,21 +35,21 @@
         <item row="1" column="0">
          <widget class="QLabel" name="labelWidth">
           <property name="text">
-           <string>Width:</string>
+           <string>Width</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="labelSize">
           <property name="text">
-           <string>Standard sizes:</string>
+           <string>Standard sizes</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="labelHeight">
           <property name="text">
-           <string>Height:</string>
+           <string>Height</string>
           </property>
          </widget>
         </item>
@@ -80,8 +83,11 @@
    </item>
    <item>
     <widget class="QGroupBox" name="image">
+     <property name="styleSheet">
+      <string notr="true">QGroupBox:title {color: #666}</string>
+     </property>
      <property name="title">
-      <string>Image:</string>
+      <string>Image</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
@@ -95,21 +101,21 @@
         <item row="1" column="0">
          <widget class="QLabel" name="labelMethod">
           <property name="text">
-           <string>Creation method:</string>
+           <string>Creation method</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="labelImageFormat">
           <property name="text">
-           <string>Image format:</string>
+           <string>Image format</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="labelBackground">
           <property name="text">
-           <string>Background:</string>
+           <string>Background</string>
           </property>
          </widget>
         </item>
@@ -130,8 +136,11 @@
    </item>
    <item>
     <widget class="QGroupBox" name="video">
+     <property name="styleSheet">
+      <string notr="true">QGroupBox:title {color: #666}</string>
+     </property>
      <property name="title">
-      <string>Video:</string>
+      <string>Video</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
@@ -139,7 +148,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="labelFramerate">
           <property name="text">
-           <string>Frame rate:</string>
+           <string>Frame rate</string>
           </property>
          </widget>
         </item>

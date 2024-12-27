@@ -2,9 +2,8 @@
 # Copyright 2024 Golodnikov Sergey
 
 
-from addFC import error
+from addFC_Other import error
 from PySide import QtCore
-import addFC_Preference as P
 import Arch
 import Draft
 import FreeCAD
@@ -15,7 +14,7 @@ import Part
 ad = FreeCAD.activeDocument()
 
 
-pipe_variations: dict = {
+PIPE_VARIATIONS = {
     'Other': {'Other': (20.0, 1.0)},  # default
 
     'OD - Copper pipe': {
@@ -110,28 +109,19 @@ pipe_variations: dict = {
 }
 
 
-pipe_materials: dict = {
-    # name: (color, density)
-    'Default': (
-        None, None,
-    ),
-    'Copper': (
-        tuple(int('d78866'[i:i + 2], 16) for i in (0, 2, 4)), 8960,
-    ),
-    'Steel': (
-        tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)), 7800,
-    ),
-    'Polyethylene': (
-        tuple(int('d2d2d2'[i:i + 2], 16) for i in (0, 2, 4)), 940,
-    ),
+PIPE_MATERIALS = {
+    'Default': (None, None),
+    'Copper': (tuple(int('d78866'[i:i + 2], 16) for i in (0, 2, 4)), 8900),
+    'Plastic': (tuple(int('d2d2d2'[i:i + 2], 16) for i in (0, 2, 4)), 900),
+    'Steel': (tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)), 7800),
 }
 
-copper_fittings_material: tuple = (
-    tuple(int('cc6c54'[i:i + 2], 16) for i in (0, 2, 4)), 8960,
+PIPE_MATERIALS_FITTINGS = (
+    tuple(int('cc6c54'[i:i + 2], 16) for i in (0, 2, 4)), 8900,
 )
 
 
-relationship: dict = {
+PIPE_RELATIONSHIP = {
     'Other': 'Default',
     'OD - Copper pipe': 'Copper',
     'DN - Nominal pipe size': 'Steel',
@@ -139,17 +129,7 @@ relationship: dict = {
 }
 
 
-fittings: dict = {
-    'allowed': False,
-    'color': None,
-    'parent': '',
-    'pipe': '',
-    'points': [],
-    'thread': '',
-}
-
-
-rotations: dict = {
+ROTATIONS = {
     # X
     '+X+Y': FreeCAD.Rotation(FreeCAD.Vector(0.00, 0.00, 1.00), 180.00),
     '+X+Z': FreeCAD.Rotation(FreeCAD.Vector(0.58, 0.58, 0.58), -120.00),
@@ -177,6 +157,16 @@ rotations: dict = {
     '-Z+Y': FreeCAD.Rotation(FreeCAD.Vector(-0.58, -0.58, 0.58), 120.00),
     '-Z-X': FreeCAD.Rotation(FreeCAD.Vector(0.00, -0.71, 0.71), 180.00),
     '-Z-Y': FreeCAD.Rotation(FreeCAD.Vector(-0.58, 0.58, -0.58), 120.00),
+}
+
+
+fittings = {
+    'allowed': False,
+    'color': None,
+    'parent': '',
+    'pipe': '',
+    'points': [],
+    'thread': '',
 }
 
 
@@ -213,7 +203,7 @@ def detect_rotation(uno, dos, tres) -> FreeCAD.Rotation | bool:
             elif dos.z > tres.z:
                 r += '-Z'
     # result:
-    return rotations[r] if r in rotations else False
+    return ROTATIONS[r] if r in ROTATIONS else False
 
 
 def dialog() -> None:
@@ -225,11 +215,11 @@ def dialog() -> None:
             error('Invalid type!\nAvailable types: part, group.')
             return
 
-    ui = os.path.join(os.path.dirname(__file__), 'addFC_Pipe.ui')
-    w = FreeCAD.Gui.PySideUic.loadUi(ui)
+    w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+        os.path.normpath(os.path.dirname(__file__)), 'addFC_Pipe.ui'))
     w.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-    w.comboBoxVariations.addItems(pipe_variations.keys())
-    w.comboBoxMaterial.addItems(pipe_materials.keys())
+    w.comboBoxVariations.addItems(PIPE_VARIATIONS.keys())
+    w.comboBoxMaterial.addItems(PIPE_MATERIALS.keys())
 
     w.show()
 
@@ -237,14 +227,14 @@ def dialog() -> None:
 
     def select_variation(select) -> None:
         w.comboBoxPipe.clear()
-        w.comboBoxPipe.addItems(pipe_variations[select])
-        w.comboBoxMaterial.setCurrentText(relationship[select])
+        w.comboBoxPipe.addItems(PIPE_VARIATIONS[select])
+        w.comboBoxMaterial.setCurrentText(PIPE_RELATIONSHIP[select])
     w.comboBoxVariations.currentTextChanged.connect(select_variation)
     select_variation(default_value[0])
 
     def select_pipe(select) -> None:
         if select != '':
-            pipe = pipe_variations[w.comboBoxVariations.currentText()][select]
+            pipe = PIPE_VARIATIONS[w.comboBoxVariations.currentText()][select]
             global fittings
             if type(pipe) is tuple:  # default value or copper pipe
                 diameter, radius = pipe[0], pipe[0]
@@ -284,8 +274,8 @@ def dialog() -> None:
                 w.doubleSpinBoxDiameter.value(),
                 w.doubleSpinBoxRadius.value(),
                 w.doubleSpinBoxThickness.value(),
-                pipe_materials[w.comboBoxMaterial.currentText()][0],
-                pipe_materials[w.comboBoxMaterial.currentText()][1])
+                PIPE_MATERIALS[w.comboBoxMaterial.currentText()][0],
+                PIPE_MATERIALS[w.comboBoxMaterial.currentText()][1])
             w.addFittings.setEnabled(fittings['allowed'])
         except Exception as e:
             error(str(e))
@@ -299,16 +289,7 @@ def create_pipe(diameter: float,
                 color: tuple,
                 density: tuple) -> None:
 
-    configuration = P.load_configuration()
-    properties = P.load_properties()
-
-    group = configuration['properties_group'] + '_'
-
-    weight, weight_type = '', ''
-    for p in properties:
-        if 'weight' in p.lower():
-            weight = group + p
-            weight_type = 'App::Property' + properties[p][0]
+    group, weight = 'Add_', 'Add_Weight'
 
     sl = FreeCAD.Gui.Selection.getSelection()
     if len(sl) < 1:
@@ -320,10 +301,9 @@ def create_pipe(diameter: float,
     for g in sl.Group:
         if 'Pipe' in g.Label:
             for i in g.PropertiesList:
-                if group != '' and group in i and i != weight:
+                if group in i and i != weight:
                     properties[i] = (
-                        g.getTypeIdOfProperty(i), i, g.dumpPropertyContent(i)
-                    )
+                        g.getTypeIdOfProperty(i), i, g.dumpPropertyContent(i))
             try:
                 ad.removeObject(g.Base.Name)
             except BaseException:
@@ -359,7 +339,6 @@ def create_pipe(diameter: float,
     pipe.adjustRelativeLinks(sl)
     sl.addObject(pipe)
 
-    # fittings:
     global fittings
     fittings['color'] = None
     fittings['parent'] = sl.Label
@@ -368,17 +347,15 @@ def create_pipe(diameter: float,
     if fittings['thread'] != '':
         fittings['allowed'] = True
 
-    group = configuration['properties_group']
-
     if color is not None:
         pipe.ViewObject.ShapeColor = tuple(i / 255 for i in color)
-        fittings['color'] = copper_fittings_material[0]
+        fittings['color'] = PIPE_MATERIALS_FITTINGS[0]
 
     if density is not None:
-        pipe.addProperty(weight_type, weight, group)
+        pipe.addProperty('App::PropertyFloat', weight, 'Add')
         pipe.setExpression(weight, ''.join((
             f'(pi * {density} * WallThickness.Value * (Diameter.Value - ',
-            'WallThickness.Value) * Length.Value) / 1000000000')))
+            'WallThickness.Value) * Length.Value) / 10 ^ 9')))
 
     for i in properties:
         pipe.addProperty(properties[i][0], properties[i][1], group)
@@ -405,7 +382,8 @@ def remove_fittings() -> None:
 
 
 def add_fittings() -> None:
-    pd = os.path.join(os.path.dirname(__file__), 'addFC_Pipe.FCStd')
+    pd = os.path.join(os.path.normpath(
+        os.path.dirname(__file__)), 'addFC_Pipe.FCStd')
     d = FreeCAD.openDocument(pd, True)
     FreeCAD.setActiveDocument(ad.Name)
 

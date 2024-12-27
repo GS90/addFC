@@ -2,59 +2,51 @@
 # Copyright 2024 Golodnikov Sergey
 
 
-import addFC
+import addFC_Preference as P
 import FreeCAD
 import os
 
 
-add_base_path: str = os.path.dirname(addFC.__file__)
-add_icon_path: str = os.path.join(add_base_path, 'repo', 'icon')
-
-
 class addFC(FreeCAD.Gui.Workbench):
-
-    global add_base_path, add_icon_path
 
     MenuText = 'addFC'
     ToolTip = 'addFC Workbench'
-    Icon = os.path.join(add_icon_path, 'workbench.svg')
+    Icon = os.path.join(P.AFC_PATH_ICON, 'workbench.svg')
+
+    import addFC
 
     def Initialize(self):
         self.list = [
+            # core:
             'AddFCOpenRecentFile',
             'AddFCDisplay',
             'AddFCModelControl',
             'AddFCSpecification',
             'AddFCProperties',
-            'AddFCPipe',
+            'AddFCInsert',
+            'AddFCAssistant',
+            # utils:
+            'AddFCLibrary',
             'AddFCExplode',
-            'addFCInsert',
-            'addFCAssistant',
+            'AddFCPipe',
         ]
 
         self.appendToolbar('addFC', self.list)
         self.appendMenu('addFC', self.list)
 
-        import addFC_Preference as P
-
-        P.save_configuration({})
-        P.save_properties({}, init=True)
-        P.save_steel({})
-        P.save_explosion({})
+        global P
 
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceSpecification, 'addFC')
+        FreeCAD.Gui.addPreferencePage(P.addFCPreferenceMaterials, 'addFC')
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceSM, 'addFC')
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceOther, 'addFC')
 
-        FreeCAD.Gui.addIconPath(add_icon_path)
+        FreeCAD.Gui.addIconPath(P.AFC_PATH_ICON)
 
-        # interface font:
-        conf = P.load_configuration()
-        if 'interface_font' in conf:
-            font = conf['interface_font']
-            if font[0] and font[1] != '':
-                from PySide import QtGui
-                QtGui.QApplication.setFont(QtGui.QFont(font[1], font[2]))
+        font = P.pref_configuration['interface_font']
+        if font[0] and font[1] != '':
+            from PySide import QtGui
+            QtGui.QApplication.setFont(QtGui.QFont(font[1], font[2]))
 
     def Activated(self): return
 

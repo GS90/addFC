@@ -18,13 +18,13 @@
    <item>
     <widget class="QGroupBox" name="groupBox_font">
      <property name="title">
-      <string>Font</string>
+      <string>FreeCAD interface</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,3,1">
       <item>
        <widget class="QCheckBox" name="fontCheckBox">
         <property name="text">
-         <string>FreeCAD interface font</string>
+         <string>Use a custom font</string>
         </property>
        </widget>
       </item>
@@ -53,13 +53,11 @@
    </item>
    <item>
     <widget class="QLabel" name="note">
-     <property name="font">
-      <font>
-       <italic>true</italic>
-      </font>
+     <property name="styleSheet">
+      <string notr="true">color: #666</string>
      </property>
      <property name="text">
-      <string>For changes to take effect, you must restart FreeCAD.</string>
+      <string>For changes to take effect, you must restart FreeCAD</string>
      </property>
     </widget>
    </item>
@@ -362,7 +360,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="TextLabel">
            <property name="text">
-            <string>Шаблон текстового документа:</string>
+            <string>Шаблон текстового документа</string>
            </property>
           </widget>
          </item>
@@ -372,7 +370,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="DrawingLabel">
            <property name="text">
-            <string>Шаблон графического документа:</string>
+            <string>Шаблон графического документа</string>
            </property>
           </widget>
          </item>

@@ -23,8 +23,11 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QGroupBox" name="groupBoxExport">
+     <property name="styleSheet">
+      <string notr="true">QGroupBox:title {color: #666}</string>
+     </property>
      <property name="title">
-      <string>Exported properties:</string>
+      <string>Exported properties</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
@@ -37,8 +40,11 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QGroupBox" name="groupBoxAliases">
+       <property name="styleSheet">
+        <string notr="true">QGroupBox:title {color: #666}</string>
+       </property>
        <property name="title">
-        <string>Use aliases:</string>
+        <string>Use aliases</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -67,8 +73,11 @@
      </item>
      <item>
       <widget class="QGroupBox" name="groupBoxOrder">
+       <property name="styleSheet">
+        <string notr="true">QGroupBox:title {color: #666}</string>
+       </property>
        <property name="title">
-        <string>Order of elements:</string>
+        <string>Order of elements</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
@@ -79,14 +88,14 @@
           <item row="0" column="0">
            <widget class="QLabel" name="labelMerger">
             <property name="text">
-             <string>Merger:</string>
+             <string>Merger</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="labelSorting">
             <property name="text">
-             <string>Sorting:</string>
+             <string>Sorting</string>
             </property>
            </widget>
           </item>
@@ -98,7 +107,7 @@
         <item>
          <widget class="QLabel" name="note">
           <property name="styleSheet">
-           <string notr="true">color: #666666</string>
+           <string notr="true">color: #666</string>
           </property>
           <property name="text">
            <string>Spreadsheets only</string>

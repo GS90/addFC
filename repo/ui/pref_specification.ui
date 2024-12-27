@@ -7,36 +7,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>640</height>
+    <width>700</width>
+    <height>600</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Specification</string>
+  <property name="minimumSize">
+   <size>
+    <width>700</width>
+    <height>600</height>
+   </size>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0,0,0">
+  <property name="windowTitle">
+   <string>Properties</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,2,0,0,0,1">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="labelGroup">
-       <property name="text">
-        <string>Specification group:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEditGroup">
-       <property name="minimumSize">
-        <size>
-         <width>280</width>
-         <height>0</height>
-        </size>
+       <property name="styleSheet">
+        <string notr="true">color: #000096</string>
        </property>
        <property name="text">
-        <string>Add</string>
-       </property>
-       <property name="maxLength">
-        <number>20</number>
+        <string>Name of the property group: «Add»</string>
        </property>
       </widget>
      </item>
@@ -55,6 +48,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonRemove">
+       <property name="toolTip">
+        <string>Remove the selected property from the table</string>
+       </property>
        <property name="text">
         <string>Remove</string>
        </property>
@@ -68,6 +64,9 @@
          <height>0</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>Add a new property to the table</string>
+       </property>
        <property name="text">
         <string>Add</string>
        </property>
@@ -79,6 +78,9 @@
     <widget class="QTableWidget" name="tableProperties">
      <property name="editTriggers">
       <set>QAbstractItemView::DoubleClicked</set>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
      </property>
      <property name="selectionMode">
       <enum>QAbstractItemView::SingleSelection</enum>
@@ -98,6 +100,19 @@
      <attribute name="verticalHeaderHighlightSections">
       <bool>false</bool>
      </attribute>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="note">
+     <property name="styleSheet">
+      <string notr="true">color: #666</string>
+     </property>
+     <property name="text">
+      <string>Available types: Bool, Enumeration, Float, Integer, String</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
     </widget>
    </item>
    <item>
@@ -128,6 +143,9 @@
      <property name="editTriggers">
       <set>QAbstractItemView::DoubleClicked</set>
      </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
      <property name="selectionMode">
       <enum>QAbstractItemView::SingleSelection</enum>
      </property>
@@ -151,7 +169,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>lineEditGroup</tabstop>
   <tabstop>pushButtonRemove</tabstop>
   <tabstop>pushButtonAdd</tabstop>
   <tabstop>tableProperties</tabstop>

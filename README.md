@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 0.7.5 - [release notes](CHANGELOG.md).
+Current version 1.0.0 beta - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -11,22 +11,27 @@ At the moment it is:
 
 1. Generate a BOM based on the model.
 2. Batch processing of sheet metal parts.
-3. Creation of design documentation.
-4. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
-5. Creating a pipeline.
-6. Process automation.
+3. Library of elements and nodes - [standard](repo/add/Library.md).
+4. Assistance in creating design documentation.
+5. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
+6. Creating a pipeline.
+7. Process automation.
 
 ### Preview
 
-Bill of materials - BOM:
+Bill of materials - BOM
 
 ![Bill of materials - BOM](repo/doc/img/specification_all.png)
 
-Pipeline and pipe fittings:
+Library of elements and nodes - beta
+
+![Library](repo/doc/img/library.png)
+
+Pipeline and pipe fittings
 
 ![Pipeline and pipe fittings](repo/doc/img/pipe_result.png)
 
-Explosion (30 FPS):
+Explosion (30 FPS)
 
 ![Explosion (30 FPS)](repo/doc/other/explosion.gif)
 
@@ -42,10 +47,11 @@ Explosion (30 FPS):
 3. Run the model control file
 4. Bill of materials - BOM
 5. Add properties to an object
-6. Creating a pipe by points
-7. Exploded view
-8. Create a drawing based on a template
-9. Documentation, help and examples
+6. Create a drawing based on a template
+7. Library of elements and nodes
+8. Exploded view
+9. Creating a pipe by points
+10. Documentation, help and examples
 
 
 ### Documentation
@@ -56,6 +62,8 @@ Explosion (30 FPS):
 * [Russian](https://digiroad.tech/share/addFC/documentation_RU.pdf)
 
 [FreeCAD forum thread](https://forum.freecad.org/viewtopic.php?t=91329)
+
+[FreeCAD форум на русском языке](https://forum.freecad.org/viewtopic.php?t=91598)
 
 
 ### Notes

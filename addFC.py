@@ -4,19 +4,22 @@
 
 from PySide import QtGui, QtCore
 from zipfile import ZipFile
+import addFC_Info as Info
+import addFC_Logger as Logger
+import addFC_Other as Other
 import addFC_Preference as P
 import addFC_Specification as S
 import addFC_Unfold
 import datetime
+import difflib
 import FreeCAD
 import importlib.machinery
 import os
 import subprocess
 import sys
-import webbrowser
 
 
-exporting: dict = {
+EXPORTING = {
     'JSON': ['JSON (*.json)'],
     'CSV': ['CSV (*.csv)'],
     'Spreadsheet': [],
@@ -24,7 +27,7 @@ exporting: dict = {
     'RU std: TechDraw': [],
 }
 
-unfold_name: tuple = (
+UNFOLD_NAME = (
     'Name',
     'Code',
     'Index',
@@ -32,24 +35,25 @@ unfold_name: tuple = (
     'Index + Name',
 )
 
-unfold_signature: tuple = (
+UNFOLD_SIGNATURE = (
     'None',
     'Code',
     'Prefix',
     'Prefix + Code',
 )
 
-unfold_index: int = 0
-name_index: int = 0
 
+freeze_table, freeze_nodes = True, True
 
-def error(message: str) -> None:
-    QtGui.QMessageBox.critical(
-        None,
-        'ERROR',
-        message,
-        QtGui.QMessageBox.StandardButton.Ok,
-    )
+user_modification = False
+
+specification = []
+
+index_specification_title = 0
+index_details_title = 0
+index_details_unfold = 0
+
+properties_last = ['Name',]
 
 
 # ------------------------------------------------------------------------------
@@ -58,22 +62,27 @@ def error(message: str) -> None:
 class AddFCOpenRecentFile():
 
     def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'resent.svg'),
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'resent.svg'),
                 'Accel': 'Alt+Shift+R',
                 'MenuText': 'Recent File',
                 'ToolTip': 'Open recent file'}
 
     def Activated(self):
+        ld = tuple(FreeCAD.listDocuments().keys())
         p = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/RecentFiles")
         n = p.GetInt('RecentFiles')
         for i in range(n):
             f = p.GetString('MRU' + str(i))
             if f != '' and os.path.exists(f) and os.path.isfile(f):
+                r, _ = os.path.splitext(os.path.basename(f))
+                if r in ld:
+                    continue
                 FreeCAD.openDocument(f)
                 FreeCAD.Gui.activeDocument().activeView().viewIsometric()
                 FreeCAD.Gui.SendMsgToActiveView('ViewFit')
                 return
-        FreeCAD.Console.PrintError('The file cannot be opened...\n')
+
+        Logger.error('The file cannot be opened...')
 
     def IsActive(self): return True
 
@@ -81,10 +90,13 @@ class AddFCOpenRecentFile():
 FreeCAD.Gui.addCommand('AddFCOpenRecentFile', AddFCOpenRecentFile())
 
 
+# ----
+
+
 class AddFCDisplay():
 
     def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'display.svg'),
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'display.svg'),
                 'Accel': 'Alt+Shift+D',
                 'MenuText': 'Display',
                 'ToolTip': 'Isometry and fit all'}
@@ -103,13 +115,13 @@ class AddFCDisplay():
 FreeCAD.Gui.addCommand('AddFCDisplay', AddFCDisplay())
 
 
-# ------------------------------------------------------------------------------
+# ----
 
 
 class AddFCModelControl():
 
     def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'control.svg'),
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'control.svg'),
                 'Accel': 'Alt+Shift+C',
                 'MenuText': 'Model Control',
                 'ToolTip': 'Run the model control file'}
@@ -118,7 +130,7 @@ class AddFCModelControl():
         file = str(FreeCAD.ActiveDocument.getFileName())
         file = file.replace('.FCStd', '.py')
         if not os.path.isfile(file):
-            error('The model control file was not found.')
+            Other.error('The model control file was not found.')
             return
         loader = importlib.machinery.SourceFileLoader('control', file)
         _ = loader.load_module()
@@ -136,99 +148,158 @@ FreeCAD.Gui.addCommand('AddFCModelControl', AddFCModelControl())
 class AddFCSpecification():
 
     def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'specification.svg'),
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'specification.svg'),
                 'Accel': 'Alt+Shift+S',
                 'MenuText': 'Specification',
                 'ToolTip': 'Model Specification'}
 
     def Activated(self):
-        ui = os.path.join(P.add_base, 'repo', 'ui', 'specification.ui')
-        w = FreeCAD.Gui.PySideUic.loadUi(ui)
+        w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            P.AFC_PATH, 'repo', 'ui', 'specification.ui'))
 
-        conf = P.load_configuration()
+        global specification
+        specification = S.get_specification()
+
+        conf, prop = P.pref_configuration, P.pref_properties
+
+        materials_list = list(P.pref_materials.keys())
 
         if conf['working_directory'] == '':
             conf['working_directory'] = os.path.expanduser('~/Desktop')
         w.target.setText(
             f"... {os.path.basename(conf['working_directory'])}")
 
-        w.comboBoxExport.addItems(exporting.keys())
-        w.comboBoxExport.setCurrentText(conf['spec_export_type'])
-        w.comboBoxName.addItems(unfold_name)
-        w.comboBoxSignature.addItems(unfold_signature)
+        w.comboBoxExport.addItems(EXPORTING.keys())
+        w.comboBoxName.addItems(UNFOLD_NAME)
+        w.comboBoxSignature.addItems(UNFOLD_SIGNATURE)
 
-        # values:
         w.DXF.setChecked(conf['unfold_dxf'])
         w.SVG.setChecked(conf['unfold_svg'])
         w.STP.setChecked(conf['unfold_stp'])
-        if conf['unfold_file_name'] in unfold_name:
-            w.comboBoxName.setCurrentText(conf['unfold_file_name'])
-        if conf['unfold_file_signature'] in unfold_signature:
-            w.comboBoxSignature.setCurrentText(conf['unfold_file_signature'])
-        if conf['unfold_prefix'] != '':
-            w.lineEditPrefix.setText(conf['unfold_prefix'])
+        w.comboBoxExport.setCurrentText(conf['spec_export_type'])
+        w.comboBoxName.setCurrentText(conf['unfold_file_name'])
+        w.comboBoxSignature.setCurrentText(conf['unfold_file_signature'])
+        w.lineEditPrefix.setText(conf['unfold_prefix'])
 
-        table = w.specificationTable
-        table_details = w.detailsTable
+        table, table_details = w.specificationTable, w.detailsTable
 
-        color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
         color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
+        color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
 
-        forbidden = ('Unit', 'Body')
+        FORBIDDEN = ('!Body', '!Trace', 'Unit')
 
-        def specification_update(startup: bool = False,
-                                 indexing: bool = False,
-                                 update_enumerations: bool = False) -> None:
+        PROHIBIT_EDITING = (
+            'MetalThickness'
+            'MT',
+            'Name',
+            'Price',
+            'Quantity',
+            'Weight',
+        )
 
-            specification_purge(startup)
-            if not startup:
-                w.info.setText('...')
-                FreeCAD.Gui.updateGui()
+        def get_node_name() -> str:
+            if w.checkBoxNodes.isChecked():
+                return w.comboBoxNodes.currentText()
+            else:
+                return ''
 
-            info, info_h, details, details_h = S.get_specification(
-                w.checkBoxStrict.isChecked(), indexing, update_enumerations
+        def state_node(checked) -> None:
+            w.comboBoxNodes.setEnabled(checked)
+            specification_update_wrapper()
+        w.checkBoxNodes.stateChanged.connect(state_node)
+
+        def changed_node() -> None:
+            if freeze_nodes:
+                return
+            node_name = get_node_name()
+            if node_name == '':
+                return
+            global specification
+            specification = S.get_specification(
+                strict=w.checkBoxStrict.isChecked(),
+                node_name=node_name,
             )
+            specification_update()
+            w.info.setText(f'Updated, node: {node_name}')
 
-            if len(info) == 0:
+        w.comboBoxNodes.currentTextChanged.connect(changed_node)
+
+        # filling out the specification:
+
+        def specification_update() -> None:
+
+            global freeze_table
+            freeze_table = True
+            global freeze_nodes
+            freeze_nodes = True
+
+            w.info.setText('...')
+            specification_purge()
+            FreeCAD.Gui.updateGui()
+
+            spec, spec_h, details, details_h, nodes = specification
+
+            _node = w.comboBoxNodes.currentText()
+            w.comboBoxNodes.clear()
+            w.comboBoxNodes.addItems(nodes)
+            w.comboBoxNodes.setCurrentText(_node)
+
+            if len(spec) == 0:
+                freeze_table, freeze_nodes = False, False
                 return
 
-            for i in info:
-                if info[i]['Unit'] != '-':
-                    value = f"{info[i]['Quantity']} {info[i]['Unit']}"
-                    info[i]['Quantity'] = value
+            for i in spec:
+                if spec[i]['Unit'] != '-':
+                    value = f"{spec[i]['Quantity']} {spec[i]['Unit']}"
+                    spec[i]['Quantity'] = value
 
-            for i in forbidden:
-                if i in info_h:
-                    del info_h[i]
+            for i in FORBIDDEN:
+                if i in spec_h:
+                    del spec_h[i]
                 if i in details_h:
                     del details_h[i]
-            if 'Unfold' in info_h:
-                del info_h['Unfold']
+            if 'Unfold' in spec_h:
+                del spec_h['Unfold']
 
-            #################
-            # specification #
-            #################
+            # --- #
+            # all #
+            # --- #
 
-            labels = list(info_h.keys())
+            labels = list(spec_h.keys())
+            global index_specification_title
+            index_specification_title = labels.index('Name')
 
-            table.setColumnCount(len(info_h))
-            table.setRowCount(len(info))
+            table.setColumnCount(len(spec_h))
+            table.setRowCount(len(spec))
             table.setHorizontalHeaderLabels(labels)
             table.horizontalHeader().setResizeMode(
-                labels.index('Name'), QtGui.QHeaderView.Stretch)
+                index_specification_title, QtGui.QHeaderView.Stretch)
+
+            f_std = QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
 
             q = QtGui.QTableWidgetItem
             x = 0
-            for i in info:
-                for j in info[i]:
-                    if j in forbidden or j == 'Unfold':
+            for i in spec:
+                for j in spec[i]:
+                    if j in FORBIDDEN or j == 'Unfold':
                         continue
-                    table.setItem(x, labels.index(j), q(str(info[i][j])))
+                    if prop[j][0] == 'Float' or prop[j][0] == 'Integer':
+                        q = QtGui.QTableWidgetItem()
+                        q.setTextAlignment(QtCore.Qt.AlignHCenter)
+                        q.setData(QtCore.Qt.DisplayRole, spec[i][j])
+                    else:
+                        q = QtGui.QTableWidgetItem()
+                        q.setData(QtCore.Qt.DisplayRole, str(spec[i][j]))
+                    if j in PROHIBIT_EDITING:
+                        q.setFlags(f_std)
+                    else:
+                        q.setForeground(color_blue)
+                    table.setItem(x, labels.index(j), q)
                 x += 1
 
             labels.clear()
-            for i in info_h:
-                value = info_h[i]
+            for i in spec_h:
+                value = spec_h[i]
                 if value > 0:
                     labels.append(f'{i}\n{value}')
                 else:
@@ -241,25 +312,26 @@ class AddFCSpecification():
             table.resizeColumnsToContents()
             table.resizeRowsToContents()
             table.horizontalHeader().setResizeMode(
-                labels.index('Name'), QtGui.QHeaderView.Stretch)
+                index_specification_title, QtGui.QHeaderView.Stretch)
 
-            table.sortItems(labels.index('Name'))
+            table.sortItems(index_specification_title)
             table.setSortingEnabled(True)
             table.horizontalHeader().setSortIndicatorShown(False)
 
-            ###########
+            # ------- #
             # details #
-            ###########
+            # ------- #
 
             if len(details) == 0:
                 w.pushButtonExit.setFocus()
+                freeze_table, freeze_nodes = False, False
                 return
 
             labels = list(details_h.keys())
-            global unfold_index
-            unfold_index = labels.index('Unfold')
-            global name_index
-            name_index = labels.index('Name')
+            global index_details_title
+            index_details_title = labels.index('Name')
+            global index_details_unfold
+            index_details_unfold = labels.index('Unfold')
 
             table_details.setColumnCount(len(details_h))
             table_details.setRowCount(len(details))
@@ -270,17 +342,22 @@ class AddFCSpecification():
             x = 0
             for i in details:
                 for j in details[i]:
-                    if j in forbidden:
+                    if j in FORBIDDEN:
                         continue
                     v = str(details[i][j])
                     q = QtGui.QTableWidgetItem(v)
                     if j == 'Unfold':
+                        q.setTextAlignment(QtCore.Qt.AlignHCenter)
                         match v:
                             case 'True': q.setForeground(color_blue)
                             case 'False': q.setForeground(color_red)
                     if j == 'MetalThickness':
                         if v == '-':
                             q.setForeground(color_red)
+                    if prop[j][0] == 'Float' or prop[j][0] == 'Integer':
+                        if v != '-':
+                            q.setTextAlignment(QtCore.Qt.AlignHCenter)
+                            q.setData(QtCore.Qt.DisplayRole, v)
                     table_details.setItem(x, labels.index(j), q)
                 x += 1
 
@@ -305,11 +382,20 @@ class AddFCSpecification():
             table_details.setSortingEnabled(True)
             table_details.horizontalHeader().setSortIndicatorShown(False)
 
-            if not startup:
-                w.info.setText('Updated')
+            freeze_table, freeze_nodes = False, False
+
             w.pushButtonExit.setFocus()
 
-        def specification_purge(startup=False) -> None:
+        def specification_update_wrapper() -> None:
+            global specification
+            specification = S.get_specification(
+                strict=w.checkBoxStrict.isChecked(),
+                node_name=get_node_name(),
+            )
+            specification_update()
+            w.info.setText('Updated')
+
+        def specification_purge() -> None:
             table.setSortingEnabled(False)
             table.clearSelection()
             table.clearContents()
@@ -320,56 +406,168 @@ class AddFCSpecification():
             table_details.clearContents()
             table_details.setColumnCount(0)
             table_details.setRowCount(0)
-            if not startup:
-                w.info.setText('Cleared')
 
-        specification_update(True)
+        def specification_purge_wrapper() -> None:
+            specification_purge()
+            w.info.setText('Cleared')
+
+        specification_update()
+        w.info.setText('...')
+
+        # ----------------- #
+        # editing via table #
+        # ----------------- #
+
+        def changed(item) -> None:
+            if freeze_table:
+                return
+
+            header = w.specificationTable.horizontalHeaderItem(item.column())
+            if header is None:
+                return
+            header = header.text()
+
+            row = item.row()
+
+            value = w.specificationTable.item(row, item.column())
+            if value is None:
+                return
+            value = value.text()
+
+            title = w.specificationTable.item(row, index_specification_title)
+            if title is None:
+                return
+            title = title.text()
+
+            p = prop.get(header)
+
+            enum = materials_list if header == 'Material' else p[2]
+
+            match p[0]:
+                case 'Bool':
+                    v = True if 't' in value.lower() else False
+                case 'Enumeration':
+                    if value == '':
+                        v = '-'
+                    else:
+                        choice = difflib.get_close_matches(value, enum, 1, 0)
+                        if len(choice) > 0:
+                            v = choice[0]
+                        else:
+                            v = '-'
+                    item.setText(v)
+                case 'Float':
+                    try:
+                        v = float(value)
+                    except ValueError:
+                        v = 0
+                case 'Integer':
+                    try:
+                        v = int(value)
+                    except ValueError:
+                        v = 0
+                case _:
+                    v = str(value)
+
+            i = specification[0].get(title)
+
+            try:
+                i[header] = v
+                pt = 'App::Property' + p[0]
+                pn = 'Add_' + header
+                objects = i.get('!Trace')
+                for obj in objects:
+                    o = FreeCAD.getDocument(obj[0]).getObject(obj[1])
+                    if pn not in o.PropertiesList:
+                        o.addProperty(pt, pn, 'Add')
+                        if len(enum) > 0:
+                            setattr(o, pn, enum)
+                    setattr(o, pn, v)
+                    o.recompute(True)
+                item.setForeground(color_blue)
+                global user_modification
+                user_modification = True
+            except BaseException as e:
+                Logger.error(str(e))
+
+        w.specificationTable.itemChanged.connect(changed)
+
+        def switch_tab(i) -> None:
+            global user_modification
+            if user_modification:
+                if i == 1:  # details
+                    specification_update()
+                user_modification = False
+        w.tabWidget.currentChanged.connect(switch_tab)
 
         # checking the functionality:
-        if not P.additions['sm'][0]:
+        if not P.afc_additions['sm'][0]:
             w.pushButtonUnfold.setEnabled(False)
-        if not P.additions['ezdxf'][0]:
+        if not P.afc_additions['ezdxf'][0]:
             w.comboBoxSignature.setCurrentText('None')
             w.comboBoxSignature.setEnabled(False)
 
         w.show()
 
-        w.pushButtonUpdate.clicked.connect(specification_update)
-        w.pushButtonClear.clicked.connect(specification_purge)
+        w.pushButtonUpdate.clicked.connect(specification_update_wrapper)
+        w.pushButtonClear.clicked.connect(specification_purge_wrapper)
 
         def indexing() -> None:
-            specification_update(False, True, False)
+            global specification
+            specification = S.get_specification(
+                strict=w.checkBoxStrict.isChecked(),
+                node_name=get_node_name(),
+                indexing=True,
+            )
+            specification_update()
+            w.info.setText('Elements are indexed')
         w.pushButtonIndexing.clicked.connect(indexing)
 
         def update_enumerations() -> None:
-            specification_update(False, False, True)
-        w.pushButtonUE.clicked.connect(update_enumerations)
+            global specification
+            specification = S.get_specification(
+                strict=w.checkBoxStrict.isChecked(),
+                node_name=get_node_name(),
+                update_enumerations=True,
+            )
+            specification_update()
+            w.info.setText('Enumerations updated')
+        w.pushButtonUEnum.clicked.connect(update_enumerations)
+
+        def update_equations() -> None:
+            global specification
+            specification = S.get_specification(
+                strict=w.checkBoxStrict.isChecked(),
+                node_name=get_node_name(),
+                update_equations=True,
+            )
+            specification_update()
+            w.info.setText('Equations updated')
+        w.pushButtonUEq.clicked.connect(update_equations)
 
         def spec_export_settings() -> None:
-            properties = P.load_properties()
-            es = FreeCAD.Gui.PySideUic.loadUi(
-                os.path.join(P.add_base, 'repo', 'ui', 'specification_es.ui'))
+            es = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+                P.AFC_PATH, 'repo', 'ui', 'specification_es.ui'))
 
-            es.JSON.setChecked(
-                conf['spec_export_json_use_alias'])
-            es.CSV.setChecked(
-                conf['spec_export_csv_use_alias'])
-            es.Spreadsheet.setChecked(
-                conf['spec_export_spreadsheet_use_alias'])
+            for i in conf['spec_export_alias']:
+                match i:
+                    case 'json':  es.JSON.setChecked(True)
+                    case 'csv': es.CSV.setChecked(True)
+                    case 'spreadsheet': es.Spreadsheet.setChecked(True)
 
-            es.comboBoxMerger.addItems(properties.keys())
-            es.comboBoxSorting.addItems(properties.keys())
+            es.comboBoxMerger.addItems(prop.keys())
+            es.comboBoxSorting.addItems(prop.keys())
 
             value = conf['spec_export_merger']
-            if value in properties:
+            if value in prop:
                 es.comboBoxMerger.setCurrentText(value)
             value = conf['spec_export_sort']
-            if value in properties:
+            if value in prop:
                 es.comboBoxSorting.setCurrentText(value)
 
             model = QtGui.QStandardItemModel()
             es.listView.setModel(model)
-            for i in properties:
+            for i in prop:
                 item = QtGui.QStandardItem(i)
                 item.setCheckable(True)
                 if i == 'Name':
@@ -387,20 +585,26 @@ class AddFCSpecification():
 
             def apply() -> None:
                 conf['spec_export_type'] = w.comboBoxExport.currentText()
-                conf['spec_export_json_use_alias'] = es.JSON.isChecked()
-                conf['spec_export_csv_use_alias'] = es.CSV.isChecked()
-                conf['spec_export_spreadsheet_use_alias'] = \
-                    es.Spreadsheet.isChecked()
                 conf['spec_export_merger'] = es.comboBoxMerger.currentText()
                 conf['spec_export_sort'] = es.comboBoxSorting.currentText()
+
+                conf['spec_export_alias'].clear()
+                if es.JSON.isChecked():
+                    conf['spec_export_alias'].append('json')
+                if es.CSV.isChecked():
+                    conf['spec_export_alias'].append('csv')
+                if es.Spreadsheet.isChecked():
+                    conf['spec_export_alias'].append('spreadsheet')
+
                 conf['spec_export_skip'].clear()
-                conf['spec_export_skip'].append('Body')  # required
                 for index in range(model.rowCount()):
                     item = model.item(index)
                     if item.checkState() != QtCore.Qt.Checked:
                         conf['spec_export_skip'].append(item.text())
-                P.save_configuration(conf)
+
+                P.save_pref(P.PATH_CONFIGURATION, conf)
                 es.close()
+
             es.pushButtonApply.clicked.connect(apply)
 
         w.pushButtonExportSettings.clicked.connect(spec_export_settings)
@@ -412,24 +616,24 @@ class AddFCSpecification():
                     fd = QtGui.QFileDialog()
                     fd.setDefaultSuffix(target.lower())
                     fd.setAcceptMode(QtGui.QFileDialog.AcceptSave)
-                    fd.setNameFilters(exporting[target])
+                    fd.setNameFilters(EXPORTING[target])
                     if fd.exec_() == QtGui.QDialog.Accepted:
                         path = fd.selectedFiles()[0]
                         w.info.setText('...')
                         FreeCAD.Gui.updateGui()
                         w.info.setText(S.export_specification(
-                            path, target, w.checkBoxStrict.isChecked()))
+                            path, target, specification))
                 case 'Spreadsheet':
                     w.info.setText('...')
                     FreeCAD.Gui.updateGui()
                     w.info.setText(S.export_specification(
-                        '', target, w.checkBoxStrict.isChecked()))
-                # russian standard:
+                        '', target, specification))
+                # USDD:
                 case 'RU std: Spreadsheet' | 'RU std: TechDraw':
                     w.info.setText('...')
                     FreeCAD.Gui.updateGui()
                     w.info.setText(S.export_specification(
-                        '', target, w.checkBoxStrict.isChecked()))
+                        '', target, specification))
         w.pushButtonExport.clicked.connect(specification_export)
 
         def switch_unfold(item) -> None:
@@ -448,7 +652,7 @@ class AddFCSpecification():
 
         def select_unfold_all() -> None:
             for row in range(table_details.rowCount()):
-                item = table_details.item(row, unfold_index)
+                item = table_details.item(row, index_details_unfold)
                 if item is None:
                     continue
                 if item.text() == 'False':
@@ -458,7 +662,7 @@ class AddFCSpecification():
 
         def select_unfold_none() -> None:
             for row in range(table_details.rowCount()):
-                item = table_details.item(row, unfold_index)
+                item = table_details.item(row, index_details_unfold)
                 if item is None:
                     continue
                 if item.text() == 'True':
@@ -481,40 +685,37 @@ class AddFCSpecification():
             d = os.path.normcase(QtGui.QFileDialog.getExistingDirectory())
             if d != '':
                 conf['working_directory'] = d
-                P.save_configuration(conf)
+                P.save_pref(P.PATH_CONFIGURATION, conf)
                 w.target.setText(f'... {os.path.basename(d)}')
         w.pushButtonDir.clicked.connect(directory)
 
         def redefinition() -> list:
             skip = []
             for row in range(table_details.rowCount()):
-                item = table_details.item(row, unfold_index)
+                item = table_details.item(row, index_details_unfold)
                 if item is None:
                     continue
                 if item.text() == 'False':
-                    n = table_details.item(row, name_index)
+                    n = table_details.item(row, index_details_title)
                     if n is not None:
                         skip.append(n.text())
             return skip
 
         def unfold() -> None:
-            strict = True if w.checkBoxStrict.isChecked() else False
-            spec = S.get_specification(strict)
             prefix = str(w.lineEditPrefix.text()).strip()
             if prefix == '':
                 prefix = 'Result'
-
-            # saving the values:
+            # remember options:
             conf['unfold_dxf'] = w.DXF.isChecked()
             conf['unfold_svg'] = w.SVG.isChecked()
             conf['unfold_stp'] = w.STP.isChecked()
             conf['unfold_file_name'] = w.comboBoxName.currentText()
             conf['unfold_file_signature'] = w.comboBoxSignature.currentText()
             conf['unfold_prefix'] = prefix
-            P.save_configuration(conf)
-
+            P.save_pref(P.PATH_CONFIGURATION, conf)
+            # unfold:
             path = os.path.join(conf['working_directory'], prefix)
-            addFC_Unfold.unfold(w, spec[2], path, redefinition())
+            addFC_Unfold.unfold(w, specification[2], path, redefinition())
         w.pushButtonUnfold.clicked.connect(unfold)
 
         return
@@ -529,8 +730,8 @@ FreeCAD.Gui.addCommand('AddFCSpecification', AddFCSpecification())
 
 
 def parse_label(label: str) -> tuple[str, str]:
-    # name template: 'Index (sep) Name (sep) Copy'
-    index = '0'
+    # name template: 'Index (sep) Name (sep?) Copy|Index'
+    index = ''
     if len(label) > 3:
         if '. ' in label[:4]:
             try:
@@ -554,34 +755,50 @@ def parse_label(label: str) -> tuple[str, str]:
     if len(sp) > 1:
         if len(sp[1]) < 5:
             label = sp[0].strip()
+    if len(label) > 3:
+        if '0' in label[-3:]:
+            if index == '':
+                try:
+                    index = str(int(label[-3:].replace('0', '')))
+                    label = label[:-3]
+                except ValueError:
+                    pass
     return index, label
 
 
 class AddFCProperties():
 
     def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'properties.svg'),
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'properties.svg'),
                 'Accel': 'Alt+Shift+A',
                 'MenuText': 'Add Properties',
                 'ToolTip': 'Add properties to an object'}
 
     def Activated(self):
-        ui = os.path.join(P.add_base, 'repo', 'ui', 'properties.ui')
-        w = FreeCAD.Gui.PySideUic.loadUi(ui)
+        w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            P.AFC_PATH, 'repo', 'ui', 'properties.ui'))
         w.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
 
-        configuration = P.load_configuration()
-        properties = P.load_properties()
+        configuration = P.pref_configuration
+        materials = P.pref_materials
+        properties = P.pref_properties
 
-        group = configuration['properties_group']
+        core = Info.properties_core
 
-        # sheet metal part:
-        smp_material = ['-',]
-        if 'Material' in properties:
-            smp_material = properties['Material'][2]  # enumeration
-        w.comboBoxSMP.addItems(smp_material)
+        default_material = configuration['default_material']
+        if default_material not in materials:
+            default_material = '-'
 
-        # guessing game:
+        # sheet metal part, materials:
+        smp_materials = core['Material'][2]
+        for key in materials:
+            if key == '-' or key in smp_materials:
+                continue
+            if materials[key][0] == 'Sheet metal':
+                smp_materials.append(key)
+        w.comboBoxSMP.addItems(smp_materials)
+
+        # sheet metal part, guessing game:
         smp_type = '-'
         if 'Type' in properties:
             for i in properties['Type'][2]:  # enumeration
@@ -593,163 +810,366 @@ class AddFCProperties():
                     smp_type = i
                     break
 
-        def set_weight(obj, p: str, density: int) -> None:
-            if 'Tipe' in obj.PropertiesList:
-                src = '.Tip.Shape.Volume'
-            else:
-                src = '.Shape.Volume'
-            obj.setExpression(p, f'{src} / 1000000000 * {density}')
-
         def set_color(obj, color: tuple) -> None:
             obj.ViewObject.ShapeColor = tuple(i / 255 for i in color)
 
-        model = QtGui.QStandardItemModel()
-        w.listView.setModel(model)
-        for i in properties:
-            item = QtGui.QStandardItem(i)
-            item.setCheckable(True)
-            item.setCheckState(QtCore.Qt.Unchecked)
-            if i == 'Name':
-                item.setEnabled(False)
-                item.setCheckState(QtCore.Qt.Checked)
-            model.appendRow(item)
+        # ---------- #
+        # properties #
+        # ---------- #
+
+        color_black = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
+
+        table = w.tableWidget
+
+        labels = ('Property', 'Value')
+        table.setColumnCount(len(labels))
+        table.setHorizontalHeaderLabels(labels)
+        table.setRowCount(len(properties))
+
+        def cb_changed(text) -> None:
+            if text == '-':
+                return
+            indexes = table.selectedIndexes()
+            if len(indexes) < 1:
+                return
+            p = table.item(indexes[0].row(), 0)
+            if p.checkState() != QtCore.Qt.Checked:
+                p.setCheckState(QtCore.Qt.CheckState.Checked)
+                p.setForeground(color_blue)
+
+        f = QtCore.Qt.ItemFlag
+
+        cb_materials, cb_type = QtGui.QComboBox(), QtGui.QComboBox()
+
+        x = 0
+        for key in properties:
+            # property:
+            q = QtGui.QTableWidgetItem(str(key))
+            q.setFlags(f.ItemIsUserCheckable | f.ItemIsEnabled)
+            if key == 'Name':
+                q.setCheckState(QtCore.Qt.CheckState.Checked)
+                q.setFlags(QtCore.Qt.NoItemFlags)
+            else:
+                q.setCheckState(QtCore.Qt.CheckState.Unchecked)
+            table.setItem(x, 0, q)
+            # value:
+            if properties[key][0] == 'Enumeration':
+                cb = QtGui.QComboBox()
+                if key == 'Material':
+                    cb_materials.addItems(materials.keys())
+                    cb_materials.setCurrentText(default_material)
+                    cb_materials.setStyleSheet('border: none')
+                    table.setCellWidget(x, 1, cb_materials)
+                    cb_materials.currentTextChanged.connect(cb_changed)
+                elif key == 'Type':
+                    cb_type.addItems(properties[key][2])
+                    cb_type.setStyleSheet('border: none')
+                    table.setCellWidget(x, 1, cb_type)
+                    cb_type.currentTextChanged.connect(cb_changed)
+                else:
+                    cb.addItems(properties[key][2])
+                    cb.setStyleSheet('border: none')
+                    table.setCellWidget(x, 1, cb)
+                    cb.currentTextChanged.connect(cb_changed)
+            elif properties[key][0] == 'Bool':
+                cb = QtGui.QComboBox()
+                cb.addItems(('True', 'False'))
+                cb.setStyleSheet('border: none')
+                table.setCellWidget(x, 1, cb)
+                cb.currentTextChanged.connect(cb_changed)
+            else:
+                table.setItem(x, 1, QtGui.QTableWidgetItem())
+            x += 1
+
+        table.resizeColumnsToContents()
+        table.resizeRowsToContents()
+        table.horizontalHeader().setResizeMode(
+            labels.index('Value'), QtGui.QHeaderView.Stretch)
+
+        def item_changed(item) -> None:
+            if item is None:
+                return
+            if item.column() == 0:
+                if item.checkState() != QtCore.Qt.Unchecked:
+                    item.setForeground(color_blue)
+                else:
+                    item.setForeground(color_black)
+            elif item.column() == 1:
+                if item.text() != '':
+                    i = table.item(item.row(), 0)
+                    if i.checkState() != QtCore.Qt.Checked:
+                        i.setCheckState(QtCore.Qt.CheckState.Checked)
+                        i.setForeground(color_blue)
+
+        table.itemChanged.connect(item_changed)
+
+        # ------------ #
+        # add property #
+        # ------------ #
 
         def add() -> None:
             if len(FreeCAD.Gui.Selection.getSelection()) < 1:
+                w.info.setText('You need to select an object')
                 return
-            selection = FreeCAD.Gui.Selection.getSelection()
-            _list, _smp = [], w.checkBoxSMP.isChecked()
+            w.info.setText('')
+
+            smp = w.checkBoxSMP.isChecked()
+
+            selection, choice = FreeCAD.Gui.Selection.getSelection(), []
+
             for i in selection:
-                _list.clear()
+                choice.clear()
                 for j in i.InList:
                     if j.TypeId != 'App::Link':
-                        _list.append(j)
+                        choice.append(j)
                 if FreeCAD.ActiveDocument.Name != i.Document.Name:
-                    if len(_list) > 1:
-                        i = _list[0]
+                    if len(choice) > 1:
+                        i = choice[0]
                 else:
                     try:
                         if i.BaseFeature is not None:
-                            i = _list[0]
+                            i = choice[0]
                         else:
                             match i.TypeId:
                                 case 'PartDesign::Body' | 'App::Link':
                                     pass
                                 case _:
-                                    i = _list[0]
+                                    i = choice[0]
                     except BaseException:
                         pass
                 if i.TypeId == 'App::Link':
                     i = i.LinkedObject
-                if _smp:  # sheet metal part
+                if smp:
+                    # sheet metal part, color:
                     set_color(i, configuration['smp_color'])
-                for index in range(model.rowCount()):
-                    item = model.item(index)
-                    if item.checkState() != QtCore.Qt.Checked:
+
+                stuff, material = {}, []
+
+                global properties_last
+                properties_last.clear()
+
+                for row in range(table.rowCount()):
+                    prop = table.item(row, 0)
+                    if prop.checkState() != QtCore.Qt.Checked:
                         continue
-                    text = item.text()
-                    p = group + '_' + text
-                    t = 'App::Property' + properties[text][0]
-                    e = properties[text][2]
-                    if p not in i.PropertiesList:
-                        if len(e) > 0:  # enumeration
-                            i.addProperty(t, p, group)
-                            setattr(i, p, e)
-                            if _smp:  # sheet metal part
-                                if text == 'Material':
-                                    setattr(i, p, w.comboBoxSMP.currentText())
-                                elif text == 'Type':
-                                    setattr(i, p, smp_type)
-                        else:
-                            i.addProperty(t, p, group)
-                            index, name = parse_label(i.Label)
-                            match text:
-                                case 'Name':
-                                    setattr(i, p, name)
-                                case 'Index':
-                                    setattr(i, p, index)
-                                case 'Quantity':
-                                    setattr(i, p, 1)
-                                case 'Unfold':
-                                    setattr(i, p, True)
-                                case 'MetalThickness':
-                                    bind = w.checkBoxLT.isChecked()
+                    prop, value = prop.text(), table.item(row, 1)
+                    if value is not None:
+                        value = value.text()
+                    else:
+                        value = table.cellWidget(row, 1)
+                        value = value.currentText()
+                    if prop == 'Material':
+                        enum = list(materials.keys())
+                        enum.sort()
+                        if value != '-':
+                            material = materials[value]
+                    else:
+                        enum = properties[prop][2]
+                    properties_last.append(prop)
+                    # property: (type, enumeration, value)
+                    stuff['Add_' + prop] = (
+                        'App::Property' + properties[prop][0],
+                        enum,
+                        value,
+                    )
+
+                index, name = parse_label(i.Label)
+                eq = w.checkBoxEq.isChecked()
+
+                keys = list(stuff.keys())
+                keys.sort()
+
+                if 'Add_Price' in keys:
+                    # castling:
+                    keys.remove('Add_Price')
+                    keys.append('Add_Price')
+
+                for k in keys:
+                    v = stuff[k]  # 0:type, 1:enumeration, 2:value
+
+                    if k in i.PropertiesList:
+                        old = i.getPropertyByName(k)
+                        if len(v[1]) > 0:
+                            e = v[1].sort()
+                            try:
+                                ep = i.getEnumerationsOfProperty(k)
+                                ep.sort()
+                                if e != ep and len(e) > len(ep):
+                                    setattr(i, k, e)  # update
+                            except BaseException:
+                                pass
+                    else:
+                        old = ''
+                        i.addProperty(v[0], k, 'Add')
+                        if len(v[1]) > 0:
+                            setattr(i, k, v[1])
+
+                    match k:
+                        case 'Add_Name':
+                            if old == '':
+                                i.Add_Name = name if v[2] == '' else v[2]
+                            elif old != v[2] and v[2] != '':
+                                i.Add_Name = v[2]
+                        case 'Add_Index':
+                            if old == '':
+                                i.Add_Index = index if v[2] == '' else v[2]
+                            elif old != v[2] and v[2] != '':
+                                i.Add_Index = v[2]
+                        case 'Add_Quantity':
+                            try:
+                                _f = float(v[2])
+                            except ValueError:
+                                _f = 1
+                            if old != _f:
+                                i.Add_Quantity = _f
+                        case 'Add_Unfold':
+                            _b = True if v[2] == 'True' else False
+                            if old != _b:
+                                i.Add_Unfold = _b
+                        case 'Add_MetalThickness':
+                            bind = w.checkBoxLT.isChecked()
+                            try:
+                                _f = float(v[2])
+                            except ValueError:
+                                _f = S.define_thickness(i, bind, k)
+                                if _f == '-':
+                                    _f = 0
+                            if not bind:
+                                i.Add_MetalThickness = _f
+                        # equations:
+                        case 'Add_Weight' | 'Add_Price':
+                            try:
+                                _f = float(v[2])
+                            except ValueError:
+                                _f = 0
+                            if old == 0 or old == '':
+                                if eq or _f == 0:
+                                    if len(material) > 0:
+                                        if k == 'Add_Weight':
+                                            S.equation_weight(i, material)
+                                        else:
+                                            S.equation_price(i, material)
+                                else:
+                                    setattr(i, k, _f)
+                        # default:
+                        case _:
+                            match v[0]:
+                                case 'App::PropertyFloat':
                                     try:
-                                        thickness = float(
-                                            S.define_thickness(i, bind, p))
-                                        if not bind:
-                                            setattr(i, p, thickness)
-                                    except BaseException:
-                                        pass
-                            # sheet metal part:
-                            if _smp and text == 'Weight':
-                                set_weight(i, p, configuration['smp_density'])
-                    # enumeration, checking and filling:
-                    elif len(e) > 0:
-                        e.sort()
-                        try:
-                            ep = i.getEnumerationsOfProperty(p)
-                            ep.sort()
-                            if e != ep and len(e) > len(ep):
-                                setattr(i, p, e)
-                        except BaseException:
-                            pass
+                                        _f = float(v[2])
+                                    except ValueError:
+                                        _f = 0
+                                    if old != _f and f != 0:
+                                        setattr(i, k, _f)
+                                case 'App::PropertyInteger':
+                                    try:
+                                        _i = int(v[2])
+                                    except ValueError:
+                                        _i = 0
+                                    if old != _i and _i != 0:
+                                        setattr(i, k, _i)
+                                case 'App::PropertyBool':
+                                    _b = True if v[2] == 'True' else False
+                                    if old != _b:
+                                        setattr(i, k, _b)
+                                case _:
+                                    if old != v[2] and v[2] != '':
+                                        setattr(i, k, v[2])
+
             FreeCAD.activeDocument().recompute()
+
         w.pushButtonAdd.clicked.connect(add)
 
         def select_all() -> None:
-            for index in range(model.rowCount()):
-                item = model.item(index)
-                if item.checkState() != QtCore.Qt.Checked:
-                    item.setCheckState(QtCore.Qt.Checked)
+            for r in range(table.rowCount()):
+                i = table.item(r, 0)
+                if i is None:
+                    continue
+                if i.checkState() != QtCore.Qt.Checked:
+                    i.setCheckState(QtCore.Qt.CheckState.Checked)
+                    i.setForeground(color_blue)
         w.pushButtonAll.clicked.connect(select_all)
 
-        def select_core() -> None:
-            core = P.specification_properties_core
-            for index in range(model.rowCount()):
-                item = model.item(index)
-                if item.text() in core:
-                    if item.checkState() != QtCore.Qt.Checked:
-                        item.setCheckState(QtCore.Qt.Checked)
+        def select_prev() -> None:
+            for r in range(table.rowCount()):
+                i = table.item(r, 0)
+                if i is None:
+                    continue
+                if i.text() in properties_last:
+                    if i.checkState() != QtCore.Qt.Checked:
+                        i.setCheckState(QtCore.Qt.CheckState.Checked)
+                        i.setForeground(color_blue)
                 else:
-                    if item.checkState() == QtCore.Qt.Checked:
-                        item.setCheckState(QtCore.Qt.Unchecked)
+                    if i.checkState() != QtCore.Qt.Unchecked:
+                        i.setCheckState(QtCore.Qt.CheckState.Unchecked)
+                        i.setForeground(color_black)
+        w.pushButtonPrev.clicked.connect(select_prev)
+
+        def select_core() -> None:
+            for r in range(table.rowCount()):
+                i = table.item(r, 0)
+                if i is None:
+                    continue
+                if i.text() in core:
+                    if i.checkState() != QtCore.Qt.Checked:
+                        i.setCheckState(QtCore.Qt.CheckState.Checked)
+                        i.setForeground(color_blue)
+                else:
+                    if i.checkState() != QtCore.Qt.Unchecked:
+                        i.setCheckState(QtCore.Qt.CheckState.Unchecked)
+                        i.setForeground(color_black)
         w.pushButtonCore.clicked.connect(select_core)
 
         def select_none() -> None:
-            for index in range(model.rowCount()):
-                item = model.item(index)
-                if item.checkState() == QtCore.Qt.Checked:
-                    if item.text() != 'Name':
-                        item.setCheckState(QtCore.Qt.Unchecked)
+            for r in range(table.rowCount()):
+                i = table.item(r, 0)
+                if i is None:
+                    continue
+                if i.text() == 'Name':
+                    continue
+                if i.checkState() != QtCore.Qt.Unchecked:
+                    i.setCheckState(QtCore.Qt.CheckState.Unchecked)
+                    i.setForeground(color_black)
         w.pushButtonNone.clicked.connect(select_none)
 
-        def sheet_metal_part(state) -> None:
+        def state_smp(state) -> None:
             if state == QtCore.Qt.CheckState.Unchecked:
+                w.comboBoxSMP.setCurrentText('-')
                 w.comboBoxSMP.setEnabled(False)
                 w.checkBoxLT.setChecked(False)
                 w.checkBoxLT.setEnabled(False)
+                cb_materials.setEnabled(True)
                 return
+            w.comboBoxSMP.setCurrentText('Galvanized')
             w.comboBoxSMP.setEnabled(True)
             w.checkBoxLT.setEnabled(True)
             w.checkBoxLT.setChecked(True)
+            cb_materials.setEnabled(False)
             values = [
-                # core:
                 'Code',
                 'Index',
                 'Material',
                 'MetalThickness',
                 'Unfold',
+                'Weight',
             ]
-            for key in properties:
-                if key == 'Type' or key == 'Weight':
-                    values.append(key)
-            for index in range(model.rowCount()):
-                item = model.item(index)
-                if item.text() in values:
-                    if item.checkState() != QtCore.Qt.Checked:
-                        item.setCheckState(QtCore.Qt.Checked)
-        w.checkBoxSMP.stateChanged.connect(sheet_metal_part)
+            if 'Type' in properties:
+                values.append('Type')
+                cb_type.setCurrentText(smp_type)
+            for r in range(table.rowCount()):
+                i = table.item(r, 0)
+                if i is None:
+                    continue
+                if i.text() in values:
+                    if i.checkState() != QtCore.Qt.Checked:
+                        i.setCheckState(QtCore.Qt.CheckState.Checked)
+                        i.setForeground(color_blue)
+        w.checkBoxSMP.stateChanged.connect(state_smp)
+
+        def changed_material(text) -> None:
+            cb_materials.setCurrentText(text)
+        w.comboBoxSMP.currentTextChanged.connect(changed_material)
 
         w.show()
         w.pushButtonAdd.setFocus()
@@ -765,57 +1185,8 @@ FreeCAD.Gui.addCommand('AddFCProperties', AddFCProperties())
 # ------------------------------------------------------------------------------
 
 
-class AddFCPipe():
-
-    def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'pipe.svg'),
-                'Accel': 'Alt+Shift+P',
-                'MenuText': 'Pipe',
-                'ToolTip': 'Creating a pipe by points'}
-
-    def Activated(self):
-        file = os.path.join(P.add_base, 'utils', 'addFC_Pipe.py')
-        loader = importlib.machinery.SourceFileLoader('addFC_Pipe', file)
-        _ = loader.load_module()
-        return
-
-    def IsActive(self):
-        return True if len(FreeCAD.Gui.Selection.getSelection()) > 0 else False
-
-
-FreeCAD.Gui.addCommand('AddFCPipe', AddFCPipe())
-
-
-# ------------------------------------------------------------------------------
-
-
-class AddFCExplode():
-
-    def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'explode.svg'),
-                'Accel': 'Alt+Shift+E',
-                'MenuText': 'Explode',
-                'ToolTip': 'Exploded view'}
-
-    def Activated(self):
-        file = os.path.join(P.add_base, 'utils', 'addFC_Explode.py')
-        loader = importlib.machinery.SourceFileLoader('addFC_Explode', file)
-        _ = loader.load_module()
-        return
-
-    def IsActive(self): return True if FreeCAD.ActiveDocument else False
-
-
-FreeCAD.Gui.addCommand('AddFCExplode', AddFCExplode())
-
-
-# ------------------------------------------------------------------------------
-
-
 def stamp_fill(ed: dict) -> dict:
-    conf = P.load_configuration()
-    if 'ru_std_tpl_stamp' not in conf:
-        return ed
+    conf = P.pref_configuration
     today = datetime.date.today().strftime('%d.%m.%y')
     dt = ('Author', 'Inspector', 'Control 1', 'Control 2', 'Approver')
     stamp = conf['ru_std_tpl_stamp']
@@ -828,17 +1199,17 @@ def stamp_fill(ed: dict) -> dict:
     return ed
 
 
-class addFCInsert():
+class AddFCInsert():
 
     def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'insert.svg'),
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'insert.svg'),
                 'Accel': 'Alt+Shift+I',
                 'MenuText': 'Creating a Drawing',
                 'ToolTip': 'Create a drawing based on a template'}
 
     def Activated(self):
-        ui = os.path.join(P.add_base, 'repo', 'ui', 'list.ui')
-        w = FreeCAD.Gui.PySideUic.loadUi(ui)
+        w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            P.AFC_PATH, 'repo', 'ui', 'list.ui'))
 
         if not FreeCAD.ActiveDocument:
             FreeCAD.newDocument('Unnamed')
@@ -846,18 +1217,19 @@ class addFCInsert():
 
         ad = FreeCAD.ActiveDocument
 
-        _, _, tpl = P.list_tpl()
+        _, _, tpl = P.get_tpl()
         tpl = dict(sorted(tpl.items()))
 
-        w.show()
         model = QtGui.QStandardItemModel()
         w.listView.setModel(model)
         for i in tpl.keys():
             model.appendRow(QtGui.QStandardItem(i.rstrip('.svg')))
 
         w.label.setText('Select a template to create a drawing.')
+        w.pushButton.setText('Create')
+        w.show()
 
-        def open() -> None:
+        def create() -> None:
             for i in w.listView.selectedIndexes():
                 item = w.listView.model().itemFromIndex(i).text()
                 w.close()
@@ -873,85 +1245,91 @@ class addFCInsert():
                 FreeCAD.Gui.updateGui()
                 FreeCAD.Gui.SendMsgToActiveView('ViewFit')
 
-        w.pushButtonOpen.clicked.connect(open)
-        w.listView.doubleClicked.connect(open)
+        w.pushButton.clicked.connect(create)
+        w.listView.doubleClicked.connect(create)
 
     def IsActive(self): return True
 
 
-FreeCAD.Gui.addCommand('addFCInsert', addFCInsert())
+FreeCAD.Gui.addCommand('AddFCInsert', AddFCInsert())
 
 
 # ------------------------------------------------------------------------------
 
 
-documentation_path: str = os.path.join(P.add_base, 'repo', 'doc')
-examples_path: str = os.path.join(P.add_base, 'repo', 'example')
-examples_path_zip: str = os.path.join(P.add_base, 'repo', 'example.zip')
+DOCUMENTATION_PATH = os.path.join(P.AFC_PATH, 'repo', 'doc')
+EXAMPLES_PATH_ZIP = os.path.join(P.AFC_PATH, 'repo', 'example.zip')
+EXAMPLES_PATH = os.path.join(P.AFC_PATH, 'repo', 'example')
+
 
 examples: dict = {
-    'addFC: Additional files': (
-        os.path.join(P.add_base, 'repo', 'add'),
+    'addFC - Additional files': (
+        os.path.join(P.AFC_PATH, 'repo', 'add'),
         'Supporting files such as templates, fonts.',
     ),
     # documentation:
     'Documentation - English': (
-        os.path.join(documentation_path, 'documentation_EN.pdf'),
+        os.path.join(DOCUMENTATION_PATH, 'documentation_EN.pdf'),
         'Documentation in PDF format - English.',
     ),
     'Documentation - Russian': (
-        os.path.join(documentation_path, 'documentation_RU.pdf'),
+        os.path.join(DOCUMENTATION_PATH, 'documentation_RU.pdf'),
         'Документация в формате PDF на русском языке.',
     ),
     # examples:
     'Assembly': (
-        os.path.join(examples_path, 'noAssembly.FCStd'),
+        os.path.join(EXAMPLES_PATH, 'noAssembly.FCStd'),
         'An example of a complex parametric assembly, '
         'bill of materials, batch processing of sheet metal, '
-        'and an exploded view.',
+        'and an exploded view.\nAttention! Sheet metal currently '
+        'does not work in version 1.0.0 and above.',
     ),
     'Belt Roller Support': (
-        os.path.join(examples_path, 'beltRollerSupport.FCStd'),
+        os.path.join(EXAMPLES_PATH, 'beltRollerSupport.FCStd'),
         'Simple assembly example: bill of materials, exploded view '
-        'and fasteners workbench support.'
+        'and fasteners workbench support.\nFastenersWB required.'
     ),
     'Pipe': (
-        os.path.join(examples_path, 'pipe.FCStd'),
+        os.path.join(EXAMPLES_PATH, 'pipe.FCStd'),
         'An example for creating a pipeline by points.',
     ),
     'RU std: ЕСКД - Модель': (
-        os.path.join(examples_path, 'stdRU.FCStd'),
+        os.path.join(EXAMPLES_PATH, 'stdRU.FCStd'),
         'Простой пример оформления конструкторской документации по '
         'стандартам ЕСКД.',
     ),
     'RU std: ЕСКД - Конструкторская документация': (
-        os.path.join(documentation_path, 'stdRU.pdf'),
+        os.path.join(DOCUMENTATION_PATH, 'stdRU.pdf'),
         'Простой пример оформления конструкторской документации по '
         'стандартам ЕСКД.',
     ),
 }
 
 
-class addFCAssistant():
+class AddFCAssistant():
 
     def GetResources(self):
-        return {'Pixmap': os.path.join(P.add_icon, 'help.svg'),
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'help.svg'),
                 'MenuText': 'Help and Example',
                 'ToolTip': 'Help and Example'}
 
     def Activated(self):
-        ui = os.path.join(P.add_base, 'repo', 'ui', 'list.ui')
-        w = FreeCAD.Gui.PySideUic.loadUi(ui)
-        w.show()
+        w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            P.AFC_PATH, 'repo', 'ui', 'list.ui'))
+
         model = QtGui.QStandardItemModel()
         w.listView.setModel(model)
         for i in examples:
             model.appendRow(QtGui.QStandardItem(i))
 
+        w.pushButton.setText('Open')
+        w.show()
+
         def unzip(reset: bool) -> None:
-            if reset or not os.path.exists(examples_path):
-                z = ZipFile(examples_path_zip, 'r')
-                z.extractall(os.path.join(P.add_base, 'repo'))
+            if reset or not os.path.exists(EXAMPLES_PATH):
+                z = ZipFile(EXAMPLES_PATH_ZIP, 'r')
+                z.extractall(os.path.join(P.AFC_PATH, 'repo'))
+                z.close()
 
         def select() -> None:
             for index in w.listView.selectedIndexes():
@@ -965,23 +1343,95 @@ class addFCAssistant():
                 path = examples[item][0]
                 w.close()
                 if 'files' in item:
-                    open_dir(path)
+                    run(path)
                 elif path.endswith('.pdf'):
-                    webbrowser.open_new_tab(path)
+                    cp = run(path)
+                    if cp.returncode != 0:
+                        run(os.path.dirname(path))
                 else:
                     unzip(True if not os.path.exists(path) else False)
                     FreeCAD.openDocument(path)
-        w.pushButtonOpen.clicked.connect(open)
+        w.pushButton.clicked.connect(open)
         w.listView.doubleClicked.connect(open)
 
     def IsActive(self): return True
 
 
-FreeCAD.Gui.addCommand('addFCAssistant', addFCAssistant())
+FreeCAD.Gui.addCommand('AddFCAssistant', AddFCAssistant())
 
 
-def open_dir(path: str) -> None:
+def run(path: str) -> subprocess.CompletedProcess:
     match sys.platform:
-        case 'win32': subprocess.run(['explorer', path])
-        case 'darwin': subprocess.run(['open', path])
-        case _: subprocess.run(['xdg-open', path])
+        case 'win32': return subprocess.run(['explorer', path])
+        case 'darwin': return subprocess.run(['open', path])
+        case _: return subprocess.run(['xdg-open', path])
+
+
+# ------------------------------------------------------------------------------
+
+
+class AddFCLibrary():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'library.svg'),
+                'Accel': 'Alt+Shift+L',
+                'MenuText': 'Library',
+                'ToolTip': 'Library of elements'}
+
+    def Activated(self):
+        file = os.path.join(P.AFC_PATH, 'utils', 'addFC_Library.py')
+        loader = importlib.machinery.SourceFileLoader('addFC_Library', file)
+        _ = loader.load_module()
+        return
+
+    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+
+
+FreeCAD.Gui.addCommand('AddFCLibrary', AddFCLibrary())
+
+
+# ----
+
+
+class AddFCExplode():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'explode.svg'),
+                'Accel': 'Alt+Shift+E',
+                'MenuText': 'Explode',
+                'ToolTip': 'Exploded view'}
+
+    def Activated(self):
+        file = os.path.join(P.AFC_PATH, 'utils', 'addFC_Explode.py')
+        loader = importlib.machinery.SourceFileLoader('addFC_Explode', file)
+        _ = loader.load_module()
+        return
+
+    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+
+
+FreeCAD.Gui.addCommand('AddFCExplode', AddFCExplode())
+
+
+# ----
+
+
+class AddFCPipe():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'pipe.svg'),
+                'Accel': 'Alt+Shift+P',
+                'MenuText': 'Pipe',
+                'ToolTip': 'Creating a pipe by points'}
+
+    def Activated(self):
+        file = os.path.join(P.AFC_PATH, 'utils', 'addFC_Pipe.py')
+        loader = importlib.machinery.SourceFileLoader('addFC_Pipe', file)
+        _ = loader.load_module()
+        return
+
+    def IsActive(self):
+        return True if len(FreeCAD.Gui.Selection.getSelection()) > 0 else False
+
+
+FreeCAD.Gui.addCommand('AddFCPipe', AddFCPipe())

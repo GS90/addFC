@@ -3,6 +3,7 @@
 
 
 from PySide import QtGui, QtCore
+import addFC_Logger as Logger
 import addFC_Preference as P
 import FreeCAD
 import os
@@ -12,27 +13,31 @@ import subprocess
 import time
 
 
-if P.additions['numpy'][0]:
+if P.afc_additions['numpy'][0]:
     import numpy as np
+else:
+    np = None
 
 
 ad = FreeCAD.ActiveDocument
 
 
-w = FreeCAD.Gui.PySideUic.loadUi(
-    os.path.join(os.path.dirname(__file__), 'addFC_Explode.ui'))
-es = FreeCAD.Gui.PySideUic.loadUi(
-    os.path.join(os.path.dirname(__file__), 'addFC_Explode_es.ui'))
+w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+    os.path.normpath(os.path.dirname(__file__)), 'addFC_Explode.ui'))
+es = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+    os.path.normpath(os.path.dirname(__file__)), 'addFC_Explode_es.ui'))
 
 
 storage = None
-explosion: dict = {}
-freeze: bool = False
-frame: int = 1
-storyboard: str = ''
+explosion = {}
+freeze = False
+frame = 1
+storyboard = ''
 
 
-export_properties: dict = {
+PATTERN = re.compile('[0-9]+$')
+
+EXPORT_PROPERTIES = {
     'size': {
         '480p (SD)': (640, 480),
         '720p (HD)': (1280, 720),
@@ -92,7 +97,7 @@ def placement_load(placement) -> FreeCAD.Placement:
     return p
 
 
-def base_object_get(BaseObject) -> tuple:
+def base_object_get(BaseObject) -> tuple | None:
     if BaseObject is not None:
         return (BaseObject[0].Name, BaseObject[1])
     else:
@@ -103,7 +108,7 @@ def base_object_set(baseObject: tuple) -> tuple | None:
     try:
         return (ad.getObject(baseObject[0]), baseObject[1])
     except BaseException as e:
-        FreeCAD.Console.PrintWarning(str(e) + '\n')
+        Logger.error(str(e))
         return None
 
 
@@ -133,17 +138,17 @@ def fuse_explode(obj, finish) -> None:
 
 def dialog() -> None:
 
-    if not P.additions['ffmpeg'][0]:
+    if not P.afc_additions['ffmpeg'][0]:
         w.error.setText('FFmpeg is not available!')
         w.animationExport.setEnabled(False)
         w.exportSettings.setEnabled(False)
 
-    if not P.additions['numpy'][0]:
+    if not P.afc_additions['numpy'][0]:
         w.error.setText('NumPy is not available!')
         w.animate.setEnabled(False)
         w.animateAll.setEnabled(False)
 
-    ep = P.load_explosion()
+    ep = P.pref_explosion
 
     global storyboard
     storyboard = os.path.join(ep['export_dir'], ad.Name + '_storyboard')
@@ -160,7 +165,7 @@ def dialog() -> None:
     def color_set(color: tuple | list) -> None:
         color = QtGui.QColor(*color).name()
         w.guidesColor.setText(color)
-        w.guidesColor.setStyleSheet('QPushButton {color:' + color + '}')
+        w.guidesColor.setStyleSheet('QPushButton {color:' + str(color) + '}')
 
     def color_get() -> None:
         color = QtGui.QColorDialog.getColor()
@@ -223,9 +228,9 @@ def dialog() -> None:
         for i in explosion:
             model.appendRow(QtGui.QStandardItem(i))
 
-    ##################
+    # -------------- #
     # adding a group #
-    ##################
+    # -------------- #
 
     def group_add() -> None:
         title = w.groupTitle.text().strip()
@@ -239,8 +244,8 @@ def dialog() -> None:
 
         selection = FreeCAD.Gui.Selection.getSelectionEx('', 0)
         if len(selection) == 0:
-            FreeCAD.Console.PrintWarning(
-                'To create a group, you need to select the elements.\n')
+            Logger.warning(
+                'To create a group, you need to select the elements...')
             return
 
         group = {
@@ -295,7 +300,7 @@ def dialog() -> None:
                 })
 
             except BaseException as e:
-                FreeCAD.Console.PrintWarning(str(e) + '\n')
+                Logger.warning(str(e))
                 continue
 
         if len(group['fuses']) == 0:
@@ -311,7 +316,7 @@ def dialog() -> None:
 
         try:
             title = re.sub(
-                r'[0-9]+$',
+                PATTERN,
                 lambda x: f'{str(int(x.group())+1).zfill(len(x.group()))}',
                 title)
             w.groupTitle.setText(title)
@@ -320,9 +325,9 @@ def dialog() -> None:
 
     w.groupAdd.clicked.connect(group_add)
 
-    ####################
+    # ---------------- #
     # deleting a group #
-    ####################
+    # ---------------- #
 
     def group_remove() -> None:
         indexes = w.groups.selectedIndexes()
@@ -336,14 +341,15 @@ def dialog() -> None:
         del explosion[target.text()]
         model.clear()
         global storage
-        if storage.Storage is not None:
-            for i in explosion:
-                model.appendRow(QtGui.QStandardItem(i))
+        if storage is not None:
+            if storage.Storage is not None:
+                for i in explosion:
+                    model.appendRow(QtGui.QStandardItem(i))
     w.groupRemove.clicked.connect(group_remove)
 
-    ###############
+    # ----------- #
     # group order #
-    ###############
+    # ----------- #
 
     def group_down():
         indexes = w.groups.selectedIndexes()
@@ -376,9 +382,9 @@ def dialog() -> None:
         save()
     w.groupUp.clicked.connect(group_up)
 
-    ###################
+    # --------------- #
     # group selection #
-    ###################
+    # --------------- #
 
     def group_select(item, select: bool = True) -> None:
         target = model.index(item.row(), item.column()).data()
@@ -417,9 +423,9 @@ def dialog() -> None:
 
     w.groups.doubleClicked.connect(group_select)
 
-    ##################
+    # -------------- #
     # moving a group #
-    ##################
+    # -------------- #
 
     def group_moving() -> None:
         global freeze
@@ -467,9 +473,9 @@ def dialog() -> None:
     w.rotationY.valueChanged.connect(group_moving)
     w.rotationZ.valueChanged.connect(group_moving)
 
-    ############################
+    # ------------------------ #
     # combine & explode: group #
-    ############################
+    # ------------------------ #
 
     def group_combine() -> None:
         target = w.target.text()
@@ -515,9 +521,9 @@ def dialog() -> None:
         ad.recompute()
     w.groupExplode.clicked.connect(group_explode)
 
-    ##########################
+    # ---------------------- #
     # combine & explode: all #
-    ##########################
+    # ---------------------- #
 
     def combine_all() -> None:
         for index in range(model.rowCount()):
@@ -533,15 +539,15 @@ def dialog() -> None:
         w.target.setText('...')
     w.explodeAll.clicked.connect(explode_all)
 
-    ##########
+    # ------ #
     # guides #
-    ##########
+    # ------ #
 
     def guides_remove() -> bool:
         target = w.target.text()
         global explosion
         if target not in explosion:  # error?
-            return
+            return False
         guides = ad.getObject(explosion[target]['guides']['title'])
         if guides is None:
             return False
@@ -555,7 +561,7 @@ def dialog() -> None:
         return True
     w.guidesRemove.clicked.connect(guides_remove)
 
-    def guide_position(fuse) -> None:
+    def guide_position(fuse) -> None | tuple:
         start = list(fuse['start'][0])
         finish = list(get(fuse['doc'], fuse['name']).Placement.Base)
         if start == finish:
@@ -597,7 +603,8 @@ def dialog() -> None:
         d = ad.addObject('App::DocumentObjectGroup', f'Guides_{target}')
         global storage
         d.adjustRelativeLinks(storage)
-        storage.addObject(d)
+        if storage is not None:
+            storage.addObject(d)
 
         group = explosion[target]
         group['guides']['style'] = w.guidesStyle.currentText()
@@ -606,7 +613,10 @@ def dialog() -> None:
         group['guides']['size'] = w.guidesSize.value()
 
         for i in group['fuses']:
-            uno, dos = guide_position(i)
+            position = guide_position(i)
+            if position is None:
+                return
+            uno, dos = position[0], position[1]
             i['line'] = f"Line_{i['name']}"
             line = ad.addObject('Part::Line', i['line'])
             # placement:
@@ -632,9 +642,9 @@ def dialog() -> None:
 
     w.guidesCreate.clicked.connect(guides_create)
 
-    #############
+    # --------- #
     # animation #
-    #############
+    # --------- #
 
     def animation_clear() -> None:
         target = w.target.text()
@@ -670,7 +680,7 @@ def dialog() -> None:
     def animation_play(single: bool = True) -> None:
         target = w.target.text()
         global explosion
-        if target not in explosion:  # error
+        if target not in explosion or np is None:  # error
             return
 
         FreeCAD.Gui.Selection.clearSelection()
@@ -705,7 +715,10 @@ def dialog() -> None:
                 guide = ad.getObject(fuse['line'])
                 guide.Visibility = True
                 # todo: is it working?
-                _, dos = guide_position(fuse)
+                position = guide_position(fuse)
+                if position is None:
+                    return
+                dos = position[1]
                 if guide.X1 != dos[0]:
                     guide.X2 = dos[0]
                 if guide.Y1 != dos[1]:
@@ -853,7 +866,7 @@ def dialog() -> None:
         w.animate.setEnabled(True)
         w.animationReverse.setEnabled(True)
         w.animationReverse.setChecked(reverse)
-        if P.additions['ffmpeg'][0]:
+        if P.afc_additions['ffmpeg'][0]:
             w.animationExport.setEnabled(True)
             w.animationExport.setChecked(export)
             w.exportSettings.setEnabled(True)
@@ -889,9 +902,9 @@ def dialog() -> None:
                 'CornerCoordSystem', ccs)
     w.animateAll.clicked.connect(animate_all)
 
-    ########
+    # ---- #
     # save #
-    ########
+    # ---- #
 
     def save() -> None:
         global storage
@@ -900,12 +913,13 @@ def dialog() -> None:
         for index in range(model.rowCount()):
             title = model.item(index).text()
             db[title] = explosion[title]
-        storage.Storage = db
+        if storage is not None:
+            storage.Storage = db
         ad.recompute()
 
-    ####################
+    # ---------------- #
     # creating a video #
-    ####################
+    # ---------------- #
 
     def make_video(postfix: str = '') -> None:
         output = subprocess.run([
@@ -920,11 +934,11 @@ def dialog() -> None:
         if '_storyboard' in storyboard:
             shutil.rmtree(storyboard)
         if output.returncode != 0:
-            FreeCAD.Console.PrintError('ffmpeg: failed to create a video\n')
+            Logger.error('ffmpeg: failed to create a video...')
 
-    ###################
+    # --------------- #
     # export settings #
-    ###################
+    # --------------- #
 
     def export_settings() -> None:
         es.comboBoxSize.clear()
@@ -932,17 +946,17 @@ def dialog() -> None:
         es.comboBoxMethod.clear()
         es.comboBoxImageFormat.clear()
 
-        es.comboBoxSize.addItems(export_properties['size'].keys())
-        es.comboBoxBackground.addItems(export_properties['background'])
-        es.comboBoxMethod.addItems(export_properties['method'].keys())
+        es.comboBoxSize.addItems(EXPORT_PROPERTIES['size'].keys())
+        es.comboBoxBackground.addItems(EXPORT_PROPERTIES['background'])
+        es.comboBoxMethod.addItems(EXPORT_PROPERTIES['method'].keys())
         es.comboBoxImageFormat.addItems(
-            export_properties['image_format'].keys())
+            EXPORT_PROPERTIES['image_format'].keys())
 
         def resize(size) -> None:
-            if size not in export_properties['size']:
+            if size not in EXPORT_PROPERTIES['size']:
                 size = '1080p (FHD)'
             es.comboBoxSize.setCurrentText(size)
-            s = export_properties['size'][size]
+            s = EXPORT_PROPERTIES['size'][size]
             es.spinBoxWidth.setValue(s[0])
             es.spinBoxHeight.setValue(s[1])
         es.comboBoxSize.currentTextChanged.connect(resize)
@@ -980,11 +994,11 @@ def dialog() -> None:
             ep['export_background'] = es.comboBoxBackground.currentText()
             ep['export_method'] = es.comboBoxMethod.currentText()
             ep['export_ccs'] = es.checkBoxCCS.isChecked()
-            ep['export_image_format'] = export_properties['image_format'][
+            ep['export_image_format'] = EXPORT_PROPERTIES['image_format'][
                 es.comboBoxImageFormat.currentText()]
             ep['export_framerate'] = es.spinBoxFramerate.value()
-            P.save_explosion(ep)
-            export_method = export_properties['method'][ep['export_method']]
+            P.save_pref(P.PATH_EXPLOSION, ep)
+            export_method = EXPORT_PROPERTIES['method'][ep['export_method']]
             FreeCAD.ParamGet(
                 'User parameter:BaseApp/Preferences/View').SetString(
                 'SavePicture', export_method)

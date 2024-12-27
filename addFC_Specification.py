@@ -2,6 +2,8 @@
 # Copyright 2024 Golodnikov Sergey
 
 
+import addFC_Logger as Logger
+import addFC_Other as Other
 import addFC_Preference as P
 import csv
 import datetime
@@ -10,23 +12,31 @@ import json
 import os
 
 
-base_enumeration = tuple(['',] + [str(i).rjust(3, '0') for i in range(1, 51)])
+BASE_ENUMERATION = tuple(['',] + [str(i).rjust(3, '0') for i in range(1, 51)])
 
 
-def define_thickness(body, bind=False, property='') -> float | int | str:
-    thickness, base, null = 0.0, '', '-'
+def define_thickness(body, bind=False, property='') -> float | str:
+    thickness, base, null = 0, '', '-'
 
     try:
-        for i in base_enumeration:
+        for i in BASE_ENUMERATION:
             o = body.getObject('BaseBend' + i)
             if o is not None:
-                thickness = float(o.thickness)
-                base = f'{o.Name}.thickness'
+                if 'thickness' in o.PropertiesList:
+                    t = 'thickness'
+                else:
+                    t = 'Thickness'
+                thickness = o.getPropertyByName(t).Value
+                base = f'{o.Name}.{t}'
                 break
             o = body.getObject('BaseShape' + i)
             if o is not None:
-                thickness = float(o.thickness)
-                base = f'{o.Name}.thickness'
+                if 'thickness' in o.PropertiesList:
+                    t = 'thickness'
+                else:
+                    t = 'Thickness'
+                thickness = o.getPropertyByName(t).Value
+                base = f'{o.Name}.{t}'
                 break
             o = body.getObject('Pad' + i)
             if o is not None:
@@ -37,16 +47,13 @@ def define_thickness(body, bind=False, property='') -> float | int | str:
             if o is not None:
                 thickness = float(o.BaseFeature.Value)
                 base = f'{o.BaseFeature.Name}.Value'
-    except BaseException as exception:
-        e = 'define_thickness: ' + str(exception) + '\n'
-        FreeCAD.Console.PrintError(e)
-        return null
+    except BaseException:
+        pass
 
     thickness = round(thickness, 2)
 
     if thickness == 0:
-        w = f'{body.Label}: metal thickness is not determined\n'
-        FreeCAD.Console.PrintWarning(w)
+        Logger.warning(f"'{body.Label}' metal thickness not defined")
         return null
     else:
         if bind:
@@ -57,87 +64,150 @@ def define_thickness(body, bind=False, property='') -> float | int | str:
 # ------------------------------------------------------------------------------
 
 
+def equation_weight(obj, material: list) -> None:
+    w, u, q = 'Add_Weight', 'Add_Unit', 'Add_Quantity'
+    if 'Tip' in obj.PropertiesList:
+        v = '.Tip.Shape.Volume'
+    else:
+        v = '.Shape.Volume'
+    if q in obj.PropertiesList:
+        if u in obj.PropertiesList:
+            if obj.getPropertyByName(u) == '-':
+                obj.setExpression(w, f'{v} * {material[1]} * {q} / 10 ^ 9')
+    else:
+        obj.setExpression(w, f'{v} * {material[1]} / 10 ^ 9')
+
+
+def equation_price(obj, material: list) -> None:
+    price = material[3]
+    if price == 0:
+        return
+    p = 'Add_Price'
+    match material[2]:
+        case '-':
+            return
+        case 'm':
+            u = 'Add_Unit'
+            if u in obj.PropertiesList:
+                if obj.getPropertyByName(u) == 'm':
+                    obj.setExpression(p, f'{u} * {price}')
+        case 'kg':
+            w = 'Add_Weight'
+            if w in obj.PropertiesList:
+                obj.setExpression(p, f'{w} * {price}')
+        case 'm^2':
+            u, t = 'Add_Unfold', 'Add_MetalThickness'
+            if 'Tip' in obj.PropertiesList:
+                v, z = '.Tip.Shape.Volume', '.Tip.Shape.BoundBox.ZLength'
+            else:
+                v, z = '.Shape.Volume', '.Shape.BoundBox.ZLength'
+            if u in obj.PropertiesList and t in obj.PropertiesList:
+                # sheet metal part:
+                obj.setExpression(p, f'{v} / 10 ^ 6 / {t} * {price}')
+            else:
+                obj.setExpression(p, f'{v} / 10 ^ 6 / {z} * {price}')
+        case 'm^3':
+            if 'Tip' in obj.PropertiesList:
+                v = '.Tip.Shape.Volume'
+            else:
+                v = '.Shape.Volume'
+            obj.setExpression(p, f'{v} / 10 ^ 9 * {price}')
+
+
+# ------------------------------------------------------------------------------
+
+
 def get_specification(strict: bool = True,
+                      node_name: str = '',
                       indexing: bool = False,
                       update_enumerations: bool = False,
-                      ) -> tuple[dict, dict, dict, dict]:
-
-    configuration = P.load_configuration()
-    properties = P.load_properties()
-
-    group = configuration['properties_group'] + '_'
+                      update_equations: bool = False,
+                      ) -> tuple[dict, dict, dict, dict, dict]:
 
     index_pt = 'App::PropertyString'  # important, type: string
-    index_exception = (group + 'Section', 'Документация')
+    index_exception = ('Add_Section', 'Документация')
 
-    # required:
-    name = group + 'Name'
-    index = group + 'Index'
-    thickness = group + 'MetalThickness'
-    quantity = group + 'Quantity'
-    unfold = group + 'Unfold'
+    group = 'Add_'
 
-    required = (name, index, thickness, quantity, unfold)
+    property_index = 'Add_Index'
+    property_material = 'Add_Material'
+    property_name = 'Add_Name'
+    property_node = 'Add_Node'
+    property_price = 'Add_Price'
+    property_quantity = 'Add_Quantity'
+    property_thickness = 'Add_MetalThickness'
+    property_unfold = 'Add_Unfold'
+    property_weight = 'Add_Weight'
 
-    # extra:
-    properties_extra = {}
-    for p in properties:
-        if p not in required:
-            properties_extra[group + p] = properties[p][1]
+    properties = {}
+    for p in P.pref_properties:
+        properties[group + p] = P.pref_properties[p][1]
 
     heap, selection = [], []
 
-    def analysis(obj, count=1) -> None:
+    def analysis(obj, count=1, doc='') -> None:
         if not obj.Visibility:
             # link is visible, the element is not
             # it's better not to do that...
             if obj.TypeId == 'App::Part':
                 for g in obj.Group:
-                    if name in g.PropertiesList and g.Visibility:
-                        analysis(g)
+                    if property_name in g.PropertiesList and g.Visibility:
+                        analysis(g, 1, g.Document.Name)
                     elif g.TypeId == 'App::Link' and g.Visibility:
-                        analysis(g.getLinkedObject())
+                        analysis(g.getLinkedObject(), 1, g.Document.Name)
                     elif g.TypeId == 'Part::FeaturePython':  # array
                         lo = g.Base.getLinkedObject()
                         if lo.TypeId == 'App::Part':
                             # example: assembly of a fastener in an array
                             for i in lo.Group:
                                 if i.Visibility and i.TypeId == 'App::Link':
-                                    analysis(i.getLinkedObject(), g.Count)
+                                    analysis(i.getLinkedObject(),
+                                             g.Count,
+                                             lo.Document.Name)
                         elif lo.TypeId == 'PartDesign::Body':
                             # example: fastening element in the array
-                            analysis(lo, g.Count)
+                            analysis(lo, g.Count, lo.Document.Name)
         # standard:
-        if name in obj.PropertiesList:
+        if property_name in obj.PropertiesList:
+            dn = obj.Document.Name if doc == '' else doc
             if count > 1:
                 for _ in range(count):
-                    selection.append(obj)
+                    selection.append((obj, dn))
             else:
-                selection.append(obj)
+                selection.append((obj, dn))
+
+    def visibility_full(inList: list) -> bool:
+        for i in inList:
+            if not i.Visibility:
+                return False
+        return True
 
     for i in FreeCAD.ActiveDocument.findObjects():
+        dn = i.Document.Name
         if i.Visibility:
+            if not visibility_full(i.InList):
+                continue
             match i.TypeId:
                 case 'App::Link':
                     heap.append(i)
                 case 'App::Part' | 'PartDesign::Body' | 'Part::Feature':
-                    analysis(i)
+                    analysis(i, doc=dn)
                 case 'Part::FeaturePython':
                     if 'Base' in i.PropertiesList:
                         if 'Count' in i.PropertiesList:
                             # array:
-                            analysis(i.Base.getLinkedObject(), i.Count)
+                            analysis(i.Base.getLinkedObject(), i.Count, dn)
                     else:
-                        analysis(i)
+                        analysis(i, doc=dn)
                 case 'TechDraw::DrawPage':
-                    analysis(i)  # active drawing
+                    analysis(i, doc=dn)  # active drawing
         elif i.TypeId == 'TechDraw::DrawPage':
-            analysis(i)  # inactive drawing
+            analysis(i, doc=dn)  # inactive drawing
 
     for i in heap:
-        o = i.getLinkedObject()
+        o, dn = i.getLinkedObject(), i.Document.Name
         if not o.Visibility:
-            analysis(o)  # the base object can be hidden
+            analysis(o, doc=dn)  # the base object can be hidden
             continue
         if i.TypeId != o.TypeId:
             match o.TypeId:
@@ -146,20 +216,20 @@ def get_specification(strict: bool = True,
                         if g.Visibility:
                             heap.append(g)
                 case 'App::Part':
-                    analysis(o)
+                    analysis(o, doc=dn)
                     # elements inside the part:
                     for g in o.Group:
                         if g.Visibility:
                             heap.append(g)
                 case 'Part::FeaturePython':  # link to the array
-                    analysis(o.Base.getLinkedObject(), o.Count)
+                    analysis(o.Base.getLinkedObject(), o.Count, dn)
                 case _:
-                    analysis(o)
+                    analysis(o, doc=dn)
         else:
             match o.TypeId:
                 case 'Part::FeaturePython':
                     lo = o.Base.getLinkedObject()
-                    analysis(lo, o.Count)
+                    analysis(lo, o.Count, dn)
                     if lo.TypeId == 'App::Part':
                         # elements inside the part:
                         for g in lo.Group:
@@ -171,34 +241,53 @@ def get_specification(strict: bool = True,
                     if s.TypeId == 'App::Link':
                         heap.append(o.Source)
                     elif s.TypeId == 'PartDesign::Body':
-                        analysis(s)
+                        analysis(s, doc=dn)
                 case 'App::Part':
                     for g in o.Group:
                         if g.Visibility:
                             heap.append(g)
                 case _:
-                    analysis(o)
+                    analysis(o, doc=dn)
 
-    info, count = {}, 1
+    info, nodes, count = {}, {}, 1
 
-    for i in selection:
+    for s in selection:
+        i, dn = s
 
-        key = i.getPropertyByName(name)
+        if property_node in i.PropertiesList:
+            if i.Add_Node == '':
+                i.Add_Node = dn
+                i.recompute(True)
+            node = i.Add_Node
+        else:
+            node = dn
+
+        nodes[node] = None
+
+        if node_name != '' and node_name != node:
+            continue
+
+        key = i.Add_Name
 
         if key in info:
-            if quantity in i.PropertiesList:
-                value = i.getPropertyByName(quantity)
+            # information for finding an object:
+            objects = (i.Document.Name, i.Name)
+            if info[key]['!Trace'][-1] != objects:
+                info[key]['!Trace'].append(objects)
+
+            if property_quantity in i.PropertiesList:
+                value = i.Add_Quantity
                 if value != 0:
-                    info[key][quantity.replace(group, '')] += value
+                    info[key]['Quantity'] += value
             else:
-                info[key][quantity.replace(group, '')] += 1
+                info[key]['Quantity'] += 1
 
             for p in i.PropertiesList:
-                if group not in p or p == quantity:
+                if group not in p or p == property_quantity:
                     continue
-                if strict and p not in properties_extra:
+                if strict and p not in properties:
                     continue
-                if p in properties_extra and properties_extra[p]:
+                if p in properties and properties[p]:
                     value = i.getPropertyByName(p)
                     if type(value) is float or type(value) is int:
                         if value != 0:
@@ -206,11 +295,10 @@ def get_specification(strict: bool = True,
 
             # indexing duplicates:
             if indexing:
-                original = index.replace(group, '')
-                if original in info[key]:
-                    if index not in i.PropertiesList:
-                        i.addProperty(index_pt, index, group[:-1])
-                        setattr(i, index, info[key][original])
+                if 'Index' in info[key]:
+                    if property_index not in i.PropertiesList:
+                        i.addProperty(index_pt, property_index, 'Add')
+                        setattr(i, property_index, info[key]['Index'])
 
         else:
             if indexing:
@@ -220,76 +308,90 @@ def get_specification(strict: bool = True,
                     if index_exception[1] == value:
                         exception = True
                 if not exception:
-                    if index not in i.PropertiesList:
-                        i.addProperty(index_pt, index, group[:-1])
-                    setattr(i, index, str(count).rjust(2, '0'))
+                    if property_index not in i.PropertiesList:
+                        i.addProperty(index_pt, property_index, 'Add')
+                    setattr(i, property_index, str(count).rjust(2, '0'))
                     count += 1
 
             q = 1
-            if quantity in i.PropertiesList:
-                value = i.getPropertyByName(quantity)
+            if property_quantity in i.PropertiesList:
+                value = i.Add_Quantity
                 if type(value) is float or type(value) is int:
-                    if value == 0:
-                        continue
-                    else:
-                        q = value
+                    q = value
                 else:
-                    w = f'{key}: quantity: wrong type\n'
-                    FreeCAD.Console.PrintWarning(w)
+                    Logger.warning(f"'{key}' incorrect quantity type")
 
-            info[key] = {'Quantity': q}
+            info[key] = {
+                '!Trace': [(i.Document.Name, i.Name),],
+                'Quantity': q,
+                'Node': node,
+            }
+
+            if update_equations:
+                if property_material in i.PropertiesList:
+                    value = i.getPropertyByName(property_material)
+                    if value != '' and value in P.pref_materials:
+                        stuff = P.pref_materials[value]
+                        if property_weight in i.PropertiesList:
+                            for e in i.ExpressionEngine:
+                                if property_weight in e:
+                                    equation_weight(i, stuff)
+                        if property_price in i.PropertiesList:
+                            for e in i.ExpressionEngine:
+                                if property_price in e:
+                                    equation_price(i, stuff)
+                        i.recompute(True)
 
             for p in i.PropertiesList:
-                if group in p and p != quantity and p != thickness:
+                if group in p and p != property_quantity and \
+                        p != property_thickness:
 
                     # enumeration, checking and filling:
                     if update_enumerations:
-                        _p = p.lstrip(f'{group}_')
-                        if _p in properties:
-                            _e = properties[_p][2]
-                            if len(_e) > 0:
-                                _e.sort()
+                        prop = p.lstrip(group)
+                        materials_list = list(P.pref_materials.keys())
+                        if prop in P.pref_properties:
+                            if prop == 'Material':
+                                enum = materials_list
+                            else:
+                                enum = P.pref_properties[prop][2]
+                            if len(enum) > 0:
+                                enum.sort()
                                 try:
-                                    _ep = i.getEnumerationsOfProperty(p)
-                                    _ep.sort()
-                                    if _e != _ep and len(_e) > len(_ep):
-                                        setattr(i, p, _e)
+                                    ep = i.getEnumerationsOfProperty(p)
+                                    ep.sort()
+                                    if enum != ep and len(enum) > len(ep):
+                                        setattr(i, p, enum)
                                 except BaseException:
                                     pass
 
                     # sheet metal part:
-                    if p == unfold:
-                        info[key]['Body'] = i
-                        if thickness in i.PropertiesList:
+                    if p == property_unfold:
+                        info[key]['!Body'] = i
+                        if property_thickness in i.PropertiesList:
+                            t = i.Add_MetalThickness
                             redefined = False
-                            t = i.getPropertyByName(thickness)
                             try:
                                 t = float(t)
-                                if t == 0:
-                                    t = define_thickness(i)
-                                    if t != '-':
-                                        setattr(i, thickness, t)
-                                        i.recompute(True)
-                                        redefined = True
-                            except BaseException:
+                            except ValueError:
+                                t = 0
+                            if t == 0:
                                 t = define_thickness(i)
-                                if t != '-':
-                                    setattr(i, thickness, t)
+                                if t != 0 and t != '-':
+                                    setattr(i, property_thickness, t)
                                     i.recompute(True)
                                     redefined = True
                             if t == 0 or t == '-':
                                 t = '-'
-                                w = f'{key}: incorrect metal thickness\n'
-                                FreeCAD.Console.PrintWarning(w)
                             elif redefined:
-                                w = f'{key}: redefined metal thickness\n'
-                                FreeCAD.Console.PrintWarning(w)
+                                w = f"'{key}' redefined metal thickness"
+                                Logger.warning(w)
                             info[key]['MetalThickness'] = t
                         else:
                             info[key]['MetalThickness'] = define_thickness(i)
 
                     # other:
-                    if strict and p not in properties_extra:
+                    if strict and p not in properties:
                         continue
                     value = i.getPropertyByName(p)
                     if type(value) is bool:
@@ -301,18 +403,25 @@ def get_specification(strict: bool = True,
                         if value != 0:
                             info[key][p.replace(group, '')] = value
 
-    FreeCAD.activeDocument().recompute()
+    FreeCAD.ActiveDocument.recompute()
+
+    # required for correct recalculation of configuration tables:
+    if P.FC_VERSION[1] == '21':
+        try:
+            Other.recompute_configuration_tables()
+        except BaseException:
+            pass
 
     details, info_headers, details_headers = {}, {}, {}
 
-    def addition(s: str) -> bool:
+    def addition(s: str) -> bool | None:
         if s == 'Quantity':
             return False  # different units of measurement
-        if group + s in properties_extra:
-            return properties_extra[group + s]
+        if group + s in properties:
+            return properties[group + s]
 
     for i in info:
-        if 'Unit' not in info[i] or 'Body' in info[i]:
+        if 'Unit' not in info[i] or '!Body' in info[i]:
             info[i]['Unit'] = '-'
         for j in info[i]:
             if j not in info_headers:
@@ -326,7 +435,7 @@ def get_specification(strict: bool = True,
             elif type(value) is int:
                 if addition(j):
                     info_headers[j] += value
-        if 'Body' in info[i]:
+        if '!Body' in info[i]:
             details[i] = info[i]
 
     for i in details:
@@ -348,22 +457,22 @@ def get_specification(strict: bool = True,
     info_headers = dict(sorted(info_headers.items()))
     details_headers = dict(sorted(details_headers.items()))
 
-    return info, info_headers, details, details_headers
+    return info, info_headers, details, details_headers, nodes
 
 
 # ------------------------------------------------------------------------------
 
 
-unit_ru: dict = {
+UNIT_RU = {
     '-': '',
     'm': 'м.',
     'kg': 'кг.',
-    'm²': 'м²',
-    'm³': 'м³',
+    'm^2': 'м^2',
+    'm^3': 'м^3',
 }
 
 # order and alignment:
-section_ru: dict = {
+SECTION_RU: dict = {
     'Документация': 16,
     'Комплексы': 18,
     'Сборочные единицы': 14,
@@ -376,7 +485,7 @@ section_ru: dict = {
 
 
 # todo: natural sort?
-def organize(merger: str, sort: str, skip: list, specification: dict):
+def organize(merger: str, sort: str, skip: list, specification: dict) -> dict:
     result = {}
 
     for i in specification:
@@ -400,11 +509,11 @@ def organize(merger: str, sort: str, skip: list, specification: dict):
             result[unit[merger]] = [unit,]
 
     if merger == 'Section':  # USDD
-        sort = {}
-        for i in section_ru:
+        sections = {}
+        for i in SECTION_RU:
             if i in result:
-                sort[i] = result[i]
-        result = sort
+                sections[i] = result[i]
+        result = sections
     else:
         result = dict(sorted(result.items()))
 
@@ -417,16 +526,17 @@ def organize(merger: str, sort: str, skip: list, specification: dict):
     return result
 
 
-def export_specification(path: str, target: str, strict: bool) -> str:
-    specification = get_specification(strict)
+def export_specification(path: str, target: str, specification) -> str:
+
     if len(specification[0]) == 0:
         return 'The specification is empty...'
 
-    conf, properties = P.load_configuration(), P.load_properties()
+    conf, properties = P.pref_configuration, P.pref_properties
 
-    json_use_alias = conf['spec_export_json_use_alias']
-    csv_use_alias = conf['spec_export_csv_use_alias']
-    spreadsheet_use_alias = conf['spec_export_spreadsheet_use_alias']
+    alias = conf['spec_export_alias']
+    json_use_alias = True if 'json' in alias else False
+    csv_use_alias = True if 'csv' in alias else False
+    spreadsheet_use_alias = True if 'spreadsheet' in alias else False
 
     merger = conf['spec_export_merger']
     sort = conf['spec_export_sort']
@@ -439,14 +549,15 @@ def export_specification(path: str, target: str, strict: bool) -> str:
         case 'JSON' | 'CSV':
             result, headers = {}, []
 
-            if target == 'JSON':
-                use_alias = json_use_alias
-            if target == 'CSV':
-                use_alias = csv_use_alias
+            match target:
+                case 'JSON': use_alias = json_use_alias
+                case 'CSV': use_alias = csv_use_alias
+                case _: use_alias = False
 
             for i in specification[0]:
-                if 'Body' in specification[0][i]:
-                    del specification[0][i]['Body']
+                for p in P.SYSTEM_PROPERTIES:
+                    if p in specification[0][i]:
+                        del specification[0][i][p]
                 result[i] = {}
                 for j in specification[0][i]:
                     key = j
@@ -531,7 +642,7 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                     y += 1
 
             for i in columns_width:
-                s.setColumnWidth(i, max(80, columns_width[i][0] * 8))
+                s.setColumnWidth(i, max(80, columns_width[i][0] * 10))
                 if columns_width[i][1]:
                     s.removeColumns(i, 1)
 
@@ -575,8 +686,8 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                         if 'Unit' in j:
                             u = j['Unit']
                             if u != '' and u != '-':
-                                if u in unit_ru:
-                                    r['Note'] = unit_ru[u]
+                                if u in UNIT_RU:
+                                    r['Note'] = UNIT_RU[u]
                                 else:
                                     r['Note'] = u
 
@@ -593,14 +704,14 @@ def export_specification(path: str, target: str, strict: bool) -> str:
 
             ad = FreeCAD.ActiveDocument
 
-            ############
+            # -------- #
             # TechDraw #
-            ############
+            # -------- #
 
             if target == 'RU std: TechDraw':
 
                 path_tpl = os.path.join(
-                    P.add_base, 'repo', 'add', 'stdRU', 'tpl', 'ЕСКД',
+                    P.AFC_PATH, 'repo', 'add', 'stdRU', 'tpl', 'ЕСКД',
                 )
 
                 dp, dt = 'TechDraw::DrawPage', 'TechDraw::DrawSVGTemplate'
@@ -618,8 +729,8 @@ def export_specification(path: str, target: str, strict: bool) -> str:
 
                 # do you need more pages?
                 if count > limit[0] + limit[1] * 2:
-                    w = 'The allowed number of elements has been exceeded!\n'
-                    FreeCAD.Console.PrintWarning(w)
+                    e = 'The allowed number of elements has been exceeded!'
+                    Logger.error(e)
 
                 if count > limit[0] + limit[1]:
                     pages['n'] = 3
@@ -628,7 +739,7 @@ def export_specification(path: str, target: str, strict: bool) -> str:
 
                 for i in range(pages['n']):
                     postfix = '' if pages['n'] == 1 else '_' + str(i + 1)
-                    label = f'RU_addFC_BOM{postfix}'
+                    label = f'addFC_BOM_RU{postfix}'
                     if len(ad.getObjectsByLabel(label)) > 0:
                         # cleaning:
                         ad.removeObject(label)
@@ -650,8 +761,8 @@ def export_specification(path: str, target: str, strict: bool) -> str:
 
                     if separation:
                         # center alignment:
-                        if i in section_ru:
-                            w = section_ru[i]
+                        if i in SECTION_RU:
+                            w = SECTION_RU[i]
                         else:
                             w = int((45 - len(i)) / 2)
                         n = str(i).rjust(w + len(i), ' ')
@@ -698,7 +809,6 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                         x += 1
                         count += 1
 
-                conf = P.load_configuration()
                 stamp = conf['ru_std_tpl_stamp']
                 today = datetime.date.today().strftime('%d.%m.%y')
 
@@ -733,15 +843,15 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                     # fill:
                     pages['t'][i].EditableTexts = pages['e'][i]
 
-            ###############
+            # ----------- #
             # Spreadsheet #
-            ###############
+            # ----------- #
 
             elif target == 'RU std: Spreadsheet':
 
                 s = ad.getObjectsByLabel('RU_addFC_BOM_S')
                 if len(s) == 0:
-                    s = ad.addObject('Spreadsheet::Sheet', 'RU_addFC_BOM_S')
+                    s = ad.addObject('Spreadsheet::Sheet', 'addFC_BOM_RU_S')
                 else:
                     s = s[0]
                     s.clearAll()
@@ -749,11 +859,11 @@ def export_specification(path: str, target: str, strict: bool) -> str:
                 headers = {
                     'A': ('Формат', 70),
                     'B': ('Зона', 60),
-                    'C': ('Позиция', 70),
+                    'C': ('Позиция', 80),
                     'D': ('Обозначение', 160),
                     'E': ('Наименование', 280),
-                    'F': ('Кол-во', 60),
-                    'G': ('Примечание', 100),
+                    'F': ('Кол-во', 70),
+                    'G': ('Примечание', 110),
                 }
 
                 for i in headers:

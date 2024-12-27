@@ -13,7 +13,7 @@
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>300</height>
+    <height>400</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -26,6 +26,16 @@
    <string>Select an element</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QListView" name="listView">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
    <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -49,9 +59,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonOpen">
+      <widget class="QPushButton" name="pushButton">
        <property name="text">
-        <string>Open</string>
+        <string>Button</string>
        </property>
        <property name="autoDefault">
         <bool>true</bool>
@@ -63,29 +73,17 @@
      </item>
     </layout>
    </item>
-   <item row="0" column="0">
-    <widget class="QListView" name="listView">
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>60</height>
-      </size>
-     </property>
      <property name="text">
-      <string>...</string>
+      <string>Attention!
+All models are created in FreeCAD version 0.21.2.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+     <property name="margin">
+      <number>6</number>
      </property>
     </widget>
    </item>

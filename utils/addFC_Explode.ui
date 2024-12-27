@@ -26,7 +26,7 @@
      <item>
       <widget class="QGroupBox" name="allGroups">
        <property name="title">
-        <string>All groups:</string>
+        <string>All groups</string>
        </property>
        <layout class="QVBoxLayout" name="groupLayout">
         <item>
@@ -125,7 +125,7 @@
         </size>
        </property>
        <property name="title">
-        <string>Selected group:</string>
+        <string>Selected group</string>
        </property>
        <layout class="QVBoxLayout" name="controlLayout">
         <item>
@@ -283,7 +283,7 @@
           <item row="2" column="0">
            <widget class="QLabel" name="selection">
             <property name="text">
-             <string>Selection:</string>
+             <string>Selection</string>
             </property>
            </widget>
           </item>
@@ -337,28 +337,28 @@
               <item row="3" column="0">
                <widget class="QLabel" name="labelGuidesSize">
                 <property name="text">
-                 <string>Point size:</string>
+                 <string>Point size</string>
                 </property>
                </widget>
               </item>
               <item row="2" column="0">
                <widget class="QLabel" name="labelGuidesWidth">
                 <property name="text">
-                 <string>Line width:</string>
+                 <string>Line width</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="labelGuidesColor">
                 <property name="text">
-                 <string>Color:</string>
+                 <string>Color</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="0">
                <widget class="QLabel" name="labelGuidesStyle">
                 <property name="text">
-                 <string>Line style:</string>
+                 <string>Line style</string>
                 </property>
                </widget>
               </item>
@@ -511,7 +511,7 @@
               <item row="1" column="0">
                <widget class="QLabel" name="animationStepLabel">
                 <property name="text">
-                 <string>Speed:</string>
+                 <string>Speed</string>
                 </property>
                </widget>
               </item>

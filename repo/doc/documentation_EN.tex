@@ -33,26 +33,21 @@
 \begin{itemize}
 	\item Generate a BOM based on the model.
 	\item Batch processing of sheet metal parts.
-	\item Creation of design documentation.
-	\item Process automation.
+	\item Assistance in creating design documentation.
+	\item Library of elements and nodes.
+	\item Process automation.\\
 \end{itemize}
 
-The main purpose of the workbench is to simplify the work with large and «complex» assemblies, especially with assemblies containing sheet metal parts.
-
-«Complex» I mean parametric models (assemblies) with a large number of objects and nodes in the form of links (App::Link).
-
-The main point is to reuse components.
+The main purpose of the workbench is to simplify the work with large and «complex» assemblies, especially with assemblies containing sheet metal parts. «Complex» I mean parametric models (assemblies) with a large number of objects and nodes in the form of links (App::Link). The main point is to reuse components.
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[scale=0.48]{img/assembly_example.png}
+	\includegraphics[scale=0.46]{img/assembly_example.png}
 	\caption{Example of a «complex» assembly}
 	\label{sec:assembly_example}
 \end{figure}
 
 \begin{center}\emph{The logic of work is based on adding custom properties to objects, giving them certain semantic meanings.}\end{center}
-
-% section end
 
 
 
@@ -75,15 +70,15 @@ When you select the \textbf{addFC workbench}, its toolbar will become available,
 	\item Managing a parametric model -- \textbf{Model Control} (Alt+Shift+C).\label{sec:3}
 	\item Bill of Materials (BOM) -- \textbf{Specification} (Alt+Shift+S).\label{sec:4}
 	\item Filling an object with properties -- \textbf{Add Properties} (Alt+Shift+A).\label{sec:5}
-	\item Creating a pipeline using coordinates -- \textbf{Pipe} (Alt+Shift+P).\label{sec:6}
-	\item Exploded view -- \textbf{Explode} (Alt+Shift+E).\label{sec:7}
-	\item Create a drawing based on a template -- \textbf{Creating a Drawing} (Alt+Shift+I).\label{sec:8}
-	\item Help -- \textbf{Help and Examples}.\label{sec:9}
+	\item Create a drawing based on a template -- \textbf{Creating a Drawing} (Alt+Shift+I).\label{sec:6}
+	\item Library of elements and nodes -- \textbf{Library} (Alt+Shift+L).\label{sec:7}
+	\item Exploded view -- \textbf{Explode} (Alt+Shift+E).\label{sec:8}
+    \item Creating a pipeline using coordinates -- \textbf{Pipe} (Alt+Shift+P).\label{sec:9}
+    \item Help -- \textbf{Help and Examples}.\label{sec:10}
 \end{enumerate}
 
 Note: FreeCAD allows you to create additional toolbars, I recommend taking advantage of this and creating your own toolbar from the most popular functions to display it on your main workbench, for example in PartDesign.
 
-% section end
 \pagebreak
 
 
@@ -91,7 +86,7 @@ Note: FreeCAD allows you to create additional toolbars, I recommend taking advan
 
 \section{Help and examples}
 
-The workbench includes samples that you can study to better understand the principles of its operation, to open one of them, use the \hyperref[sec:9]{Help and Examples} command on the toolbar.
+The workbench includes samples that you can study to better understand the principles of its operation, to open one of them, use the \hyperref[sec:10]{Help and Examples} command on the toolbar.
 The most suitable example is \textbf{Assembly}, which will be discussed in this guide.
 
 \begin{figure}[htp]
@@ -105,11 +100,10 @@ The most suitable example is \textbf{Assembly}, which will be discussed in this 
 	\item \textbf{Additional files} -- supporting files such as templates, fonts.
 	\item \textbf{Documentation} -- documentation for using the workbench (this file).
 	\item \textbf{Assembly} и \textbf{Belt Roller Support} -- examples of assemblies and working with user properties. Assembly -- parametric assembly.
-	\item \textbf{Pipe} -- example of using the tool \hyperref[sec:6]{Pipe}.
+	\item \textbf{Pipe} -- example of using the tool \hyperref[sec:9]{Pipe}.
 	\item \textbf{RU std: ЕСКД} -- example of design according to USDD standards.\\Unified System for Design Documentation -- Russia.
 \end{itemize}
 
-% section end
 \pagebreak
 
 
@@ -125,9 +119,10 @@ The most suitable example is \textbf{Assembly}, which will be discussed in this 
 \end{figure}
 
 \subsection{Area 1 -- Name for grouping properties}
-The properties that we add to objects will be combined into a special group, the name of which can be specified in the corresponding field. This will facilitate visual perception and will not allow our properties to be mixed with standard ones.
+The properties that we add to objects will be combined into a special group called \textbf{«Add»}. This will facilitate visual perception and will not allow our properties to be mixed with standard ones.
 
 \pagebreak
+
 
 \subsection{Area 2 -- User properties}
 
@@ -151,12 +146,8 @@ This table contains all the properties available for use.
 \subsection{Area 3 -- Lists of predefined values}
 All properties with the \textbf{Enumeration} data type appear in this area.\\In the \textbf{Values} ​​column -- comma-separated values ​​to form a list.
 
-% section end
 
-
-
-
-\section{Object properties}
+\subsection{Object properties}
 
 Inactive properties and values ​​in the table are basic and required for the workbench to work correctly.
 
@@ -166,13 +157,15 @@ Inactive properties and values ​​in the table are basic and required for the
 	\item \textbf{Name} -- the name of the object is the most important property, the program works with elements only if they have a name. The name should reflect the essence of the object.
 	\item \textbf{Code} -- element designation.
 	\item \textbf{Index} -- an identifier for determining the position of an object in an assembly.
-	\item \textbf{Material} -- the material of the object (enumeration). This is an important property for sheet metal, when creating a flat part view (unfold) for galvanized and stainless steel, different coefficients are used, and this property is also taken into account when saving the scan to an external file.
+	\item \textbf{Material} -- the material of the object (enumeration). This is an important property for sheet metal, when creating a flat part view (unfold) for galvanized and stainless steel, different coefficients are used, and this property is also taken into account when saving the scan to an external file. Additionally, you can link density and cost to this property to automatically calculate the mass and cost of the object.
 	\item \textbf{MetalThickness} -- short designation: \textbf{MT}.
+	\item \textbf{Node} -- The name of the node to which the object belongs is useful for dividing the final specification into groups. Note: If missing, the document name is used.
+	\item \textbf{Price} -- cost price of an object (can be specified by an equation linked to the material).
 	\item \textbf{Unfold} -- determines the need to create a flat view (unfold) for a specific object (relevant only for sheet metal parts).
+	\item \textbf{Weight} -- object mass.
 	\item \textbf{Quantity} and \textbf{Unit} of measurement \textbf{(-, m, kg, m², m³)}. For piece items, the default value in most cases is one, «pcs» \textbf{(-)}. Any combination is available for different materials: for example, a seal length of \textbf{1.2 m} or a quantity of insulation of \textbf{4.2 m²}. Important: values ​​are summed for objects of the same name.
 \end{itemize}
 
-\pagebreak
 
 \subsection{Additional properties}
 
@@ -182,9 +175,7 @@ These properties are not essential (\emph{they can be removed}), but nevertheles
 	\item \textbf{Format} -- paper format of documentation for a specific object (enumeration).
 	\item \textbf{Id} -- some object identifier for communication with another program.
 	\item \textbf{Note} -- any note, reminder or clarification.
-	\item \textbf{Price} -- cost of the object.
 	\item \textbf{Type} -- object type (enumeration). Useful property for grouping elements when displaying or exporting a BOM.
-	\item \textbf{Weight} -- object mass.
 	\item \textbf{Section} -- specification sections, USDD standard requirement.\\Unified System for Design Documentation -- Russia.
 \end{itemize}
 
@@ -192,7 +183,7 @@ These properties are not essential (\emph{they can be removed}), but nevertheles
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[scale=1]{img/properties.png}
+	\includegraphics[scale=0.8]{img/properties.png}
 	\caption{Example of an object with filled in properties}
 	\label{sec:properties}
 \end{figure}
@@ -206,11 +197,11 @@ These properties are not essential (\emph{they can be removed}), but nevertheles
 	\label{sec:pref_sm}
 \end{figure}
 
-\subsection{Area 4 -- Sheet metal part options}
-The first value is the color of the object in hex format (\verb|#b4c0c8)|, the second is the average value of steel density (7800 kg/m³).
+\subsection{Area 4 -- Color for sheet metal part}
+Color display for the object in HEX format, default value: \verb|#b4c0c8|.
 
 \subsection{Area 5 -- Sheet steel parameters}
-This table indicates the acceptable sheet metal \textbf{thickness} for use and their parameters, such as the internal bending \textbf{radius}, the \textbf{k-factor} used when calculating the flat type (unfold) and the \textbf{alias} for the metal thickness, it is necessary for correct export to external format.\\
+This table indicates the acceptable sheet metal \textbf{Thickness} for use and their parameters, such as the internal bending \textbf{Radius}, the \textbf{K-Factor} used when calculating the flat view (unfold).\\
 
 \pagebreak
 
@@ -223,7 +214,6 @@ The \textbf{Calculate K-Factor} button automatically calculates the \textbf{k-fa
 	\label{sec:k}
 \end{figure}
 
-% section end
 \pagebreak
 
 
@@ -236,13 +226,32 @@ The \textbf{Calculate K-Factor} button automatically calculates the \textbf{k-fa
 	\label{sec:pref_other}
 \end{figure}
 
-\subsection{Area 6 -- FreeCAD interface font options, additions.}
+\subsection{Area 6 -- FreeCAD interface font options, additions}
 In the \textbf{Font} area, you can specify the need to replace the standard program font and its parameters.\\The \textbf{Additions} area displays the presence of modules in the system that are necessary for the full operation of this workbench.
 
-\subsection{Area 7 -- Parameters for Russian standard templates.}
-In this area you can specify values ​​for automatic filling of stamps when \hyperref[sec:8]{creating drawings} based on a template and automatic generation of a specification based on a model. The template specified in the corresponding field (шаблон текстового документа) will be selected as the first sheet of the specification.
+\subsection{Area 7 -- Parameters for Russian standard templates}
+In this area you can specify values ​​for automatic filling of stamps when \hyperref[sec:6]{creating drawings} based on a template and automatic generation of a specification based on a model. The template specified in the corresponding field (шаблон текстового документа) will be selected as the first sheet of the specification.
 
-% section end
+\pagebreak
+
+
+
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=1\textwidth]{img/pref_materials.png}
+	\caption{Materials and their parameters}
+	\label{sec:pref_materials}
+\end{figure}
+
+\subsection{Materials}
+This tab contains a list of materials available for use. Parameters:
+\begin{itemize}
+    \item \textbf{Title} and \textbf{Category} -- name of the material and its category. For work with sheet metal parts, the choice of material is limited to the corresponding category.
+    \item \textbf{Density} -- material density, can be used to automatically calculate the mass of an object, the «Weight» property.
+    \item \textbf{Unit} and \textbf{Price per unit} -- price per unit of material, if necessary, can be used to calculate the cost of the element, the «Price» property.
+\end{itemize}
+
 \pagebreak
 
 
@@ -254,22 +263,23 @@ To add properties, you need to select one or more objects and use the \hyperref[
 
 \begin{figure}[htp]
 	\centering
-	\includegraphics[scale=1]{img/properties_add.png}
+	\includegraphics[scale=0.75]{img/properties_add.png}
 	\caption{Interface \textbf{Add Properties}}
 	\label{sec:properties_add}
 \end{figure}
 
 The entire list of available custom properties is visible in the command interface. You need to mark the ones you need and click \textbf{Add}.\\
 
-Buttons \textbf{All}, \textbf{Core}, \textbf{None} -- select all properties, only the main ones and clear the selection.\\
+Buttons \textbf{All}, \textbf{Core}, \textbf{None} -- select all properties, only the main ones and clear the selection.\\The \textbf{Prev.} button will highlight the properties added the last time the command was used.\\
 
-The \textbf{Sheet metal part} checkbox will check all the necessary properties for a sheet metal part, allow you to select the type of material and, if desired, associate the \textbf{MetalThickness} property with the thickness parameters of the object. Additionally, the element will be assigned a weight and color based on the parameters specified in the settings -- \hyperref[sec:pref_sm]{fihure 5: area 1}.\\
+Checkbox \textbf{Set weight and price as an equation} -- if enabled, the added properties «Weight» and «Price» will contain equations for automatic calculation of the corresponding parameters.
+
+The \textbf{Sheet metal part} checkbox will check all the necessary properties for a sheet metal part, allow you to select the type of material and, if desired, associate the «MetalThickness» property with the thickness parameters of the object. Additionally, the element will be assigned a weight and color based on the parameters specified in the settings.\\
 
 Note: During the process of assigning a \textbf{Name} and \textbf{Index}, the program tries to guess the property values ​​based on the \textbf{Label} of the object.
 
 To automatically fill these properties, the name template must match: \textbf{«Index. Name - Copy»} or \textbf{«Index - Name - Copy»}. If the template matches, the values ​​will be filled in correctly -- \hyperref[sec:properties]{example}.
 
-% section end
 \pagebreak
 
 
@@ -293,20 +303,21 @@ To generate and work with BOM, you must use the \hyperref[sec:4]{Specification} 
 	\label{sec:specification_sm}
 \end{figure}
 
-\pagebreak
-
 The specification interface contains two tabs:
 \begin{itemize}
 	\item \textbf{All} -- all objects.
 	\item \textbf{Sheet metal} -- sheet metal objects.\\
 \end{itemize}
 
+\pagebreak
+
 The \textbf{Strict mode} option -- if the checkbox is unchecked, the program will process all user\\ properties in your group -- \hyperref[sec:pref_specification]{figure 4: area 1}, not only those specified in the table (area 2).\\
 
 There are two buttons on the \hyperref[sec:specification_sm]{all} specification tab:
 \begin{itemize}
 	\item \textbf{Indexing elements} -- Automatic indexing of positions for all elements\\included in the specification.
-	\item \textbf{Update enumerations} -- update in model objects properties containing\\lists of predefined values. Useful after adding new values ​​to preferences.\\
+	\item \textbf{Update enumerations} -- update in model objects properties containing\\lists of predefined values. Useful after adding new values ​​to preferences.
+	\item \textbf{Update equations} -- updating in model objects properties containing material-related equations, properties «Weight» and «Price».\\
 \end{itemize}
 
 Next we will look at \textbf{Sheet metal} objects -- this tab contains functions for their batch processing. The manufacturing process for such parts will in most cases require two elements:
@@ -334,12 +345,11 @@ All parts from the list generated based on the model (assembly), depending on th
 
 The number in brackets at the end of the name is the copy number, if there are two or more identical parts in the assembly, they will be saved in separate files.\\
 
+\pagebreak
+
 After selecting the desired options and parameters, you can click the \textbf{Unfold} button and the program will save all received data in the specified path. The work process can be observed in the progress indicator and in FreeCAD, in the report panel (report view).\\
 
-Important: the part files will be placed in additional directories, the names of which correspond to the \textbf{Alias} of the steel thickness -- \hyperref[sec:pref_sm]{figure 6: area 2}.
-
-% section end
-\pagebreak
+Important: The part files will be placed in additional directories, the names of which correspond to the name of the material and the thickness of the steel.
 
 
 
@@ -384,7 +394,6 @@ Select the necessary options, the appropriate format and click the button \textb
 	\label{sec:specification_result}
 \end{figure}
 
-% section end
 \pagebreak
 
 
@@ -427,7 +436,6 @@ Having opened the main file, you can call its control program using the \hyperre
 
 For convenience, the graphical user interface is built into the FreeCAD sidebar; after setting the necessary parameters and selecting components from the lists, click the \textbf{Rebuild} button -- the model will be updated.
 
-% section end
 \pagebreak
 
 
@@ -435,11 +443,11 @@ For convenience, the graphical user interface is built into the FreeCAD sidebar;
 
 \section{Creating a pipeline using coordinates}
 
-The \hyperref[sec:6]{Pipe} command allows you to create a pipeline using specified coordinates, \emph{the source of\\coordinates must be points} - either \textbf{Point} (Draft) or \textbf{Datum Point} (PartDesign). The first option is preferable.
+The \hyperref[sec:9]{Pipe} command allows you to create a pipeline using specified coordinates, \emph{the source of\\coordinates must be points} - either \textbf{Point} (Draft) or \textbf{Datum Point} (PartDesign). The first option is preferable.
 
 Create and place points in 3D space, for convenience, they can be combined into a group, as shown in the example (figure 17).
 
-Select the group with dots or any other parent element (in the example, pipe and path) in the project tree and click \hyperref[sec:6]{Pipe} on the toolbar.
+Select the group with dots or any other parent element (in the example, pipe and path) in the project tree and click \hyperref[sec:9]{Pipe} on the toolbar.
 
 \begin{figure}[htp]
 	\centering
@@ -478,7 +486,6 @@ The program will receive the coordinates of all points (the points themselves wi
 
 The image shows the result of the team's work, on the right is an option with added fittings,\\command \textbf{And fittings}.
 
-% section end
 \pagebreak
 
 
@@ -486,7 +493,7 @@ The image shows the result of the team's work, on the right is an option with ad
 
 \section{Exploded view}
 
-The \hyperref[sec:7]{Explode} command is responsible for creating an exploded view -- a sketch view of a design (assembly) with its component parts exploded, which allows you to convey information about the product in a simpler and easier to understand form. The tool allows you to create, animate and save views.
+The \hyperref[sec:8]{Explode} command is responsible for creating an exploded view -- a sketch view of a design (assembly) with its component parts exploded, which allows you to convey information about the product in a simpler and easier to understand form. The tool allows you to create, animate and save views.
 
 \begin{figure}[htp]
 	\centering
@@ -528,7 +535,6 @@ The \textbf{Explode} button moves the group objects to the location specified by
 	\item \textbf{None} -- no selection.
 \end{itemize}
 
-% section end
 \pagebreak
 
 
@@ -564,7 +570,6 @@ Important: for full functionality you need:
 	\item \href{https://www.ffmpeg.org}{FFmpeg} library for exporting animation to a video file.
 \end{itemize}
 
-% section end
 \pagebreak
 
 
@@ -583,6 +588,13 @@ Export options are the video file \textbf{Resolution}, \textbf{Frame rate}, dire
 	\item \textbf{Image format} -- PNG (higher quality) and JPG (faster).
 	\item \href{https://wiki.freecad.org/Std_ViewScreenShot}{\textbf{Background} and \textbf{Creation method.}}
 \end{itemize}
+
+
+
+
+\section{Библиотека элементов и узлов}
+
+Coming soon...
 
 
 

@@ -2,6 +2,7 @@
 # Copyright 2024 Golodnikov Sergey
 
 
+import addFC_Logger as Logger
 import addFC_Preference as P
 import FreeCAD
 import importDXF
@@ -15,27 +16,38 @@ import shutil
 import time
 
 
-if P.additions['sm'][0]:
+if P.afc_additions['sm'][0]:
     from SheetMetalUnfoldCmd import SMUnfoldUnattendedCommandClass as u
-if P.additions['ezdxf'][0]:
-    import ezdxf
+else:
+    u = None
+
+if P.afc_additions['ezdxf'][0]:
+    import ezdxf.filemanagement
+else:
+    ezdxf = None
 
 
-garbage: tuple[str] = (
+REPRODUCTION = 'Reproduction'
+UNFOLD_SKETCH = 'Unfold_Sketch'
+VERIFICATION_SKETCH = 'Unfold_Sketch_Outline'
+
+GARBAGE = (
     # case sensitive!
-    'Reproduction',
+    REPRODUCTION,
+    UNFOLD_SKETCH,
+    VERIFICATION_SKETCH,
     'Unfold_Sketch_bends',
     'Unfold_Sketch_Internal',
-    'Unfold_Sketch_Outline',
-    'Unfold_Sketch',
-    'Unfold',
+    'Unfold',  # object
 )
 
-chars: str = re.escape('<>:"?*/|\\')
+FORBIDDEN = re.escape('<>:"?*/|\\')
 
 
-def add_signature(file: str, sign: str, width: float, size: int) -> None:
-    file = ezdxf.readfile(file)
+def add_signature(file, sign: str, width: float, size: int) -> None:
+    if ezdxf is None:
+        return
+    file = ezdxf.filemanagement.readfile(file)
     model = file.modelspace()
     x = -width / 2 + size / 2
     y = -size / 2
@@ -45,10 +57,10 @@ def add_signature(file: str, sign: str, width: float, size: int) -> None:
 
 def unfold(w, details: dict, path: str, skip: list = []) -> None:
     # checking the functionality:
-    if not P.additions['sm'][0]:
+    if not P.afc_additions['sm'][0]:
         w.error.setText('Warning: SheetMetal Workbench is not available!')
         return
-    if not P.additions['ezdxf'][0]:
+    if not P.afc_additions['ezdxf'][0]:
         w.error.setText('Warning: ezdxf is not available!')
 
     if len(details) == 0 or len(details) == len(skip):
@@ -56,7 +68,10 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         w.status.setText('No sheet metal parts')
         return
 
-    conf_steel = P.load_steel()
+    steel = P.pref_steel
+
+    def nearest(scope, t) -> float:
+        return scope[min(range(len(scope)), key=lambda i: abs(scope[i] - t))]
 
     # directory:
     if os.path.exists(path):
@@ -104,117 +119,95 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         w.status.setText(f'Processing: {d}')
         FreeCAD.Gui.updateGui()
 
-        body = details[d]['Body']
+        body = details[d]['!Body']
 
         try:
             thickness = float(details[d]['MetalThickness'])
         except BaseException:
-            FreeCAD.Console.PrintError(f'{d}: incorrect metal thickness\n')
+            Logger.error(f"'{d}' incorrect metal thickness")
             continue
 
         try:
             material = details[d]['Material']
         except BaseException:
-            material = 'galvanized'  # default
+            material = 'Galvanized'  # default
+            w = f"'{d}' incorrect material, replaced by 'Galvanized'"
+            Logger.warning(w)
 
-        stainless = [False, '']  # [stainless, 'aisi']
-
-        if 'stainless' in material.lower():
-            stainless[0] = True
-        if 'aisi' in material.lower():
-            stainless[0] = True
-            stainless[1] = material.lower().replace('aisi', '').strip()
-
-        steel = {
-            't': thickness,
-            'radius': 1.0,
-            'k-factor': 0.42,
-            'alias': '',
-        }
-
-        err = False
-        if stainless[0]:
-            v = []
-            for key in conf_steel['stainless'].keys():
-                try:
-                    v.append(float(key))
-                except BaseException:
-                    err = True
-            steel['t'] = min(sorted(v), key=lambda n: abs(thickness - n))
-            # float or string?
-            if steel['t'] in conf_steel['stainless']:
-                _steel = conf_steel['stainless'][steel['t']]
-            elif str(steel['t']) in conf_steel['stainless']:
-                _steel = conf_steel['stainless'][str(steel['t'])]
-            else:
-                err = True
-            steel['radius'] = _steel[0]
-            steel['k-factor'] = _steel[1]
-            steel['alias'] = _steel[2]
+        if 'stainless' in material.lower() or 'aisi' in material.lower():
+            variant = 'Stainless'
         else:
-            v = []
-            for key in conf_steel['galvanized'].keys():
-                try:
-                    v.append(float(key))
-                except BaseException:
-                    err = True
-            steel['t'] = min(sorted(v), key=lambda n: abs(thickness - n))
-            # float or string?
-            if steel['t'] in conf_steel['galvanized']:
-                _steel = conf_steel['galvanized'][steel['t']]
-            elif str(steel['t']) in conf_steel['galvanized']:
-                _steel = conf_steel['galvanized'][str(steel['t'])]
-            else:
-                err = True
-            steel['radius'] = _steel[0]
-            steel['k-factor'] = _steel[1]
-            steel['alias'] = _steel[2]
-        if err:
-            e = f'{d}: error in sheet metal preference\n'
-            FreeCAD.Console.PrintError(e)
-            continue
+            variant = 'Galvanized'
 
-        # alias:
-        if steel['alias'] == '':
-            steel['alias'] = str(thickness)
-        if stainless[0]:
-            if stainless[1] != '':
-                steel['alias'] = f"{steel['alias']}_{stainless[1]}"
+        k_factor = 0.42
+
+        if thickness in steel[variant]:
+            k_factor = steel[variant][thickness][1]
         else:
-            if material == 'Steel':
-                steel['alias'] = f"{steel['alias']}_Steel"
+            t = nearest(P.pref_steel['Stainless'], thickness)
+            k_factor = steel['Stainless'][t][1]
 
         # reproduction:
         shape = Part.getShape(body, '', needSubElement=False, refine=False)
-        ad.addObject('Part::Feature', 'Reproduction').Shape = shape
+        ad.addObject('Part::Feature', REPRODUCTION).Shape = shape
         body = ad.ActiveObject
 
         # find the largest face:
         faces = body.Shape.Faces
-        target, a, n = [0.0, 0], 0, 0
+        target = [0.0, 0, 0]  # [area, base, spare]
+        a, n = 0, 0
         for f in faces:
             a = round(f.Area, 2)
             n += 1
-            if a >= target[0]:
+            if a > target[0]:
+                # spare:
+                if target[1] == 0:
+                    target[2] = n
+                else:
+                    target[2] = target[1]
+                # base:
                 target[0] = a
                 target[1] = n
+            elif a == target[0]:
+                # spare:
+                target[2] = n
 
         # selection:
-        face = 'Face' + str(target[1])
+        face = 'Face' + str(target[1])  # base
         FreeCAD.Gui.Selection.addSelection(ad.Name, body.Name, face, 0, 0, 0)
 
         # k-factor:
         FreeCAD.ParamGet(
             'User parameter:BaseApp/Preferences/Mod/SheetMetal').SetFloat(
-            'manualKFactor', steel['k-factor'])
+            'manualKFactor', k_factor)
 
         # unfold:
-        msg = f"{d}: {material} ({steel['t']}) {steel['k-factor']}\n"
-        FreeCAD.Console.PrintMessage(msg)
-        u.Activated(None)
+        Logger.log(f'{d}: {material} ({thickness}) {k_factor}')
+        if u is not None:
+            u.Activated(None)
         FreeCAD.Gui.Selection.clearSelection()
 
-        us = ad.Unfold_Sketch
+        # correctness check:
+        if ad.getObject(VERIFICATION_SKETCH) is None:
+            Logger.warning("wrong, let's try a spare face...")
+            for i in GARBAGE:
+                try:
+                    ad.removeObject(i)
+                except BaseException:
+                    pass
+            # switching to spare:
+            face = 'Face' + str(target[2])
+            FreeCAD.Gui.Selection.addSelection(
+                ad.Name, body.Name, face, 0, 0, 0)
+            if u is not None:
+                u.Activated(None)
+            FreeCAD.Gui.Selection.clearSelection()
+            # verify:
+            if ad.getObject(VERIFICATION_SKETCH) is None:
+                Logger.error(f"'{d}' unfold error...")
+                continue
+
+        us = ad.getObject(UNFOLD_SKETCH)
         bb = us.Shape.BoundBox
 
         # location along the Y axis:
@@ -249,18 +242,18 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                 pass
 
         # directory:
-        target = os.path.join(path, steel['alias'])
+        target = os.path.join(path, f'{material} ({thickness})')
         if not os.path.exists(target):
             os.makedirs(target)
 
-        file = re.sub('[' + chars + ']', '_', d)
+        file = re.sub(FORBIDDEN, '_', d)
 
         code, index, sign = '', '', signature[1]  # prefix
 
         if 'Code' in details[d] and details[d]['Code'] != '':
-            code = re.sub('[' + chars + ']', '_', details[d]['Code'])
+            code = re.sub(FORBIDDEN, '_', details[d]['Code'])
         if 'Index' in details[d] and details[d]['Index'] != '':
-            index = re.sub('[' + chars + ']', '_', details[d]['Index'])
+            index = re.sub(FORBIDDEN, '_', details[d]['Index'])
 
         match w.comboBoxName.currentText():
             case 'Code':
@@ -301,7 +294,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                     size_verify = int(abs(unfold_height) - 10)
                     if size > size_verify:
                         size = size_verify
-                    if P.additions['ezdxf'][0]:
+                    if P.afc_additions['ezdxf'][0]:
                         add_signature(f, sign, unfold_width, size)
             if save_svg:
                 f = os.path.join(target, f'{file} ({i + 1}).svg')
@@ -311,13 +304,13 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                 ImportGui.export([body], f)
 
         # clearing:
-        for i in garbage:
+        for i in GARBAGE:
             try:
                 ad.removeObject(i)
             except BaseException:
                 pass
 
-        FreeCAD.Console.PrintMessage('...done\n')
+        Logger.log('...done')
 
         progress_value += progress_step
         w.progress.setValue(progress_value)
