@@ -18,7 +18,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Export Settings</string>
+   <string>Export settings</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>

@@ -31,7 +31,7 @@ if not os.path.exists(DIR):
 
 
 ui = os.path.join(os.path.dirname(__file__), 'addFC_Library.ui')
-ls = os.path.join(os.path.dirname(__file__), 'addFC_Library_s.ui')
+ls = os.path.join(os.path.dirname(__file__), 'addFC_Library_set.ui')
 
 
 library_title, library_path, library_cache, freeze = '', '', '', False

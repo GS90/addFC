@@ -4,11 +4,11 @@
 
 from PySide import QtGui, QtCore
 from zipfile import ZipFile
-import addFC_Info as Info
+import addFC_Data as Data
 import addFC_Logger as Logger
 import addFC_Other as Other
 import addFC_Preference as P
-import addFC_Specification as S
+import addFC_Info as Info
 import addFC_Unfold
 import datetime
 import difflib
@@ -47,9 +47,9 @@ freeze_table, freeze_nodes = True, True
 
 user_modification = False
 
-specification = []
+structure = []
 
-index_specification_title = 0
+index_bom_title = 0
 index_details_title = 0
 index_details_unfold = 0
 
@@ -63,7 +63,7 @@ class AddFCOpenRecentFile():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'resent.svg'),
-                'Accel': 'Alt+Shift+R',
+                'Accel': 'R',
                 'MenuText': 'Recent File',
                 'ToolTip': 'Open recent file'}
 
@@ -97,7 +97,7 @@ class AddFCDisplay():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'display.svg'),
-                'Accel': 'Alt+Shift+D',
+                'Accel': 'D',
                 'MenuText': 'Display',
                 'ToolTip': 'Isometry and fit all'}
 
@@ -122,7 +122,7 @@ class AddFCModelControl():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'control.svg'),
-                'Accel': 'Alt+Shift+C',
+                'Accel': 'C',
                 'MenuText': 'Model Control',
                 'ToolTip': 'Run the model control file'}
 
@@ -145,23 +145,23 @@ FreeCAD.Gui.addCommand('AddFCModelControl', AddFCModelControl())
 # ------------------------------------------------------------------------------
 
 
-class AddFCSpecification():
+class AddFCModelInfo():
 
     def GetResources(self):
-        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'specification.svg'),
-                'Accel': 'Alt+Shift+S',
-                'MenuText': 'Specification',
-                'ToolTip': 'Model Specification'}
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'info.svg'),
+                'Accel': 'I',
+                'MenuText': 'Model Information',
+                'ToolTip': 'Model information (BOM)'}
 
     def Activated(self):
         w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
-            P.AFC_PATH, 'repo', 'ui', 'specification.ui'))
+            P.AFC_PATH, 'repo', 'ui', 'info.ui'))
 
         if not P.afc_additions['sm'][0]:
             w.tabWidget.setTabEnabled(1, False)
 
-        global specification
-        specification = S.get_specification()
+        global structure
+        structure = Info.compilation()
 
         conf, prop = P.pref_configuration, P.pref_properties
 
@@ -179,12 +179,12 @@ class AddFCSpecification():
         w.DXF.setChecked(conf['unfold_dxf'])
         w.SVG.setChecked(conf['unfold_svg'])
         w.STP.setChecked(conf['unfold_stp'])
-        w.comboBoxExport.setCurrentText(conf['spec_export_type'])
+        w.comboBoxExport.setCurrentText(conf['bom_export_type'])
         w.comboBoxName.setCurrentText(conf['unfold_file_name'])
         w.comboBoxSignature.setCurrentText(conf['unfold_file_signature'])
         w.lineEditPrefix.setText(conf['unfold_prefix'])
 
-        table, table_details = w.specificationTable, w.detailsTable
+        table, table_details = w.infoTable, w.detailsTable
 
         color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
         color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
@@ -208,7 +208,7 @@ class AddFCSpecification():
 
         def state_node(checked) -> None:
             w.comboBoxNodes.setEnabled(checked)
-            specification_update_wrapper()
+            structure_update_wrapper()
         w.checkBoxNodes.stateChanged.connect(state_node)
 
         def changed_node() -> None:
@@ -217,19 +217,19 @@ class AddFCSpecification():
             node_name = get_node_name()
             if node_name == '':
                 return
-            global specification
-            specification = S.get_specification(
+            global structure
+            structure = Info.compilation(
                 strict=w.checkBoxStrict.isChecked(),
                 node_name=node_name,
             )
-            specification_update()
+            structure_update()
             w.info.setText(f'Updated, node: {node_name}')
 
         w.comboBoxNodes.currentTextChanged.connect(changed_node)
 
-        # filling out the specification:
+        # bill of materials:
 
-        def specification_update() -> None:
+        def structure_update() -> None:
 
             global freeze_table
             freeze_table = True
@@ -237,10 +237,10 @@ class AddFCSpecification():
             freeze_nodes = True
 
             w.info.setText('...')
-            specification_purge()
+            structure_purge()
             FreeCAD.Gui.updateGui()
 
-            spec, spec_h, details, details_h, nodes = specification
+            spec, spec_h, details, details_h, nodes = structure
 
             _node = w.comboBoxNodes.currentText()
             w.comboBoxNodes.clear()
@@ -269,14 +269,14 @@ class AddFCSpecification():
             # --- #
 
             labels = list(spec_h.keys())
-            global index_specification_title
-            index_specification_title = labels.index('Name')
+            global index_bom_title
+            index_bom_title = labels.index('Name')
 
             table.setColumnCount(len(spec_h))
             table.setRowCount(len(spec))
             table.setHorizontalHeaderLabels(labels)
             table.horizontalHeader().setResizeMode(
-                index_specification_title, QtGui.QHeaderView.Stretch)
+                index_bom_title, QtGui.QHeaderView.Stretch)
 
             f_std = QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
 
@@ -315,9 +315,9 @@ class AddFCSpecification():
             table.resizeColumnsToContents()
             table.resizeRowsToContents()
             table.horizontalHeader().setResizeMode(
-                index_specification_title, QtGui.QHeaderView.Stretch)
+                index_bom_title, QtGui.QHeaderView.Stretch)
 
-            table.sortItems(index_specification_title)
+            table.sortItems(index_bom_title)
             table.setSortingEnabled(True)
             table.horizontalHeader().setSortIndicatorShown(False)
 
@@ -389,16 +389,16 @@ class AddFCSpecification():
 
             w.pushButtonExit.setFocus()
 
-        def specification_update_wrapper() -> None:
-            global specification
-            specification = S.get_specification(
+        def structure_update_wrapper() -> None:
+            global structure
+            structure = Info.compilation(
                 strict=w.checkBoxStrict.isChecked(),
                 node_name=get_node_name(),
             )
-            specification_update()
+            structure_update()
             w.info.setText('Updated')
 
-        def specification_purge() -> None:
+        def structure_purge() -> None:
             table.setSortingEnabled(False)
             table.clearSelection()
             table.clearContents()
@@ -410,11 +410,11 @@ class AddFCSpecification():
             table_details.setColumnCount(0)
             table_details.setRowCount(0)
 
-        def specification_purge_wrapper() -> None:
-            specification_purge()
+        def structure_purge_wrapper() -> None:
+            structure_purge()
             w.info.setText('Cleared')
 
-        specification_update()
+        structure_update()
         w.info.setText('...')
 
         # ----------------- #
@@ -425,19 +425,19 @@ class AddFCSpecification():
             if freeze_table:
                 return
 
-            header = w.specificationTable.horizontalHeaderItem(item.column())
+            header = w.infoTable.horizontalHeaderItem(item.column())
             if header is None:
                 return
             header = header.text()
 
             row = item.row()
 
-            value = w.specificationTable.item(row, item.column())
+            value = w.infoTable.item(row, item.column())
             if value is None:
                 return
             value = value.text()
 
-            title = w.specificationTable.item(row, index_specification_title)
+            title = w.infoTable.item(row, index_bom_title)
             if title is None:
                 return
             title = title.text()
@@ -472,7 +472,7 @@ class AddFCSpecification():
                 case _:
                     v = str(value)
 
-            i = specification[0].get(title)
+            i = structure[0].get(title)
 
             try:
                 i[header] = v
@@ -493,13 +493,13 @@ class AddFCSpecification():
             except BaseException as e:
                 Logger.error(str(e))
 
-        w.specificationTable.itemChanged.connect(changed)
+        w.infoTable.itemChanged.connect(changed)
 
         def switch_tab(i) -> None:
             global user_modification
             if user_modification:
                 if i == 1:  # details
-                    specification_update()
+                    structure_update()
                 user_modification = False
         w.tabWidget.currentChanged.connect(switch_tab)
 
@@ -512,47 +512,47 @@ class AddFCSpecification():
 
         w.show()
 
-        w.pushButtonUpdate.clicked.connect(specification_update_wrapper)
-        w.pushButtonClear.clicked.connect(specification_purge_wrapper)
+        w.pushButtonUpdate.clicked.connect(structure_update_wrapper)
+        w.pushButtonClear.clicked.connect(structure_purge_wrapper)
 
         def indexing() -> None:
-            global specification
-            specification = S.get_specification(
+            global structure
+            structure = Info.compilation(
                 strict=w.checkBoxStrict.isChecked(),
                 node_name=get_node_name(),
                 indexing=True,
             )
-            specification_update()
+            structure_update()
             w.info.setText('Elements are indexed')
         w.pushButtonIndexing.clicked.connect(indexing)
 
         def update_enumerations() -> None:
-            global specification
-            specification = S.get_specification(
+            global structure
+            structure = Info.compilation(
                 strict=w.checkBoxStrict.isChecked(),
                 node_name=get_node_name(),
                 update_enumerations=True,
             )
-            specification_update()
+            structure_update()
             w.info.setText('Enumerations updated')
         w.pushButtonUEnum.clicked.connect(update_enumerations)
 
         def update_equations() -> None:
-            global specification
-            specification = S.get_specification(
+            global structure
+            structure = Info.compilation(
                 strict=w.checkBoxStrict.isChecked(),
                 node_name=get_node_name(),
                 update_equations=True,
             )
-            specification_update()
+            structure_update()
             w.info.setText('Equations updated')
         w.pushButtonUEq.clicked.connect(update_equations)
 
         def spec_export_settings() -> None:
             es = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
-                P.AFC_PATH, 'repo', 'ui', 'specification_es.ui'))
+                P.AFC_PATH, 'repo', 'ui', 'info_set.ui'))
 
-            for i in conf['spec_export_alias']:
+            for i in conf['bom_export_alias']:
                 match i:
                     case 'json':  es.JSON.setChecked(True)
                     case 'csv': es.CSV.setChecked(True)
@@ -561,10 +561,10 @@ class AddFCSpecification():
             es.comboBoxMerger.addItems(prop.keys())
             es.comboBoxSorting.addItems(prop.keys())
 
-            value = conf['spec_export_merger']
+            value = conf['bom_export_merger']
             if value in prop:
                 es.comboBoxMerger.setCurrentText(value)
-            value = conf['spec_export_sort']
+            value = conf['bom_export_sort']
             if value in prop:
                 es.comboBoxSorting.setCurrentText(value)
 
@@ -577,7 +577,7 @@ class AddFCSpecification():
                     item.setEnabled(False)
                     item.setCheckState(QtCore.Qt.Checked)
                 else:
-                    if i in conf['spec_export_skip']:
+                    if i in conf['bom_export_skip']:
                         item.setCheckState(QtCore.Qt.Unchecked)
                     else:
                         item.setCheckState(QtCore.Qt.Checked)
@@ -587,23 +587,23 @@ class AddFCSpecification():
             es.pushButtonApply.setFocus()
 
             def apply() -> None:
-                conf['spec_export_type'] = w.comboBoxExport.currentText()
-                conf['spec_export_merger'] = es.comboBoxMerger.currentText()
-                conf['spec_export_sort'] = es.comboBoxSorting.currentText()
+                conf['bom_export_type'] = w.comboBoxExport.currentText()
+                conf['bom_export_merger'] = es.comboBoxMerger.currentText()
+                conf['bom_export_sort'] = es.comboBoxSorting.currentText()
 
-                conf['spec_export_alias'].clear()
+                conf['bom_export_alias'].clear()
                 if es.JSON.isChecked():
-                    conf['spec_export_alias'].append('json')
+                    conf['bom_export_alias'].append('json')
                 if es.CSV.isChecked():
-                    conf['spec_export_alias'].append('csv')
+                    conf['bom_export_alias'].append('csv')
                 if es.Spreadsheet.isChecked():
-                    conf['spec_export_alias'].append('spreadsheet')
+                    conf['bom_export_alias'].append('spreadsheet')
 
-                conf['spec_export_skip'].clear()
+                conf['bom_export_skip'].clear()
                 for index in range(model.rowCount()):
                     item = model.item(index)
                     if item.checkState() != QtCore.Qt.Checked:
-                        conf['spec_export_skip'].append(item.text())
+                        conf['bom_export_skip'].append(item.text())
 
                 P.save_pref(P.PATH_CONFIGURATION, conf)
                 es.close()
@@ -612,7 +612,7 @@ class AddFCSpecification():
 
         w.pushButtonExportSettings.clicked.connect(spec_export_settings)
 
-        def specification_export() -> None:
+        def structure_export() -> None:
             target = w.comboBoxExport.currentText()
             match target:
                 case 'JSON' | 'CSV':
@@ -624,20 +624,20 @@ class AddFCSpecification():
                         path = fd.selectedFiles()[0]
                         w.info.setText('...')
                         FreeCAD.Gui.updateGui()
-                        w.info.setText(S.export_specification(
-                            path, target, specification))
+                        w.info.setText(Info.export(
+                            path, target, structure))
                 case 'Spreadsheet':
                     w.info.setText('...')
                     FreeCAD.Gui.updateGui()
-                    w.info.setText(S.export_specification(
-                        '', target, specification))
+                    w.info.setText(Info.export(
+                        '', target, structure))
                 # USDD:
                 case 'RU std: Spreadsheet' | 'RU std: TechDraw':
                     w.info.setText('...')
                     FreeCAD.Gui.updateGui()
-                    w.info.setText(S.export_specification(
-                        '', target, specification))
-        w.pushButtonExport.clicked.connect(specification_export)
+                    w.info.setText(Info.export(
+                        '', target, structure))
+        w.pushButtonExport.clicked.connect(structure_export)
 
         def switch_unfold(item) -> None:
             h = table_details.horizontalHeaderItem(item.column())
@@ -718,7 +718,7 @@ class AddFCSpecification():
             P.save_pref(P.PATH_CONFIGURATION, conf)
             # unfold:
             path = os.path.join(conf['working_directory'], prefix)
-            addFC_Unfold.unfold(w, specification[2], path, redefinition())
+            addFC_Unfold.unfold(w, structure[2], path, redefinition())
         w.pushButtonUnfold.clicked.connect(unfold)
 
         return
@@ -726,7 +726,7 @@ class AddFCSpecification():
     def IsActive(self): return True if FreeCAD.ActiveDocument else False
 
 
-FreeCAD.Gui.addCommand('AddFCSpecification', AddFCSpecification())
+FreeCAD.Gui.addCommand('AddFCModelInfo', AddFCModelInfo())
 
 
 # ------------------------------------------------------------------------------
@@ -773,7 +773,7 @@ class AddFCProperties():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'properties.svg'),
-                'Accel': 'Alt+Shift+A',
+                'Accel': 'A',
                 'MenuText': 'Add Properties',
                 'ToolTip': 'Add properties to an object'}
 
@@ -786,7 +786,7 @@ class AddFCProperties():
         materials = P.pref_materials
         properties = P.pref_properties
 
-        core = Info.properties_core
+        core = Data.properties_core
 
         default_material = configuration['default_material']
         if default_material not in materials:
@@ -1035,7 +1035,7 @@ class AddFCProperties():
                             try:
                                 _f = float(v[2])
                             except ValueError:
-                                _f = S.define_thickness(i, bind, k)
+                                _f = Info.define_thickness(i, bind, k)
                                 if _f == '-':
                                     _f = 0
                             if not bind:
@@ -1050,9 +1050,9 @@ class AddFCProperties():
                                 if eq or _f == 0:
                                     if len(material) > 0:
                                         if k == 'Add_Weight':
-                                            S.equation_weight(i, material)
+                                            Info.weight_equation(i, material)
                                         else:
-                                            S.equation_price(i, material)
+                                            Info.price_equation(i, material)
                                 else:
                                     setattr(i, k, _f)
                         # default:
@@ -1206,7 +1206,6 @@ class AddFCInsert():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'insert.svg'),
-                'Accel': 'Alt+Shift+I',
                 'MenuText': 'Creating a Drawing',
                 'ToolTip': 'Create a drawing based on a template'}
 
@@ -1285,7 +1284,7 @@ examples: dict = {
         'An example of a complex parametric assembly, '
         'bill of materials, batch processing of sheet metal, '
         'and an exploded view.\nAttention! Sheet metal currently '
-        'does not work in version 1.0.0 and above.',
+        'does not work in version 1 and above.',
     ),
     'Belt Roller Support': (
         os.path.join(EXAMPLES_PATH, 'beltRollerSupport.FCStd'),
@@ -1377,9 +1376,9 @@ class AddFCLibrary():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'library.svg'),
-                'Accel': 'Alt+Shift+L',
+                'Accel': 'L',
                 'MenuText': 'Library',
-                'ToolTip': 'Library of elements'}
+                'ToolTip': 'Component library'}
 
     def Activated(self):
         file = os.path.join(P.AFC_PATH, 'utils', 'addFC_Library.py')
@@ -1400,7 +1399,7 @@ class AddFCExplode():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'explode.svg'),
-                'Accel': 'Alt+Shift+E',
+                'Accel': 'E',
                 'MenuText': 'Explode',
                 'ToolTip': 'Exploded view'}
 
@@ -1423,7 +1422,7 @@ class AddFCPipe():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'pipe.svg'),
-                'Accel': 'Alt+Shift+P',
+                'Accel': 'P',
                 'MenuText': 'Pipe',
                 'ToolTip': 'Creating a pipe by points'}
 

@@ -1,6 +1,6 @@
 # addFC - addFC library
 
-Elements in the standard library.
+Components of the internal workbench library.
 
 ## Fasteners
 

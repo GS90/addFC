@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 1.0.2 beta - [release notes](CHANGELOG.md).
+Current version 1.0.4 beta - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -11,7 +11,7 @@ At the moment it is:
 
 1. Generate a BOM based on the model.
 2. Batch processing of sheet metal parts.
-3. Library of elements and nodes - [standard](repo/add/Library.md).
+3. Component library - [internal](repo/add/Library.md).
 4. Assistance in creating design documentation.
 5. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
 6. Creating a pipeline.
@@ -21,9 +21,9 @@ At the moment it is:
 
 Bill of materials - BOM
 
-![Bill of materials - BOM](repo/doc/img/specification_all.png)
+![Bill of materials - BOM](repo/doc/img/info_bom.png)
 
-Library of elements and nodes - beta
+Component library - beta
 
 ![Library](repo/doc/img/library.png)
 
@@ -63,7 +63,7 @@ Explosion (30 FPS)
 
 [FreeCAD forum thread](https://forum.freecad.org/viewtopic.php?t=91329)
 
-[FreeCAD форум на русском языке](https://forum.freecad.org/viewtopic.php?t=91598)
+[FreeCAD тема на русском языке](https://forum.freecad.org/viewtopic.php?t=91598)
 
 
 ### Notes

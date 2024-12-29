@@ -9,7 +9,7 @@ import re
 
 DIGIT = re.compile('\\d+')
 
-alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
 # required for correct recalculation of configuration tables in FreeCAD 0.21
@@ -20,7 +20,7 @@ def recompute_configuration_tables() -> None:
             for e in obj.ExpressionEngine:
                 s = e[0][len('.cells.Bind.'):].split('.')[0]
                 d = re.search(DIGIT, s).group(0)
-                c = alphabet[alphabet.index(s.replace(d, '')) - 1] + d
+                c = ALPHABET[ALPHABET.index(s.replace(d, '')) - 1] + d
             obj.recomputeCells(c)
     FreeCAD.ActiveDocument.recompute()
 

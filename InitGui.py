@@ -21,7 +21,7 @@ class addFC(FreeCAD.Gui.Workbench):
             'AddFCOpenRecentFile',
             'AddFCDisplay',
             'AddFCModelControl',
-            'AddFCSpecification',
+            'AddFCModelInfo',
             'AddFCProperties',
             'AddFCInsert',
             'AddFCAssistant',
@@ -36,7 +36,7 @@ class addFC(FreeCAD.Gui.Workbench):
 
         global P
 
-        FreeCAD.Gui.addPreferencePage(P.addFCPreferenceSpecification, 'addFC')
+        FreeCAD.Gui.addPreferencePage(P.addFCPreferenceProperties, 'addFC')
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceMaterials, 'addFC')
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceSM, 'addFC')
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceOther, 'addFC')

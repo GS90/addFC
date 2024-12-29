@@ -17,9 +17,9 @@
 
 #### 2024.05.25 (**0.3.0**):
 * Fixes.
-* BOM (Specification): Export settings.
-* BOM (Specification): Export to spreadsheet.
-* BOM (Specification): Export to CSV.
+* BOM: Export settings.
+* BOM: Export to spreadsheet.
+* BOM: Export to CSV.
 
 #### 2024.06.02 (**0.3.1**):
 * Fixes.
@@ -39,10 +39,10 @@
 #### 2024.08.02 (**0.6.1**):
 * Updating standard properties (added: Code, Format, Note, Section).
 * Preferences: Ability to change FreeCAD font.
-* Specification: Automatic indexing of element positions.
-* Specification: Updating enumerations properties in objects.
+* BOM: Automatic indexing of element positions.
+* BOM: Updating enumerations properties in objects.
 * Unified System for Design Documentation, USDD - Russia:
-    + Possibility of exporting specifications according to the standard.
+    + BOM: Possibility of export according to standard.
     + New function: Create a drawing based on a template.
     + Automatic filling of the template stamp.
     + Additional files added: [templates and font](/repo/add/stdRU)
@@ -69,17 +69,17 @@
 * Fix unfold and auto indexing.
 
 #### 2024.10.28 (**0.7.5**):
-* Fixes: unfold and specification.
+* Fixes: unfold and BOM.
 
-#### 2024.12.27 (**1.0.1**):
-* The name for the property group is now standard ("Add") and unchangeable.
-* The properties "Weight" and "Price" have been moved to the basic group.
-* Added basic property "Node" to separate bill of materials.
+#### 2024.12.27 (**1.0.4**):
+* The name for the property group is now standard and unchangeable: __Add__.
+* The properties __Weight__ and __Price__ have been moved to the basic group.
+* Added basic property __Node__ to separate bill of materials.
 * Added materials for automatic calculation of mass and cost of objects.
-* Some properties can be edited in the specification graphical interface.
+* The value of some properties can be edited in the graphical interface.
 * Increased stability in batch processing of sheet metal parts.
-* Added an experimental version of the library of elements and nodes.
-* A standard library has been created as part of the workbench.
-* SheetMetal Workbench has been removed from required dependencies.
+* Added experimental version of the component library.
+* The workbench contains an internal library.
+* __SheetMetal Workbench__ has been removed from required dependencies.
 * Many other changes, fixes and improvements.
 * Backward compatibility may be broken...

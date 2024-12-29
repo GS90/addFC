@@ -4,7 +4,7 @@
 
 from importlib.metadata import version
 from PySide import QtGui, QtCore
-import addFC_Info as Info
+import addFC_Data as Data
 import addFC_Logger as Logger
 import copy
 import FreeCAD
@@ -120,13 +120,13 @@ def load_pref(path: str, std: dict, conf=False) -> dict:
         if conf:
             # outdated parameters:
             for i in list(result):
-                if i not in Info.configuration:
+                if i not in Data.configuration:
                     _ = result.pop(i, None)
             # completeness:
-            for i in Info.configuration:
+            for i in Data.configuration:
                 if i not in result:
-                    result[i] = Info.configuration[i]
-                value = Info.configuration[i]
+                    result[i] = Data.configuration[i]
+                value = Data.configuration[i]
                 if type(value) is dict:
                     if type(result[i]) is not dict:
                         result[i] = value
@@ -141,15 +141,15 @@ def load_pref(path: str, std: dict, conf=False) -> dict:
 
 
 def load_properties() -> dict:
-    check_pref(PATH_PROPERTIES, Info.properties_core | Info.properties_add)
+    check_pref(PATH_PROPERTIES, Data.properties_core | Data.properties_add)
     try:
         file = open(PATH_PROPERTIES, 'r', encoding='utf-8')
         result = json.load(file)
         file.close()
     except BaseException as e:
         Logger.error(f'load, prop: {e}')
-        result = Info.properties_add
-    properties = copy.deepcopy(Info.properties_core)
+        result = Data.properties_add
+    properties = copy.deepcopy(Data.properties_core)
     for key in result:
         if key not in properties:
             properties[re.sub(AVAILABLE_CHARACTERS, '', key)] = result[key]
@@ -169,14 +169,14 @@ def load_properties() -> dict:
 
 
 def load_steel() -> dict:
-    check_pref(PATH_STEEL, Info.steel)
+    check_pref(PATH_STEEL, Data.steel)
     try:
         file = open(PATH_STEEL, 'r', encoding='utf-8')
         result = json.load(file)
         file.close()
     except BaseException as e:
         Logger.error(f'load steel: {e}')
-        result = Info.steel
+        result = Data.steel
     steel = {}
     for i in result:
         steel[i] = {}
@@ -197,9 +197,9 @@ def save_pref(path: str, pref: dict, indent=4) -> None:
         Logger.error(f'save pref: {e}')
 
 
-pref_configuration = load_pref(PATH_CONFIGURATION, Info.configuration, True)
-pref_explosion = load_pref(PATH_EXPLOSION, Info.explosion)
-pref_materials = load_pref(PATH_MATERIALS, Info.materials)
+pref_configuration = load_pref(PATH_CONFIGURATION, Data.configuration, True)
+pref_explosion = load_pref(PATH_EXPLOSION, Data.explosion)
+pref_materials = load_pref(PATH_MATERIALS, Data.materials)
 pref_properties = load_properties()
 pref_steel = load_steel()
 
@@ -207,10 +207,10 @@ pref_steel = load_steel()
 # ------------------------------------------------------------------------------
 
 
-class addFCPreferenceSpecification():
+class addFCPreferenceProperties():
     def __init__(self):
         self.form = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
-            AFC_PATH, 'repo', 'ui', 'pref_specification.ui'))
+            AFC_PATH, 'repo', 'ui', 'pref_uProp.ui'))
 
         headers_properties = ('Title', 'Type', 'Addition', 'Alias')
         headers_values = ('Property', 'Values')
@@ -244,7 +244,7 @@ class addFCPreferenceSpecification():
             value = pref_properties[key]
             if value[0] == 'Enumeration':
                 enum[key] = value[2]
-            core = True if key in Info.properties_core else False
+            core = True if key in Data.properties_core else False
             # title:
             i = QtGui.QTableWidgetItem(key)
             if core:
@@ -499,7 +499,7 @@ class addFCPreferenceSpecification():
                 continue
             if p_title == 'Material':
                 # core, only:
-                properties[p_title][2] = Info.properties_core['Material'][2]
+                properties[p_title][2] = Data.properties_core['Material'][2]
             else:
                 split = table_values.item(row, 1).text().split(',')
                 for s in split:
@@ -523,7 +523,7 @@ class addFCPreferenceMaterials():
         headers = ('Title', 'Category', 'Density', 'Unit', 'Price per unit')
 
         table = self.form.tableMaterials
-        units = Info.properties_core['Unit'][2]  # standard
+        units = Data.properties_core['Unit'][2]  # standard
 
         color_black = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
@@ -613,7 +613,7 @@ class addFCPreferenceMaterials():
 
         def default() -> None:
             global pref_materials
-            pref_materials = Info.materials
+            pref_materials = Data.materials
             save_pref(PATH_MATERIALS, pref_materials, None)
             fill()
             set_default_material(pref_configuration['default_material'])
@@ -697,7 +697,7 @@ class addFCPreferenceMaterials():
             save_pref(PATH_CONFIGURATION, pref_configuration)
 
         table = self.form.tableMaterials
-        units = Info.properties_core['Unit'][2]  # standard
+        units = Data.properties_core['Unit'][2]  # standard
 
         materials = {}
 
@@ -741,9 +741,9 @@ class addFCPreferenceMaterials():
         # standard values:
         materials['-'] = None
         if 'Galvanized' not in materials:
-            materials['Galvanized'] = Info.materials['Galvanized']
+            materials['Galvanized'] = Data.materials['Galvanized']
         if 'Stainless' not in materials:
-            materials['Stainless'] = Info.materials['Stainless']
+            materials['Stainless'] = Data.materials['Stainless']
 
         global pref_materials
         pref_materials = materials
@@ -809,7 +809,7 @@ class addFCPreferenceSM():
         self.form.calculate.clicked.connect(calculate_factor)
 
         def galvanized_default() -> None:
-            fill(table_galvanized, Info.steel['Galvanized'])
+            fill(table_galvanized, Data.steel['Galvanized'])
         self.form.galvanizedDefault.clicked.connect(galvanized_default)
 
         def galvanized_remove() -> None:
@@ -822,7 +822,7 @@ class addFCPreferenceSM():
         self.form.galvanizedAdd.clicked.connect(galvanized_add)
 
         def stainless_default() -> None:
-            fill(table_stainless, Info.steel['Stainless'])
+            fill(table_stainless, Data.steel['Stainless'])
         self.form.stainlessDefault.clicked.connect(stainless_default)
 
         def stainless_remove() -> None:

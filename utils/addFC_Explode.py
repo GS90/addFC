@@ -25,7 +25,7 @@ ad = FreeCAD.ActiveDocument
 w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
     os.path.normpath(os.path.dirname(__file__)), 'addFC_Explode.ui'))
 es = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
-    os.path.normpath(os.path.dirname(__file__)), 'addFC_Explode_es.ui'))
+    os.path.normpath(os.path.dirname(__file__)), 'addFC_Explode_set.ui'))
 
 
 storage = None
