@@ -373,7 +373,11 @@ class widget():
             else:
                 dp = os.path.join(library_path, catalog, file)
 
-            placement, root = extra(replace)
+            placement, root, placement_eq, replacement = extra(replace)
+
+            if (replace and not replacement):
+                Logger.warning('the object cannot be replaced...')
+                return
 
             add_object(
                 dp,
@@ -384,6 +388,7 @@ class widget():
                 self.form.lcoc.currentText(),
                 placement,
                 root,
+                placement_eq,
             )
 
         def add() -> None: integration(False)
@@ -625,7 +630,8 @@ def add_object(dp: str,
                var: str,
                lcoc: str,
                placement: FreeCAD.Placement,
-               root: str) -> None:
+               root: str,
+               placement_eq: None | list) -> None:
 
     ld = FreeCAD.listDocuments()
 
@@ -688,6 +694,9 @@ def add_object(dp: str,
     if root != '':
         ad.getObject(root).addObject(dst)
 
+    if placement_eq is not None:
+        dst.setExpression(placement_eq[0], placement_eq[1])
+
     ad.recompute()
 
     # required for correct recalculation of configuration tables:
@@ -708,8 +717,12 @@ def rename(src, dst) -> None:
         dst.Label = src.Label + ' 001'
 
 
-def extra(replace: bool) -> tuple[FreeCAD.Placement, str]:
-    placement, root = FreeCAD.Placement(), ''
+def extra(replace: bool):
+
+    placement = FreeCAD.Placement()
+    root = ''
+    placement_eq = None
+    replacement = False
 
     objects = ad.findObjects('App::Part')
     if len(objects) > 0:
@@ -722,7 +735,7 @@ def extra(replace: bool) -> tuple[FreeCAD.Placement, str]:
     try:
         selection = FreeCAD.Gui.Selection.getSelectionEx('', 0)
         if len(selection) == 0:
-            return placement, root
+            return placement, root, placement_eq, replacement
         selection = selection[0]
         if selection.HasSubObjects:
             vector += selection.SubObjects[0].BoundBox.Center
@@ -731,18 +744,30 @@ def extra(replace: bool) -> tuple[FreeCAD.Placement, str]:
         try:
             sen = selection.SubElementNames[0]
             sol = selection.Object.getSubObjectList(sen)
-            zero = sol[0]
-            if zero.TypeId == 'App::Part':
-                root = zero.Name
-            if len(sol) == 1:
-                obj = zero
-            else:
-                obj = sol[-1]
-                match obj.TypeId:
+            # anchor to point placement:
+            if not replace:
+                s = sol[-1]
+                if s.TypeId == 'PartDesign::Point':
+                    placement_eq = [
+                        '.Placement.Base',
+                        f'{s.Name}.Placement.Base',
+                    ]
+                    if len(sol) > 1:
+                        s = sol[-2]
+                        if s.TypeId == 'PartDesign::Body':
+                            placement_eq[1] += f' + {s.Name}.Placement.Base'
+            # substitution and addition:
+            sol.reverse()
+            for s in sol:
+                match s.TypeId:
                     case 'App::Link' | 'Part::Feature':
-                        pass
-                    case _:
-                        obj = sol[-2]
+                        obj = s
+                        break
+            for s in sol:
+                match s.TypeId:
+                    case 'App::Part' | 'Assembly::AssemblyObject':
+                        root = s.Name
+                        break
         except BaseException as e:
             Logger.warning(str(e))
 
@@ -757,19 +782,14 @@ def extra(replace: bool) -> tuple[FreeCAD.Placement, str]:
                 lo = obj.getLinkedObject()
                 if 'Add_Name' in lo.PropertiesList:
                     ad.removeObject(obj.Name)
-                else:
-                    Logger.warning('unsupported object to replace...')
+                    replacement = True
             case 'Part::Feature':
                 if 'Add_Name' in obj.PropertiesList:
                     ad.removeObject(obj.Name)
-                else:
-                    Logger.warning('unsupported object to replace...')
-            case _:
-                Logger.warning('unsupported object type to replace...')
-                root = ''
+                    replacement = True
         ad.recompute()
 
-    return placement, root
+    return placement, root, placement_eq, replacement
 
 
 # ------------------------------------------------------------------------------

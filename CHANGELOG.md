@@ -71,7 +71,7 @@
 #### 2024.10.28 (**0.7.5**):
 * Fixes: unfold and BOM.
 
-#### 2024.12.27 (**1.0.4**):
+#### 2024.12.31 (**1.0.5**):
 * The name for the property group is now standard and unchangeable: __Add__.
 * The properties __Weight__ and __Price__ have been moved to the basic group.
 * Added basic property __Node__ to separate bill of materials.

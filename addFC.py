@@ -197,6 +197,7 @@ class AddFCModelInfo():
             'Name',
             'Price',
             'Quantity',
+            'Qty',
             'Weight',
         )
 
@@ -308,6 +309,8 @@ class AddFCModelInfo():
                 else:
                     if i == 'MetalThickness':
                         labels.append('MT')
+                    elif i == 'Quantity':
+                        labels.append('Qty')
                     else:
                         labels.append(i)
             table.setHorizontalHeaderLabels(labels)
@@ -372,6 +375,8 @@ class AddFCModelInfo():
                 else:
                     if i == 'MetalThickness':
                         labels.append('MT')
+                    elif i == 'Quantity':
+                        labels.append('Qty')
                     else:
                         labels.append(i)
             table_details.setHorizontalHeaderLabels(labels)

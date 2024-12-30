@@ -12,6 +12,8 @@ import json
 import os
 
 
+ROUNDING = 2  # todo: ask user
+
 BASE_ENUMERATION = tuple(['',] + [str(i).rjust(3, '0') for i in range(1, 51)])
 
 
@@ -435,7 +437,7 @@ def compilation(strict: bool = True,
             if type(value) is float:
                 if addition(j):
                     info_headers[j] += value
-                value = round(value, 2)
+                value = round(value, ROUNDING)
                 info[i][j] = int(value) if value.is_integer() else value
             elif type(value) is int:
                 if addition(j):
@@ -456,7 +458,7 @@ def compilation(strict: bool = True,
         for j in i:
             value = i[j]
             if type(value) is float:
-                value = round(value, 2)
+                value = round(value, ROUNDING)
                 i[j] = int(value) if value.is_integer() else value
 
     info_headers = dict(sorted(info_headers.items()))
@@ -616,8 +618,11 @@ def export(path: str, target: str, bom) -> str:
                     if i in properties:
                         if spreadsheet_use_alias and properties[i][3] != '':
                             i = properties[i][3]
-                        elif i == 'MetalThickness':
-                            i = 'MT'
+                        else:
+                            if i == 'MetalThickness':
+                                i = 'MT'
+                            if i == 'Quantity':
+                                i = 'Qty'
                     s.set(f'{alphabet[x]}{1}', i)
                     columns_width[alphabet[x]] = [0, True]  # width, empty
 
@@ -647,7 +652,7 @@ def export(path: str, target: str, bom) -> str:
                     y += 1
 
             for i in columns_width:
-                s.setColumnWidth(i, max(80, columns_width[i][0] * 10))
+                s.setColumnWidth(i, max(70, columns_width[i][0] * 9))
                 if columns_width[i][1]:
                     s.removeColumns(i, 1)
 
