@@ -130,8 +130,8 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             material = details[d]['Material']
         except BaseException:
             material = 'Galvanized'  # default
-            w = f"'{d}' incorrect material, replaced by 'Galvanized'"
-            Logger.warning(w)
+            Logger.warning(
+                f"'{d}' incorrect material, replaced by 'Galvanized'")
 
         if 'stainless' in material.lower() or 'aisi' in material.lower():
             variant = 'Stainless'
