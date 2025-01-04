@@ -82,7 +82,7 @@ class AddFCOpenRecentFile():
                 FreeCAD.Gui.SendMsgToActiveView('ViewFit')
                 return
 
-        Logger.error('The file cannot be opened...')
+        FreeCAD.Gui.runCommand('Std_Open')
 
     def IsActive(self): return True
 
