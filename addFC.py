@@ -82,7 +82,7 @@ class AddFCOpenRecentFile():
                 FreeCAD.Gui.SendMsgToActiveView('ViewFit')
                 return
 
-        Logger.error('The file cannot be opened...')
+        FreeCAD.Gui.runCommand('Std_Open')
 
     def IsActive(self): return True
 
@@ -924,28 +924,15 @@ class AddFCProperties():
 
             smp = w.checkBoxSMP.isChecked()
 
-            selection, choice = FreeCAD.Gui.Selection.getSelection(), []
-
-            for i in selection:
-                choice.clear()
-                for j in i.InList:
-                    if j.TypeId != 'App::Link':
-                        choice.append(j)
-                if FreeCAD.ActiveDocument.Name != i.Document.Name:
-                    if len(choice) > 1:
-                        i = choice[0]
+            selection = FreeCAD.Gui.Selection.getSelectionEx('')
+            if len(selection) == 0:
+                return
+            for s in selection:
+                if s.HasSubObjects:
+                    i = s.Object.InList[0]
                 else:
-                    try:
-                        if i.BaseFeature is not None:
-                            i = choice[0]
-                        else:
-                            match i.TypeId:
-                                case 'PartDesign::Body' | 'App::Link':
-                                    pass
-                                case _:
-                                    i = choice[0]
-                    except BaseException:
-                        pass
+                    i = s.Object
+
                 if i.TypeId == 'App::Link':
                     i = i.LinkedObject
                 if smp:
