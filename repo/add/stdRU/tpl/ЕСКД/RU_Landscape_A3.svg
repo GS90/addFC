@@ -682,10 +682,6 @@
        x="409.99329"
        y="248.59392">1</tspan></text>
   <path
-     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 20.000006,19 H 90.00001"
-     id="path9-9" />
-  <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      d="M 90,5.25 V 19"
      id="path10" />

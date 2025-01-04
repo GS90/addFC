@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2024 Golodnikov Sergey
+# Copyright 2025 Golodnikov Sergey
 
 
 from importlib.metadata import version
@@ -93,6 +93,14 @@ AVAILABLE_PROPERTY_TYPES = (
 SYSTEM_PROPERTIES = ('!Body', '!Trace')
 
 AVAILABLE_CHARACTERS = re.compile('[^A-Za-z0-9]')
+
+
+# ------------------------------------------------------------------------------
+
+
+FreeCAD.Gui.addLanguagePath(os.path.join(
+        AFC_PATH, 'repo', 'ui', 'localization'))
+FreeCAD.Gui.updateLocale()
 
 
 # ------------------------------------------------------------------------------

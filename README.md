@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 1.0.5 beta - [release notes](CHANGELOG.md).
+Current version 1.0.6 beta - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -56,14 +56,18 @@ Explosion (30 FPS)
 
 ### Documentation
 
+[Quick reference guide](/repo/doc/quickstart_EN.md)
+
 [Documentation](repo/doc) available in PDF format:
 
 * [English](https://digiroad.tech/share/addFC/documentation_EN.pdf)
 * [Russian](https://digiroad.tech/share/addFC/documentation_RU.pdf)
 
-[FreeCAD forum thread](https://forum.freecad.org/viewtopic.php?t=91329)
 
-[FreeCAD тема на русском языке](https://forum.freecad.org/viewtopic.php?t=91598)
+Forum:
+
+* [FreeCAD forum thread](https://forum.freecad.org/viewtopic.php?t=91329)
+* [FreeCAD тема на русском языке](https://forum.freecad.org/viewtopic.php?t=91598)
 
 
 ### Notes

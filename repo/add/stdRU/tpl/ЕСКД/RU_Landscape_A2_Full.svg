@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="420mm"
-   height="297mm"
-   viewBox="0 0 420 297"
+   width="594mm"
+   height="420mm"
+   viewBox="0 0 594 420"
    version="1.1"
    id="svg2"
    xmlns="http://www.w3.org/2000/svg"
@@ -53,447 +53,447 @@
      style="fill:none;stroke:#000000;stroke-width:0.13;stroke-linecap:butt;stroke-linejoin:miter" />
   <!-- DrawingContent -->
   <path
-     style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 414.99999,292 V 5 H 19.999999 v 287 z"
+     style="display:inline;fill:none;stroke:#000000;stroke-width:0.499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 589.00001,414.99999 V 4.9999998 H 20 V 414.99999 Z"
      id="path7777" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 415,237 v 55 H 230 v -55 z"
+     d="m 589,360 v 55 H 404 v -55 z"
      id="path7779" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,242 h 64.99981"
+     d="m 404,365 h 64.99981"
      id="path4358" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,252 h 64.99981"
+     d="m 404,375 h 64.99981"
      id="path4360" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,257 h 64.99981"
+     d="m 404,380 h 64.99981"
      id="path4362" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,267 h 64.99981"
+     d="m 404,390 h 64.99981"
      id="path4364" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,277 h 64.99981"
+     d="m 404,400 h 64.99981"
      id="path4366" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,282 h 64.99981"
+     d="m 404,405 h 64.99981"
      id="path4368" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,287 h 64.99981"
+     d="m 404,410 h 64.99981"
      id="path4370" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,247 h 64.99981"
+     d="m 404,370 h 64.99981"
      id="path4358-1" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,262 h 64.99981"
+     d="m 404,385 h 64.99981"
      id="path4358-5" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 230,272 h 64.99981"
+     d="m 404,395 h 64.99981"
      id="path4358-3" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-     d="m 295,237 v 55"
+     d="m 469,360 v 55"
      id="path4374-5" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 294.99999,252 h 120"
+     d="m 468.99999,375 h 120"
      id="path4356-9" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 295,277 H 415"
+     d="M 469,400 H 589"
      id="path4356-9-0" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 365,252.00001 v 40"
+     d="m 539,375.00001 v 40"
      id="path4374-5-8" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 365,257 h 50"
+     d="m 539,380 h 50"
      id="path4358-1-3" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 365,272 h 50"
+     d="m 539,395 h 50"
      id="path4364-7" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 380,252 v 20"
+     d="m 554,375 v 20"
      id="path4358-1-3-9" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 397,252 v 20"
+     d="m 571,375 v 20"
      id="path4358-1-3-9-8" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 370,257 v 15"
+     d="m 544,380 v 15"
      id="path4358-1-3-9-87" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 375,257 v 15"
+     d="m 549,380 v 15"
      id="path4358-1-3-9-2" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 385,272 v 5"
+     d="m 559,395 v 5"
      id="path4358-1-3-9-2-1" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 285,237 v 55"
+     d="m 459,360 v 55"
      id="path4358-1-3-9-87-5" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 270,237 v 55"
+     d="m 444,360 v 55"
      id="path4358-1-3-9-87-5-1" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 237,237 v 25"
+     d="m 411,360 v 25"
      id="path4358-1-3-9-87-5-1-7" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 247,237 v 55"
+     d="m 421,360 v 55"
      id="path4358-1-3-9-87-5-1-7-6" />
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="352.29791"
-     y="246.89241"
+     x="526.29791"
+     y="369.8924"
      id="text4951"
      freecad:editable="Designation"><tspan
        id="tspan38"
-       x="352.29791"
-       y="246.89241">Обозначение</tspan></text>
+       x="526.29791"
+       y="369.8924">Обозначение</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="330.25903"
-     y="260.39392"
+     x="504.25903"
+     y="383.39392"
      id="text4951-2"
      freecad:editable="Title 1"><tspan
        id="tspan39"
-       x="330.25903"
-       y="260.39392">Наименование</tspan></text>
+       x="504.25903"
+       y="383.39392">Наименование</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="330.25903"
-     y="266.39392"
+     x="504.25903"
+     y="389.39392"
      id="text4951-2-9"
      freecad:editable="Title 2"><tspan
        id="tspan40"
-       x="330.25903"
-       y="266.39392">Наименование</tspan></text>
+       x="504.25903"
+       y="389.39392">Наименование</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="329.59161"
-     y="288.54468"
+     x="503.59161"
+     y="411.54468"
      id="text4951-2-3"
      freecad:editable="Material 2"><tspan
        id="tspan43"
-       x="329.59161"
-       y="288.54468">Материал</tspan></text>
+       x="503.59161"
+       y="411.54468">Материал</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93889px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="329.59161"
-     y="283.3447"
+     x="503.59161"
+     y="406.3447"
      id="text4951-2-3-6"
      freecad:editable="Material 1"><tspan
        id="tspan42"
-       x="329.59161"
-       y="283.3447">Материал</tspan></text>
+       x="503.59161"
+       y="406.3447">Материал</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="369.36264"
-     y="255.92006"
+     x="543.36267"
+     y="378.92004"
      id="text1044"><tspan
        id="tspan1042"
-       x="369.36264"
-       y="255.92006"
+       x="543.36267"
+       y="378.92004"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Лит.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="384.16263"
-     y="255.92006"
+     x="558.1626"
+     y="378.92004"
      id="text1048"><tspan
        id="tspan1046"
-       x="384.16263"
-       y="255.92006"
+       x="558.1626"
+       y="378.92004"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Масса</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="398.96265"
-     y="255.92006"
+     x="572.96265"
+     y="378.92004"
      id="text1052"><tspan
        id="tspan1050"
-       x="398.96265"
-       y="255.92006"
+       x="572.96265"
+       y="378.92004"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Масштаб</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="369.56262"
-     y="275.92007"
+     x="543.56262"
+     y="398.92007"
      id="text1056"><tspan
        id="tspan1054"
-       x="369.56262"
-       y="275.92007"
+       x="543.56262"
+       y="398.92007"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Лист</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="392.36264"
-     y="275.92007"
+     x="566.36267"
+     y="398.92007"
      id="text1060"><tspan
        id="tspan1058"
-       x="392.36264"
-       y="275.92007"
+       x="566.36267"
+       y="398.92007"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Листов</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="230.56264"
-     y="260.82007"
+     x="404.56265"
+     y="383.82007"
      id="text1064"><tspan
        id="tspan1062"
-       x="230.56264"
-       y="260.82007"
+       x="404.56265"
+       y="383.82007"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Изм.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="251.76263"
-     y="260.82007"
+     x="425.76263"
+     y="383.82007"
      id="text1072"><tspan
        id="tspan23"
-       x="251.76263"
-       y="260.82007">№ докум.</tspan></text>
+       x="425.76263"
+       y="383.82007">№ докум.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="271.56262"
-     y="260.82007"
+     x="445.56262"
+     y="383.82007"
      id="text1076"><tspan
        id="tspan1074"
-       x="271.56262"
-       y="260.82007"
+       x="445.56262"
+       y="383.82007"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Подпись</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="286.02087"
-     y="260.82007"
+     x="460.02087"
+     y="383.82007"
      id="text1080"><tspan
        id="tspan1078"
-       x="286.02087"
-       y="260.82007"
+       x="460.02087"
+       y="383.82007"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Дата</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="230.76263"
-     y="265.82007"
+     x="404.76263"
+     y="388.82007"
      id="text1084"><tspan
        id="tspan1082"
-       x="230.76263"
-       y="265.82007"
+       x="404.76263"
+       y="388.82007"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Разработ.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="230.76263"
-     y="270.82007"
+     x="404.76263"
+     y="393.82007"
      id="text1088"><tspan
        id="tspan1086"
-       x="230.76263"
-       y="270.82007"
+       x="404.76263"
+       y="393.82007"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Проверил</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="230.14011"
-     y="275.82007"
+     x="404.14011"
+     y="398.82007"
      id="text1092"><tspan
        id="tspan1090"
-       x="230.14011"
-       y="275.82007"
+       x="404.14011"
+       y="398.82007"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Т. контр.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="230.76263"
-     y="285.72006"
+     x="404.76263"
+     y="408.72006"
      id="text1096"><tspan
        id="tspan1094"
-       x="230.76263"
-       y="285.72006"
+       x="404.76263"
+       y="408.72006"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Н. контр.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="230.55661"
-     y="290.72006"
+     x="404.55661"
+     y="413.72006"
      id="text1100"><tspan
        id="tspan1098"
-       x="230.55661"
-       y="290.72006"
+       x="404.55661"
+       y="413.72006"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">Утвердил</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="247.73836"
-     y="265.84619"
+     x="421.73837"
+     y="388.84619"
      id="text7917"
      freecad:editable="Author"><tspan
        id="tspan20"
-       x="247.73836"
-       y="265.84619">Фамилия И. О.</tspan></text>
+       x="421.73837"
+       y="388.84619">Фамилия И. О.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="247.73836"
-     y="290.74622"
+     x="421.73837"
+     y="413.74622"
      id="text7917-2"
      freecad:editable="Approver"><tspan
        id="tspan2"
-       x="247.73836"
-       y="290.74622">Фамилия И. О.</tspan></text>
+       x="421.73837"
+       y="413.74622">Фамилия И. О.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="378.20728"
-     y="275.92007"
+     x="552.20728"
+     y="398.92007"
      id="text8200"
      freecad:editable="Sheet"><tspan
        id="tspan25"
-       x="378.20728"
-       y="275.92007">1</tspan></text>
+       x="552.20728"
+       y="398.92007">1</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="404.6073"
-     y="275.92007"
+     x="578.6073"
+     y="398.92007"
      id="text8204"
      freecad:editable="Sheets"><tspan
        id="tspan26"
-       x="404.6073"
-       y="275.92007">1</tspan></text>
+       x="578.6073"
+       y="398.92007">1</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="388.8551"
-     y="266.29391"
+     x="562.8551"
+     y="389.29391"
      id="text8208"
      freecad:editable="Weight"><tspan
        id="tspan8206"
-       x="388.8551"
-       y="266.29391"
+       x="562.8551"
+       y="389.29391"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">000 кг.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="406.14532"
-     y="266.29391"
+     x="580.14532"
+     y="389.29391"
      id="text8208-6"
      freecad:editable="Scale"><tspan
        id="tspan8206-4"
-       x="406.14532"
-       y="266.29391"
+       x="580.14532"
+       y="389.29391"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.25;stroke-dasharray:none">1:1</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="390.0014"
-     y="285.82007"
+     x="564.0014"
+     y="408.82007"
      id="text8208-6-3"
      freecad:editable="Company 2"><tspan
        id="tspan6"
-       x="390.0014"
-       y="285.82007">Название организации</tspan></text>
+       x="564.0014"
+       y="408.82007">Название организации</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="390.0014"
-     y="289.82007"
+     x="564.0014"
+     y="412.82007"
      id="text8208-6-3-5"
      freecad:editable="Company 3"><tspan
        id="tspan6-0"
-       x="390.0014"
-       y="289.82007">Название организации</tspan></text>
+       x="564.0014"
+       y="412.82007">Название организации</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="390.0014"
-     y="281.82007"
+     x="564.0014"
+     y="404.82007"
      id="text8208-6-3-4"
      freecad:editable="Company 1"><tspan
        id="tspan6-9"
-       x="390.0014"
-       y="281.82007">Название организации</tspan></text>
+       x="564.0014"
+       y="404.82007">Название организации</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="285.73334"
-     y="265.72159"
+     x="459.73334"
+     y="388.72159"
      id="text8234"
      freecad:editable="Author - date"><tspan
        id="tspan24"
-       x="285.73334"
-       y="265.72159">00.00.00</tspan></text>
+       x="459.73334"
+       y="388.72159">00.00.00</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="285.73334"
-     y="270.72159"
+     x="459.73334"
+     y="393.72159"
      id="text8234-0"
      freecad:editable="Inspector - date"><tspan
        id="tspan4"
-       x="285.73334"
-       y="270.72159">00.00.00</tspan></text>
+       x="459.73334"
+       y="393.72159">00.00.00</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="247.73836"
-     y="270.84619"
+     x="421.73837"
+     y="393.84619"
      id="text7917-2-3"
      freecad:editable="Inspector"><tspan
        id="tspan1"
-       x="247.73836"
-       y="270.84619">Фамилия И. О.</tspan></text>
+       x="421.73837"
+       y="393.84619">Фамилия И. О.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="247.73836"
-     y="275.84619"
+     x="421.73837"
+     y="398.84619"
      id="text7917-2-3-4"
      freecad:editable="Control 1"><tspan
        id="tspan1-8"
-       x="247.73836"
-       y="275.84619">Фамилия И. О.</tspan></text>
+       x="421.73837"
+       y="398.84619">Фамилия И. О.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="330.25903"
-     y="272.39392"
+     x="504.25903"
+     y="395.39392"
      id="text6447"
      freecad:editable="Title 3"><tspan
        id="tspan41"
-       x="330.25903"
-       y="272.39392">Наименование</tspan></text>
+       x="504.25903"
+       y="395.39392">Наименование</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="285.73334"
-     y="290.62158"
+     x="459.73334"
+     y="413.62158"
      id="text644"
      freecad:editable="Approver - date"><tspan
        id="tspan5"
-       x="285.73334"
-       y="290.62158">00.00.00</tspan></text>
+       x="459.73334"
+       y="413.62158">00.00.00</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="247.73836"
-     y="285.74622"
+     x="421.73837"
+     y="408.74622"
      id="text7"
      freecad:editable="Control 2"><tspan
        id="tspan7"
-       x="247.73836"
-       y="285.74622">Фамилия И. О.</tspan></text>
+       x="421.73837"
+       y="408.74622">Фамилия И. О.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="285.73334"
-     y="275.72159"
+     x="459.73334"
+     y="398.72159"
      id="text8"
      freecad:editable="Control 1 - date"><tspan
        id="tspan8"
-       x="285.73334"
-       y="275.72159">00.00.00</tspan></text>
+       x="459.73334"
+       y="398.72159">00.00.00</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="285.73334"
-     y="285.62158"
+     x="459.73334"
+     y="408.62158"
      id="text9"
      freecad:editable="Control 2 - date"><tspan
        id="tspan9"
-       x="285.73334"
-       y="285.62158">00.00.00</tspan></text>
+       x="459.73334"
+       y="408.62158">00.00.00</tspan></text>
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      d="M 20,19 H 90"
@@ -510,194 +510,194 @@
        y="9.4924078">Обозначение</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="372.49866"
-     y="266.12006"
+     x="546.49866"
+     y="389.12006"
      id="text11"
      freecad:editable="Letter 2"><tspan
        id="tspan11"
-       x="372.49866"
-       y="266.12006">П</tspan></text>
+       x="546.49866"
+       y="389.12006">П</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="367.49866"
-     y="266.12006"
+     x="541.49866"
+     y="389.12006"
      id="text12"
      freecad:editable="Letter 1"><tspan
        id="tspan12"
-       x="367.49866"
-       y="266.12006">П</tspan></text>
+       x="541.49866"
+       y="389.12006">П</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="377.49866"
-     y="266.12006"
+     x="551.49866"
+     y="389.12006"
      id="text13"
      freecad:editable="Letter 3"><tspan
        id="tspan13"
-       x="377.49866"
-       y="266.12006">П</tspan></text>
+       x="551.49866"
+       y="389.12006">П</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="382.33838"
-     y="295.24622"
+     x="556.33838"
+     y="418.24622"
      id="text14"><tspan
-       id="tspan14">Формат А3</tspan></text>
+       id="tspan14">Формат А2</tspan></text>
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 20,147 V 292 H 8.0000001 V 147 Z"
+     d="M 20,270 V 415 H 8.0000001 V 270 Z"
      id="path1" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 13,147 V 292"
+     d="M 13,270 V 415"
      id="path2" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 8,267 H 20"
+     d="M 8,390 H 20"
      id="path3" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 8,232 H 20"
+     d="M 8,355 H 20"
      id="path4" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 8,207 H 20"
+     d="M 8,330 H 20"
      id="path5" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 8,182 H 20"
+     d="M 8,305 H 20"
      id="path6" />
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="-288.42792"
+     x="-411.42792"
      y="11.720062"
      id="text1084-3"
      transform="rotate(-90)"><tspan
        id="tspan15"
-       x="-288.42792"
+       x="-411.42792"
        y="11.720062">Инв. № подл.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="-261.43665"
+     x="-384.43665"
      y="11.720062"
      id="text16"
      transform="rotate(-90)"><tspan
        id="tspan16"
-       x="-261.43665"
+       x="-384.43665"
        y="11.720062">Подпись и дата</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="-228.78334"
+     x="-351.78333"
      y="11.720062"
      id="text17"
      transform="rotate(-90)"><tspan
        id="tspan17"
-       x="-228.78334"
+       x="-351.78333"
        y="11.720062">Взам. инв. №</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="-203.42793"
+     x="-326.42792"
      y="11.720062"
      id="text18"
      transform="rotate(-90)"><tspan
        id="tspan18"
-       x="-203.42793"
+       x="-326.42792"
        y="11.720062">Инв. № дубл.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="-176.43663"
+     x="-299.43661"
      y="11.720062"
      id="text19"
      transform="rotate(-90)"><tspan
        id="tspan19"
-       x="-176.43663"
+       x="-299.43661"
        y="11.720062">Подпись и дата</tspan></text>
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 20,5 V 125 H 8 V 5 Z"
+     d="M 20,128 V 248 H 8 V 128 Z"
      id="path19" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 8,65 H 20"
+     d="M 8,188 H 20"
      id="path20" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 13,5 V 125"
+     d="M 13,128 V 248"
      id="path21" />
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="-100.87765"
+     x="-223.87766"
      y="11.720062"
      id="text21"
      transform="rotate(-90)"><tspan
        id="tspan21"
-       x="-100.87765"
+       x="-223.87766"
        y="11.720062">Справ. №</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="-44.677464"
+     x="-167.67746"
      y="11.720062"
      id="text22"
      transform="rotate(-90)"><tspan
        id="tspan22"
-       x="-44.677464"
+       x="-167.67746"
        y="11.720062">Перв. примен.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="237.96263"
-     y="260.82007"
+     x="411.96265"
+     y="383.82007"
      id="text3"><tspan
        id="tspan3"
-       x="237.96263"
-       y="260.82007">Лист</tspan></text>
+       x="411.96265"
+       y="383.82007">Лист</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52778px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="323.81741"
-     y="295.24622"
+     x="497.81741"
+     y="418.24622"
      id="text27"><tspan
        id="tspan27"
-       x="323.81741"
-       y="295.24622">Копировал</tspan></text>
+       x="497.81741"
+       y="418.24622">Копировал</tspan></text>
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 405,242 h 10"
+     d="m 579,365 h 10"
      id="path48" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 405,237 v 15"
+     d="m 579,360 v 15"
      id="path49" />
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="407.06711"
-     y="240.82007"
+     x="581.06714"
+     y="363.82007"
      id="text49"><tspan
        id="tspan49"
-       x="407.06711"
-       y="240.82007">Вер.</tspan></text>
+       x="581.06714"
+       y="363.82007">Вер.</tspan></text>
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.5;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="409.99329"
-     y="248.59392"
+     x="583.99329"
+     y="371.5939"
      id="text50"
      freecad:editable="Version"><tspan
        id="tspan29"
-       x="409.99329"
-       y="248.59392">1</tspan></text>
+       x="583.99329"
+       y="371.5939">1</tspan></text>
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 294.99999,229.00001 h 120"
+     d="m 468.99999,352.00001 h 120"
      id="path27" />
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-     d="m 295,228.75 v 8.5"
+     d="m 469,351.75 v 8.5"
      id="path28" />
   <text
      style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.25;font-family:'GOST 2.304-81';-inkscape-font-specification:'GOST 2.304-81, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;text-anchor:middle;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-dasharray:none"
-     x="352.5856"
-     y="234.79391"
+     x="526.58557"
+     y="357.79391"
      id="text28"
      freecad:editable="Customer - index"><tspan
        id="tspan28"
-       x="352.5856"
-       y="234.79391">Индекс заказчика</tspan></text>
+       x="526.58557"
+       y="357.79391">Индекс заказчика</tspan></text>
   <path
      style="display:inline;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      d="M 20,26.000009 H 90"
