@@ -30,6 +30,7 @@ else:
 REPRODUCTION = 'Reproduction'
 UNFOLD_SKETCH = 'Unfold_Sketch'
 VERIFICATION_SKETCH = 'Unfold_Sketch_Outline'
+UNFOLD_OBJECT = 'Unfold'
 
 GARBAGE = (
     # case sensitive!
@@ -38,8 +39,7 @@ GARBAGE = (
     VERIFICATION_SKETCH,
     'Unfold_Sketch_bends',
     'Unfold_Sketch_Internal',
-    # object, must be the last one:
-    'Unfold',
+    UNFOLD_OBJECT,  # the object must be the last
 )
 
 FORBIDDEN = re.escape('<>:"?*/|\\')
@@ -54,6 +54,15 @@ def add_signature(file, sign: str, width: float, size: int) -> None:
     y = -size / 2
     model.add_text(sign, height=size).set_placement((x, y))
     file.save()
+
+
+def cleaning(skip: str) -> None:
+    for i in GARBAGE:
+        if i != skip:
+            try:
+                FreeCAD.ActiveDocument.removeObject(i)
+            except BaseException:
+                pass
 
 
 def unfold(w, details: dict, path: str, skip: list = []) -> None:
@@ -87,21 +96,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         if 'Prefix' in w.comboBoxSignature.currentText():
             signature[1] = str(w.lineEditPrefix.text()).strip()
 
-    ad = FreeCAD.ActiveDocument
-
-    # required values:
-    FreeCAD.ParamGet(
-        'User parameter:BaseApp/Preferences/Mod/SheetMetal').SetString(
-        'kFactorStandard', 'ansi')
-    FreeCAD.ParamGet(
-        'User parameter:BaseApp/Preferences/Mod/SheetMetal').SetBool(
-        'genSketch', True)
-    FreeCAD.ParamGet(
-        'User parameter:BaseApp/Preferences/Mod/SheetMetal').SetBool(
-        'separateSketches', True)
-    FreeCAD.ParamGet(
-        'User parameter:BaseApp/Preferences/Mod/SheetMetal').SetBool(
-        'exportEn', False)
+    ad, zero = FreeCAD.ActiveDocument, FreeCAD.Placement()
 
     progress_value = 0
     progress_step = int(100 / (len(details) - len(skip)))
@@ -118,12 +113,10 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         w.status.setText(f'Processing: {d}')
         FreeCAD.Gui.updateGui()
 
-        body = details[d]['!Body']
-
         try:
             thickness = float(details[d]['MetalThickness'])
         except BaseException:
-            Logger.error(f"'{d}' incorrect metal thickness")
+            Logger.error(f"'{d}' incorrect metal thickness, skip")
             continue
 
         try:
@@ -147,9 +140,12 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             k_factor = steel['Stainless'][t][1]
 
         # reproduction:
-        shape = Part.getShape(body, '', needSubElement=False, refine=False)
-        ad.addObject('Part::Feature', REPRODUCTION).Shape = shape
-        body = ad.ActiveObject
+        shape = Part.getShape(
+            details[d]['!Body'], '', needSubElement=False, refine=False)
+        body = ad.addObject('Part::Feature', REPRODUCTION)
+        body.Shape = shape
+        body.Placement = zero
+        body.recompute(True)
 
         # find the largest face:
         faces = body.Shape.Faces
@@ -175,25 +171,25 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         face = 'Face' + str(target[1])  # base
         FreeCAD.Gui.Selection.addSelection(ad.Name, body.Name, face, 0, 0, 0)
 
-        # k-factor:
-        FreeCAD.ParamGet(
-            'User parameter:BaseApp/Preferences/Mod/SheetMetal').SetFloat(
-            'manualKFactor', k_factor)
-
         # unfold:
         Logger.unfold(f'{d}: {material} ({thickness}) {k_factor}')
         if u is not None:
             u.Activated(None)
         FreeCAD.Gui.Selection.clearSelection()
 
+        # unfold, parameters:
+        unfold_obj = ad.getObject(UNFOLD_OBJECT)
+        unfold_obj.GenerateSketch = True
+        unfold_obj.KFactor = k_factor
+        unfold_obj.KFactorStandard = 'ansi'
+        unfold_obj.SeparateSketchLayers = True
+        unfold_obj.ManualRecompute = False
+        unfold_obj.recompute(True)
+
         # correctness check:
         if ad.getObject(VERIFICATION_SKETCH) is None:
             Logger.warning("wrong, let's try a spare face...")
-            for i in GARBAGE:
-                try:
-                    ad.removeObject(i)
-                except BaseException:
-                    pass
+            cleaning(REPRODUCTION)
             # switching to spare:
             face = 'Face' + str(target[2])
             FreeCAD.Gui.Selection.addSelection(
@@ -203,7 +199,8 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             FreeCAD.Gui.Selection.clearSelection()
             # verify:
             if ad.getObject(VERIFICATION_SKETCH) is None:
-                Logger.error(f"'{d}' unfold error...")
+                cleaning('')
+                Logger.error(f"'{d}' unfold error... skip")
                 continue
 
         us = ad.getObject(UNFOLD_SKETCH)
@@ -302,13 +299,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                 f = os.path.join(target, f'{file} ({i + 1}).step')
                 ImportGui.export([body], f)
 
-        # clearing:
-        for i in GARBAGE:
-            try:
-                ad.removeObject(i)
-            except BaseException:
-                pass
-
+        cleaning('')
         Logger.log('...done')
 
         progress_value += progress_step

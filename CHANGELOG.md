@@ -83,3 +83,6 @@
 * __SheetMetal Workbench__ has been removed from required dependencies.
 * Many other changes, fixes and improvements.
 * Backward compatibility may be broken...
+
+#### 2025.01.05 (**1.0.7**):
+* Fixes and updates to batch processing of sheet metal parts.
