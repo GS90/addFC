@@ -62,12 +62,6 @@
          </item>
          <item>
           <widget class="QPushButton" name="pushButtonIndexing">
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>0</height>
-            </size>
-           </property>
            <property name="text">
             <string>Indexing elements</string>
            </property>
@@ -75,12 +69,6 @@
          </item>
          <item>
           <widget class="QPushButton" name="pushButtonUEnum">
-           <property name="minimumSize">
-            <size>
-             <width>170</width>
-             <height>0</height>
-            </size>
-           </property>
            <property name="text">
             <string>Update enumerations</string>
            </property>
@@ -88,12 +76,6 @@
          </item>
          <item>
           <widget class="QPushButton" name="pushButtonUEq">
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>0</height>
-            </size>
-           </property>
            <property name="text">
             <string>Update equations</string>
            </property>
@@ -455,26 +437,13 @@
     <layout class="QHBoxLayout" name="horizontalLayout_c">
      <item>
       <widget class="QPushButton" name="pushButtonExportSettings">
-       <property name="minimumSize">
-        <size>
-         <width>130</width>
-         <height>0</height>
-        </size>
-       </property>
        <property name="text">
-        <string>Export Settings</string>
+        <string>Export settings</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBoxExport">
-       <property name="minimumSize">
-        <size>
-         <width>120</width>
-         <height>0</height>
-        </size>
-       </property>
-      </widget>
+      <widget class="QComboBox" name="comboBoxExport"/>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonExport">

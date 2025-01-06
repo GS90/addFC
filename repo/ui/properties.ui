@@ -26,26 +26,7 @@
      <item>
       <layout class="QHBoxLayout" name="Select">
        <item>
-        <spacer name="Left">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
         <widget class="QPushButton" name="pushButtonAll">
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="text">
           <string>All</string>
          </property>
@@ -53,12 +34,6 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButtonPrev">
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="text">
           <string>Prev.</string>
          </property>
@@ -66,12 +41,6 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButtonCore">
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="text">
           <string>Core</string>
          </property>
@@ -79,29 +48,10 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButtonNone">
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>16777215</height>
-          </size>
-         </property>
          <property name="text">
           <string>None</string>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="Right">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </item>
