@@ -122,8 +122,8 @@
       </item>
       <item>
        <widget class="QListView" name="objects">
-        <property name="toolTip">
-         <string>Objects in the file</string>
+        <property name="styleSheet">
+         <string notr="true">QToolTip {background-color: white; padding: 1px;}</string>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>

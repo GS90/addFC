@@ -84,5 +84,7 @@
 * Many other changes, fixes and improvements.
 * Backward compatibility may be broken...
 
-#### 2025.01.05 (**1.0.7**):
+#### 2025.01.08 (**1.0.8**):
 * Fixes and updates to batch processing of sheet metal parts.
+* Translation into Russian (WiP).
+* Support for thumbnails in the **Library**.

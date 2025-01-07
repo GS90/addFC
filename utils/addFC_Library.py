@@ -17,7 +17,7 @@ import subprocess
 import sys
 
 
-VERSION = 1
+VERSION = 3
 
 
 DIR = os.path.join(P.AFC_PATH, 'repo', 'add', 'Library')
@@ -34,7 +34,12 @@ ui = os.path.join(os.path.dirname(__file__), 'addFC_Library.ui')
 ls = os.path.join(os.path.dirname(__file__), 'addFC_Library_set.ui')
 
 
-library_title, library_path, library_cache, freeze = '', '', '', False
+library_title = ''
+library_path = ''
+library_cache = ''
+library_thumbnails = ''
+
+freeze = False
 
 
 def set_library_location(title: str, path=''):
@@ -45,17 +50,20 @@ def set_library_location(title: str, path=''):
     global library_title
     global library_path
     global library_cache
+    global library_thumbnails
     library_title = title
     if standard:
         library_path = os.path.join(
             P.AFC_PATH, 'repo', 'add', 'Library', title)
         library_cache = os.path.join(library_path, f'{title}_library.json')
+        library_thumbnails = os.path.join(DIR, 'thumbnails')
     else:
         library_path = path if path != '' else library_list.get(title, '')
         if library_path == '':
             Logger.error(f"'{title}' unknown library...")
             return
         library_cache = os.path.join(library_path, f'{title}_library.json')
+        library_thumbnails = os.path.join(library_path, 'thumbnails')
     if not os.path.exists(library_path):
         Logger.error(f"'{title}' library not found...")
 
@@ -71,6 +79,8 @@ library_recent = configuration['library']['recent']
 
 set_library_location(library_recent)
 
+
+AVAILABLE_THUMBNAILS = ('.png', '.jpg', '.jpeg')
 
 AVAILABLE_TYPES = (
     'App::Part',
@@ -138,8 +148,13 @@ def dissection(dp: str, close: bool) -> dict:
 
 
 class widget():
-    library, info, target = {}, {}, []
-    cache_search, cache_conf, cache_objects = {}, {}, []
+    library = {}
+    info = {}
+    target = []
+    cache_search = {}
+    cache_conf = {}
+    cache_objects = []
+    thumbnails = {}
 
     def __init__(self):
         self.form = Gui.PySideUic.loadUi(ui)
@@ -212,7 +227,11 @@ class widget():
 
             if 'objects' in self.library[catalog][file]:
                 for obj in self.library[catalog][file]['objects']:
-                    model.appendRow(QtGui.QStandardItem(obj))
+                    i = QtGui.QStandardItem(obj)
+                    t = self.thumbnails.get(obj)
+                    if t is not None:
+                        i.setToolTip(f'<img src="{t}">')
+                    model.appendRow(i)
 
         self.form.fileLibrary.currentTextChanged.connect(objects)
         objects()
@@ -580,6 +599,15 @@ class widget():
         self.info['catalogs'] = len(list(self.library.keys()))
         self.info['files'] = files
         self.info['objects'] = objects
+
+        # thumbnails:
+
+        self.thumbnails.clear()
+        if os.path.exists(library_thumbnails):
+            for i in os.listdir(library_thumbnails):
+                fn, fe = os.path.splitext(i)
+                if fe in AVAILABLE_THUMBNAILS:
+                    self.thumbnails[fn] = os.path.join(library_thumbnails, i)
 
         # init and save:
 
