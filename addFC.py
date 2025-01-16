@@ -188,6 +188,8 @@ class AddFCModelInfo():
         w.SVG.setChecked(conf['unfold_svg'])
         w.STP.setChecked(conf['unfold_stp'])
         w.comboBoxExport.setCurrentText(conf['bom_export_type'])
+        w.checkBoxCentering.setChecked(conf['unfold_centering'])
+        w.checkBoxAlongY.setChecked(conf['unfold_along_y'])
         w.comboBoxName.setCurrentText(conf['unfold_file_name'])
         w.comboBoxSignature.setCurrentText(conf['unfold_file_signature'])
         w.lineEditPrefix.setText(conf['unfold_prefix'])
@@ -725,6 +727,8 @@ class AddFCModelInfo():
             conf['unfold_dxf'] = w.DXF.isChecked()
             conf['unfold_svg'] = w.SVG.isChecked()
             conf['unfold_stp'] = w.STP.isChecked()
+            conf['unfold_centering'] = w.checkBoxCentering.isChecked()
+            conf['unfold_along_y'] = w.checkBoxAlongY.isChecked()
             conf['unfold_file_name'] = w.comboBoxName.currentText()
             conf['unfold_file_signature'] = w.comboBoxSignature.currentText()
             conf['unfold_prefix'] = prefix

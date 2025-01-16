@@ -88,3 +88,8 @@
 * Fixes and updates to batch processing of sheet metal parts.
 * Translation into Russian (WiP).
 * Support for thumbnails in the **Library**.
+
+#### 2025.01.16 (**1.1.0**):
+* Support for new unfolding algorithm (SheetMetal Workbench).
+* Control the placement of the flat pattern sketch.
+* Improved dxf file saving (cleanup, signature layer is now called __Text__).

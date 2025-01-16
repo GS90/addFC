@@ -3,20 +3,6 @@
  <author>Golodnikov Sergey</author>
  <class>Form</class>
  <widget class="QWidget" name="Form">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>480</width>
-    <height>355</height>
-   </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>480</width>
-    <height>355</height>
-   </size>
-  </property>
   <property name="windowTitle">
    <string>Export settings</string>
   </property>
