@@ -14,7 +14,7 @@ configuration = {
     'unfold_svg': False,
     'unfold_stp': False,
     'unfold_centering': False,
-    'unfold_along_y': False,
+    'unfold_along_x': False,
     'unfold_file_name': 'Index',
     'unfold_file_signature': 'None',
     'unfold_prefix': 'Unfold',

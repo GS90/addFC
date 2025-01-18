@@ -125,7 +125,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         )
 
     centering = w.checkBoxCentering.isChecked()
-    along_y = w.checkBoxAlongY.isChecked()
+    along_x = w.checkBoxAlongX.isChecked()
 
     turn = FreeCAD.Rotation(FreeCAD.Vector(0.0, 0.0, 1.0), 90.0)
 
@@ -286,11 +286,11 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                         sketches[0].Geometry += obj.Geometry
                         sketches[0].recompute(True)
                     else:
-                        along_y = False  # turning is prohibited
+                        along_x = False  # turning is prohibited
                         sketches.append(obj)
 
-        if along_y and bb.XLength < bb.YLength:
-            # position along the Y axis:
+        if along_x and bb.XLength < bb.YLength:
+            # position along the X axis:
             for sketch in sketches:
                 sketch.Placement.Rotation = turn
                 sketch.recompute(True)

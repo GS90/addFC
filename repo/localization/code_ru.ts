@@ -41,62 +41,112 @@
     <message>
         <location filename="../../addFC.py" line="132"/>
         <source>Run the model control file</source>
-        <translation>Запустить управляющий код модели</translation>
+        <translation>Запустить код управления моделью</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="790"/>
+        <location filename="../../addFC.py" line="797"/>
         <source>Add Properties</source>
         <translation>Добавить свойства</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="792"/>
+        <location filename="../../addFC.py" line="799"/>
         <source>Add properties to an object</source>
         <translation>Добавить свойства к объекту</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1211"/>
+        <location filename="../../addFC.py" line="1219"/>
         <source>Creating a Drawing</source>
         <translation>Создать чертёж</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1213"/>
+        <location filename="../../addFC.py" line="1221"/>
         <source>Create a drawing based on a template</source>
         <translation>Создать чертёж на основе шаблона</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1321"/>
+        <location filename="../../addFC.py" line="1328"/>
         <source>Help and Example</source>
         <translation>Помощь и примеры</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1386"/>
+        <location filename="../../addFC.py" line="1395"/>
         <source>Library</source>
         <translation>Библиотека</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1388"/>
+        <location filename="../../addFC.py" line="1397"/>
         <source>Component library</source>
         <translation>Библиотека компонентов</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1411"/>
+        <location filename="../../addFC.py" line="1420"/>
         <source>Explode</source>
         <translation>Взрыв-схема</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1413"/>
+        <location filename="../../addFC.py" line="1422"/>
         <source>Exploded view</source>
-        <translation>Вид с разнесёнными частями</translation>
+        <translation>Создание вида с разнесёнными частями</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1436"/>
+        <location filename="../../addFC.py" line="1445"/>
         <source>Pipe</source>
         <translation>Трубопровод</translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1438"/>
+        <location filename="../../addFC.py" line="1447"/>
         <source>Creating a pipe by points</source>
         <translation>Cоздание трубопровода по координатам</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="414"/>
+        <source>Updated</source>
+        <translation>Обновлено</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="430"/>
+        <source>Cleared</source>
+        <translation>Очищено</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="541"/>
+        <source>Elements are indexed</source>
+        <translation>Элементы проиндексированы</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="553"/>
+        <source>Enumerations updated</source>
+        <translation>Перечисления обновлены</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="565"/>
+        <source>Equations updated</source>
+        <translation>Уравнения обновлены</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="938"/>
+        <source>You need to select an object</source>
+        <translation>Вам нужно выбрать объект</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="1243"/>
+        <source>Create</source>
+        <translation>Создать</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="1280"/>
+        <source>Supporting files such as templates, fonts.</source>
+        <translation>Вспомогательные файлы, такие как шаблоны, шрифты.</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="1330"/>
+        <source>Help, examples and additional files</source>
+        <translation>Помощь, примеры и дополнительные файлы</translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="1342"/>
+        <source>Open</source>
+        <translation>Открыть</translation>
     </message>
 </context>
 </TS>

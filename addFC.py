@@ -189,7 +189,7 @@ class AddFCModelInfo():
         w.STP.setChecked(conf['unfold_stp'])
         w.comboBoxExport.setCurrentText(conf['bom_export_type'])
         w.checkBoxCentering.setChecked(conf['unfold_centering'])
-        w.checkBoxAlongY.setChecked(conf['unfold_along_y'])
+        w.checkBoxAlongX.setChecked(conf['unfold_along_x'])
         w.comboBoxName.setCurrentText(conf['unfold_file_name'])
         w.comboBoxSignature.setCurrentText(conf['unfold_file_signature'])
         w.lineEditPrefix.setText(conf['unfold_prefix'])
@@ -411,7 +411,7 @@ class AddFCModelInfo():
                 node_name=get_node_name(),
             )
             structure_update()
-            w.info.setText('Updated')
+            w.info.setText(FreeCAD.Qt.translate('addFC', 'Updated'))
 
         def structure_purge() -> None:
             table.setSortingEnabled(False)
@@ -427,7 +427,7 @@ class AddFCModelInfo():
 
         def structure_purge_wrapper() -> None:
             structure_purge()
-            w.info.setText('Cleared')
+            w.info.setText(FreeCAD.Qt.translate('addFC', 'Cleared'))
 
         structure_update()
         w.info.setText('...')
@@ -538,7 +538,8 @@ class AddFCModelInfo():
                 indexing=True,
             )
             structure_update()
-            w.info.setText('Elements are indexed')
+            w.info.setText(FreeCAD.Qt.translate(
+                'addFC', 'Elements are indexed'))
         w.pushButtonIndexing.clicked.connect(indexing)
 
         def update_enumerations() -> None:
@@ -549,7 +550,8 @@ class AddFCModelInfo():
                 update_enumerations=True,
             )
             structure_update()
-            w.info.setText('Enumerations updated')
+            w.info.setText(FreeCAD.Qt.translate(
+                'addFC', 'Enumerations updated'))
         w.pushButtonUEnum.clicked.connect(update_enumerations)
 
         def update_equations() -> None:
@@ -560,7 +562,7 @@ class AddFCModelInfo():
                 update_equations=True,
             )
             structure_update()
-            w.info.setText('Equations updated')
+            w.info.setText(FreeCAD.Qt.translate('addFC', 'Equations updated'))
         w.pushButtonUEq.clicked.connect(update_equations)
 
         def spec_export_settings() -> None:
@@ -728,7 +730,7 @@ class AddFCModelInfo():
             conf['unfold_svg'] = w.SVG.isChecked()
             conf['unfold_stp'] = w.STP.isChecked()
             conf['unfold_centering'] = w.checkBoxCentering.isChecked()
-            conf['unfold_along_y'] = w.checkBoxAlongY.isChecked()
+            conf['unfold_along_x'] = w.checkBoxAlongX.isChecked()
             conf['unfold_file_name'] = w.comboBoxName.currentText()
             conf['unfold_file_signature'] = w.comboBoxSignature.currentText()
             conf['unfold_prefix'] = prefix
@@ -932,7 +934,8 @@ class AddFCProperties():
 
         def add() -> None:
             if len(FreeCAD.Gui.Selection.getSelection()) < 1:
-                w.info.setText('You need to select an object')
+                w.info.setText(FreeCAD.Qt.translate(
+                    'addFC', 'You need to select an object'))
                 return
             w.info.setText('')
 
@@ -1236,7 +1239,7 @@ class AddFCInsert():
             model.appendRow(QtGui.QStandardItem(i.rstrip('.svg')))
 
         w.label.setText('Select a template to create a drawing.')
-        w.pushButton.setText('Create')
+        w.pushButton.setText(FreeCAD.Qt.translate('addFC', 'Create'))
         w.show()
 
         def create() -> None:
@@ -1275,7 +1278,8 @@ EXAMPLES_PATH = os.path.join(P.AFC_PATH, 'repo', 'example')
 examples: dict = {
     'addFC - Additional files': (
         os.path.join(P.AFC_PATH, 'repo', 'add'),
-        'Supporting files such as templates, fonts.',
+        FreeCAD.Qt.translate(
+            'addFC', 'Supporting files such as templates, fonts.'),
     ),
     # documentation:
     'Documentation - English': (
@@ -1323,7 +1327,7 @@ class AddFCAssistant():
                 'MenuText': FreeCAD.Qt.translate(
                     'addFC', 'Help and Example'),
                 'ToolTip': FreeCAD.Qt.translate(
-                    'addFC', 'Help and Example')}
+                    'addFC', 'Help, examples and additional files')}
 
     def Activated(self):
         w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
@@ -1334,7 +1338,7 @@ class AddFCAssistant():
         for i in examples:
             model.appendRow(QtGui.QStandardItem(i))
 
-        w.pushButton.setText('Open')
+        w.pushButton.setText(FreeCAD.Qt.translate('addFC', 'Open'))
         w.show()
 
         def unzip(reset: bool) -> None:

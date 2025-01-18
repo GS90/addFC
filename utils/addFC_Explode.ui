@@ -24,9 +24,9 @@
    <item>
     <layout class="QHBoxLayout" name="control" stretch="1,0">
      <item>
-      <widget class="QGroupBox" name="allGroups">
+      <widget class="QGroupBox" name="Groups">
        <property name="title">
-        <string>All groups</string>
+        <string>Groups</string>
        </property>
        <layout class="QVBoxLayout" name="groupLayout">
         <item>
@@ -40,12 +40,6 @@
           </item>
           <item>
            <widget class="QPushButton" name="groupAdd">
-            <property name="maximumSize">
-             <size>
-              <width>60</width>
-              <height>16777215</height>
-             </size>
-            </property>
             <property name="text">
              <string>Add</string>
             </property>
@@ -142,7 +136,7 @@
          </widget>
         </item>
         <item>
-         <layout class="QGridLayout" name="placement">
+         <layout class="QGridLayout" name="placement" columnstretch="0,1,1">
           <item row="3" column="2">
            <widget class="QDoubleSpinBox" name="rotationZ">
             <property name="minimum">
@@ -155,12 +149,6 @@
           </item>
           <item row="1" column="1">
            <widget class="QDoubleSpinBox" name="positionX">
-            <property name="minimumSize">
-             <size>
-              <width>90</width>
-              <height>0</height>
-             </size>
-            </property>
             <property name="minimum">
              <double>-90000.000000000000000</double>
             </property>
@@ -181,12 +169,6 @@
           </item>
           <item row="2" column="1">
            <widget class="QDoubleSpinBox" name="positionY">
-            <property name="minimumSize">
-             <size>
-              <width>90</width>
-              <height>0</height>
-             </size>
-            </property>
             <property name="minimum">
              <double>-90000.000000000000000</double>
             </property>
@@ -200,12 +182,18 @@
             <property name="text">
              <string>Z</string>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
            </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="placementY">
             <property name="text">
              <string>Y</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -224,16 +212,13 @@
             <property name="text">
              <string>X</string>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
            </widget>
           </item>
           <item row="3" column="1">
            <widget class="QDoubleSpinBox" name="positionZ">
-            <property name="minimumSize">
-             <size>
-              <width>90</width>
-              <height>0</height>
-             </size>
-            </property>
             <property name="minimum">
              <double>-90000.000000000000000</double>
             </property>
@@ -604,41 +589,30 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="animateAll">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
+      <widget class="QLabel" name="allGroups">
        <property name="text">
-        <string>Animate all</string>
+        <string>All groups</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="animateAll">
+       <property name="text">
+        <string>Animate</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="explodeAll">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
        <property name="text">
-        <string>Explode all</string>
+        <string>Explode</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="combineAll">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
        <property name="text">
-        <string>Combine all</string>
+        <string>Combine</string>
        </property>
       </widget>
      </item>

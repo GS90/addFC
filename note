@@ -1,0 +1,13 @@
+# Various notes
+
+
+#### Translation file updates:
+* rm ./repo/localization/ui.ts ./repo/localization/code.ts
+* lupdate ./ -ts ./repo/localization/ui.ts
+* pylupdate5 *.py -ts ./repo/localization/code.ts
+
+#### Translation file updates, russian:
+* lupdate ./ -ts ./repo/localization/ui_ru.ts
+* pylupdate5 *.py -ts ./repo/localization/code_ru.ts
+
+__Before updating, delete the directory with examples!__

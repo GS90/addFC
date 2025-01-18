@@ -258,9 +258,9 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBoxAlongY">
+            <widget class="QCheckBox" name="checkBoxAlongX">
              <property name="text">
-              <string>Along the Y axis</string>
+              <string>Along the X axis</string>
              </property>
             </widget>
            </item>

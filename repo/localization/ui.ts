@@ -60,153 +60,168 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="231"/>
+        <location filename="../ui/info.ui" line="215"/>
         <source>Unfold as:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="238"/>
+        <location filename="../ui/info.ui" line="222"/>
         <source>.dxf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="248"/>
+        <location filename="../ui/info.ui" line="232"/>
         <source>.svg</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="255"/>
+        <location filename="../ui/info.ui" line="239"/>
         <source>.step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="281"/>
+        <location filename="../ui/info.ui" line="249"/>
+        <source>Sketch placement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="256"/>
+        <source>Centering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="263"/>
+        <source>Along the X axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="273"/>
         <source>File name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="310"/>
+        <location filename="../ui/info.ui" line="286"/>
         <source>File signature:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="323"/>
+        <location filename="../ui/info.ui" line="299"/>
         <source>Unfold prefix:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="330"/>
+        <location filename="../ui/info.ui" line="306"/>
         <source>Result</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="350"/>
-        <location filename="../../utils/addFC_Explode_set.ui" line="198"/>
+        <location filename="../ui/info.ui" line="326"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="184"/>
         <source>Select a directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="379"/>
-        <location filename="../ui/info.ui" line="417"/>
-        <location filename="../../utils/addFC_Explode.ui" line="137"/>
-        <location filename="../../utils/addFC_Explode.ui" line="391"/>
-        <location filename="../../utils/addFC_Explode.ui" line="449"/>
-        <location filename="../../utils/addFC_Explode_set.ui" line="189"/>
+        <location filename="../ui/info.ui" line="355"/>
+        <location filename="../ui/info.ui" line="393"/>
+        <location filename="../../utils/addFC_Explode.ui" line="131"/>
+        <location filename="../../utils/addFC_Explode.ui" line="376"/>
+        <location filename="../../utils/addFC_Explode.ui" line="434"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="175"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="399"/>
+        <location filename="../ui/info.ui" line="375"/>
         <source>... Desktop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="441"/>
-        <location filename="../ui/info_set.ui" line="21"/>
-        <location filename="../../utils/addFC_Explode.ui" line="523"/>
-        <location filename="../../utils/addFC_Explode_set.ui" line="21"/>
+        <location filename="../ui/info.ui" line="417"/>
+        <location filename="../ui/info_set.ui" line="7"/>
+        <location filename="../../utils/addFC_Explode.ui" line="508"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="7"/>
         <source>Export settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="451"/>
-        <location filename="../../utils/addFC_Explode.ui" line="493"/>
+        <location filename="../ui/info.ui" line="427"/>
+        <location filename="../../utils/addFC_Explode.ui" line="478"/>
         <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="471"/>
+        <location filename="../ui/info.ui" line="447"/>
         <source>Strict mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="481"/>
-        <location filename="../../utils/addFC_Explode.ui" line="486"/>
+        <location filename="../ui/info.ui" line="457"/>
+        <location filename="../../utils/addFC_Explode.ui" line="471"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="488"/>
+        <location filename="../ui/info.ui" line="464"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="495"/>
+        <location filename="../ui/info.ui" line="471"/>
         <location filename="../ui/list.ui" line="57"/>
         <location filename="../ui/properties.ui" line="153"/>
-        <location filename="../../utils/addFC_Explode.ui" line="589"/>
+        <location filename="../../utils/addFC_Explode.ui" line="574"/>
         <location filename="../../utils/addFC_Pipe.ui" line="160"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="30"/>
+        <location filename="../ui/info_set.ui" line="16"/>
         <source>Exported properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="47"/>
+        <location filename="../ui/info_set.ui" line="33"/>
         <source>Use aliases</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="53"/>
+        <location filename="../ui/info_set.ui" line="39"/>
         <source>JSON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="60"/>
+        <location filename="../ui/info_set.ui" line="46"/>
         <source>CSV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="67"/>
+        <location filename="../ui/info_set.ui" line="53"/>
         <source>Spreadsheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="80"/>
+        <location filename="../ui/info_set.ui" line="66"/>
         <source>Order of elements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="91"/>
+        <location filename="../ui/info_set.ui" line="77"/>
         <source>Merger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="98"/>
+        <location filename="../ui/info_set.ui" line="84"/>
         <source>Sorting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="113"/>
+        <location filename="../ui/info_set.ui" line="99"/>
         <source>Spreadsheets only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info_set.ui" line="154"/>
-        <location filename="../../utils/addFC_Explode_set.ui" line="218"/>
+        <location filename="../ui/info_set.ui" line="140"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="204"/>
         <location filename="../../utils/addFC_Library_set.ui" line="172"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
@@ -249,8 +264,8 @@ All models are created in FreeCAD version 0.21.2.</source>
         <location filename="../ui/pref_sm.ui" line="160"/>
         <location filename="../ui/pref_sm.ui" line="241"/>
         <location filename="../ui/pref_uProp.ui" line="55"/>
-        <location filename="../../utils/addFC_Explode.ui" line="71"/>
-        <location filename="../../utils/addFC_Explode.ui" line="333"/>
+        <location filename="../../utils/addFC_Explode.ui" line="65"/>
+        <location filename="../../utils/addFC_Explode.ui" line="318"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
@@ -260,7 +275,7 @@ All models are created in FreeCAD version 0.21.2.</source>
         <location filename="../ui/pref_sm.ui" line="248"/>
         <location filename="../ui/pref_uProp.ui" line="71"/>
         <location filename="../ui/properties.ui" line="173"/>
-        <location filename="../../utils/addFC_Explode.ui" line="50"/>
+        <location filename="../../utils/addFC_Explode.ui" line="44"/>
         <location filename="../../utils/addFC_Library.ui" line="292"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
@@ -497,7 +512,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     </message>
     <message>
         <location filename="../../utils/addFC_Explode.ui" line="29"/>
-        <source>All groups</source>
+        <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -506,198 +521,191 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="97"/>
+        <location filename="../../utils/addFC_Explode.ui" line="91"/>
         <source>↓</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="110"/>
+        <location filename="../../utils/addFC_Explode.ui" line="104"/>
         <source>↑</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="128"/>
+        <location filename="../../utils/addFC_Explode.ui" line="122"/>
         <source>Selected group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="201"/>
+        <location filename="../../utils/addFC_Explode.ui" line="183"/>
         <source>Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="208"/>
+        <location filename="../../utils/addFC_Explode.ui" line="193"/>
         <source>Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="225"/>
+        <location filename="../../utils/addFC_Explode.ui" line="213"/>
         <source>X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="248"/>
+        <location filename="../../utils/addFC_Explode.ui" line="233"/>
         <source>Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="258"/>
+        <location filename="../../utils/addFC_Explode.ui" line="243"/>
         <source>Rotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="272"/>
+        <location filename="../../utils/addFC_Explode.ui" line="257"/>
+        <location filename="../../utils/addFC_Explode.ui" line="608"/>
         <source>Explode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="279"/>
+        <location filename="../../utils/addFC_Explode.ui" line="264"/>
+        <location filename="../../utils/addFC_Explode.ui" line="615"/>
         <source>Combine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="286"/>
+        <location filename="../../utils/addFC_Explode.ui" line="271"/>
         <source>Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="318"/>
-        <location filename="../../utils/addFC_Explode.ui" line="507"/>
+        <location filename="../../utils/addFC_Explode.ui" line="303"/>
+        <location filename="../../utils/addFC_Explode.ui" line="492"/>
         <source>Trace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="326"/>
+        <location filename="../../utils/addFC_Explode.ui" line="311"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="340"/>
+        <location filename="../../utils/addFC_Explode.ui" line="325"/>
         <source>Point size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="347"/>
+        <location filename="../../utils/addFC_Explode.ui" line="332"/>
         <source>Line width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="354"/>
+        <location filename="../../utils/addFC_Explode.ui" line="339"/>
         <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="361"/>
+        <location filename="../../utils/addFC_Explode.ui" line="346"/>
         <source>Line style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="414"/>
+        <location filename="../../utils/addFC_Explode.ui" line="399"/>
         <source>Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="420"/>
+        <location filename="../../utils/addFC_Explode.ui" line="405"/>
         <source>Key frames: 0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="432"/>
+        <location filename="../../utils/addFC_Explode.ui" line="417"/>
         <source>Auto fit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="439"/>
+        <location filename="../../utils/addFC_Explode.ui" line="424"/>
+        <location filename="../../utils/addFC_Explode.ui" line="601"/>
         <source>Animate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="472"/>
+        <location filename="../../utils/addFC_Explode.ui" line="457"/>
         <source>Reverse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="479"/>
+        <location filename="../../utils/addFC_Explode.ui" line="464"/>
         <source>Add key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="500"/>
+        <location filename="../../utils/addFC_Explode.ui" line="485"/>
         <source>Split</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="514"/>
+        <location filename="../../utils/addFC_Explode.ui" line="499"/>
         <source>Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="615"/>
-        <source>Animate all</source>
+        <location filename="../../utils/addFC_Explode.ui" line="594"/>
+        <source>All groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode.ui" line="628"/>
-        <source>Explode all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../utils/addFC_Explode.ui" line="641"/>
-        <source>Combine all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="30"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="16"/>
         <source>Resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="38"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="24"/>
         <source>Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="45"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="31"/>
         <source>Standard sizes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="52"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="38"/>
         <source>Height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="90"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="76"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="104"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="90"/>
         <source>Creation method</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="111"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="97"/>
         <source>Image format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="118"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="104"/>
         <source>Background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="130"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="116"/>
         <source>Show corner coordinate system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="143"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="129"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Explode_set.ui" line="151"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="137"/>
         <source>Frame rate</source>
         <translation type="unfinished"></translation>
     </message>

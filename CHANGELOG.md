@@ -2,8 +2,10 @@
 
 ## Release notes
 
-#### 2025.01.18 (**1.2.0**):
+#### 2025.01.18 (**1.2.1**):
 * A new, safer, automatic unfolding process.
+* Translation into Russian (WiP).
+* Fixes.
 
 #### 2025.01.16 (**1.1.0**):
 * Support for new unfolding algorithm (SheetMetal Workbench).
