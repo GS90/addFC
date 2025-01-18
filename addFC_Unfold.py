@@ -62,7 +62,7 @@ def dxf_postprocessor(file, sign: str, bb) -> None:
     file.save()
 
 
-def cleaning(garbage: tuple, skip: str) -> None:
+def cleaning(garbage: tuple, skip: str = '') -> None:
     for i in garbage:
         if i != skip:
             try:
@@ -149,7 +149,10 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         if 'Prefix' in w.comboBoxSignature.currentText():
             signature[1] = str(w.lineEditPrefix.text()).strip()
 
-    ad, zero = FreeCAD.ActiveDocument, FreeCAD.Placement()
+    zero = FreeCAD.Placement()
+
+    doc = FreeCAD.newDocument(label='Unfold')
+    getattr(w, "raise")()
 
     progress_value = 0
     progress_step = int(100 / (len(details) - len(skip)))
@@ -195,7 +198,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         # reproduction:
         shape = Part.getShape(
             details[d]['!Body'], '', needSubElement=False, refine=False)
-        body = ad.addObject('Part::Feature', REPRODUCTION)
+        body = doc.addObject('Part::Feature', REPRODUCTION)
         body.Shape = shape
         body.Placement = zero
         body.recompute(True)
@@ -222,7 +225,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
 
         # selection:
         face = 'Face' + str(target[1])  # base
-        FreeCAD.Gui.Selection.addSelection(ad.Name, body.Name, face, 0, 0, 0)
+        FreeCAD.Gui.Selection.addSelection(doc.Name, body.Name, face, 0, 0, 0)
 
         # unfold:
         Logger.unfold(f'{d}: {material} ({thickness}) {k_factor}')
@@ -230,35 +233,43 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         FreeCAD.Gui.Selection.clearSelection()
 
         # unfold, parameters:
-        unfold_obj = ad.getObject(UNFOLD_OBJECT)
-        unfold_obj.GenerateSketch = True
-        unfold_obj.KFactor = k_factor
-        unfold_obj.KFactorStandard = 'ansi'
-        unfold_obj.SeparateSketchLayers = True
-        unfold_obj.ManualRecompute = False
+        unfold_obj = doc.getObject(UNFOLD_OBJECT)
+
+        if not unfold_obj.GenerateSketch:
+            unfold_obj.GenerateSketch = True
+        if not unfold_obj.SeparateSketchLayers:
+            unfold_obj.SeparateSketchLayers = True
+        if not unfold_obj.ManualRecompute:
+            unfold_obj.ManualRecompute = False
+
+        if unfold_obj.KFactorStandard != 'aisi':
+            unfold_obj.KFactorStandard = 'ansi'
+        if unfold_obj.KFactor != k_factor:
+            unfold_obj.KFactor = k_factor
+
         unfold_obj.recompute(True)
 
         # correctness check:
-        if ad.getObject(sketch_verification) is None:
+        if doc.getObject(sketch_verification) is None:
             # todo: how to check 'new_unfolder' correctly?
             Logger.warning("wrong, let's try a spare face...")
             cleaning(garbage, REPRODUCTION)
             # switching to spare:
             face = 'Face' + str(target[2])
             FreeCAD.Gui.Selection.addSelection(
-                ad.Name, body.Name, face, 0, 0, 0)
+                doc.Name, body.Name, face, 0, 0, 0)
             if u is not None:
                 u.Activated(None)
             FreeCAD.Gui.Selection.clearSelection()
             # verify:
-            if ad.getObject(sketch_verification) is None:
-                cleaning(garbage, '')
+            if doc.getObject(sketch_verification) is None:
+                cleaning(garbage)
                 Logger.error(f"'{d}' unfold error... skip")
                 continue
 
-        us = ad.getObject(UNFOLD_SKETCH)
+        us = doc.getObject(UNFOLD_SKETCH)
         if us is None:
-            cleaning(garbage, '')
+            cleaning(garbage)
             Logger.error(f"'{d}' unfold error... skip")
             continue
 
@@ -268,7 +279,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         sketches = [us]
         if new_unfolder:
             for sketch in ('Unfold_Sketch_Holes', 'Unfold_Sketch_Internal'):
-                obj = ad.getObject(sketch)
+                obj = doc.getObject(sketch)
                 if obj is not None:
                     obj.recompute(True)
                     if obj.Placement.Rotation.Angle == 0:
@@ -350,15 +361,18 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                 f = os.path.join(target, f'{file} ({i + 1}).step')
                 ImportGui.export([body], f)
 
-        cleaning(garbage, '')
+        cleaning(garbage)
         Logger.log('...done')
 
         progress_value += progress_step
         w.progress.setValue(progress_value)
         FreeCAD.Gui.updateGui()
 
-    w.progress.setValue(100)
+    doc.clearDocument()
+    FreeCAD.closeDocument(doc.Name)
+    getattr(w, "raise")()
 
+    w.progress.setValue(100)
     stop = time.strftime('%M:%S', time.gmtime(time.time() - start))
     w.status.setText(f'Unfold completed, time - {stop}')
 

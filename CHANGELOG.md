@@ -93,3 +93,6 @@
 * Support for new unfolding algorithm (SheetMetal Workbench).
 * Control the placement of the flat pattern sketch.
 * Improved dxf file saving (cleanup, signature layer is now called __Text__).
+
+#### 2025.01.18 (**1.2.0**):
+* A new, safer, automatic unfolding process.
