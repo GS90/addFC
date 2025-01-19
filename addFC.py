@@ -299,7 +299,7 @@ class AddFCModelInfo():
                         continue
                     if prop[j][0] == 'Float' or prop[j][0] == 'Integer':
                         q = QtGui.QTableWidgetItem()
-                        q.setTextAlignment(QtCore.Qt.AlignHCenter)
+                        q.setTextAlignment(QtCore.Qt.AlignCenter)
                         q.setData(QtCore.Qt.DisplayRole, spec[i][j])
                     else:
                         q = QtGui.QTableWidgetItem()
@@ -363,7 +363,7 @@ class AddFCModelInfo():
                     v = str(details[i][j])
                     q = QtGui.QTableWidgetItem(v)
                     if j == 'Unfold':
-                        q.setTextAlignment(QtCore.Qt.AlignHCenter)
+                        q.setTextAlignment(QtCore.Qt.AlignCenter)
                         match v:
                             case 'True': q.setForeground(color_blue)
                             case 'False': q.setForeground(color_red)
@@ -372,7 +372,7 @@ class AddFCModelInfo():
                             q.setForeground(color_red)
                     if prop[j][0] == 'Float' or prop[j][0] == 'Integer':
                         if v != '-':
-                            q.setTextAlignment(QtCore.Qt.AlignHCenter)
+                            q.setTextAlignment(QtCore.Qt.AlignCenter)
                             q.setData(QtCore.Qt.DisplayRole, v)
                     table_details.setItem(x, labels.index(j), q)
                 x += 1

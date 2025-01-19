@@ -470,6 +470,14 @@ def compilation(strict: bool = True,
 # ------------------------------------------------------------------------------
 
 
+UNIT_RECORD = {
+    # order is important!
+    'm^3': 1000000000,
+    'm^2': 1000000,
+    'm': 1000,
+    'kg': 1,
+}
+
 UNIT_RU = {
     '-': '',
     'm': 'м.',
@@ -608,7 +616,7 @@ def export(path: str, target: str, bom) -> str:
 
             alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-            columns, columns_width = {}, {}
+            columns, columns_width, quantity_column = {}, {}, ''
 
             x = -1
             for i in bom[1]:
@@ -623,6 +631,7 @@ def export(path: str, target: str, bom) -> str:
                                 i = 'MT'
                             if i == 'Quantity':
                                 i = 'Qty'
+                                quantity_column = alphabet[x]
                     s.set(f'{alphabet[x]}{1}', i)
                     columns_width[alphabet[x]] = [0, True]  # width, empty
 
@@ -641,7 +650,25 @@ def export(path: str, target: str, bom) -> str:
                             if value != '-':
                                 columns_width[columns[k]][1] = False
                             cell = f'{columns[k]}{y}'
-                            s.set(cell, value)
+                            # checking units of measurement:
+                            value_unit = None
+                            if columns[k] == quantity_column:
+                                for unit in UNIT_RECORD:
+                                    if unit in value:
+                                        try:
+                                            v = value.replace(unit, '').strip()
+                                            v = float(v) * UNIT_RECORD[unit]
+                                            value_unit = (str(v), unit)
+                                        except ValueError:
+                                            pass
+                                        break
+                            # value entry:
+                            if value_unit is None:
+                                s.set(cell, value)
+                            else:
+                                s.set(cell, value_unit[0])
+                                s.setDisplayUnit(cell, value_unit[1])
+                                s.setAlignment(cell, center)
                             # style:
                             match j[k]:
                                 case int() | float():
