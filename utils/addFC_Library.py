@@ -468,7 +468,7 @@ class widget():
             u.refresh.setEnabled(update)
 
             def library_upgrade_wrapper() -> None:
-                library_upgrade
+                library_upgrade()
                 u.local.setText(f'Local version - {VERSION}')
                 u.local.setStyleSheet('')
                 u.restart.setText(
