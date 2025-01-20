@@ -2,9 +2,10 @@
 
 ## Release notes
 
-#### 2025.01.18 (**1.2.1**):
+#### 2025.01.20 (**1.2.3**):
 * A new, safer, automatic unfolding process.
 * Translation into Russian (WiP).
+* Correct recording of units of measurement.
 * Fixes.
 
 #### 2025.01.16 (**1.1.0**):

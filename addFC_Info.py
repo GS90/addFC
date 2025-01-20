@@ -12,8 +12,6 @@ import json
 import os
 
 
-ROUNDING = 2  # todo: ask user
-
 BASE_ENUMERATION = tuple(['',] + [str(i).rjust(3, '0') for i in range(1, 51)])
 
 
@@ -76,6 +74,8 @@ def weight_equation(obj, material: list) -> None:
         if u in obj.PropertiesList:
             if obj.getPropertyByName(u) == '-':
                 obj.setExpression(w, f'{v} * {material[1]} * {q} / 10 ^ 9')
+        else:
+            obj.setExpression(w, f'{v} * {material[1]} * {q} / 10 ^ 9')
     else:
         obj.setExpression(w, f'{v} * {material[1]} / 10 ^ 9')
 
@@ -124,12 +124,19 @@ def get_doc_name(dn: str) -> str:
 # ------------------------------------------------------------------------------
 
 
+rounding = 2
+
+
 def compilation(strict: bool = True,
                 node_name: str = '',
                 indexing: bool = False,
                 update_enumerations: bool = False,
                 update_equations: bool = False,
                 ) -> tuple[dict, dict, dict, dict, dict]:
+
+    global rounding
+    rounding = FreeCAD.ParamGet(
+        'User parameter:BaseApp/Preferences/Units').GetInt('Decimals')
 
     index_pt = 'App::PropertyString'  # important, type: string
     index_exception = ('Add_Section', 'Документация')
@@ -437,7 +444,7 @@ def compilation(strict: bool = True,
             if type(value) is float:
                 if addition(j):
                     info_headers[j] += value
-                value = round(value, ROUNDING)
+                value = round(value, rounding)
                 info[i][j] = int(value) if value.is_integer() else value
             elif type(value) is int:
                 if addition(j):
@@ -458,7 +465,7 @@ def compilation(strict: bool = True,
         for j in i:
             value = i[j]
             if type(value) is float:
-                value = round(value, ROUNDING)
+                value = round(value, rounding)
                 i[j] = int(value) if value.is_integer() else value
 
     info_headers = dict(sorted(info_headers.items()))
@@ -470,8 +477,7 @@ def compilation(strict: bool = True,
 # ------------------------------------------------------------------------------
 
 
-UNIT_RECORD = {
-    # order is important!
+UNIT_CONVERSION = {
     'm^3': 1000000000,
     'm^2': 1000000,
     'm': 1000,
@@ -616,7 +622,9 @@ def export(path: str, target: str, bom) -> str:
 
             alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-            columns, columns_width, quantity_column = {}, {}, ''
+            columns, columns_width = {}, {}
+
+            quantity_column, weight_column = '', ''
 
             x = -1
             for i in bom[1]:
@@ -624,14 +632,19 @@ def export(path: str, target: str, bom) -> str:
                     x += 1
                     columns[i] = alphabet[x]
                     if i in properties:
+                        # special columns:
+                        if i == 'Quantity':
+                            quantity_column = alphabet[x]
+                        elif i == 'Weight':
+                            weight_column = alphabet[x]
+                        # aliases or abbreviations:
                         if spreadsheet_use_alias and properties[i][3] != '':
                             i = properties[i][3]
                         else:
                             if i == 'MetalThickness':
                                 i = 'MT'
-                            if i == 'Quantity':
+                            elif i == 'Quantity':
                                 i = 'Qty'
-                                quantity_column = alphabet[x]
                     s.set(f'{alphabet[x]}{1}', i)
                     columns_width[alphabet[x]] = [0, True]  # width, empty
 
@@ -645,29 +658,37 @@ def export(path: str, target: str, bom) -> str:
                     for k in j:
                         if k in columns:
                             value = str(j[k])
-                            w = max(columns_width[columns[k]][0], len(value))
-                            columns_width[columns[k]][0] = w
+                            if columns[k] == quantity_column:
+                                value_len = len(value) + rounding + 4
+                            elif columns[k] == weight_column:
+                                value_len = len(value) + rounding + 2
+                            else:
+                                value_len = len(value)
+                            cw = max(columns_width[columns[k]][0], value_len)
+                            columns_width[columns[k]][0] = cw
                             if value != '-':
                                 columns_width[columns[k]][1] = False
                             cell = f'{columns[k]}{y}'
-                            # checking units of measurement:
-                            value_unit = None
+                            # check unit conversion:
+                            value_conv = None
                             if columns[k] == quantity_column:
-                                for unit in UNIT_RECORD:
-                                    if unit in value:
+                                sp = value.split(' ')
+                                if len(sp) == 2:
+                                    if sp[1] != '-':
                                         try:
-                                            v = value.replace(unit, '').strip()
-                                            v = float(v) * UNIT_RECORD[unit]
-                                            value_unit = (str(v), unit)
+                                            conv = UNIT_CONVERSION[sp[1]]
+                                            v = float(sp[0]) * conv
+                                            value_conv = (str(v), sp[1])
                                         except ValueError:
                                             pass
-                                        break
+                            elif columns[k] == weight_column:
+                                s.setDisplayUnit(cell, 'kg')  # standard
                             # value entry:
-                            if value_unit is None:
+                            if value_conv is None:
                                 s.set(cell, value)
                             else:
-                                s.set(cell, value_unit[0])
-                                s.setDisplayUnit(cell, value_unit[1])
+                                s.set(cell, value_conv[0])
+                                s.setDisplayUnit(cell, value_conv[1])
                                 s.setAlignment(cell, center)
                             # style:
                             match j[k]:
@@ -715,7 +736,11 @@ def export(path: str, target: str, bom) -> str:
                             if v == '-':
                                 continue
                             if k == 'Quantity':
-                                v = v.replace('.', ',')
+                                sp = v.split(' ')
+                                if len(sp) == 2:
+                                    v = sp[0].replace('.', ',')
+                                else:
+                                    v = v.replace('.', ',')
                             r[k] = v
 
                     # empty note is replaced by unit of measurement:
