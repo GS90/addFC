@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.02.04 (**1.2.5**):
+* Unfold: sketch placement fix.
+
 #### 2025.01.20 (**1.2.4**):
 * A new, safer, automatic unfolding process.
 * Translation into Russian (WiP).

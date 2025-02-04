@@ -272,9 +272,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             cleaning(garbage)
             Logger.error(f"'{d}' unfold error... skip")
             continue
-
         us.recompute(True)
-        bb = us.Shape.BoundBox
 
         sketches = [us]
         if new_unfolder:
@@ -288,6 +286,8 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                     else:
                         along_x = False  # turning is prohibited
                         sketches.append(obj)
+
+        bb = sketches[0].Shape.BoundBox
 
         if along_x and bb.XLength < bb.YLength:
             # position along the X axis:
