@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.02.06 (**1.3.0**):
+* Unfold: report generation.
+
 #### 2025.02.04 (**1.2.5**):
 * Unfold: sketch placement fix.
 

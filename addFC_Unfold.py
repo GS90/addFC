@@ -8,6 +8,7 @@ import FreeCAD
 import importDXF
 import ImportGui
 import importSVG
+import json
 import os
 import Part
 import re
@@ -71,9 +72,9 @@ def cleaning(garbage: tuple, skip: str = '') -> None:
                 pass
 
 
-def unfold(w, details: dict, path: str, skip: list = []) -> None:
+def unfold(w, parts: dict, path: str, skip: list = []) -> None:
 
-    if len(details) == 0 or len(details) == len(skip):
+    if len(parts) == 0 or len(parts) == len(skip):
         w.progress.setValue(100)
         w.status.setText('No sheet metal parts')
         return
@@ -127,7 +128,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
     centering = w.checkBoxCentering.isChecked()
     along_x = w.checkBoxAlongX.isChecked()
 
-    turn = FreeCAD.Rotation(FreeCAD.Vector(0.0, 0.0, 1.0), 90.0)
+    TURN = FreeCAD.Rotation(FreeCAD.Vector(0.0, 0.0, 1.0), 90.0)
 
     steel = P.pref_steel
 
@@ -149,38 +150,41 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         if 'Prefix' in w.comboBoxSignature.currentText():
             signature[1] = str(w.lineEditPrefix.text()).strip()
 
-    zero = FreeCAD.Placement()
+    ZERO = FreeCAD.Placement()
 
     doc = FreeCAD.newDocument(label='Unfold')
     getattr(w, "raise")()
 
+    report = {'Parts': {}, 'Materials': {}}
+
     progress_value = 0
-    progress_step = int(100 / (len(details) - len(skip)))
+    progress_step = int(100 / (len(parts) - len(skip)))
 
     start = time.time()
     w.progress.setValue(progress_value)
     FreeCAD.Gui.updateGui()
 
-    for d in details:
+    for p in parts:
 
-        if d in skip:
+        if p in skip:
             continue
+        spec = parts[p]
 
-        w.status.setText(f'Processing: {d}')
+        w.status.setText(f'Processing: {p}')
         FreeCAD.Gui.updateGui()
 
         try:
-            thickness = float(details[d]['MetalThickness'])
+            thickness = float(spec['MetalThickness'])
         except BaseException:
-            Logger.error(f"'{d}' incorrect metal thickness, skip")
+            Logger.error(f"'{p}' incorrect metal thickness, skip")
             continue
 
         try:
-            material = details[d]['Material']
+            material = spec['Material']
         except BaseException:
             material = 'Galvanized'  # default
             Logger.warning(
-                f"'{d}' incorrect material, replaced by 'Galvanized'")
+                f"'{p}' incorrect material, replaced by 'Galvanized'")
 
         if 'stainless' in material.lower() or 'aisi' in material.lower():
             variant = 'Stainless'
@@ -197,10 +201,10 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
 
         # reproduction:
         shape = Part.getShape(
-            details[d]['!Body'], '', needSubElement=False, refine=False)
+            spec['!Body'], '', needSubElement=False, refine=False)
         body = doc.addObject('Part::Feature', REPRODUCTION)
         body.Shape = shape
-        body.Placement = zero
+        body.Placement = ZERO
         body.recompute(True)
 
         # find the largest face:
@@ -228,7 +232,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         FreeCAD.Gui.Selection.addSelection(doc.Name, body.Name, face, 0, 0, 0)
 
         # unfold:
-        Logger.unfold(f'{d}: {material} ({thickness}) {k_factor}')
+        Logger.unfold(f'{p}: {material} ({thickness}) {k_factor}')
         u.Activated(None)
         FreeCAD.Gui.Selection.clearSelection()
 
@@ -264,13 +268,13 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
             # verify:
             if doc.getObject(sketch_verification) is None:
                 cleaning(garbage)
-                Logger.error(f"'{d}' unfold error... skip")
+                Logger.error(f"'{p}' unfold error... skip")
                 continue
 
         us = doc.getObject(UNFOLD_SKETCH)
         if us is None:
             cleaning(garbage)
-            Logger.error(f"'{d}' unfold error... skip")
+            Logger.error(f"'{p}' unfold error... skip")
             continue
         us.recompute(True)
 
@@ -292,7 +296,7 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         if along_x and bb.XLength < bb.YLength:
             # position along the X axis:
             for sketch in sketches:
-                sketch.Placement.Rotation = turn
+                sketch.Placement.Rotation = TURN
                 sketch.recompute(True)
             bb = sketches[0].Shape.BoundBox
 
@@ -314,14 +318,14 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         if not os.path.exists(target):
             os.makedirs(target)
 
-        file = re.sub(FORBIDDEN, '_', d)
+        file = re.sub(FORBIDDEN, '_', p)
 
         code, index, sign = '', '', signature[1]  # prefix
 
-        if 'Code' in details[d] and details[d]['Code'] != '':
-            code = re.sub(FORBIDDEN, '_', details[d]['Code'])
-        if 'Index' in details[d] and details[d]['Index'] != '':
-            index = re.sub(FORBIDDEN, '_', details[d]['Index'])
+        if 'Code' in spec and spec['Code'] != '':
+            code = re.sub(FORBIDDEN, '_', spec['Code'])
+        if 'Index' in spec and spec['Index'] != '':
+            index = re.sub(FORBIDDEN, '_', spec['Index'])
 
         match w.comboBoxName.currentText():
             case 'Code':
@@ -346,8 +350,10 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
                     if code != '':
                         sign = f'{signature[1]}_{code}'
 
+        quantity = int(spec['Quantity'])
+
         # save:
-        for i in range(int(details[d]['Quantity'])):
+        for i in range(quantity):
             if save_dxf:
                 f = os.path.join(target, f'{file} ({i + 1}).dxf')
                 importDXF.export(sketches, f)
@@ -364,6 +370,25 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
         cleaning(garbage)
         Logger.log('...done')
 
+        part_area = round(body.Shape.Volume / 1000000 / thickness, 4)  # m^2
+
+        report['Parts'][p] = {
+            'Area': part_area,
+            'Code': spec.get('Code', ''),
+            'Dimensions': (round(bb.XLength), round(bb.YLength)),
+            'Material': material,
+            'Quantity': quantity,
+            'Weight': spec.get('Weight', 0),
+        }
+
+        if 'Id' in spec:
+            report['Parts'][p]['Id'] = spec['Id']
+
+        if material in report['Materials']:
+            report['Materials'][material] += part_area * quantity
+        else:
+            report['Materials'][material] = part_area * quantity
+
         progress_value += progress_step
         w.progress.setValue(progress_value)
         FreeCAD.Gui.updateGui()
@@ -371,6 +396,13 @@ def unfold(w, details: dict, path: str, skip: list = []) -> None:
     doc.clearDocument()
     FreeCAD.closeDocument(doc.Name)
     getattr(w, "raise")()
+
+    for i in report['Materials']:
+        report['Materials'][i] = round(report['Materials'][i], 4)
+
+    file = open(os.path.join(path, 'report.json'), 'w+', encoding='utf-8')
+    json.dump(report, file, ensure_ascii=False, indent=4)
+    file.close()
 
     w.progress.setValue(100)
     stop = time.strftime('%M:%S', time.gmtime(time.time() - start))
