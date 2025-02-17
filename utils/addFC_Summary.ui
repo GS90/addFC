@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Golodnikov Sergey</author>
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>333</width>
+    <height>817</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Summary - beta</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="Object_Group">
+     <property name="styleSheet">
+      <string notr="true">QGroupBox:title {color: #666}</string>
+     </property>
+     <property name="title">
+      <string>Objects </string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="topMargin">
+       <number>14</number>
+      </property>
+      <item>
+       <widget class="QGroupBox" name="Designation_Group">
+        <property name="title">
+         <string>Designation </string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <property name="topMargin">
+          <number>14</number>
+         </property>
+         <item>
+          <layout class="QGridLayout" name="Designation_Grid" columnstretch="0,1">
+           <item row="1" column="0">
+            <widget class="QLabel" name="InternalName_L">
+             <property name="styleSheet">
+              <string notr="true">margin-right: 8px</string>
+             </property>
+             <property name="text">
+              <string>Internal name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="ObjectLabel_L">
+             <property name="styleSheet">
+              <string notr="true">margin-right: 8px</string>
+             </property>
+             <property name="text">
+              <string>Object label</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="addFCName_L">
+             <property name="styleSheet">
+              <string notr="true">margin-right: 8px</string>
+             </property>
+             <property name="text">
+              <string>addFC name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="addFCName">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="InternalName">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="ObjectLabel">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="BB_Group">
+        <property name="title">
+         <string>Dimensions </string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="topMargin">
+          <number>14</number>
+         </property>
+         <item>
+          <layout class="QGridLayout" name="BB_Grid" columnstretch="0,0,1">
+           <item row="1" column="0">
+            <widget class="QComboBox" name="BB_U"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="Units_Label">
+             <property name="styleSheet">
+              <string notr="true">margin-right: 8px</string>
+             </property>
+             <property name="text">
+              <string>Units</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="Z_Label">
+             <property name="styleSheet">
+              <string notr="true">margin: 0 4px; color: #202080</string>
+             </property>
+             <property name="text">
+              <string>Z - Height</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="Y_Label">
+             <property name="styleSheet">
+              <string notr="true">margin: 0 4px; color: #208020</string>
+             </property>
+             <property name="text">
+              <string>Y - Width</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="X_Label">
+             <property name="styleSheet">
+              <string notr="true">margin: 0 4px; color: #802020</string>
+             </property>
+             <property name="text">
+              <string>X - Length</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QDoubleSpinBox" name="X_Value">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="decimals">
+              <number>4</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QDoubleSpinBox" name="Y_Value">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="decimals">
+              <number>4</number>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QDoubleSpinBox" name="Z_Value">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="decimals">
+              <number>4</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="VW_Group">
+        <property name="title">
+         <string>Volume and weight </string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="topMargin">
+          <number>14</number>
+         </property>
+         <item>
+          <layout class="QGridLayout" name="VW_Grid" columnstretch="0,1,0">
+           <item row="1" column="0">
+            <widget class="QLabel" name="Weight_Label">
+             <property name="styleSheet">
+              <string notr="true">margin-right: 8px</string>
+             </property>
+             <property name="text">
+              <string>Weight</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QComboBox" name="Volume_U"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="Weight_Value">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="decimals">
+              <number>4</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="Volume_Label">
+             <property name="styleSheet">
+              <string notr="true">margin-right: 8px</string>
+             </property>
+             <property name="text">
+              <string>Volume</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="Volume_Value">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="decimals">
+              <number>4</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QComboBox" name="Weight_U"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="Material_Layout">
+           <item>
+            <widget class="QComboBox" name="Material"/>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="Density_Value">
+             <property name="suffix">
+              <string> kg^m3</string>
+             </property>
+             <property name="decimals">
+              <number>0</number>
+             </property>
+             <property name="maximum">
+              <double>80000.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="CoM_Layout">
+        <item>
+         <spacer name="CoM_Spacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="CoM_Label">
+          <property name="text">
+           <string>Size</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="CoM_Size">
+          <property name="suffix">
+           <string>%</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="value">
+           <number>2</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="CoM_Set">
+          <property name="text">
+           <string>Display center of mass</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="Subobjects_Group">
+     <property name="styleSheet">
+      <string notr="true">QGroupBox:title {color: #666}</string>
+     </property>
+     <property name="title">
+      <string>Subobjects </string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_6">
+      <item>
+       <widget class="QLabel" name="Subobjects_Title">
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="Subobjects_Grid" columnstretch="0,1,0">
+        <item row="4" column="0">
+         <widget class="QLabel" name="Radius_Label">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 8px</string>
+          </property>
+          <property name="text">
+           <string>Radius</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QDoubleSpinBox" name="Perimeter_Value">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QComboBox" name="Perimeter_U"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="Length_Label">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 8px</string>
+          </property>
+          <property name="text">
+           <string>Length</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="Perimeter_Label">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 8px</string>
+          </property>
+          <property name="text">
+           <string>Perimeter</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="Area_Label">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 8px</string>
+          </property>
+          <property name="text">
+           <string>Area</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QDoubleSpinBox" name="Radius_Value">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="Diameter_Label">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 8px</string>
+          </property>
+          <property name="text">
+           <string>Diameter</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QDoubleSpinBox" name="Area_Value">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QDoubleSpinBox" name="Diameter_Value">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QComboBox" name="Area_U"/>
+        </item>
+        <item row="3" column="1">
+         <widget class="QDoubleSpinBox" name="Length_Value">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="Diagonal_Label">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 8px</string>
+          </property>
+          <property name="text">
+           <string>Diagonal</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QDoubleSpinBox" name="Diagonal_Value">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QComboBox" name="DLRD_U"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="Decimals_Layout">
+     <item>
+      <spacer name="Decimals_Spacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="Decimals_L">
+       <property name="text">
+        <string>Decimals</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="Decimals">
+       <property name="maximum">
+        <number>4</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

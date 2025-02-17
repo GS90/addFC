@@ -1457,3 +1457,28 @@ class AddFCPipe():
 
 
 FreeCAD.Gui.addCommand('AddFCPipe', AddFCPipe())
+
+
+# ----
+
+
+class AddFCSummary():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'summary.svg'),
+                'Accel': 'S',
+                'MenuText': FreeCAD.Qt.translate(
+                    'addFC', 'Summary'),
+                'ToolTip': FreeCAD.Qt.translate(
+                    'addFC', 'Information about selected elements')}
+
+    def Activated(self):
+        f = os.path.join(P.AFC_PATH, 'utils', 'addFC_Summary.py')
+        loader = importlib.machinery.SourceFileLoader('addFC_Summary', f)
+        _ = loader.load_module()
+        return
+
+    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+
+
+FreeCAD.Gui.addCommand('AddFCSummary', AddFCSummary())

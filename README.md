@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 1.3.0 - [release notes](CHANGELOG.md).
+Current version 1.4.0 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -26,6 +26,10 @@ Bill of materials - BOM
 Component library - beta
 
 ![Library](repo/doc/img/library.png)
+
+Information about selected elements
+
+![Summary](repo/doc/img/summary.png)
 
 Pipeline and pipe fittings
 

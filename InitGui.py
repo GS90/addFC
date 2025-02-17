@@ -16,6 +16,7 @@ class addFC(FreeCAD.Gui.Workbench):
     import addFC
 
     def Initialize(self):
+
         self.list = [
             # core:
             'AddFCOpenRecentFile',
@@ -27,6 +28,7 @@ class addFC(FreeCAD.Gui.Workbench):
             'AddFCAssistant',
             # utils:
             'AddFCLibrary',
+            'AddFCSummary',
             'AddFCExplode',
             'AddFCPipe',
         ]

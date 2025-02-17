@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.02.18 (**1.3.0**):
+* New tool: __Summary__ (information about selected elements).
+
 #### 2025.02.06 (**1.3.0**):
 * Unfold: report generation.
 
