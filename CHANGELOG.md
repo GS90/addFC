@@ -2,7 +2,7 @@
 
 ## Release notes
 
-#### 2025.02.19 (**1.4.1**):
+#### 2025.02.19 (**1.4.2**):
 * Improvements to the __Summary__ tool.
 * Fixes.
 

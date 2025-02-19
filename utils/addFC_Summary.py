@@ -263,12 +263,12 @@ class Info():
                         similar.append(('Edge' + str(x), i))
                     x += 1
 
-        doc = FreeCAD.ActiveDocument.Name
-        obj = obj.Tip.Name
+        dn = FreeCAD.ActiveDocument.Name
+        on = obj.Tip.Name if hasattr(obj, 'Tip') else obj.Name
 
         FreeCAD.Gui.Selection.clearSelection()
         for i in similar:
-            FreeCAD.Gui.Selection.addSelection(doc, obj, i[0], 0, 0, 0)
+            FreeCAD.Gui.Selection.addSelection(dn, on, i[0], 0, 0, 0)
 
 # ------------------------------------------------------------------------------
 
