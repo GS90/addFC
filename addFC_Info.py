@@ -211,6 +211,9 @@ def compilation(strict: bool = True,
                         if 'Count' in i.PropertiesList:
                             # array:
                             analysis(i.Base.getLinkedObject(), i.Count, dn)
+                        else:
+                            # single element:
+                            analysis(i, doc=dn)
                     else:
                         analysis(i, doc=dn)
                 case 'TechDraw::DrawPage':

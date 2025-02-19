@@ -86,6 +86,8 @@ class Info():
     volume = 0
     weight = 0
 
+    last_selection = None
+
     def __init__(self):
         self.form = Gui.PySideUic.loadUi(
             os.path.join(os.path.dirname(__file__), 'addFC_Summary.ui'))
@@ -167,6 +169,9 @@ class Info():
 
         self.form.CoM_Set.clicked.connect(set_com)
 
+        # select similar subobjects:
+        self.form.SelectSimilar.clicked.connect(self.select_similar)
+
         def change_decimals(value):
             self.decimals = value
             self.set_decimals()
@@ -205,15 +210,18 @@ class Info():
         else:
             object = selection.Object
 
-        object_key = f'{doc}.{object.Name}'
+        key = f'{doc}.{object.Name}'
 
         if object.TypeId == 'App::Link':
             object = object.getLinkedObject()
 
-        self.objects[object_key] = object
+        self.objects[key] = object
         if sub != '':
-            object_key = f'{object_key}.{sub}'
-            self.subobjects[object_key] = sub_object_shape
+            key = f'{key}.{sub}'
+            self.subobjects[key] = sub_object_shape
+            self.last_selection = [object, sub_object_shape]
+        else:
+            self.last_selection = None
 
     def remove_selection(self, doc, obj, sub) -> None:
         _ = self.objects.pop(f'{doc}.{obj}', None)
@@ -223,6 +231,44 @@ class Info():
     def clear_selection(self) -> None:
         self.objects.clear()
         self.subobjects.clear()
+
+# ------------------------------------------------------------------------------
+
+    def select_similar(self) -> None:
+        obj, sub = self.last_selection
+
+        similar = []
+
+        if sub.ShapeType == 'Face':
+            area = round(sub.Area, self.decimals)
+            x = 1
+            for i in obj.Shape.Faces:
+                if area == round(i.Area, self.decimals):
+                    similar.append(('Face' + str(x), i))
+                x += 1
+        elif sub.ShapeType == 'Edge':
+            if sub.Curve.TypeId == 'Part::GeomCircle':
+                radius = round(sub.Curve.Radius, self.decimals)
+                x = 1
+                for i in obj.Shape.Edges:
+                    if sub.Curve.isClosed() == i.isClosed():
+                        if radius == round(i.Curve.Radius, self.decimals):
+                            similar.append(('Edge' + str(x), i))
+                    x += 1
+            elif sub.Curve.TypeId == 'Part::GeomLine':
+                length = round(sub.Length, self.decimals)
+                x = 1
+                for i in obj.Shape.Edges:
+                    if length == round(i.Length, self.decimals):
+                        similar.append(('Edge' + str(x), i))
+                    x += 1
+
+        doc = FreeCAD.ActiveDocument.Name
+        obj = obj.Tip.Name
+
+        FreeCAD.Gui.Selection.clearSelection()
+        for i in similar:
+            FreeCAD.Gui.Selection.addSelection(doc, obj, i[0], 0, 0, 0)
 
 # ------------------------------------------------------------------------------
 

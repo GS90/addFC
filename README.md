@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 1.4.0 - [release notes](CHANGELOG.md).
+Current version 1.4.1 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -53,9 +53,10 @@ Explosion (30 FPS)
 5. Add properties to an object
 6. Create a drawing based on a template
 7. Library of elements and nodes
-8. Exploded view
-9. Creating a pipe by points
-10. Documentation, help and examples
+8. Information about selected elements
+9. Exploded view
+10. Creating a pipe by points
+11. Documentation, help and examples
 
 
 ### Documentation

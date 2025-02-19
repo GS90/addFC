@@ -2,7 +2,11 @@
 
 ## Release notes
 
-#### 2025.02.18 (**1.3.0**):
+#### 2025.02.19 (**1.4.1**):
+* Improvements to the __Summary__ tool.
+* Fixes.
+
+#### 2025.02.18 (**1.4.0**):
 * New tool: __Summary__ (information about selected elements).
 
 #### 2025.02.06 (**1.3.0**):
