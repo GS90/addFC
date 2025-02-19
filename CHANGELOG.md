@@ -2,9 +2,10 @@
 
 ## Release notes
 
-#### 2025.02.19 (**1.4.2**):
+#### 2025.02.20 (**1.4.3**):
 * Improvements to the __Summary__ tool.
 * Fixes.
+* Translation into Russian (WiP).
 
 #### 2025.02.18 (**1.4.0**):
 * New tool: __Summary__ (information about selected elements).

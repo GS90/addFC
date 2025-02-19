@@ -127,6 +127,7 @@
         <location filename="../../utils/addFC_Explode.ui" line="376"/>
         <location filename="../../utils/addFC_Explode.ui" line="434"/>
         <location filename="../../utils/addFC_Explode_set.ui" line="175"/>
+        <location filename="../../utils/addFC_Summary.ui" line="375"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -893,6 +894,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     </message>
     <message>
         <location filename="../../utils/addFC_Pipe.ui" line="100"/>
+        <location filename="../../utils/addFC_Summary.ui" line="462"/>
         <source>Diameter</source>
         <translation>Диаметр</translation>
     </message>
@@ -905,6 +907,131 @@ All models are created in FreeCAD version 0.21.2.</source>
         <location filename="../../utils/addFC_Pipe.ui" line="186"/>
         <source>Create pipe</source>
         <translation>Создать</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="15"/>
+        <source>Summary - beta</source>
+        <translation>Информация - beta</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="24"/>
+        <source>Objects </source>
+        <translation>Объекты </translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="47"/>
+        <source>Internal name</source>
+        <translation>Внутреннее имя</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="57"/>
+        <source>Object label</source>
+        <translation>Наименование</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="67"/>
+        <source>addFC name</source>
+        <translation>addFC Name</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="97"/>
+        <source>Dimensions </source>
+        <translation>Габариты </translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="123"/>
+        <source>Units</source>
+        <translation>Единицы</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="133"/>
+        <source>Z - Height</source>
+        <translation>Z - Высота</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="143"/>
+        <source>Y - Width</source>
+        <translation>Y - Ширина</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="153"/>
+        <source>X - Length</source>
+        <translation>X - Длина</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="204"/>
+        <source>Volume and weight </source>
+        <translation>Объём и вес </translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="230"/>
+        <source>Weight</source>
+        <translation>Вес</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="256"/>
+        <source>Volume</source>
+        <translation>Объём</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="286"/>
+        <source> kg^m3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="319"/>
+        <source>Size</source>
+        <translation>Размер</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="326"/>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="342"/>
+        <source>Display center of mass</source>
+        <translation>Отобразить центр массы</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="357"/>
+        <source>Subobjects </source>
+        <translation>Подобъекты </translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="393"/>
+        <source>Radius</source>
+        <translation>Радиус</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="419"/>
+        <source>Length</source>
+        <translation>Длина</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="429"/>
+        <source>Perimeter</source>
+        <translation>Периметр</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="439"/>
+        <source>Area</source>
+        <translation>Площадь</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="514"/>
+        <source>Diagonal</source>
+        <translation>Диагональ</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="544"/>
+        <source>Select similar subobjects</source>
+        <translation>Выбрать похожие</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="564"/>
+        <source>Decimals</source>
+        <translation>Десятичные</translation>
     </message>
 </context>
 </TS>
