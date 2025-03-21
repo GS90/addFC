@@ -192,8 +192,10 @@ def compilation(strict: bool = True,
 
     def visibility_full(inList: list) -> bool:
         for i in inList:
-            if i.TypeId != 'App::Link' and not i.Visibility:
-                return False
+            if not i.Visibility:
+                match i.TypeId:
+                    case 'App::Link' | 'PartDesign::SubShapeBinder': pass
+                    case _: return False
         return True
 
     for i in FreeCAD.ActiveDocument.findObjects():

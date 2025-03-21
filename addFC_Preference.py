@@ -40,8 +40,7 @@ try:
         stdout=subprocess.DEVNULL,
     )
     if cp.returncode == 0:
-        # todo: version number
-        pass
+        pass  # todo: version number
     else:
         afc_additions['ffmpeg'][0] = False
         afc_additions['ffmpeg'][2] = 'color: #aa0000'
@@ -917,6 +916,15 @@ def get_tpl() -> tuple[list, list, dict]:
     return drawing, text, tpl
 
 
+def get_user_tpl(path: str) -> dict:
+    tpl = {}
+    if os.path.exists(path):
+        for i in os.listdir(path):
+            if i.endswith('.svg'):
+                tpl[i] = os.path.join(path, i)
+    return tpl
+
+
 class addFCPreferenceOther():
     def __init__(self):
         self.form = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
@@ -944,6 +952,17 @@ class addFCPreferenceOther():
         self.form.ffmpeg.setChecked(afc_additions['ffmpeg'][0])
         self.form.ffmpeg.setStyleSheet(afc_additions['ffmpeg'][2])
 
+        # user templates:
+        self.form.utLineEdit.setText(
+            pref_configuration.get('drawing_templates_user', ''))
+
+        def select() -> None:
+            d = os.path.normcase(QtGui.QFileDialog.getExistingDirectory())
+            if d != '':
+                self.form.utLineEdit.setText(d)
+        self.form.utSelect.clicked.connect(select)
+
+        # stdRU:
         stamp = pref_configuration['ru_std_tpl_stamp']
 
         self.form.Designation.setText(stamp['Designation'])
@@ -987,6 +1006,7 @@ class addFCPreferenceOther():
                 self.form.fontComboBox.currentText(),
                 self.form.fontSpinBox.value(),
             ],
+            'drawing_templates_user': self.form.utLineEdit.text(),
             'ru_std_tpl_drawing': self.form.Drawing.currentText(),
             'ru_std_tpl_text': self.form.Text.currentText(),
             'ru_std_tpl_stamp': {

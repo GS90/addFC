@@ -1222,43 +1222,78 @@ class AddFCInsert():
 
     def Activated(self):
         w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
-            P.AFC_PATH, 'repo', 'ui', 'list.ui'))
+            P.AFC_PATH, 'repo', 'ui', 'insert.ui'))
 
         if not FreeCAD.ActiveDocument:
             FreeCAD.newDocument('Unnamed')
             FreeCAD.Gui.activeDocument().activeView().viewDefaultOrientation()
 
         ad = FreeCAD.ActiveDocument
+        conf = P.pref_configuration
 
-        _, _, tpl = P.get_tpl()
-        tpl = dict(sorted(tpl.items()))
+        resources = ['stdRU',]
+        path_user_tpl = conf.get('drawing_templates_user')
+        if path_user_tpl is not None:
+            basename = os.path.basename(path_user_tpl)
+            if basename != '':
+                resources.append(basename)
+
+        w.resources.addItems(resources)
+
+        # stdRU templates:
+        _, _, std_tpl = P.get_tpl()
+        std_tpl = dict(sorted(std_tpl.items()))
+
+        # user templates:
+        user_tpl = P.get_user_tpl(path_user_tpl)
+        user_tpl = dict(sorted(user_tpl.items()))
+
+        w.switchTD.setChecked(conf.get('insert_switch', True))
 
         model = QtGui.QStandardItemModel()
         w.listView.setModel(model)
-        for i in tpl.keys():
-            model.appendRow(QtGui.QStandardItem(i.rstrip('.svg')))
 
-        w.label.setText('Select a template to create a drawing.')
-        w.pushButton.setText(FreeCAD.Qt.translate('addFC', 'Create'))
         w.show()
 
+        def fill(target) -> None:
+            model.clear()
+            if target == 'stdRU':
+                for i in std_tpl.keys():
+                    model.appendRow(QtGui.QStandardItem(i.rstrip('.svg')))
+            else:
+                for i in user_tpl.keys():
+                    model.appendRow(QtGui.QStandardItem(i.rstrip('.svg')))
+        w.resources.currentTextChanged.connect(fill)
+        w.resources.setCurrentText(
+            conf.get('drawing_templates_resource', 'stdRU'))
+
         def create() -> None:
+            resource = w.resources.currentText()
+            switch = w.switchTD.isChecked()
             for i in w.listView.selectedIndexes():
                 item = w.listView.model().itemFromIndex(i).text()
                 w.close()
                 p = ad.addObject('TechDraw::DrawPage', 'Page')
                 t = ad.addObject('TechDraw::DrawSVGTemplate', 'Template')
-                t.Template = tpl[item + '.svg']
+                if resource == 'stdRU':
+                    t.Template = std_tpl[item + '.svg']
+                else:
+                    t.Template = user_tpl[item + '.svg']
                 t.EditableTexts = stamp_fill(t.EditableTexts)
                 p.Template = t
                 ad.recompute()
-                # display:
-                FreeCAD.Gui.activateWorkbench('TechDrawWorkbench')
-                p.ViewObject.doubleClicked()
-                FreeCAD.Gui.updateGui()
-                FreeCAD.Gui.SendMsgToActiveView('ViewFit')
+                if switch:
+                    # display:
+                    FreeCAD.Gui.activateWorkbench('TechDrawWorkbench')
+                    p.ViewObject.doubleClicked()
+                    FreeCAD.Gui.updateGui()
+                    FreeCAD.Gui.SendMsgToActiveView('ViewFit')
+            # insert preferences:
+            conf['drawing_templates_resource'] = resource
+            conf['insert_switch'] = switch
+            P.save_pref(P.PATH_CONFIGURATION, conf)
 
-        w.pushButton.clicked.connect(create)
+        w.pushButtonCreate.clicked.connect(create)
         w.listView.doubleClicked.connect(create)
 
     def IsActive(self): return True

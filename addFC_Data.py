@@ -26,6 +26,10 @@ configuration = {
     'bom_export_skip': [],
     # sheet metal part:
     'smp_color': tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)),
+    # insert:
+    'drawing_templates_user': '',
+    'drawing_templates_resource': 'stdRU',
+    'insert_switch': True,
     # USDD:
     'ru_std_tpl_drawing': 'RU_Portrait_A4.svg',
     'ru_std_tpl_text': 'RU_Portrait_A4_T_1.svg',

@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
-    <height>730</height>
+    <width>877</width>
+    <height>771</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
      <property name="title">
       <string>FreeCAD interface</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,3,1">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,5,1">
       <item>
        <widget class="QCheckBox" name="fontCheckBox">
         <property name="text">
@@ -62,7 +62,7 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_middle">
+    <spacer name="verticalSpacer_upper">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -72,7 +72,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>20</height>
+       <height>10</height>
       </size>
      </property>
     </spacer>
@@ -83,9 +83,6 @@
       <string>Additions</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetMinimumSize</enum>
-      </property>
       <item row="0" column="0">
        <widget class="QCheckBox" name="sm">
         <property name="enabled">
@@ -140,7 +137,49 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>20</height>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_ut">
+     <property name="title">
+      <string>User templates</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="4,5,1">
+      <item>
+       <widget class="QLabel" name="utLabel">
+        <property name="text">
+         <string>Directory with templates</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="utLineEdit"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="utSelect">
+        <property name="text">
+         <string>Select</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_lower">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Minimum</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
       </size>
      </property>
     </spacer>
@@ -384,14 +423,14 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_bottom">
+    <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>10</height>
       </size>
      </property>
     </spacer>

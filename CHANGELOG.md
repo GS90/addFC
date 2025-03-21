@@ -2,6 +2,10 @@
 
 ## Release notes
 
+#### 2025.03.21 (**1.4.5**):
+* Fixes.
+* Insert: user templates.
+
 #### 2025.02.20 (**1.4.3**):
 * Improvements to the __Summary__ tool.
 * Fixes.
