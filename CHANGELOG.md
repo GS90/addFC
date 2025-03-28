@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.03.28 (**1.4.8**):
+* Library updates.
+
 #### 2025.03.21 (**1.4.5**):
 * Fixes.
 * Insert: user templates.

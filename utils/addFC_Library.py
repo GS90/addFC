@@ -2,7 +2,7 @@
 # Copyright 2025 Golodnikov Sergey
 
 
-from PySide import QtGui, QtCore
+from PySide import QtGui, QtCore, QtWidgets
 from zipfile import ZipFile
 import addFC_Logger as Logger
 import addFC_Other as Other
@@ -17,7 +17,7 @@ import subprocess
 import sys
 
 
-VERSION = 3
+VERSION = 4
 
 
 DIR = os.path.join(P.AFC_PATH, 'repo', 'add', 'Library')
@@ -72,6 +72,7 @@ configuration = P.pref_configuration
 
 debug = configuration['library']['debug']
 panel = configuration['library']['panel']
+parameters_set = configuration['library']['parameters'],
 
 library_list = configuration['library_list']
 library_recent = configuration['library']['recent']
@@ -429,12 +430,14 @@ class widget():
             pref = {
                 'debug': configuration['library']['debug'],
                 'panel': configuration['library']['panel'],
+                'parameters': configuration['library']['parameters'],
             }
 
             u = FreeCAD.Gui.PySideUic.loadUi(ls)
 
-            u.panel.setChecked(pref['panel'])
             u.debug.setChecked(pref['debug'])
+            u.panel.setChecked(pref['panel'])
+            u.parameters.setChecked(pref['parameters'])
 
             # information about the library:
 
@@ -483,6 +486,11 @@ class widget():
             def apply() -> None:
                 pref['debug'] = u.debug.isChecked()
                 pref['panel'] = u.panel.isChecked()
+                pref['parameters'] = u.parameters.isChecked()
+                global debug
+                debug = pref['debug']
+                global parameters_set
+                parameters_set = pref['parameters']
                 global configuration
                 configuration['library'].update(pref)
                 P.save_pref(P.PATH_CONFIGURATION, configuration)
@@ -689,11 +697,22 @@ def add_object(dp: str,
             dst.LinkCopyOnChange = lcoc
             if conf != '' and group != '' and group in src.PropertiesList:
                 setattr(dst, group, conf)  # apply configuration
+            if parameters_set:
+                properties = parameters(src)
+                if properties is not None:
+                    for p in properties:
+                        setattr(dst, 'Library_' + p, properties[p][1])
             ad.recompute()
             dst.Placement = placement
             rename(src, dst)
 
         case 'Simple':
+            if parameters_set:
+                properties = parameters(src)
+                if properties is not None:
+                    for p in properties:
+                        setattr(src, 'Library_' + p, properties[p][1])
+                        src.recompute(True)
             shape = Part.getShape(src, '', needSubElement=False, refine=False)
             dst = ad.addObject('Part::Feature', 'Feature')
             dst.Shape = shape
@@ -714,8 +733,13 @@ def add_object(dp: str,
 
         case 'Copy':
             dst = ad.copyObject(src, True, True)
-            dst.Placement = placement
-            rename(src, dst)
+            dst[-1].Placement = placement
+            rename(src, dst[-1])
+            if parameters_set:
+                properties = parameters(src)
+                if properties is not None:
+                    for p in properties:
+                        setattr(dst[-1], 'Library_' + p, properties[p][1])
             if not opened:
                 FreeCAD.closeDocument(doc.Name)
 
@@ -738,7 +762,79 @@ def add_object(dp: str,
 # ------------------------------------------------------------------------------
 
 
-def rename(src, dst) -> None:
+def parameters(src) -> dict | None:
+    properties = {}
+    for p in src.PropertiesList:
+        if p.startswith('Library_'):
+            properties[p[len('Library_'):]] = [
+                src.getTypeIdOfProperty(p), src.getPropertyByName(p)]
+    if len(properties) == 0:
+        return None
+    dialog = Dialog(properties)
+    dialog.exec_()
+    values = dialog.values
+    for p in properties:
+        if p in values:
+            match properties[p][0]:
+                case 'App::PropertyInteger' | 'App::PropertyFloat':
+                    properties[p][1] = values[p].value()
+                case _:
+                    properties[p][1] = values[p].text()
+    if len(properties) == 0:
+        return None
+    return properties
+
+
+class Dialog(QtWidgets.QDialog):
+    def __init__(self, properties):
+        super(Dialog, self).__init__()
+
+        self.values = {}
+
+        self.setWindowTitle('Parameters')
+        layout_v = QtWidgets.QVBoxLayout()
+
+        for p in properties:
+            layout_h = QtWidgets.QHBoxLayout()
+            self.label = QtWidgets.QLabel(self)
+            self.label.setText(p)
+            layout_h.addWidget(self.label)
+            match properties[p][0]:
+                case 'App::PropertyInteger':
+                    self.input = QtWidgets.QSpinBox(self)
+                    self.input.setMinimum(2)
+                    self.input.setMaximum(300)
+                    self.input.setValue(int(properties[p][1]))
+                case 'App::PropertyFloat':
+                    self.input = QtWidgets.QDoubleSpinBox(self)
+                    self.input.setMinimum(2)
+                    self.input.setMaximum(300)
+                    self.input.setValue(float(properties[p][1]))
+                case _:
+                    self.input = QtWidgets.QLineEdit(self)
+                    self.input.setText(str(properties[p][1]))
+            layout_h.addWidget(self.input)
+            layout_v.addLayout(layout_h)
+            self.values[p] = self.input
+
+        layout_h = QtWidgets.QHBoxLayout()
+        layout_h.addItem(QtGui.QSpacerItem(
+            40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum))
+
+        self.button = QtWidgets.QPushButton('Apply', self)
+        self.button.clicked.connect(self.submit)
+        layout_h.addWidget(self.button)
+        layout_v.addLayout(layout_h)
+        self.setLayout(layout_v)
+
+    def submit(self):
+        self.accept()
+
+
+# ------------------------------------------------------------------------------
+
+
+def rename(src, dst) -> str:
     if 'Add_Name' in src.PropertiesList:
         dst.Label = src.getPropertyByName('Add_Name') + ' 001'
     else:

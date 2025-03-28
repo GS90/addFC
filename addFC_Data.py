@@ -54,17 +54,17 @@ configuration = {
         'Letter 2': '',
         'Letter 3': '',
     },
-    # library:
+    # library preferences:
     'library': {
         'debug': False,
         'lcoc': 'Enabled',
         'panel': True,
+        'parameters': True,
         'recent': 'DIN',
         'sic': False,
         'variation': 'Simple',
     },
     'library_list': {
-        # standard:
         'DIN': None,
         'ISO': None,
         'ГОСТ': None,

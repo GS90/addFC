@@ -168,6 +168,7 @@
     </message>
     <message>
         <location filename="../ui/info.ui" line="471"/>
+        <location filename="../ui/insert.ui" line="85"/>
         <location filename="../ui/list.ui" line="57"/>
         <location filename="../ui/properties.ui" line="153"/>
         <location filename="../../utils/addFC_Explode.ui" line="574"/>
@@ -223,7 +224,7 @@
     <message>
         <location filename="../ui/info_set.ui" line="140"/>
         <location filename="../../utils/addFC_Explode_set.ui" line="204"/>
-        <location filename="../../utils/addFC_Library_set.ui" line="172"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="182"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
@@ -313,102 +314,117 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation>Дополнения</translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="95"/>
+        <location filename="../ui/pref_other.ui" line="92"/>
         <source>SheetMetal Workbench</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="105"/>
+        <location filename="../ui/pref_other.ui" line="102"/>
         <source>ezdxf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="115"/>
+        <location filename="../ui/pref_other.ui" line="112"/>
         <source>NumPy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="125"/>
+        <location filename="../ui/pref_other.ui" line="122"/>
         <source>FFmpeg</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="151"/>
+        <location filename="../ui/pref_other.ui" line="148"/>
+        <source>User templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/pref_other.ui" line="154"/>
+        <source>Directory with templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/pref_other.ui" line="164"/>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/pref_other.ui" line="190"/>
         <source>RU std: Template</source>
         <translation>RU std: Шаблон чертежа</translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="157"/>
+        <location filename="../ui/pref_other.ui" line="196"/>
         <source>Основная надпись</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="165"/>
+        <location filename="../ui/pref_other.ui" line="204"/>
         <source>Утвердил</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="181"/>
+        <location filename="../ui/pref_other.ui" line="220"/>
         <source>Обозначение</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="191"/>
+        <location filename="../ui/pref_other.ui" line="230"/>
         <source>Разработ.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="201"/>
+        <location filename="../ui/pref_other.ui" line="240"/>
         <source>Н. контр.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="214"/>
+        <location filename="../ui/pref_other.ui" line="253"/>
         <source>Проверил</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="224"/>
+        <location filename="../ui/pref_other.ui" line="263"/>
         <source>Т. контр.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="244"/>
+        <location filename="../ui/pref_other.ui" line="283"/>
         <source>Материал</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="277"/>
+        <location filename="../ui/pref_other.ui" line="316"/>
         <source>Наименование</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="290"/>
+        <location filename="../ui/pref_other.ui" line="329"/>
         <source>Организация</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="300"/>
+        <location filename="../ui/pref_other.ui" line="339"/>
         <source>Литера</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="332"/>
+        <location filename="../ui/pref_other.ui" line="371"/>
         <source>Масса | Маштаб</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="357"/>
+        <location filename="../ui/pref_other.ui" line="396"/>
         <source>Шаблоны по умолчанию</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="363"/>
+        <location filename="../ui/pref_other.ui" line="402"/>
         <source>Шаблон текстового документа</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_other.ui" line="373"/>
+        <location filename="../ui/pref_other.ui" line="412"/>
         <source>Шаблон графического документа</source>
         <translation type="unfinished"></translation>
     </message>
@@ -591,6 +607,27 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation>След</translation>
     </message>
     <message>
+        <location filename="../ui/insert.ui" line="26"/>
+        <source>Select a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/insert.ui" line="34"/>
+        <source>Source of templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/insert.ui" line="56"/>
+        <source>Select a template to create a drawing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/insert.ui" line="65"/>
+        <source>Switch to TechDraw</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/insert.ui" line="92"/>
         <location filename="../../utils/addFC_Explode.ui" line="311"/>
         <source>Create</source>
         <translation>Создать</translation>
@@ -783,6 +820,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     </message>
     <message>
         <location filename="../../utils/addFC_Library.ui" line="244"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="33"/>
         <source>Preferences</source>
         <translation>Параметры</translation>
     </message>
@@ -802,62 +840,62 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation>Настройки библиотеки</translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="33"/>
-        <source>Display</source>
-        <translation>Отображение</translation>
-    </message>
-    <message>
         <location filename="../../utils/addFC_Library_set.ui" line="39"/>
         <source>Displaying the library on the task panel</source>
         <translation>Отображение на панели задач</translation>
     </message>
     <message>
         <location filename="../../utils/addFC_Library_set.ui" line="49"/>
+        <source>Set parameters when adding</source>
+        <translation>Задать параметры при добавлении</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Library_set.ui" line="59"/>
         <source>Show service messages</source>
         <translation>Показать служебные сообщения</translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="62"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="72"/>
         <source>The structure of the current library</source>
         <translation>Структура текущей библиотеки</translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="71"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="81"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="78"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="88"/>
         <source>Catalogs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="85"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="95"/>
         <source>Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="92"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="102"/>
         <source>Objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="105"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="115"/>
         <source>addFC standard library</source>
         <translation>addFC стандартная библиотека</translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="111"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="121"/>
         <source>Workbench version - 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="118"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="128"/>
         <source>Local version - 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Library_set.ui" line="131"/>
+        <location filename="../../utils/addFC_Library_set.ui" line="141"/>
         <source>Update library</source>
         <translation>Обновить</translation>
     </message>

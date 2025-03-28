@@ -11,13 +11,13 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>410</height>
+    <height>440</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>410</height>
+    <height>440</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,13 +30,23 @@
       <string notr="true">QGroupBox:title {color: #666}</string>
      </property>
      <property name="title">
-      <string>Display</string>
+      <string>Preferences</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
        <widget class="QCheckBox" name="panel">
         <property name="text">
          <string>Displaying the library on the task panel</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="parameters">
+        <property name="text">
+         <string>Set parameters when adding</string>
         </property>
         <property name="checked">
          <bool>true</bool>

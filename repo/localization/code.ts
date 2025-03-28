@@ -69,83 +69,88 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="797"/>
+        <location filename="../../addFC.py" line="796"/>
         <source>Add Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="799"/>
+        <location filename="../../addFC.py" line="798"/>
         <source>Add properties to an object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="938"/>
+        <location filename="../../addFC.py" line="937"/>
         <source>You need to select an object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1219"/>
+        <location filename="../../addFC.py" line="1218"/>
         <source>Creating a Drawing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1221"/>
+        <location filename="../../addFC.py" line="1220"/>
         <source>Create a drawing based on a template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1243"/>
-        <source>Create</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../addFC.py" line="1280"/>
+        <location filename="../../addFC.py" line="1314"/>
         <source>Supporting files such as templates, fonts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1328"/>
+        <location filename="../../addFC.py" line="1362"/>
         <source>Help and Example</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1330"/>
+        <location filename="../../addFC.py" line="1364"/>
         <source>Help, examples and additional files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1342"/>
+        <location filename="../../addFC.py" line="1376"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1395"/>
+        <location filename="../../addFC.py" line="1429"/>
         <source>Library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1397"/>
+        <location filename="../../addFC.py" line="1431"/>
         <source>Component library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1420"/>
+        <location filename="../../addFC.py" line="1454"/>
         <source>Explode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1422"/>
+        <location filename="../../addFC.py" line="1456"/>
         <source>Exploded view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1445"/>
+        <location filename="../../addFC.py" line="1479"/>
         <source>Pipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC.py" line="1447"/>
+        <location filename="../../addFC.py" line="1481"/>
         <source>Creating a pipe by points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="1505"/>
+        <source>Summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../addFC.py" line="1507"/>
+        <source>Information about selected elements</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
