@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.04.13 (**1.4.9**):
+* Improvements to batch unfolding of sheet metal parts.
+
 #### 2025.03.28 (**1.4.8**):
 * Library updates.
 

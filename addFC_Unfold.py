@@ -63,11 +63,13 @@ def dxf_postprocessor(file, sign: str, bb) -> None:
     file.save()
 
 
-def cleaning(garbage: tuple, skip: str = '') -> None:
-    for i in garbage:
-        if i != skip:
+def cleaning(doc: FreeCAD.Document, skip: str = '') -> None:
+    objects = doc.findObjects()
+    objects.reverse()
+    for obj in objects:
+        if obj.Name != skip:
             try:
-                FreeCAD.ActiveDocument.removeObject(i)
+                doc.removeObject(obj.Name)
             except BaseException:
                 pass
 
@@ -90,6 +92,8 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
         Logger.error(error)
         return
 
+    ad = FreeCAD.ActiveDocument
+
     # unfolder, version check:
     if P.FC_VERSION[0] == '0' and int(P.FC_VERSION[1]) < 21:
         new_unfolder = False
@@ -101,34 +105,16 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
         else:
             new_unfolder = True
 
-    # required values:
     if new_unfolder:
-        sketch_verification = UNFOLD_SKETCH
-        garbage = (
-            # case sensitive!
-            REPRODUCTION,
-            sketch_verification,
-            'Unfold_Sketch_Bends',
-            'Unfold_Sketch_Holes',
-            'Unfold_Sketch_Internal',
-            UNFOLD_OBJECT,  # the object must be the last
-        )
+        sketch_verification = 'Unfold_Sketch'
     else:
         sketch_verification = 'Unfold_Sketch_Outline'
-        garbage = (
-            # case sensitive!
-            REPRODUCTION,
-            UNFOLD_SKETCH,
-            'Unfold_Sketch_Bends', 'Unfold_Sketch_bends',
-            'Unfold_Sketch_Internal',
-            sketch_verification,
-            UNFOLD_OBJECT,  # the object must be the last
-        )
 
     centering = w.checkBoxCentering.isChecked()
     along_x = w.checkBoxAlongX.isChecked()
 
     TURN = FreeCAD.Rotation(FreeCAD.Vector(0.0, 0.0, 1.0), 90.0)
+    ZERO = FreeCAD.Placement()
 
     steel = P.pref_steel
 
@@ -150,11 +136,6 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
         if 'Prefix' in w.comboBoxSignature.currentText():
             signature[1] = str(w.lineEditPrefix.text()).strip()
 
-    ZERO = FreeCAD.Placement()
-
-    doc = FreeCAD.newDocument(label='Unfold')
-    getattr(w, "raise")()
-
     report = {'Parts': {}, 'Materials': {}}
 
     progress_value = 0
@@ -163,6 +144,8 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
     start = time.time()
     w.progress.setValue(progress_value)
     FreeCAD.Gui.updateGui()
+
+    doc = FreeCAD.newDocument(label='Unfold', hidden=True)
 
     for p in parts:
 
@@ -227,12 +210,12 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
                 # spare:
                 target[2] = n
 
-        # selection:
-        face = 'Face' + str(target[1])  # base
-        FreeCAD.Gui.Selection.addSelection(doc.Name, body.Name, face, 0, 0, 0)
-
-        # unfold:
         Logger.unfold(f'{p}: {material} ({thickness}) {k_factor}')
+
+        # selection and unfolding:
+        face = 'Face' + str(target[1])  # base
+        FreeCAD.Gui.Selection.clearSelection()
+        FreeCAD.Gui.Selection.addSelection(doc.Name, body.Name, face, 0, 0, 0)
         u.Activated(None)
         FreeCAD.Gui.Selection.clearSelection()
 
@@ -257,23 +240,23 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
         if doc.getObject(sketch_verification) is None:
             # todo: how to check 'new_unfolder' correctly?
             Logger.warning("wrong, let's try a spare face...")
-            cleaning(garbage, REPRODUCTION)
+            cleaning(doc, REPRODUCTION)
             # switching to spare:
             face = 'Face' + str(target[2])
+            FreeCAD.Gui.Selection.clearSelection()
             FreeCAD.Gui.Selection.addSelection(
                 doc.Name, body.Name, face, 0, 0, 0)
-            if u is not None:
-                u.Activated(None)
+            u.Activated(None)
             FreeCAD.Gui.Selection.clearSelection()
             # verify:
             if doc.getObject(sketch_verification) is None:
-                cleaning(garbage)
+                cleaning(doc)
                 Logger.error(f"'{p}' unfold error... skip")
                 continue
 
         us = doc.getObject(UNFOLD_SKETCH)
         if us is None:
-            cleaning(garbage)
+            cleaning(doc)
             Logger.error(f"'{p}' unfold error... skip")
             continue
         us.recompute(True)
@@ -367,7 +350,7 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
                 f = os.path.join(target, f'{file} ({i + 1}).step')
                 ImportGui.export([body], f)
 
-        cleaning(garbage)
+        cleaning(doc)
         Logger.log('...done')
 
         part_area = round(body.Shape.Volume / 1000000 / thickness, 4)  # m^2
@@ -395,7 +378,7 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
 
     doc.clearDocument()
     FreeCAD.closeDocument(doc.Name)
-    getattr(w, "raise")()
+    FreeCAD.setActiveDocument(ad.Name)
 
     for i in report['Materials']:
         report['Materials'][i] = round(report['Materials'][i], 4)
