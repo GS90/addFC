@@ -430,6 +430,7 @@ def compilation(strict: bool = True,
             Other.recompute_configuration_tables()
         except BaseException:
             pass
+    # todo: ...
 
     details, info_headers, details_headers = {}, {}, {}
 
@@ -852,7 +853,7 @@ def export(path: str, target: str, bom) -> str:
 
                         # name length check:
                         n = str(info[i][j]['Name'])
-                        if len(n) > 34:
+                        if len(n) > 32:
                             sp = int(len(n) / 2)
                             uno, dos = n[:sp], n[sp:]
                             s_uno = uno.rsplit(' ', 1)
@@ -867,7 +868,7 @@ def export(path: str, target: str, bom) -> str:
                             pages['e'][p][f'Name {x}'] = uno
                             x += 1
                             count += 1
-                            pages['e'][p][f'Name {x}'] = dos
+                            pages['e'][p][f'Name {x}'] = '  ' + dos
                         else:
                             pages['e'][p][f'Name {x}'] = n
 

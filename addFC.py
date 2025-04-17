@@ -1248,6 +1248,10 @@ class AddFCInsert():
         user_tpl = P.get_user_tpl(path_user_tpl)
         user_tpl = dict(sorted(user_tpl.items()))
 
+        # last selected:
+        res = conf.get('drawing_templates_resource', 'stdRU')
+        w.resources.setCurrentText(res)
+
         w.switchTD.setChecked(conf.get('insert_switch', True))
 
         model = QtGui.QStandardItemModel()
@@ -1263,9 +1267,10 @@ class AddFCInsert():
             else:
                 for i in user_tpl.keys():
                     model.appendRow(QtGui.QStandardItem(i.rstrip('.svg')))
+
         w.resources.currentTextChanged.connect(fill)
-        w.resources.setCurrentText(
-            conf.get('drawing_templates_resource', 'stdRU'))
+
+        fill(res)
 
         def create() -> None:
             resource = w.resources.currentText()

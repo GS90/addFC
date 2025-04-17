@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.04.18 (**1.5.0**):
+* Update: stdRU (templates, font and example).
+
 #### 2025.04.13 (**1.4.9**):
 * Improvements to batch unfolding of sheet metal parts.
 

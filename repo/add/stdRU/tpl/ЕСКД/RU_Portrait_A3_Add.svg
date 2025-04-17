@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="420mm" height="297mm" version="1.1" viewBox="0 0 420 297" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:freecad="http://www.freecadweb.org/wiki/index.php?title=Svg_Namespace" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<metadata>
+<rdf:RDF>
+<cc:Work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/"/>
+<dc:creator>
+<cc:Agent>
+<dc:title>Golodnikov Sergey</dc:title>
+</cc:Agent>
+</dc:creator>
+</cc:Work>
+<cc:License rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+<cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+<cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+<cc:requires rdf:resource="http://creativecommons.org/ns#Notice"/>
+<cc:requires rdf:resource="http://creativecommons.org/ns#Attribution"/>
+<cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+<cc:requires rdf:resource="http://creativecommons.org/ns#ShareAlike"/>
+</cc:License>
+</rdf:RDF>
+</metadata>
+<path d="m415 292v-287h-395v287z" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m20 19h70" fill="none" stroke="#000" stroke-width=".35"/>
+<text transform="rotate(180 55.073 9.6091)" x="55.072723" y="9.6090908" fill="#000000" font-family="'OpenGost Type A TT'" font-size="8px" letter-spacing="0px" stroke-width=".18" text-anchor="middle" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5" freecad:editable="Designation"><tspan x="55.072723" y="9.6090908" font-family="'OpenGost Type A TT'" font-size="8px" stroke-width=".18" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Обозначение</tspan></text>
+<text x="384.43182" y="294.70908" fill="#000000" font-family="'OpenGost Type A TT'" font-size="3px" letter-spacing="0px" stroke-width=".18" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="384.43182" y="294.70908" font-family="'OpenGost Type A TT'" font-size="3px" stroke-width=".18" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Формат А3</tspan></text>
+<path d="m13 147v145" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m8 267h12" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m8 232h12" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m8 207h12" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m8 182h12" fill="none" stroke="#000" stroke-width=".35"/>
+<text transform="rotate(-90)" x="-289.19547" y="12.127273" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".18" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="-289.19547" y="12.127273" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".18" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Инв. № подл.</tspan></text>
+<text transform="rotate(-90)" x="-260.01364" y="12.081819" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".18" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="-260.01364" y="12.081819" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".18" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Подп. и дата</tspan></text>
+<text transform="rotate(-90)" x="-229.3091" y="12.127273" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".18" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="-229.3091" y="12.127273" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".18" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Взам. инв. №</tspan></text>
+<text transform="rotate(-90)" x="-203.99547" y="12.127273" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".18" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="-203.99547" y="12.127273" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".18" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Инв. № дубл.</tspan></text>
+<text transform="rotate(-90)" x="-175.61363" y="12.081819" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".18" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="-175.61363" y="12.081819" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".18" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Подп. и дата</tspan></text>
+<text x="324.66364" y="294.73636" fill="#000000" font-family="'OpenGost Type A TT'" font-size="3px" letter-spacing="0px" stroke-width=".18" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="324.66364" y="294.73636" font-family="'OpenGost Type A TT'" font-size="3px" stroke-width=".18" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Копировал</tspan></text>
+<path d="m90 5v14.175" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m20 147v145h-12v-145z" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m230 282h65" fill="none" stroke="#000" stroke-width=".18"/>
+<path d="m230 287h65" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m295 277v15" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m405 277v15" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m285 277v15" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m270 277v15" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m247 277v15" fill="none" stroke="#000" stroke-width=".35"/>
+<text x="406.08636" y="281.28183" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".25" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="406.08636" y="281.28183" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".25" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Лист</tspan></text>
+<text x="230.47273" y="291.08182" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".25" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="230.47273" y="291.08182" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".25" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Изм.</tspan></text>
+<text x="238.13637" y="291.08182" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".25" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="238.13637" y="291.08182" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".25" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Лист</tspan></text>
+<text x="251.57272" y="291.08182" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".25" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="251.57272" y="291.08182" font-family="'OpenGost Type A TT'" font-size="5px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">№ докум.</tspan></text>
+<text x="273.57272" y="291.08182" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".25" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="273.57272" y="291.08182" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".25" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Подп.</tspan></text>
+<text x="285.95456" y="291.08182" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".25" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="285.95456" y="291.08182" font-family="'OpenGost Type A TT'" font-size="5px" stroke-width=".25" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Дата</tspan></text>
+<text x="410.75455" y="288.79401" fill="#000000" font-family="'OpenGost Type A TT'" font-size="6px" letter-spacing="0px" stroke-width=".25" text-anchor="middle" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5" freecad:editable="Sheet"><tspan x="410.75455" y="288.79401" font-family="'OpenGost Type A TT'" font-size="6px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">2</tspan></text>
+<path d="m237 277v15" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m395 277v15" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m395 282.13h20" fill="none" stroke="#000" stroke-width=".18"/>
+<text x="397.17273" y="281.28183" fill="#000000" font-family="'OpenGost Type A TT'" font-size="5px" letter-spacing="0px" stroke-width=".25" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5"><tspan x="397.17273" y="281.28183" font-family="'OpenGost Type A TT'" font-size="5px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Вер.</tspan></text>
+<text x="400.81363" y="288.79391" fill="#000000" font-family="'OpenGost Type A TT'" font-size="6px" letter-spacing="0px" stroke-width=".25" text-anchor="middle" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5" freecad:editable="Version"><tspan x="400.81363" y="288.79391" font-family="'OpenGost Type A TT'" font-size="6px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">1</tspan></text>
+<text x="345.97272" y="286.79999" fill="#000000" font-family="'OpenGost Type A TT'" font-size="8px" letter-spacing="0px" stroke-width=".25" text-anchor="middle" word-spacing="0px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.5" freecad:editable="Designation"><tspan x="345.97272" y="286.79999" font-family="'OpenGost Type A TT'" font-size="8px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">Обозначение</tspan></text>
+<path d="m230 277h185" fill="none" stroke="#000" stroke-width=".35"/>
+<path d="m230 276.82v15.175" fill="none" stroke="#000" stroke-width=".35"/>
+</svg>
