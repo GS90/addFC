@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>332</width>
-    <height>749</height>
+    <width>374</width>
+    <height>718</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -299,9 +299,9 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="CoM_Layout">
+       <layout class="QHBoxLayout" name="CoMG_Layout">
         <item>
-         <spacer name="CoM_Spacer">
+         <spacer name="CoMG_Spacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -314,14 +314,14 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="CoM_Label">
+         <widget class="QLabel" name="CoMG_Label">
           <property name="text">
            <string>Size</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="CoM_Size">
+         <widget class="QSpinBox" name="CoMG_Size">
           <property name="suffix">
            <string>%</string>
           </property>
@@ -337,9 +337,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="CoM_Set">
+         <widget class="QPushButton" name="CoMG_Set">
           <property name="text">
-           <string>Display center of mass</string>
+           <string>Display center of mass/gravity</string>
           </property>
          </widget>
         </item>
@@ -383,101 +383,28 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="Subobjects_Grid" columnstretch="0,1,0">
-        <item row="4" column="0">
-         <widget class="QLabel" name="Radius_Label">
-          <property name="styleSheet">
-           <string notr="true">margin-right: 8px</string>
-          </property>
-          <property name="text">
-           <string>Radius</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QDoubleSpinBox" name="Perimeter_Value">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-          <property name="buttonSymbols">
-           <enum>QAbstractSpinBox::NoButtons</enum>
-          </property>
-          <property name="decimals">
-           <number>4</number>
-          </property>
-         </widget>
-        </item>
+       <layout class="QGridLayout" name="Subobjects_Grid" columnstretch="0,0,0">
         <item row="1" column="2">
          <widget class="QComboBox" name="Perimeter_U"/>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="Length_Label">
+        <item row="4" column="0">
+         <widget class="QLabel" name="RD_Label">
           <property name="styleSheet">
            <string notr="true">margin-right: 8px</string>
           </property>
           <property name="text">
-           <string>Length</string>
+           <string>Radius &amp; Diameter</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="Perimeter_Label">
-          <property name="styleSheet">
-           <string notr="true">margin-right: 8px</string>
-          </property>
-          <property name="text">
-           <string>Perimeter</string>
-          </property>
-         </widget>
+        <item row="2" column="2">
+         <widget class="QComboBox" name="DLRD_U"/>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="Area_Label">
-          <property name="styleSheet">
-           <string notr="true">margin-right: 8px</string>
-          </property>
-          <property name="text">
-           <string>Area</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QDoubleSpinBox" name="Radius_Value">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-          <property name="buttonSymbols">
-           <enum>QAbstractSpinBox::NoButtons</enum>
-          </property>
-          <property name="decimals">
-           <number>4</number>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="Diameter_Label">
-          <property name="styleSheet">
-           <string notr="true">margin-right: 8px</string>
-          </property>
-          <property name="text">
-           <string>Diameter</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QDoubleSpinBox" name="Area_Value">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-          <property name="buttonSymbols">
-           <enum>QAbstractSpinBox::NoButtons</enum>
-          </property>
-          <property name="decimals">
-           <number>4</number>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QDoubleSpinBox" name="Diameter_Value">
+        <item row="2" column="1">
+         <widget class="QDoubleSpinBox" name="Diagonal_Value">
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -492,8 +419,21 @@
         <item row="0" column="2">
          <widget class="QComboBox" name="Area_U"/>
         </item>
-        <item row="3" column="1">
-         <widget class="QDoubleSpinBox" name="Length_Value">
+        <item row="0" column="1">
+         <widget class="QDoubleSpinBox" name="Area_Value">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="buttonSymbols">
+           <enum>QAbstractSpinBox::NoButtons</enum>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QDoubleSpinBox" name="Perimeter_Value">
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -513,10 +453,52 @@
           <property name="text">
            <string>Diagonal</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QDoubleSpinBox" name="Diagonal_Value">
+        <item row="1" column="0">
+         <widget class="QLabel" name="Perimeter_Label">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 8px</string>
+          </property>
+          <property name="text">
+           <string>Perimeter</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="Area_Label">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 8px</string>
+          </property>
+          <property name="text">
+           <string>Area</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="Length_Label">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 8px</string>
+          </property>
+          <property name="text">
+           <string>Length</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QDoubleSpinBox" name="Length_Value">
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -528,8 +510,31 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
-         <widget class="QComboBox" name="DLRD_U"/>
+        <item row="4" column="2">
+         <widget class="QDoubleSpinBox" name="Diameter_Value">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="buttonSymbols">
+           <enum>QAbstractSpinBox::NoButtons</enum>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QDoubleSpinBox" name="Radius_Value">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="buttonSymbols">
+           <enum>QAbstractSpinBox::NoButtons</enum>
+          </property>
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

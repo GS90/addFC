@@ -70,7 +70,7 @@ observer = SelectionObserver()
 class Info():
     area = 0
     bound_box = [0, 0, 0]
-    center_of_mass = None
+    center_of_MG = None
     conf = P.pref_configuration
     decimals = 2
     designation = ['', '', '']
@@ -144,30 +144,30 @@ class Info():
 
         # set the center of mass:
         def set_com():
-            if self.center_of_mass is None:
+            if self.center_of_MG is None:
                 return
 
             ad, obj = FreeCAD.ActiveDocument, None
 
             objects = ad.findObjects('Part::Sphere')
             for i in objects:
-                if i.Label2 == self.center_of_mass[0]:
+                if i.Label2 == self.center_of_MG[0]:
                     obj = i
                     break
             if obj is None:
-                obj = ad.addObject('Part::Sphere', 'CoM_001')
-                obj.Label2 = self.center_of_mass[0]
+                obj = ad.addObject('Part::Sphere', self.center_of_MG[4][0])
+                obj.Label2 = self.center_of_MG[0]
 
-            obj.ViewObject.ShapeColor = (170, 0, 0)
+            obj.ViewObject.ShapeColor = self.center_of_MG[4][1]
             obj.ViewObject.DisplayMode = 'Shaded'
-            position = self.center_of_mass[1] + self.center_of_mass[3]
+            position = self.center_of_MG[1] + self.center_of_MG[3]
             obj.Placement.Base = position
             radius = round(
-                self.center_of_mass[2] * self.form.CoM_Size.value() / 100)
+                self.center_of_MG[2] * self.form.CoMG_Size.value() / 100)
             obj.Radius = radius
             obj.recompute(True)
 
-        self.form.CoM_Set.clicked.connect(set_com)
+        self.form.CoMG_Set.clicked.connect(set_com)
 
         # select similar subobjects:
         self.form.SelectSimilar.clicked.connect(self.select_similar)
@@ -356,7 +356,7 @@ class Info():
         designation = [[], [], []]
         bound_box = [0, 0, 0]
         volume = 0
-        center_of_mass = None
+        center_of_MG = None
 
         for k, v in self.objects.items():
             # designation:
@@ -365,24 +365,28 @@ class Info():
             designation[1].append(v.Name)
             designation[2].append(v.Label)
             # shape:
-            try:
+            if hasattr(v, 'Tip'):
                 shape = v.Tip.Shape
-            except BaseException:
+            else:
                 shape = v.Shape
             bound_box[0] += shape.BoundBox.XLength
             bound_box[1] += shape.BoundBox.YLength
             bound_box[2] += shape.BoundBox.ZLength
             volume += shape.Volume
             # center of mass:
-            try:
+            if hasattr(shape, 'CenterOfMass'):
                 center = shape.CenterOfMass
-            except BaseException:
+                extra = (f'{v.Label}_CoM_001', (170, 0, 0))
+            else:
                 center = shape.CenterOfGravity
-            center_of_mass = [
+                extra = (f'{v.Label}_CoG_001', (0, 85, 255))
+            # result:
+            center_of_MG = [
                 k,
                 center,
                 shape.BoundBox.DiagonalLength,
                 v.Placement.Base,
+                extra,
             ]
 
         self.designation[0] = ', '.join(designation[0])
@@ -391,7 +395,7 @@ class Info():
 
         self.bound_box = bound_box
         self.volume = volume
-        self.center_of_mass = center_of_mass
+        self.center_of_MG = center_of_MG
 
         self.set_designation()
         self.set_bb()

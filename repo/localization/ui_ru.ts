@@ -336,17 +336,17 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../ui/pref_other.ui" line="148"/>
         <source>User templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользовательские шаблоны</translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="154"/>
         <source>Directory with templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Каталог с шаблонами</translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="164"/>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать</translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="190"/>
@@ -609,22 +609,22 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../ui/insert.ui" line="26"/>
         <source>Select a template</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите шаблон</translation>
     </message>
     <message>
         <location filename="../ui/insert.ui" line="34"/>
         <source>Source of templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Источник шаблонов</translation>
     </message>
     <message>
         <location filename="../ui/insert.ui" line="56"/>
         <source>Select a template to create a drawing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите шаблон для создания чертежа.</translation>
     </message>
     <message>
         <location filename="../ui/insert.ui" line="65"/>
         <source>Switch to TechDraw</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти в TechDraw</translation>
     </message>
     <message>
         <location filename="../ui/insert.ui" line="92"/>
@@ -932,7 +932,6 @@ All models are created in FreeCAD version 0.21.2.</source>
     </message>
     <message>
         <location filename="../../utils/addFC_Pipe.ui" line="100"/>
-        <location filename="../../utils/addFC_Summary.ui" line="462"/>
         <source>Diameter</source>
         <translation>Диаметр</translation>
     </message>
@@ -1027,47 +1026,47 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="342"/>
-        <source>Display center of mass</source>
-        <translation>Отобразить центр массы</translation>
-    </message>
-    <message>
         <location filename="../../utils/addFC_Summary.ui" line="357"/>
         <source>Subobjects </source>
         <translation>Подобъекты </translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="393"/>
-        <source>Radius</source>
-        <translation>Радиус</translation>
-    </message>
-    <message>
-        <location filename="../../utils/addFC_Summary.ui" line="419"/>
+        <location filename="../../utils/addFC_Summary.ui" line="493"/>
         <source>Length</source>
         <translation>Длина</translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="429"/>
+        <location filename="../../utils/addFC_Summary.ui" line="467"/>
         <source>Perimeter</source>
         <translation>Периметр</translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="439"/>
+        <location filename="../../utils/addFC_Summary.ui" line="480"/>
         <source>Area</source>
         <translation>Площадь</translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="514"/>
+        <location filename="../../utils/addFC_Summary.ui" line="454"/>
         <source>Diagonal</source>
         <translation>Диагональ</translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="544"/>
+        <location filename="../../utils/addFC_Summary.ui" line="342"/>
+        <source>Display center of mass/gravity</source>
+        <translation>Центр массы/гравитации</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="396"/>
+        <source>Radius &amp; Diameter</source>
+        <translation>Радиус и диаметр</translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="549"/>
         <source>Select similar subobjects</source>
         <translation>Выбрать похожие</translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="564"/>
+        <location filename="../../utils/addFC_Summary.ui" line="569"/>
         <source>Decimals</source>
         <translation>Десятичные</translation>
     </message>

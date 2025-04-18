@@ -931,7 +931,6 @@ All models are created in FreeCAD version 0.21.2.</source>
     </message>
     <message>
         <location filename="../../utils/addFC_Pipe.ui" line="100"/>
-        <location filename="../../utils/addFC_Summary.ui" line="462"/>
         <source>Diameter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1027,7 +1026,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     </message>
     <message>
         <location filename="../../utils/addFC_Summary.ui" line="342"/>
-        <source>Display center of mass</source>
+        <source>Display center of mass/gravity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1036,37 +1035,37 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="393"/>
-        <source>Radius</source>
+        <location filename="../../utils/addFC_Summary.ui" line="396"/>
+        <source>Radius &amp; Diameter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="419"/>
-        <source>Length</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../utils/addFC_Summary.ui" line="429"/>
-        <source>Perimeter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../utils/addFC_Summary.ui" line="439"/>
-        <source>Area</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../utils/addFC_Summary.ui" line="514"/>
+        <location filename="../../utils/addFC_Summary.ui" line="454"/>
         <source>Diagonal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="544"/>
+        <location filename="../../utils/addFC_Summary.ui" line="467"/>
+        <source>Perimeter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="480"/>
+        <source>Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="493"/>
+        <source>Length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Summary.ui" line="549"/>
         <source>Select similar subobjects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../utils/addFC_Summary.ui" line="564"/>
+        <location filename="../../utils/addFC_Summary.ui" line="569"/>
         <source>Decimals</source>
         <translation type="unfinished"></translation>
     </message>

@@ -2,6 +2,10 @@
 
 ## Release notes
 
+#### 2025.04.19 (**1.5.1**):
+* Improvements: __Summary__ (information about selected elements).
+* Translation updated: Russian.
+
 #### 2025.04.18 (**1.5.0**):
 * Update: stdRU (templates, font and example).
 
