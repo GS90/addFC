@@ -8,7 +8,6 @@ import os
 
 
 class addFC(FreeCAD.Gui.Workbench):
-
     MenuText = 'addFC'
     ToolTip = 'addFC Workbench'
     Icon = os.path.join(P.AFC_PATH_ICON, 'workbench.svg')
@@ -16,7 +15,6 @@ class addFC(FreeCAD.Gui.Workbench):
     import addFC
 
     def Initialize(self):
-
         self.list = [
             # core:
             'AddFCOpenRecentFile',
@@ -50,14 +48,17 @@ class addFC(FreeCAD.Gui.Workbench):
             from PySide import QtGui
             QtGui.QApplication.setFont(QtGui.QFont(font[1], font[2]))
 
-    def Activated(self): return
+    def Activated(self):
+        return
 
-    def Deactivated(self): return
+    def Deactivated(self):
+        return
 
     def ContextMenu(self, recipient):
         self.appendContextMenu('addFC', self.list)
 
-    def GetClassName(self): return 'Gui::PythonWorkbench'
+    def GetClassName(self):
+        return 'Gui::PythonWorkbench'
 
 
 FreeCAD.Gui.addWorkbench(addFC())

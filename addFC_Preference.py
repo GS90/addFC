@@ -512,7 +512,7 @@ class addFCPreferenceProperties():
 
         global pref_properties
         pref_properties = properties
-        save_pref(PATH_PROPERTIES, pref_properties, None)
+        save_pref(PATH_PROPERTIES, pref_properties)
 
 
 # ------------------------------------------------------------------------------
@@ -617,7 +617,7 @@ class addFCPreferenceMaterials():
         def default() -> None:
             global pref_materials
             pref_materials = Data.materials
-            save_pref(PATH_MATERIALS, pref_materials, None)
+            save_pref(PATH_MATERIALS, pref_materials)
             fill()
             set_default_material(pref_configuration['default_material'])
         self.form.pushButtonDefault.clicked.connect(default)
@@ -750,7 +750,7 @@ class addFCPreferenceMaterials():
 
         global pref_materials
         pref_materials = materials
-        save_pref(PATH_MATERIALS, pref_materials, None)
+        save_pref(PATH_MATERIALS, pref_materials)
 
 
 # ------------------------------------------------------------------------------
@@ -886,7 +886,7 @@ class addFCPreferenceSM():
 
         global pref_steel
         pref_steel = steel
-        save_pref(PATH_STEEL, pref_steel, None)
+        save_pref(PATH_STEEL, pref_steel)
 
         color = self.form.color.text().lstrip('#')
         color = tuple(int(color[i:i + 2], 16) for i in (0, 2, 4))

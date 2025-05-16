@@ -89,7 +89,7 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
         from SheetMetalUnfoldCmd import SMUnfoldUnattendedCommandClass as u
     except ImportError as error:
         P.afc_additions['sm'] = [False, '', 'color: #aa0000']
-        Logger.error(error)
+        Logger.error(str(error))
         return
 
     ad = FreeCAD.ActiveDocument

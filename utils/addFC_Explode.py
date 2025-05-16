@@ -21,7 +21,6 @@ else:
 
 ad = FreeCAD.ActiveDocument
 
-
 w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
     os.path.normpath(os.path.dirname(__file__)), 'addFC_Explode.ui'))
 es = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
@@ -62,7 +61,8 @@ EXPORT_PROPERTIES = {
 # ------------------------------------------------------------------------------
 
 
-def get(doc: str, name: str): return FreeCAD.getDocument(doc).getObject(name)
+def get(doc: str, name: str):
+    return FreeCAD.getDocument(doc).getObject(name)
 
 
 def color_convert(hex: str):

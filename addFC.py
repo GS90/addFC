@@ -86,7 +86,8 @@ class AddFCOpenRecentFile():
 
         FreeCAD.Gui.runCommand('Std_Open')
 
-    def IsActive(self): return True
+    def IsActive(self):
+        return True
 
 
 FreeCAD.Gui.addCommand('AddFCOpenRecentFile', AddFCOpenRecentFile())
@@ -113,7 +114,8 @@ class AddFCDisplay():
         FreeCAD.Gui.SendMsgToActiveView('ViewFit')
         return
 
-    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+    def IsActive(self):
+        return True if FreeCAD.ActiveDocument else False
 
 
 FreeCAD.Gui.addCommand('AddFCDisplay', AddFCDisplay())
@@ -142,7 +144,8 @@ class AddFCModelControl():
         _ = loader.load_module()
         return
 
-    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+    def IsActive(self):
+        return True if FreeCAD.ActiveDocument else False
 
 
 FreeCAD.Gui.addCommand('AddFCModelControl', AddFCModelControl())
@@ -458,6 +461,8 @@ class AddFCModelInfo():
             title = title.text()
 
             p = prop.get(header)
+            if p is None:
+                return
 
             enum = materials_list if header == 'Material' else p[2]
 
@@ -488,6 +493,8 @@ class AddFCModelInfo():
                     v = str(value)
 
             i = structure[0].get(title)
+            if i is None:
+                return
 
             try:
                 i[header] = v
@@ -571,7 +578,7 @@ class AddFCModelInfo():
 
             for i in conf['bom_export_alias']:
                 match i:
-                    case 'json':  es.JSON.setChecked(True)
+                    case 'json': es.JSON.setChecked(True)
                     case 'csv': es.CSV.setChecked(True)
                     case 'spreadsheet': es.Spreadsheet.setChecked(True)
 
@@ -742,7 +749,8 @@ class AddFCModelInfo():
 
         return
 
-    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+    def IsActive(self):
+        return True if FreeCAD.ActiveDocument else False
 
 
 FreeCAD.Gui.addCommand('AddFCModelInfo', AddFCModelInfo())
@@ -1188,7 +1196,8 @@ class AddFCProperties():
 
         return
 
-    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+    def IsActive(self):
+        return True if FreeCAD.ActiveDocument else False
 
 
 FreeCAD.Gui.addCommand('AddFCProperties', AddFCProperties())
@@ -1245,8 +1254,11 @@ class AddFCInsert():
         std_tpl = dict(sorted(std_tpl.items()))
 
         # user templates:
-        user_tpl = P.get_user_tpl(path_user_tpl)
-        user_tpl = dict(sorted(user_tpl.items()))
+        if path_user_tpl is not None:
+            user_tpl = P.get_user_tpl(path_user_tpl)
+            user_tpl = dict(sorted(user_tpl.items()))
+        else:
+            user_tpl = {}
 
         # last selected:
         res = conf.get('drawing_templates_resource', 'stdRU')
@@ -1301,7 +1313,8 @@ class AddFCInsert():
         w.pushButtonCreate.clicked.connect(create)
         w.listView.doubleClicked.connect(create)
 
-    def IsActive(self): return True
+    def IsActive(self):
+        return True
 
 
 FreeCAD.Gui.addCommand('AddFCInsert', AddFCInsert())
@@ -1410,7 +1423,8 @@ class AddFCAssistant():
         w.pushButton.clicked.connect(open)
         w.listView.doubleClicked.connect(open)
 
-    def IsActive(self): return True
+    def IsActive(self):
+        return True
 
 
 FreeCAD.Gui.addCommand('AddFCAssistant', AddFCAssistant())
@@ -1442,7 +1456,8 @@ class AddFCLibrary():
         _ = loader.load_module()
         return
 
-    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+    def IsActive(self):
+        return True if FreeCAD.ActiveDocument else False
 
 
 FreeCAD.Gui.addCommand('AddFCLibrary', AddFCLibrary())
@@ -1467,7 +1482,8 @@ class AddFCExplode():
         _ = loader.load_module()
         return
 
-    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+    def IsActive(self):
+        return True if FreeCAD.ActiveDocument else False
 
 
 FreeCAD.Gui.addCommand('AddFCExplode', AddFCExplode())
@@ -1518,7 +1534,8 @@ class AddFCSummary():
         _ = loader.load_module()
         return
 
-    def IsActive(self): return True if FreeCAD.ActiveDocument else False
+    def IsActive(self):
+        return True if FreeCAD.ActiveDocument else False
 
 
 FreeCAD.Gui.addCommand('AddFCSummary', AddFCSummary())

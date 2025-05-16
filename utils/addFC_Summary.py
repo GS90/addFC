@@ -2,6 +2,7 @@
 # Copyright 2025 Golodnikov Sergey
 
 
+import addFC_Logger as Logger
 import addFC_Preference as P
 import FreeCAD
 import FreeCADGui as Gui
@@ -131,9 +132,14 @@ class Info():
                 case 'mass': self.set_mass()
                 case 'so': self.set_subobjects_value()
 
-        def change_unit_bb(): change_unit('bb')
-        def change_unit_mass(): change_unit('mass')
-        def change_unit_so(): change_unit('so')
+        def change_unit_bb():
+            change_unit('bb')
+
+        def change_unit_mass():
+            change_unit('mass')
+
+        def change_unit_so():
+            change_unit('so')
 
         self.form.BB_U.currentTextChanged.connect(change_unit_bb)
         self.form.Volume_U.currentTextChanged.connect(change_unit_mass)
@@ -188,6 +194,7 @@ class Info():
             return
         selection = selection[0]
 
+        sub_object_shape = None
         if selection.HasSubObjects:
             sub_object_shape = selection.SubObjects[-1]
             shape_type = sub_object_shape.ShapeType
@@ -218,8 +225,11 @@ class Info():
         self.objects[key] = object
         if sub != '':
             key = f'{key}.{sub}'
-            self.subobjects[key] = sub_object_shape
-            self.last_selection = [object, sub_object_shape]
+            if sub_object_shape is not None:
+                self.subobjects[key] = sub_object_shape
+                self.last_selection = [object, sub_object_shape]
+            else:
+                Logger.error('object "sub_object_shape" is none...')
         else:
             self.last_selection = None
 
@@ -235,6 +245,10 @@ class Info():
 # ------------------------------------------------------------------------------
 
     def select_similar(self) -> None:
+        if self.last_selection is None:
+            Logger.error('object "last_selection" is none...')
+            return
+
         obj, sub = self.last_selection
 
         similar = []

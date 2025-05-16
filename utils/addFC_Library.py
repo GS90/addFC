@@ -259,11 +259,14 @@ class widget():
                 if len(sp) == 2:
                     conf, object = sp[0], sp[1]
                 else:
-                    pass  # todo: error?
+                    conf = ''  # todo: error?
 
+            catalog, file = None, None
             for i in self.cache_objects:
                 if object == i[0]:
                     catalog, file = i[2], i[1]
+            if catalog is None or file is None:
+                return
 
             self.cache_conf = self.library[catalog][file]['objects'][object]
             self.target = [catalog, file, object]
@@ -411,7 +414,8 @@ class widget():
                 placement_eq,
             )
 
-        def add() -> None: integration(False)
+        def add() -> None:
+            integration(False)
 
         def replace() -> None:
             # the button is always active...
@@ -680,6 +684,7 @@ def add_object(dp: str,
         src = doc.getObjectsByLabel(label)[0]
     except BaseException as e:
         Logger.error(str(e))
+        return
 
     if var != 'Link':
         if conf != '' and group != '' and group in src.PropertiesList:
@@ -742,6 +747,9 @@ def add_object(dp: str,
                         setattr(dst[-1], 'Library_' + p, properties[p][1])
             if not opened:
                 FreeCAD.closeDocument(doc.Name)
+
+        case _:
+            return  # todo: error?
 
     if root != '':
         ad.getObject(root).addObject(dst)
@@ -834,7 +842,7 @@ class Dialog(QtWidgets.QDialog):
 # ------------------------------------------------------------------------------
 
 
-def rename(src, dst) -> str:
+def rename(src, dst) -> None:
     if 'Add_Name' in src.PropertiesList:
         dst.Label = src.getPropertyByName('Add_Name') + ' 001'
     else:
@@ -856,8 +864,9 @@ def extra(replace: bool):
 
     vector, obj = FreeCAD.Vector(), None
 
+    selection = FreeCAD.Gui.Selection.getSelectionEx('', 0)
+
     try:
-        selection = FreeCAD.Gui.Selection.getSelectionEx('', 0)
         if len(selection) == 0:
             return placement, root, placement_eq, replacement
         selection = selection[0]
@@ -892,11 +901,12 @@ def extra(replace: bool):
                     case 'App::Part' | 'Assembly::AssemblyObject':
                         root = s.Name
                         break
-        except BaseException as e:
-            Logger.warning(str(e))
+        except BaseException as exception:
+            Logger.warning(str(exception))
+            return placement, root, placement_eq, replacement
 
-    except BaseException as e:
-        Logger.warning(str(e))
+    except BaseException as exception:
+        Logger.warning(str(exception))
         placement.Base += selection.PickedPoints[0]
 
     if (replace and obj is not None):

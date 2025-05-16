@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.05.17 (**1.5.2**):
+* Refactoring.
+
 #### 2025.04.19 (**1.5.1**):
 * Improvements: __Summary__ (information about selected elements).
 * Translation updated: Russian.

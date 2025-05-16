@@ -19,9 +19,11 @@ def recompute_configuration_tables() -> None:
         for obj in objects:
             for e in obj.ExpressionEngine:
                 s = e[0][len('.cells.Bind.'):].split('.')[0]
-                d = re.search(DIGIT, s).group(0)
-                c = ALPHABET[ALPHABET.index(s.replace(d, '')) - 1] + d
-                obj.recomputeCells(c)
+                d = re.search(DIGIT, s)
+                if d is not None:
+                    d = d.group(0)
+                    c = ALPHABET[ALPHABET.index(s.replace(d, '')) - 1] + d
+                    obj.recomputeCells(c)
 
 
 def error(message: str, header: str = 'ERROR') -> None:
