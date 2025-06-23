@@ -1539,3 +1539,29 @@ class AddFCSummary():
 
 
 FreeCAD.Gui.addCommand('AddFCSummary', AddFCSummary())
+
+
+# ----
+
+
+class AddFCIsolation():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'isolation.svg'),
+                'Accel': 'X',
+                'MenuText': FreeCAD.Qt.translate(
+                    'addFC', 'Isolation'),
+                'ToolTip': FreeCAD.Qt.translate(
+                    'addFC', 'Isolate selected objects')}
+
+    def Activated(self):
+        f = os.path.join(P.AFC_PATH, 'utils', 'addFC_Isolation.py')
+        loader = importlib.machinery.SourceFileLoader('addFC_Isolation', f)
+        _ = loader.load_module()
+        return
+
+    def IsActive(self):
+        return True if FreeCAD.ActiveDocument else False
+
+
+FreeCAD.Gui.addCommand('AddFCIsolation', AddFCIsolation())

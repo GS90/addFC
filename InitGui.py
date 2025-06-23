@@ -29,6 +29,7 @@ class addFC(FreeCAD.Gui.Workbench):
             'AddFCSummary',
             'AddFCExplode',
             'AddFCPipe',
+            'AddFCIsolation',
         ]
 
         self.appendToolbar('addFC', self.list)

@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 1.5.2 - [release notes](CHANGELOG.md).
+Current version 1.6.0 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -56,7 +56,8 @@ Explosion (30 FPS)
 8. Information about selected elements
 9. Exploded view
 10. Creating a pipe by points
-11. Documentation, help and examples
+11. Isolate selected objects (beta)
+12. Documentation, help and examples
 
 
 ### Documentation

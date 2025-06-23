@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.06.24 (**1.6.0**):
+* Added isolation function.
+
 #### 2025.05.17 (**1.5.2**):
 * Refactoring.
 
