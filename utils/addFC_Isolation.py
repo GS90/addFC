@@ -2,10 +2,15 @@
 # Copyright 2025 Golodnikov Sergey
 
 
+import addFC_Logger as Logger
 import FreeCAD
 
 
 ad = FreeCAD.ActiveDocument
+
+
+FEATURES = ('Part::Feature', 'Part::FeaturePython')
+CONTAINERS = ('App::Part', 'Assembly::AssemblyObject')
 
 
 group = ad.getObject('Isolation')
@@ -25,35 +30,62 @@ def hide():
     links, link = {}, None
 
     _selection = FreeCAD.Gui.Selection.getSelectionEx('', 0)[0]
-    sen = _selection.SubElementNames[0]
-    sol = _selection.Object.getSubObjectList(sen)
-    if len(sol) > 1:
-        if sol[-2].TypeId == 'App::Link':
-            link = sol[-2]
-
-    for s in sol:
-        if s.TypeId == 'App::Link':  # todo: guess which link is correct...
-            dn = s.Document.Name
-            if dn in links:
-                links[dn].append(s.Name)
-            else:
-                links[dn] = [s.Name,]
+    if _selection.HasSubObjects:
+        sen = _selection.SubElementNames[0]
+        sol = _selection.Object.getSubObjectList(sen)
+        if len(sol) > 1:
+            if sol[-2].TypeId == 'App::Link':
+                link = sol[-2]
+        for i in sol:
+            if i.TypeId == 'App::Link':
+                # todo: guess which link is correct...
+                dn = i.Document.Name
+                if dn in links:
+                    links[dn].append(i.Name)
+                else:
+                    links[dn] = [i.Name,]
 
     target = {}
 
+    def insert(dn, on):
+        if dn in target:
+            if on not in target[dn]:
+                target[dn].append(on)
+        else:
+            target[dn] = [on,]
+
     for s in selection:
-        dn = s.DocumentName
+        dn, obj = s.DocumentName, None
+
         if link is not None:
             obj, link = link, None
+
+        elif not s.HasSubObjects:
+            obj = s.Object
+            if obj.TypeId in CONTAINERS:
+                for i in obj.Group:
+                    insert(dn, i.Name)
+            else:
+                if len(obj.InList) > 0:
+                    if obj.InList[0].TypeId == 'PartDesign::Body':
+                        insert(dn, obj.InList[0].Name)
+
         else:
-            if s.Object.TypeId == 'Part::FeaturePython':  # todo: why?
+            if s.Object.TypeId in FEATURES:
                 obj = s.Object
             else:
-                obj = s.Object.InList[0] if s.HasSubObjects else s.Object
-        if s.DocumentName in target:
-            target[dn].append(obj.Name)
-        else:
-            target[dn] = [obj.Name,]
+                if s.HasSubObjects:
+                    if len(s.Object.InList) > 0:
+                        obj = s.Object.InList[0]
+                    else:
+                        obj = s.Object
+                else:
+                    obj = s.Object
+
+        if obj is None:
+            Logger.warning('Isolation: the object is not defined')
+            return
+        insert(dn, obj.Name)
 
     heap = []
 
@@ -65,7 +97,12 @@ def hide():
         heap.append((dn, on))
         return False
 
-    for i in obj.InListRecursive:
+    if len(obj.InListRecursive) == 0:
+        inList = [obj,]
+    else:
+        inList = obj.InListRecursive
+
+    for i in inList:
         dn = i.Document.Name
         doc = FreeCAD.getDocument(dn)
         for obj in doc.findObjects():
@@ -78,7 +115,7 @@ def hide():
                 obj.Visibility = visibility(dn, on)
             else:
                 match obj.TypeId:
-                    case 'Part::FeaturePython':
+                    case 'Part::Feature' | 'Part::FeaturePython':
                         obj.Visibility = visibility(dn, on)
                     case 'App::Link':
                         if dn in links:
@@ -88,6 +125,9 @@ def hide():
                         else:
                             heap.append((dn, on))
                             obj.Visibility = False
+                    case _:
+                        if 'Part::' in obj.TypeId:
+                            obj.Visibility = visibility(dn, on)
 
     group.Isolation = heap
 

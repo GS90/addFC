@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.06.25 (**1.6.1**):
+* Isolation: improvements and fixes.
+
 #### 2025.06.24 (**1.6.0**):
 * Added isolation function.
 
