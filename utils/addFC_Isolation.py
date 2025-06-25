@@ -110,7 +110,11 @@ def hide():
                 continue
             on = obj.Name
             if on == i.Name:
-                continue
+                if i.TypeId == 'App::Link':
+                    if on == i.LinkedObject.Name:
+                        continue
+                else:
+                    continue
             if hasattr(obj, 'Tip'):
                 obj.Visibility = visibility(dn, on)
             else:
