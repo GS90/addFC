@@ -107,6 +107,10 @@ def hide():
         doc = FreeCAD.getDocument(dn)
         for obj in doc.findObjects():
             if not obj.Visibility:
+                # exception: BIM
+                if dn in target:
+                    if obj.Name in target[dn]:
+                        obj.Visibility = True
                 continue
             on = obj.Name
             if on == i.Name:
