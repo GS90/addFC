@@ -9,8 +9,16 @@ import FreeCAD
 ad = FreeCAD.ActiveDocument
 
 
-FEATURES = ('Part::Feature', 'Part::FeaturePython')
-CONTAINERS = ('App::Part', 'Assembly::AssemblyObject')
+FEATURES = (
+    'Part::Feature',
+    'Part::FeaturePython',
+)
+
+CONTAINERS = (
+    'App::DocumentObjectGroup',
+    'App::Part',
+    'Assembly::AssemblyObject',
+)
 
 
 group = ad.getObject('Isolation')
@@ -91,9 +99,8 @@ def hide():
 
     def visibility(dn, on):
         if dn in target:
-            for o in target[dn]:
-                if o == on:
-                    return True
+            if on in target[dn]:
+                return True
         heap.append((dn, on))
         return False
 
@@ -107,7 +114,6 @@ def hide():
         doc = FreeCAD.getDocument(dn)
         for obj in doc.findObjects():
             if not obj.Visibility:
-                # exception: BIM
                 if dn in target:
                     if obj.Name in target[dn]:
                         obj.Visibility = True
@@ -135,6 +141,8 @@ def hide():
                             obj.Visibility = False
                     case _:
                         if 'Part::' in obj.TypeId:
+                            obj.Visibility = visibility(dn, on)
+                        elif obj.TypeId == 'App::GeometryPython':
                             obj.Visibility = visibility(dn, on)
 
     group.Isolation = heap
