@@ -217,3 +217,19 @@ steel = {
         '12.0': [16.7, 0.455],
     },
 }
+
+
+# summary, previously used values
+
+summary = {
+    # units of measurement
+    'Area_U': 'mm^2',
+    'BB_U': 'mm',
+    'DLRD_U': 'mm',
+    'Perimeter_U': 'mm',
+    'Volume_U': 'mm^3',
+    'Weight_U': 'g',
+    # last used material and precision
+    'Material': '-',
+    'Decimals': 2,
+}

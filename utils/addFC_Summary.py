@@ -2,7 +2,8 @@
 # Copyright 2025 Golodnikov Sergey
 
 
-import addFC_Logger as Logger
+from addFC_Data import summary as std_pref
+from addFC_Logger import error as log_err
 import addFC_Preference as P
 import FreeCAD
 import FreeCADGui as Gui
@@ -95,11 +96,14 @@ class Info():
 
         Gui.Selection.addObserver(observer)
 
-        # decimals:
+        pref = P.load_pref(P.PATH_SUMMARY, std_pref)
+
+        # decimals
+        self.decimals = pref.get('Decimals', 2)
         self.form.Decimals.setValue(self.decimals)
         self.set_decimals()
 
-        # units of measurement:
+        # units of measurement
         self.form.BB_U.addItems(units_length)
         self.form.Volume_U.addItems(units_volume)
         self.form.Weight_U.addItems(units_weight)
@@ -107,7 +111,7 @@ class Info():
         self.form.Perimeter_U.addItems(units_length)
         self.form.DLRD_U.addItems(units_length)
 
-        # material:
+        # material
         self.form.Material.addItems(self.materials.keys())
 
         def change_material(value):
@@ -123,9 +127,17 @@ class Info():
             self.set_mass()
 
         self.form.Material.currentTextChanged.connect(change_material)
-        change_material(self.conf.get('default_material', '-'))
 
-        # changing units of measurement:
+        # previously used values
+        self.form.Area_U.setCurrentText(pref['Area_U'])
+        self.form.BB_U.setCurrentText(pref['BB_U'])
+        self.form.DLRD_U.setCurrentText(pref['DLRD_U'])
+        self.form.Perimeter_U.setCurrentText(pref['Perimeter_U'])
+        self.form.Volume_U.setCurrentText(pref['Volume_U'])
+        self.form.Weight_U.setCurrentText(pref['Weight_U'])
+        change_material(pref.get('Material', '-'))
+
+        # changing units of measurement
         def change_unit(target):
             match target:
                 case 'bb': self.set_bb()
@@ -148,7 +160,7 @@ class Info():
         self.form.Perimeter_U.currentTextChanged.connect(change_unit_so)
         self.form.DLRD_U.currentTextChanged.connect(change_unit_so)
 
-        # set the center of mass:
+        # set the center of mass
         def set_com():
             if self.center_of_MG is None:
                 return
@@ -175,7 +187,7 @@ class Info():
 
         self.form.CoMG_Set.clicked.connect(set_com)
 
-        # select similar subobjects:
+        # select similar subobjects
         self.form.SelectSimilar.clicked.connect(self.select_similar)
 
         def change_decimals(value):
@@ -229,7 +241,7 @@ class Info():
                 self.subobjects[key] = sub_object_shape
                 self.last_selection = [object, sub_object_shape]
             else:
-                Logger.error('object "sub_object_shape" is none...')
+                log_err('object "sub_object_shape" is none...')
         else:
             self.last_selection = None
 
@@ -246,7 +258,7 @@ class Info():
 
     def select_similar(self) -> None:
         if self.last_selection is None:
-            Logger.error('object "last_selection" is none...')
+            log_err('object "last_selection" is none...')
             return
 
         obj, sub = self.last_selection
@@ -337,19 +349,19 @@ class Info():
             self.form.Subobjects_Title.setText(self.sub_title)
 
     def set_subobjects_value(self) -> None:
-        # area:
+        # area
         unit = self.form.Area_U.currentText()
         u = units_area[unit]
         value = round(self.area / u, self.decimals)
         self.form.Area_Value.setMaximum(value)
         self.form.Area_Value.setValue(value)
-        # perimeter:
+        # perimeter
         unit = self.form.Perimeter_U.currentText()
         u = units_length[unit]
         value = round(self.perimeter / u, self.decimals)
         self.form.Perimeter_Value.setMaximum(value)
         self.form.Perimeter_Value.setValue(value)
-        # diagonal, length, radius, diameter:
+        # diagonal, length, radius, diameter
         unit = self.form.DLRD_U.currentText()
         u = units_length[unit]
         diagonal = round(self.diagonal / u, self.decimals)
@@ -366,19 +378,19 @@ class Info():
         self.form.Diameter_Value.setValue(diameter)
 
     def fill(self) -> None:
-        # objects:
+        # objects
         designation = [[], [], []]
         bound_box = [0, 0, 0]
         volume = 0
         center_of_MG = None
 
         for k, v in self.objects.items():
-            # designation:
+            # designation
             if 'Add_Name' in v.PropertiesList:
                 designation[0].append(v.Add_Name)
             designation[1].append(v.Name)
             designation[2].append(v.Label)
-            # shape:
+            # shape
             if hasattr(v, 'Tip'):
                 shape = v.Tip.Shape
             else:
@@ -387,14 +399,14 @@ class Info():
             bound_box[1] += shape.BoundBox.YLength
             bound_box[2] += shape.BoundBox.ZLength
             volume += shape.Volume
-            # center of mass:
+            # center of mass
             if hasattr(shape, 'CenterOfMass'):
                 center = shape.CenterOfMass
                 extra = (f'{v.Label}_CoM_001', (170, 0, 0))
             else:
                 center = shape.CenterOfGravity
                 extra = (f'{v.Label}_CoG_001', (0, 85, 255))
-            # result:
+            # result
             center_of_MG = [
                 k,
                 center,
@@ -415,7 +427,7 @@ class Info():
         self.set_bb()
         self.set_mass()
 
-        # subobjects:
+        # subobjects
         sub_title = []
         area = 0
         perimeter = 0
@@ -451,6 +463,18 @@ class Info():
 
     def accept(self):
         Gui.Selection.removeObserver(observer)
+        P.save_pref(P.PATH_SUMMARY, {
+            # units of measurement
+            'Area_U': self.form.Area_U.currentText(),
+            'BB_U': self.form.BB_U.currentText(),
+            'DLRD_U': self.form.DLRD_U.currentText(),
+            'Perimeter_U': self.form.Perimeter_U.currentText(),
+            'Volume_U': self.form.Volume_U.currentText(),
+            'Weight_U': self.form.Weight_U.currentText(),
+            # last used material and precision
+            'Material': self.form.Material.currentText(),
+            'Decimals': self.form.Decimals.value(),
+        })
         return True
 
     def reject(self):

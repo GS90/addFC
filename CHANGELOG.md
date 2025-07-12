@@ -2,6 +2,10 @@
 
 ## Release notes
 
+#### 2025.07.12 (**1.6.6**):
+* Summary: save last used values.
+* Fixes.
+
 #### 2025.06.29 (**1.6.4**):
 * Isolation: improvements and fixes.
 

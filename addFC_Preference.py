@@ -80,6 +80,7 @@ PATH_EXPLOSION = os.path.join(AFC_PATH, 'pref', 'explosion.json')
 PATH_MATERIALS = os.path.join(AFC_PATH, 'pref', 'materials.json')
 PATH_PROPERTIES = os.path.join(AFC_PATH, 'pref', 'properties.json')
 PATH_STEEL = os.path.join(AFC_PATH, 'pref', 'steel.json')
+PATH_SUMMARY = os.path.join(AFC_PATH, 'pref', 'summary.json')
 
 AVAILABLE_PROPERTY_TYPES = (
     'Bool',
@@ -201,7 +202,6 @@ def save_pref(path: str, pref: dict, indent=4) -> None:
 
 
 pref_configuration = load_pref(PATH_CONFIGURATION, Data.configuration, True)
-pref_explosion = load_pref(PATH_EXPLOSION, Data.explosion)
 pref_materials = load_pref(PATH_MATERIALS, Data.materials)
 pref_properties = load_properties()
 pref_steel = load_steel()

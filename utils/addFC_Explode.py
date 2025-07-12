@@ -2,6 +2,7 @@
 # Copyright 2025 Golodnikov Sergey
 
 
+from addFC_Data import explosion as std_pref
 from PySide import QtGui, QtCore
 import addFC_Logger as Logger
 import addFC_Preference as P
@@ -148,7 +149,7 @@ def dialog() -> None:
         w.animate.setEnabled(False)
         w.animateAll.setEnabled(False)
 
-    ep = P.pref_explosion
+    ep = P.load_pref(P.PATH_EXPLOSION, std_pref)
 
     global storyboard
     storyboard = os.path.join(ep['export_dir'], ad.Name + '_storyboard')
