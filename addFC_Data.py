@@ -24,6 +24,18 @@ configuration = {
     'bom_export_merger': 'Type',
     'bom_export_sort': 'Name',
     'bom_export_skip': [],
+    # 3d export:
+    '3d_export_file_name': 'Name',
+    '3d_export_prefix': '',
+    '3d_export_save_by_type': False,
+    '3d_export_save_copies': False,
+    # 3d export, tessellation:
+    'tessellation': {
+        'mesher': 'standard',  # or mefisto
+        'linear_deflection': 0.01,
+        'angular_deflection': 30.0,
+        'max_length': 1.0,  # mefisto only
+    },
     # sheet metal part:
     'smp_color': tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)),
     # insert:

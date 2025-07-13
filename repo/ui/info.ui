@@ -8,19 +8,19 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>710</height>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>800</width>
-    <height>710</height>
+    <height>700</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Model information</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -91,6 +91,9 @@
          <property name="alternatingRowColors">
           <bool>true</bool>
          </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
          <property name="sortingEnabled">
           <bool>true</bool>
          </property>
@@ -104,18 +107,62 @@
           <bool>false</bool>
          </attribute>
          <attribute name="verticalHeaderMinimumSectionSize">
-          <number>20</number>
+          <number>22</number>
          </attribute>
          <attribute name="verticalHeaderHighlightSections">
           <bool>false</bool>
          </attribute>
         </widget>
        </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="pushButtonExportSettings">
+           <property name="text">
+            <string>Export settings</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBoxExport"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonExport">
+           <property name="text">
+            <string>Export</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="info">
+           <property name="styleSheet">
+            <string notr="true">color: #666</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_c">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="SM">
       <attribute name="title">
-       <string>Sheet metal</string>
+       <string>Sheet Metal</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
@@ -127,6 +174,9 @@
            </property>
            <property name="alternatingRowColors">
             <bool>true</bool>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
            </property>
            <property name="sortingEnabled">
             <bool>true</bool>
@@ -140,11 +190,8 @@
            <attribute name="horizontalHeaderHighlightSections">
             <bool>false</bool>
            </attribute>
-           <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-            <bool>false</bool>
-           </attribute>
            <attribute name="verticalHeaderMinimumSectionSize">
-            <number>20</number>
+            <number>22</number>
            </attribute>
            <attribute name="verticalHeaderHighlightSections">
             <bool>false</bool>
@@ -188,7 +235,7 @@
               <string notr="true">color: #666</string>
              </property>
              <property name="text">
-              <string>Unfold value:</string>
+              <string>Unfold value</string>
              </property>
             </widget>
            </item>
@@ -212,7 +259,7 @@
               <string notr="true">color: #666</string>
              </property>
              <property name="text">
-              <string>Unfold as:</string>
+              <string>Unfold as</string>
              </property>
             </widget>
            </item>
@@ -246,7 +293,7 @@
               <string notr="true">color: #666</string>
              </property>
              <property name="text">
-              <string>Sketch placement:</string>
+              <string>Sketch placement</string>
              </property>
             </widget>
            </item>
@@ -270,7 +317,7 @@
               <string notr="true">color: #666</string>
              </property>
              <property name="text">
-              <string>File name:</string>
+              <string>File name</string>
              </property>
             </widget>
            </item>
@@ -283,7 +330,7 @@
               <string notr="true">color: #666</string>
              </property>
              <property name="text">
-              <string>File signature:</string>
+              <string>File signature</string>
              </property>
             </widget>
            </item>
@@ -296,7 +343,7 @@
               <string notr="true">color: #666</string>
              </property>
              <property name="text">
-              <string>Unfold prefix:</string>
+              <string>Unfold prefix</string>
              </property>
             </widget>
            </item>
@@ -308,7 +355,7 @@
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer_5">
+            <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -380,20 +427,306 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="Export">
+      <attribute name="title">
+       <string>Export 3D</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayoutExport" stretch="1,0">
+         <item>
+          <widget class="QTableWidget" name="exportTable">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+           <property name="wordWrap">
+            <bool>false</bool>
+           </property>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>70</number>
+           </attribute>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderMinimumSectionSize">
+            <number>22</number>
+           </attribute>
+           <attribute name="verticalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayoutExport">
+           <property name="leftMargin">
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="pushButton3DExport">
+             <property name="styleSheet">
+              <string notr="true">color: #000096</string>
+             </property>
+             <property name="text">
+              <string>Export all</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_E1">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelExportValue">
+             <property name="styleSheet">
+              <string notr="true">color: #666</string>
+             </property>
+             <property name="text">
+              <string>Export value</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonExportTrue">
+             <property name="text">
+              <string>All in True</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonExportFalse">
+             <property name="text">
+              <string>All in False</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_E2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelExportType">
+             <property name="styleSheet">
+              <string notr="true">color: #666</string>
+             </property>
+             <property name="text">
+              <string>All objects of type</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBoxExportType"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelExportFormat">
+             <property name="styleSheet">
+              <string notr="true">color: #666</string>
+             </property>
+             <property name="text">
+              <string>in export format</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBoxExportFormat">
+             <property name="toolTip">
+              <string>123</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_E3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelExportName">
+             <property name="styleSheet">
+              <string notr="true">color: #666</string>
+             </property>
+             <property name="text">
+              <string>File name</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBoxExportName"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelExportPrefix">
+             <property name="styleSheet">
+              <string notr="true">color: #666</string>
+             </property>
+             <property name="text">
+              <string>Export prefix</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEditExportPrefix">
+             <property name="text">
+              <string>Export</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxSaveByType">
+             <property name="text">
+              <string>Save by type</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBoxSaveCopies">
+             <property name="text">
+              <string>Save copies</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_E4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonTessellation">
+             <property name="text">
+              <string>Tessellation
+settings</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_E5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonExportDir">
+             <property name="text">
+              <string>Select a directory</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="infoExport">
+         <item>
+          <widget class="QProgressBar" name="progressExport">
+           <property name="maximumSize">
+            <size>
+             <width>180</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="value">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="statusExport">
+           <property name="styleSheet">
+            <string notr="true">color: #666</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="spacerExport">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="targetExport">
+           <property name="text">
+            <string>... Desktop</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_t">
-     <item>
-      <widget class="QLabel" name="info">
-       <property name="styleSheet">
-        <string notr="true">color: #666</string>
-       </property>
-       <property name="text">
-        <string>...</string>
-       </property>
-      </widget>
-     </item>
+    <layout class="QHBoxLayout" name="horizontalLayout_c" stretch="1,0,0,0,0">
      <item>
       <widget class="QLabel" name="error">
        <property name="styleSheet">
@@ -402,44 +735,7 @@
        <property name="text">
         <string/>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
       </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_c">
-     <item>
-      <widget class="QPushButton" name="pushButtonExportSettings">
-       <property name="text">
-        <string>Export settings</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBoxExport"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonExport">
-       <property name="text">
-        <string>Export</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_c">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item>
       <widget class="QCheckBox" name="checkBoxStrict">
@@ -482,9 +778,6 @@
   <tabstop>pushButtonUpdate</tabstop>
   <tabstop>pushButtonClear</tabstop>
   <tabstop>checkBoxStrict</tabstop>
-  <tabstop>pushButtonExportSettings</tabstop>
-  <tabstop>comboBoxExport</tabstop>
-  <tabstop>pushButtonExport</tabstop>
   <tabstop>detailsTable</tabstop>
   <tabstop>pushButtonUnfold</tabstop>
   <tabstop>pushButtonTrue</tabstop>

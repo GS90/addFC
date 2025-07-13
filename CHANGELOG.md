@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.07.12 (**1.7.0**):
+* Batch export to 3D formats.
+
 #### 2025.07.12 (**1.6.6**):
 * Summary: save last used values.
 * Fixes.

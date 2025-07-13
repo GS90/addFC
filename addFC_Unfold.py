@@ -15,6 +15,8 @@ import re
 import shutil
 import time
 
+# todo: use '!Trace' instead of 'Body'?
+
 
 if P.afc_additions['ezdxf'][0]:
     import ezdxf.filemanagement
@@ -78,7 +80,8 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
 
     if len(parts) == 0 or len(parts) == len(skip):
         w.progress.setValue(100)
-        w.status.setText('No sheet metal parts')
+        w.statusExport.setText(FreeCAD.Qt.translate(
+            'addFC', 'No sheet metal parts'))
         return
 
     # checking the functionality:

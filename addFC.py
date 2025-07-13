@@ -5,10 +5,11 @@
 from PySide import QtGui, QtCore
 from zipfile import ZipFile
 import addFC_Data as Data
+import addFC_Export
+import addFC_Info as Info
 import addFC_Logger as Logger
 import addFC_Other as Other
 import addFC_Preference as P
-import addFC_Info as Info
 import addFC_Unfold
 import datetime
 import difflib
@@ -19,15 +20,38 @@ import subprocess
 import sys
 
 
-EXPORTING = {
-    'JSON': ['JSON (*.json)'],
-    'CSV': ['CSV (*.csv)'],
-    'Spreadsheet': [],
-    'RU std: Spreadsheet': [],
-    'RU std: TechDraw': [],
+EXPORT_OPTIONS_BOM = {
+    'JSON': ('JSON (*.json)'),
+    'CSV': ('CSV (*.csv)'),
+    'Spreadsheet': (),
+    'RU std: Spreadsheet': (),
+    'RU std: TechDraw': (),
 }
 
-UNFOLD_NAME = (
+EXPORT_OPTIONS_3D = {
+    # print
+    'STL': ('p', 'stl', 'Stereolithography'),
+    '3MF': ('p', '3mf', '3D Manufacturing Format'),
+    # vector
+    'STEP': ('v', 'step', 'ISO 10303'),
+    'STEPZ': ('v', 'stpZ', 'ISO 10303 (compressed)'),
+    'IGES': ('v', 'iges', 'Initial Graphics Exchange Specification'),
+    # graphics
+    'glTF': ('g', 'glb', 'GL Transmission Format'),
+}
+
+EXPORT_OPTIONS_3D_TIP = "Formats for 3D printing (tessellation is used):\n\
+STL (*.stl) Stereolithography\n\
+3MF (*.3mf) 3D Manufacturing Format\n\n\
+Formats for CAD systems:\n\
+STEP (*.step) ISO 10303\n\
+STEPZ (*.stpZ) ISO 10303 (compressed)\n\
+IGES (*.iges) Initial Graphics Exchange Specification\n\n\
+Formats for 3D graphics:\n\
+glTF (*.glb) GL Transmission Format"
+
+
+FILE_NAME_OPTIONS = (
     'Name',
     'Code',
     'Index',
@@ -35,7 +59,7 @@ UNFOLD_NAME = (
     'Index + Name',
 )
 
-UNFOLD_SIGNATURE = (
+SIGNATURE_OPTIONS = (
     'None',
     'Code',
     'Prefix',
@@ -52,6 +76,9 @@ structure = []
 index_bom_title = 0
 index_details_title = 0
 index_details_unfold = 0
+index_export_3d_value = 0
+index_export_3d_format = 0
+index_export_3d_type = 0
 
 properties_last = ['Name',]
 
@@ -180,24 +207,42 @@ class AddFCModelInfo():
 
         if conf['working_directory'] == '':
             conf['working_directory'] = os.path.expanduser('~/Desktop')
-        w.target.setText(
-            f"... {os.path.basename(conf['working_directory'])}")
+        basename = f"... {os.path.basename(conf['working_directory'])}"
+        w.target.setText(basename)
+        w.targetExport.setText(basename)
 
-        w.comboBoxExport.addItems(EXPORTING.keys())
-        w.comboBoxName.addItems(UNFOLD_NAME)
-        w.comboBoxSignature.addItems(UNFOLD_SIGNATURE)
-
+        # bom:
+        w.comboBoxExport.addItems(EXPORT_OPTIONS_BOM.keys())
+        w.comboBoxExport.setCurrentText(conf['bom_export_type'])
+        # sm:
         w.DXF.setChecked(conf['unfold_dxf'])
         w.SVG.setChecked(conf['unfold_svg'])
         w.STP.setChecked(conf['unfold_stp'])
-        w.comboBoxExport.setCurrentText(conf['bom_export_type'])
         w.checkBoxCentering.setChecked(conf['unfold_centering'])
         w.checkBoxAlongX.setChecked(conf['unfold_along_x'])
+        w.comboBoxName.addItems(FILE_NAME_OPTIONS)
         w.comboBoxName.setCurrentText(conf['unfold_file_name'])
+        w.comboBoxSignature.addItems(SIGNATURE_OPTIONS)
         w.comboBoxSignature.setCurrentText(conf['unfold_file_signature'])
         w.lineEditPrefix.setText(conf['unfold_prefix'])
+        # 3d:
+        try:
+            types = list(prop['Type'][2])
+            types[types.index('-')] = 'Any'
+            w.comboBoxExportType.addItems(types)
+        except BaseException:
+            w.comboBoxExportType.setEnabled(False)
+        w.comboBoxExportName.addItems(FILE_NAME_OPTIONS)
+        w.comboBoxExportName.setCurrentText(conf['3d_export_file_name'])
+        w.comboBoxExportFormat.addItems(EXPORT_OPTIONS_3D.keys())
+        w.comboBoxExportFormat.setCurrentText(conf['3d_export_prefix'])
+        w.comboBoxExportFormat.setToolTip(EXPORT_OPTIONS_3D_TIP)
+        w.checkBoxSaveByType.setChecked(conf['3d_export_save_by_type'])
+        w.checkBoxSaveCopies.setChecked(conf['3d_export_save_copies'])
 
-        table, table_details = w.infoTable, w.detailsTable
+        table_bom = w.infoTable
+        table_details = w.detailsTable
+        table_export_3d = w.exportTable
 
         color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
         color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
@@ -241,7 +286,7 @@ class AddFCModelInfo():
 
         w.comboBoxNodes.currentTextChanged.connect(changed_node)
 
-        # bill of materials:
+        # update model information:
 
         def structure_update() -> None:
 
@@ -279,22 +324,21 @@ class AddFCModelInfo():
                 del spec_h['Unfold']
 
             # --- #
-            # all #
+            # bom #
             # --- #
 
             labels = list(spec_h.keys())
             global index_bom_title
             index_bom_title = labels.index('Name')
 
-            table.setColumnCount(len(spec_h))
-            table.setRowCount(len(spec))
-            table.setHorizontalHeaderLabels(labels)
-            table.horizontalHeader().setResizeMode(
+            table_bom.setColumnCount(len(spec_h))
+            table_bom.setRowCount(len(spec))
+            table_bom.setHorizontalHeaderLabels(labels)
+            table_bom.horizontalHeader().setResizeMode(
                 index_bom_title, QtGui.QHeaderView.Stretch)
 
             f_std = QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
 
-            q = QtGui.QTableWidgetItem
             x = 0
             for i in spec:
                 for j in spec[i]:
@@ -311,7 +355,7 @@ class AddFCModelInfo():
                         q.setFlags(f_std)
                     else:
                         q.setForeground(color_blue)
-                    table.setItem(x, labels.index(j), q)
+                    table_bom.setItem(x, labels.index(j), q)
                 x += 1
 
             labels.clear()
@@ -326,20 +370,78 @@ class AddFCModelInfo():
                         labels.append('Qty')
                     else:
                         labels.append(i)
-            table.setHorizontalHeaderLabels(labels)
+            table_bom.setHorizontalHeaderLabels(labels)
 
-            table.resizeColumnsToContents()
-            table.resizeRowsToContents()
-            table.horizontalHeader().setResizeMode(
+            table_bom.resizeColumnsToContents()
+            table_bom.resizeRowsToContents()
+            table_bom.horizontalHeader().setResizeMode(
                 index_bom_title, QtGui.QHeaderView.Stretch)
 
-            table.sortItems(index_bom_title)
-            table.setSortingEnabled(True)
-            table.horizontalHeader().setSortIndicatorShown(False)
+            table_bom.sortItems(index_bom_title)
+            table_bom.setSortingEnabled(True)
+            table_bom.horizontalHeader().setSortIndicatorShown(False)
 
-            # ------- #
-            # details #
-            # ------- #
+            # --------- #
+            # export 3d #
+            # --------- #
+
+            index_name = 0
+
+            labels = ['Name', 'Code', 'Index', 'Material']
+            if 'Type' in spec_h:
+                labels.append('Type')
+                global index_export_3d_type
+                index_export_3d_type = len(labels) - 1
+            labels.append('Export')
+            labels.append('Export\nformat')
+
+            global index_export_3d_value
+            index_export_3d_value = len(labels) - 2
+            global index_export_3d_format
+            index_export_3d_format = len(labels) - 1
+
+            table_export_3d.setColumnCount(len(labels))
+            table_export_3d.setRowCount(len(spec))
+            table_export_3d.setHorizontalHeaderLabels(labels)
+            table_export_3d.horizontalHeader().setResizeMode(
+                index_name, QtGui.QHeaderView.Stretch)
+
+            x = 0
+            for i in spec:
+                for j in spec[i]:
+                    if j in FORBIDDEN or j not in labels:
+                        continue
+                    q = QtGui.QTableWidgetItem()
+                    q.setData(QtCore.Qt.DisplayRole, str(spec[i][j]))
+                    table_export_3d.setItem(x, labels.index(j), q)
+
+                # export:
+                q = QtGui.QTableWidgetItem('False')
+                q.setForeground(color_red)
+                q.setTextAlignment(QtCore.Qt.AlignCenter)
+                table_export_3d.setItem(x, index_export_3d_value, q)
+                # format:
+                cb = QtGui.QComboBox()
+                cb.addItems(EXPORT_OPTIONS_3D.keys())
+                cb.setStyleSheet('border: none')
+                table_export_3d.setCellWidget(x, index_export_3d_format, cb)
+
+                x += 1
+
+            table_export_3d.setHorizontalHeaderLabels(labels)
+
+            table_export_3d.resizeColumnsToContents()
+            table_export_3d.resizeRowsToContents()
+            table_export_3d.horizontalHeader().setResizeMode(
+                index_name, QtGui.QHeaderView.Stretch)
+
+            table_export_3d.sortItems(index_export_3d_type)
+            table_export_3d.setSortingEnabled(True)
+            table_export_3d.horizontalHeader().setSortIndicatorShown(False)
+
+            # ----------- #
+            # sheet metal #
+            # ----------- #
 
             if len(details) == 0:
                 w.pushButtonExit.setFocus()
@@ -417,16 +519,21 @@ class AddFCModelInfo():
             w.info.setText(FreeCAD.Qt.translate('addFC', 'Updated'))
 
         def structure_purge() -> None:
-            table.setSortingEnabled(False)
-            table.clearSelection()
-            table.clearContents()
-            table.setColumnCount(0)
-            table.setRowCount(0)
+            table_bom.setSortingEnabled(False)
+            table_bom.clearSelection()
+            table_bom.clearContents()
+            table_bom.setColumnCount(0)
+            table_bom.setRowCount(0)
             table_details.setSortingEnabled(False)
             table_details.clearSelection()
             table_details.clearContents()
             table_details.setColumnCount(0)
             table_details.setRowCount(0)
+            table_export_3d.setSortingEnabled(False)
+            table_export_3d.clearSelection()
+            table_export_3d.clearContents()
+            table_export_3d.setColumnCount(0)
+            table_export_3d.setRowCount(0)
 
         def structure_purge_wrapper() -> None:
             structure_purge()
@@ -439,7 +546,7 @@ class AddFCModelInfo():
         # editing via table #
         # ----------------- #
 
-        def changed(item) -> None:
+        def bom_changed(item) -> None:
             if freeze_table:
                 return
 
@@ -515,12 +622,12 @@ class AddFCModelInfo():
             except BaseException as e:
                 Logger.error(str(e))
 
-        w.infoTable.itemChanged.connect(changed)
+        w.infoTable.itemChanged.connect(bom_changed)
 
         def switch_tab(i) -> None:
             global user_modification
             if user_modification:
-                if i == 1:  # details
+                if i > 0:
                     structure_update()
                 user_modification = False
         w.tabWidget.currentChanged.connect(switch_tab)
@@ -572,7 +679,7 @@ class AddFCModelInfo():
             w.info.setText(FreeCAD.Qt.translate('addFC', 'Equations updated'))
         w.pushButtonUEq.clicked.connect(update_equations)
 
-        def spec_export_settings() -> None:
+        def structure_export_settings() -> None:
             es = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
                 P.AFC_PATH, 'repo', 'ui', 'info_set.ui'))
 
@@ -634,7 +741,56 @@ class AddFCModelInfo():
 
             es.pushButtonApply.clicked.connect(apply)
 
-        w.pushButtonExportSettings.clicked.connect(spec_export_settings)
+        w.pushButtonExportSettings.clicked.connect(structure_export_settings)
+
+        def tessellation_settings() -> None:
+            ts = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+                P.AFC_PATH, 'repo', 'ui', 'info_tessellation.ui'))
+
+            tessellation = conf['tessellation']
+            if tessellation['mesher'] == 'standard':
+                ts.checkBoxStandard.setChecked(True)
+                ts.checkBoxMefisto.setChecked(False)
+            else:
+                ts.checkBoxStandard.setChecked(False)
+                ts.checkBoxMefisto.setChecked(True)
+
+            ts.doubleSpinBoxLD.setValue(tessellation['linear_deflection'])
+            ts.doubleSpinBoxAD.setValue(tessellation['angular_deflection'])
+            ts.doubleSpinBoxMEL.setValue(tessellation['max_length'])
+
+            def check_mesher_standard(state) -> None:
+                if state == 0:
+                    ts.checkBoxMefisto.setChecked(True)
+                else:
+                    ts.checkBoxMefisto.setChecked(False)
+            ts.checkBoxStandard.stateChanged.connect(check_mesher_standard)
+
+            def check_mesher_mefisto(state) -> None:
+                if state == 0:
+                    ts.checkBoxStandard.setChecked(True)
+                else:
+                    ts.checkBoxStandard.setChecked(False)
+            ts.checkBoxMefisto.stateChanged.connect(check_mesher_mefisto)
+
+            ts.show()
+            ts.pushButtonApply.setFocus()
+
+            def apply() -> None:
+                conf['tessellation'] = {
+                    'mesher': 'standard',
+                    'linear_deflection': ts.doubleSpinBoxLD.value(),
+                    'angular_deflection': ts.doubleSpinBoxAD.value(),
+                    'max_length': ts.doubleSpinBoxMEL.value(),
+                }
+                if ts.checkBoxMefisto.isChecked():
+                    conf['tessellation']['mesher'] = 'mefisto'
+                P.save_pref(P.PATH_CONFIGURATION, conf)
+                ts.close()
+
+            ts.pushButtonApply.clicked.connect(apply)
+
+        w.pushButtonTessellation.clicked.connect(tessellation_settings)
 
         def structure_export() -> None:
             target = w.comboBoxExport.currentText()
@@ -643,7 +799,7 @@ class AddFCModelInfo():
                     fd = QtGui.QFileDialog()
                     fd.setDefaultSuffix(target.lower())
                     fd.setAcceptMode(QtGui.QFileDialog.AcceptSave)
-                    fd.setNameFilters(EXPORTING[target])
+                    fd.setNameFilters(EXPORT_OPTIONS_BOM[target])
                     if fd.exec_() == QtGui.QDialog.Accepted:
                         path = fd.selectedFiles()[0]
                         w.info.setText('...')
@@ -677,6 +833,28 @@ class AddFCModelInfo():
                         item.setForeground(color_blue)
         table_details.itemDoubleClicked.connect(switch_unfold)
 
+        def switch_export_3d(item) -> None:
+            h = table_export_3d.horizontalHeaderItem(item.column())
+            if h is None:
+                return
+            if h.text() == 'Export':
+                match item.text():
+                    case 'True':
+                        item.setText('False')
+                        item.setForeground(color_red)
+                    case 'False':
+                        item.setText('True')
+                        item.setForeground(color_blue)
+        table_export_3d.itemDoubleClicked.connect(switch_export_3d)
+
+        def format_changed(row, column):
+            item = table_export_3d.item(row, index_export_3d_value)
+            if item is not None:
+                if item.text() == 'False':
+                    item.setText('True')
+                    item.setForeground(color_blue)
+        table_export_3d.currentCellChanged.connect(format_changed)
+
         def select_unfold_all() -> None:
             for row in range(table_details.rowCount()):
                 item = table_details.item(row, index_details_unfold)
@@ -697,26 +875,66 @@ class AddFCModelInfo():
                     item.setForeground(color_red)
         w.pushButtonFalse.clicked.connect(select_unfold_none)
 
-        def check_format() -> None:
+        def select_export_3d_all() -> None:
+            for row in range(table_export_3d.rowCount()):
+                item = table_export_3d.item(row, index_export_3d_value)
+                if item is None:
+                    continue
+                if item.text() == 'False':
+                    item.setText('True')
+                    item.setForeground(color_blue)
+        w.pushButtonExportTrue.clicked.connect(select_export_3d_all)
+
+        def select_export_3d_none() -> None:
+            for r in range(table_export_3d.rowCount()):
+                i = table_export_3d.item(r, index_export_3d_value)
+                if i is None:
+                    continue
+                if i.text() == 'True':
+                    i.setText('False')
+                    i.setForeground(color_red)
+        w.pushButtonExportFalse.clicked.connect(select_export_3d_none)
+
+        def format_3d_changed(format):
+            target = w.comboBoxExportType.currentText()
+            for r in range(table_export_3d.rowCount()):
+                i = table_export_3d.item(r, index_export_3d_type)
+                if i is None:
+                    continue
+                if i.text() == target or target == 'Any':
+                    f = table_export_3d.cellWidget(r, index_export_3d_format)
+                    if f is not None:
+                        f.setCurrentText(format)
+                        v = table_export_3d.item(r, index_export_3d_value)
+                        if v is not None:
+                            if v.text() == 'False':
+                                v.setText('True')
+                                v.setForeground(color_blue)
+        w.comboBoxExportFormat.currentTextChanged.connect(format_3d_changed)
+
+        def check_unfold_format() -> None:
             if not w.SVG.isChecked() and not w.STP.isChecked():
                 w.DXF.setChecked(True)
                 w.DXF.setEnabled(False)
             else:
                 w.DXF.setEnabled(True)
-        w.DXF.stateChanged.connect(check_format)
-        w.SVG.stateChanged.connect(check_format)
-        w.STP.stateChanged.connect(check_format)
-        check_format()
+        w.DXF.stateChanged.connect(check_unfold_format)
+        w.SVG.stateChanged.connect(check_unfold_format)
+        w.STP.stateChanged.connect(check_unfold_format)
+        check_unfold_format()
 
         def directory() -> None:
             d = os.path.normcase(QtGui.QFileDialog.getExistingDirectory())
             if d != '':
                 conf['working_directory'] = d
                 P.save_pref(P.PATH_CONFIGURATION, conf)
-                w.target.setText(f'... {os.path.basename(d)}')
+                wd = f'... {os.path.basename(d)}'
+                w.target.setText(wd)
+                w.targetExport.setText(wd)
         w.pushButtonDir.clicked.connect(directory)
+        w.pushButtonExportDir.clicked.connect(directory)
 
-        def redefinition() -> list:
+        def unfold_revision() -> list:
             skip = []
             for row in range(table_details.rowCount()):
                 item = table_details.item(row, index_details_unfold)
@@ -728,10 +946,30 @@ class AddFCModelInfo():
                         skip.append(n.text())
             return skip
 
+        def export_3d_revision() -> tuple[list, dict]:
+            skip, binding = [], {}
+            for r in range(table_export_3d.rowCount()):
+                item = table_export_3d.item(r, 0)
+                if item is None:
+                    continue
+                export = table_export_3d.item(r, index_export_3d_value)
+                if export is None:
+                    skip.append(item.text())
+                    continue
+                if export.text() == 'False':
+                    skip.append(item.text())
+                    continue
+                format = table_export_3d.cellWidget(r, index_export_3d_format)
+                if format is None:
+                    skip.append(item.text())
+                    continue
+                binding[item.text()] = EXPORT_OPTIONS_3D[format.currentText()]
+            return skip, binding
+
         def unfold() -> None:
             prefix = str(w.lineEditPrefix.text()).strip()
             if prefix == '':
-                prefix = 'Result'
+                prefix = 'Unfold'
             # remember options:
             conf['unfold_dxf'] = w.DXF.isChecked()
             conf['unfold_svg'] = w.SVG.isChecked()
@@ -744,8 +982,28 @@ class AddFCModelInfo():
             P.save_pref(P.PATH_CONFIGURATION, conf)
             # unfold:
             path = os.path.join(conf['working_directory'], prefix)
-            addFC_Unfold.unfold(w, structure[2], path, redefinition())
+            addFC_Unfold.unfold(w, structure[2], path, unfold_revision())
+
         w.pushButtonUnfold.clicked.connect(unfold)
+
+        def export_3d() -> None:
+            prefix = str(w.lineEditExportPrefix.text()).strip()
+            if prefix == '':
+                prefix = 'Export'
+            # remember options:
+            conf['3d_export_file_name'] = w.comboBoxExportName.currentText()
+            conf['3d_export_prefix'] = prefix
+            conf['3d_export_save_by_type'] = w.checkBoxSaveByType.isChecked()
+            conf['3d_export_save_copies'] = w.checkBoxSaveCopies.isChecked()
+            P.save_pref(P.PATH_CONFIGURATION, conf)
+            # export:
+            path = os.path.join(conf['working_directory'], prefix)
+            addFC_Export.batch_export_3d(w,
+                                         structure[0],
+                                         path,
+                                         *export_3d_revision())
+
+        w.pushButton3DExport.clicked.connect(export_3d)
 
         return
 
