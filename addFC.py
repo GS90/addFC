@@ -1719,23 +1719,27 @@ class AddFCLinker():
         w.comboBoxLCoC.addItems(LCOC_VALUES)
         w.show()
 
+        global obj
+
+        selection = FreeCAD.Gui.Selection.getSelectionEx('')
+        if len(selection) == 0:
+            Logger.error('no selected objects found')
+            return
+
+        for s in selection:
+            if s.HasSubObjects:
+                # todo: think about it
+                if s.Object.TypeId == 'Part::Feature':
+                    obj = s.Object
+                else:
+                    obj = s.Object.InList[0]
+            else:
+                obj = s.Object
+            if obj.TypeId == 'App::Link':
+                obj = obj.LinkedObject
+
         def create() -> None:
             ad = FreeCAD.ActiveDocument
-
-            if len(FreeCAD.Gui.Selection.getSelection()) < 1:
-                return
-
-            selection = FreeCAD.Gui.Selection.getSelectionEx('')
-            if len(selection) == 0:
-                return
-
-            for s in selection:
-                if s.HasSubObjects:
-                    obj = s.Object.InList[0]
-                else:
-                    obj = s.Object
-                if obj.TypeId == 'App::Link':
-                    obj = obj.LinkedObject
 
             number = w.spinBoxNumber.value()
             lcoc = w.comboBoxLCoC.currentText()
