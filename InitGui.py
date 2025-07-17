@@ -8,6 +8,7 @@ import os
 
 
 class addFC(FreeCAD.Gui.Workbench):
+
     MenuText = 'addFC'
     ToolTip = 'addFC Workbench'
     Icon = os.path.join(P.AFC_PATH_ICON, 'workbench.svg')
@@ -23,6 +24,7 @@ class addFC(FreeCAD.Gui.Workbench):
             'AddFCModelInfo',
             'AddFCProperties',
             'AddFCInsert',
+            'AddFCLinker',
             'AddFCAssistant',
             # utils
             'AddFCLibrary',

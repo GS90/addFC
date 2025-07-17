@@ -1698,6 +1698,70 @@ def run(path: str) -> subprocess.CompletedProcess:
 # ------------------------------------------------------------------------------
 
 
+LCOC_VALUES = ('Disabled', 'Enabled', 'Owned', 'Tracking')
+
+
+class AddFCLinker():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'linker.svg'),
+                'Accel': 'M',
+                'MenuText': FreeCAD.Qt.translate(
+                    'addFC', 'Make Link(s)'),
+                'ToolTip': FreeCAD.Qt.translate(
+                    'addFC', 'Create a link(s) to the selected object(s)')}
+
+    def Activated(self):
+
+        w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            P.AFC_PATH, 'repo', 'ui', 'linker.ui'))
+
+        w.comboBoxLCoC.addItems(LCOC_VALUES)
+        w.show()
+
+        def create() -> None:
+            ad = FreeCAD.ActiveDocument
+
+            if len(FreeCAD.Gui.Selection.getSelection()) < 1:
+                return
+
+            selection = FreeCAD.Gui.Selection.getSelectionEx('')
+            if len(selection) == 0:
+                return
+
+            for s in selection:
+                if s.HasSubObjects:
+                    obj = s.Object.InList[0]
+                else:
+                    obj = s.Object
+                if obj.TypeId == 'App::Link':
+                    obj = obj.LinkedObject
+
+            number = w.spinBoxNumber.value()
+            lcoc = w.comboBoxLCoC.currentText()
+
+            for i in range(number):
+                link = ad.addObject('App::Link', 'Link')
+                link.setLink(obj)
+                link.Label = obj.Label + ' 001'
+                link.LinkCopyOnChange = lcoc
+
+            w.close()
+
+        w.pushButtonCreate.clicked.connect(create)
+
+        return
+
+    def IsActive(self):
+        return True if len(FreeCAD.Gui.Selection.getSelection()) > 0 else False
+
+
+FreeCAD.Gui.addCommand('AddFCLinker', AddFCLinker())
+
+
+# ----
+
+
 class AddFCLibrary():
 
     def GetResources(self):

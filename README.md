@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 1.7.0 - [release notes](CHANGELOG.md).
+Current version 1.8.0 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -53,12 +53,13 @@ Explosion (30 FPS)
 4. Bill of materials (BOM) and working with it
 5. Add properties to an object
 6. Create a drawing based on a template
-7. Library of elements and nodes
-8. Information about selected elements
-9. Exploded view
-10. Creating a pipe by points
-11. Isolate selected objects (beta)
-12. Documentation, help and examples
+7. Create a link with specified parameters
+8. Library of elements and nodes
+9. Information about selected elements
+10. Exploded view
+11. Creating a pipe by points
+12. Isolate selected objects (beta)
+13. Documentation, help and examples
 
 
 ### Documentation

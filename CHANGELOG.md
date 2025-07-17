@@ -2,7 +2,10 @@
 
 ## Release notes
 
-#### 2025.07.12 (**1.7.0**):
+#### 2025.07.17 (**1.8.0**):
+* Linker: create a link with specified parameters.
+
+#### 2025.07.16 (**1.7.0**):
 * Batch export to 3D formats.
 
 #### 2025.07.12 (**1.6.6**):
