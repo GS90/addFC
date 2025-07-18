@@ -34,110 +34,108 @@
         <translation>Обновить уравнения</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="118"/>
         <location filename="../ui/pref_sm.ui" line="21"/>
         <source>Sheet metal</source>
         <translation>Листовой металл</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="165"/>
+        <location filename="../ui/info.ui" line="212"/>
         <source>Unfold all</source>
         <translation>Авторазвёртка</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="191"/>
         <source>Unfold value:</source>
-        <translation>Unfold, метки:</translation>
+        <translation type="vanished">Unfold, метки:</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="198"/>
+        <location filename="../ui/info.ui" line="245"/>
+        <location filename="../ui/info.ui" line="512"/>
         <source>All in True</source>
         <translation>Отметить все</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="205"/>
+        <location filename="../ui/info.ui" line="252"/>
+        <location filename="../ui/info.ui" line="519"/>
         <source>All in False</source>
         <translation>Снять все метки</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="215"/>
         <source>Unfold as:</source>
-        <translation>Сохранять как:</translation>
+        <translation type="vanished">Сохранять как:</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="222"/>
+        <location filename="../ui/info.ui" line="269"/>
         <source>.dxf</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="232"/>
+        <location filename="../ui/info.ui" line="279"/>
         <source>.svg</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="239"/>
+        <location filename="../ui/info.ui" line="286"/>
         <source>.step</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="249"/>
         <source>Sketch placement:</source>
-        <translation>Эскиз развёртки:</translation>
+        <translation type="vanished">Эскиз развёртки:</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="256"/>
+        <location filename="../ui/info.ui" line="303"/>
         <source>Centering</source>
         <translation>Центрирование</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="263"/>
+        <location filename="../ui/info.ui" line="310"/>
         <source>Along the X axis</source>
         <translation>Вдоль оси X</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="273"/>
         <source>File name:</source>
-        <translation>Имя файла:</translation>
+        <translation type="vanished">Имя файла:</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="286"/>
         <source>File signature:</source>
-        <translation>Подпись файла:</translation>
+        <translation type="vanished">Подпись файла:</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="299"/>
         <source>Unfold prefix:</source>
-        <translation>Префикс:</translation>
+        <translation type="vanished">Префикс:</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="306"/>
+        <location filename="../ui/info.ui" line="353"/>
         <source>Result</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="326"/>
+        <location filename="../ui/info.ui" line="373"/>
+        <location filename="../ui/info.ui" line="665"/>
         <location filename="../../utils/addFC_Explode_set.ui" line="184"/>
         <source>Select a directory</source>
         <translation>Выбрать каталог</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="355"/>
-        <location filename="../ui/info.ui" line="393"/>
+        <location filename="../ui/info.ui" line="142"/>
+        <location filename="../ui/info.ui" line="402"/>
+        <location filename="../ui/info.ui" line="694"/>
         <location filename="../../utils/addFC_Explode.ui" line="131"/>
         <location filename="../../utils/addFC_Explode.ui" line="376"/>
         <location filename="../../utils/addFC_Explode.ui" line="434"/>
         <location filename="../../utils/addFC_Explode_set.ui" line="175"/>
         <location filename="../../utils/addFC_Summary.ui" line="375"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="375"/>
+        <location filename="../ui/info.ui" line="422"/>
+        <location filename="../ui/info.ui" line="714"/>
         <source>... Desktop</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="417"/>
+        <location filename="../ui/info.ui" line="122"/>
         <location filename="../ui/info_set.ui" line="7"/>
         <location filename="../../utils/addFC_Explode.ui" line="508"/>
         <location filename="../../utils/addFC_Explode_set.ui" line="7"/>
@@ -145,31 +143,116 @@
         <translation>Настройки экспорта</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="427"/>
+        <location filename="../ui/info.ui" line="132"/>
+        <location filename="../ui/info.ui" line="607"/>
         <location filename="../../utils/addFC_Explode.ui" line="478"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="447"/>
+        <location filename="../ui/info.ui" line="165"/>
+        <source>Sheet Metal</source>
+        <translation>Листовой металл</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="238"/>
+        <source>Unfold value</source>
+        <translation>Метка развёртки</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="262"/>
+        <source>Unfold as</source>
+        <translation>Сохранить как</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="296"/>
+        <source>Sketch placement</source>
+        <translation>Размещение эскиза</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="320"/>
+        <location filename="../ui/info.ui" line="587"/>
+        <source>File name</source>
+        <translation>Имя файла</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="333"/>
+        <source>File signature</source>
+        <translation>Подпись файла</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="346"/>
+        <source>Unfold prefix</source>
+        <translation>Префикс</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="432"/>
+        <source>Export 3D</source>
+        <translation>Экспорт 3D</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="479"/>
+        <source>Export all</source>
+        <translation>Экспортировать</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="505"/>
+        <source>Export value</source>
+        <translation>Метка экспорта</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="545"/>
+        <source>All objects of type</source>
+        <translation>Всем объектам типа</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="558"/>
+        <source>in export format</source>
+        <translation>назначить формат</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="600"/>
+        <source>Export prefix</source>
+        <translation>Префикс</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="614"/>
+        <source>Save by type</source>
+        <translation>Хранить по типу</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="621"/>
+        <source>Save copies</source>
+        <translation>Сохранить копии</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="644"/>
+        <source>Tessellation
+settings</source>
+        <translation>Настройки
+тесселяции</translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="739"/>
         <source>Strict mode</source>
         <translation>Строгий режим</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="457"/>
+        <location filename="../ui/info.ui" line="749"/>
         <location filename="../../utils/addFC_Explode.ui" line="471"/>
         <source>Clear</source>
         <translation>Очистить</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="464"/>
+        <location filename="../ui/info.ui" line="756"/>
         <source>Update</source>
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="471"/>
-        <location filename="../ui/insert.ui" line="85"/>
-        <location filename="../ui/list.ui" line="57"/>
+        <location filename="../ui/info.ui" line="763"/>
+        <location filename="../ui/insert.ui" line="86"/>
+        <location filename="../ui/linker.ui" line="86"/>
+        <location filename="../ui/list.ui" line="58"/>
         <location filename="../ui/properties.ui" line="153"/>
         <location filename="../../utils/addFC_Explode.ui" line="574"/>
         <location filename="../../utils/addFC_Pipe.ui" line="160"/>
@@ -189,17 +272,17 @@
     <message>
         <location filename="../ui/info_set.ui" line="39"/>
         <source>JSON</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/info_set.ui" line="46"/>
         <source>CSV</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/info_set.ui" line="53"/>
         <source>Spreadsheet</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/info_set.ui" line="66"/>
@@ -223,23 +306,24 @@
     </message>
     <message>
         <location filename="../ui/info_set.ui" line="140"/>
+        <location filename="../ui/info_tessellation.ui" line="216"/>
         <location filename="../../utils/addFC_Explode_set.ui" line="204"/>
         <location filename="../../utils/addFC_Library_set.ui" line="182"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
     <message>
-        <location filename="../ui/list.ui" line="26"/>
+        <location filename="../ui/list.ui" line="27"/>
         <source>Select an element</source>
         <translation>Выберите элемент</translation>
     </message>
     <message>
-        <location filename="../ui/list.ui" line="64"/>
+        <location filename="../ui/list.ui" line="65"/>
         <source>Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/list.ui" line="79"/>
+        <location filename="../ui/list.ui" line="80"/>
         <source>Attention!
 All models are created in FreeCAD version 0.21.2.</source>
         <translation>Внимание!
@@ -301,7 +385,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../ui/pref_other.ui" line="34"/>
         <source>Sans Serif</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="60"/>
@@ -316,22 +400,22 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../ui/pref_other.ui" line="92"/>
         <source>SheetMetal Workbench</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="102"/>
         <source>ezdxf</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="112"/>
         <source>NumPy</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="122"/>
         <source>FFmpeg</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="148"/>
@@ -356,77 +440,77 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../ui/pref_other.ui" line="196"/>
         <source>Основная надпись</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="204"/>
         <source>Утвердил</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="220"/>
         <source>Обозначение</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="230"/>
         <source>Разработ.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="240"/>
         <source>Н. контр.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="253"/>
         <source>Проверил</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="263"/>
         <source>Т. контр.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="283"/>
         <source>Материал</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="316"/>
         <source>Наименование</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="329"/>
         <source>Организация</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="339"/>
         <source>Литера</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="371"/>
         <source>Масса | Маштаб</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="396"/>
         <source>Шаблоны по умолчанию</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="402"/>
         <source>Шаблон текстового документа</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_other.ui" line="412"/>
         <source>Шаблон графического документа</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_sm.ui" line="29"/>
@@ -436,7 +520,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../ui/pref_sm.ui" line="45"/>
         <source>#b4c0c8</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/pref_sm.ui" line="71"/>
@@ -546,12 +630,12 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../../utils/addFC_Explode.ui" line="91"/>
         <source>↓</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../utils/addFC_Explode.ui" line="104"/>
         <source>↑</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../utils/addFC_Explode.ui" line="122"/>
@@ -561,17 +645,17 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../../utils/addFC_Explode.ui" line="183"/>
         <source>Z</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../utils/addFC_Explode.ui" line="193"/>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../utils/addFC_Explode.ui" line="213"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../utils/addFC_Explode.ui" line="233"/>
@@ -607,27 +691,28 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation>След</translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="26"/>
+        <location filename="../ui/insert.ui" line="27"/>
         <source>Select a template</source>
         <translation>Выберите шаблон</translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="34"/>
+        <location filename="../ui/insert.ui" line="35"/>
         <source>Source of templates</source>
         <translation>Источник шаблонов</translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="56"/>
+        <location filename="../ui/insert.ui" line="57"/>
         <source>Select a template to create a drawing.</source>
         <translation>Выберите шаблон для создания чертежа.</translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="65"/>
+        <location filename="../ui/insert.ui" line="66"/>
         <source>Switch to TechDraw</source>
         <translation>Перейти в TechDraw</translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="92"/>
+        <location filename="../ui/insert.ui" line="93"/>
+        <location filename="../ui/linker.ui" line="93"/>
         <location filename="../../utils/addFC_Explode.ui" line="311"/>
         <source>Create</source>
         <translation>Создать</translation>
@@ -1013,7 +1098,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../../utils/addFC_Summary.ui" line="286"/>
         <source> kg^m3</source>
-        <translation type="unfinished"></translation>
+        <translation> кг^m3</translation>
     </message>
     <message>
         <location filename="../../utils/addFC_Summary.ui" line="319"/>
@@ -1023,7 +1108,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../../utils/addFC_Summary.ui" line="326"/>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../utils/addFC_Summary.ui" line="357"/>
@@ -1069,6 +1154,73 @@ All models are created in FreeCAD version 0.21.2.</source>
         <location filename="../../utils/addFC_Summary.ui" line="569"/>
         <source>Decimals</source>
         <translation>Десятичные</translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="15"/>
+        <source>Meshing options</source>
+        <translation>Параметры сетки</translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="23"/>
+        <source>Standard</source>
+        <translation>Стандарт</translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="29"/>
+        <source>Use the standard mesher</source>
+        <translation>Стандартный генератор</translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="58"/>
+        <source>Linear deflection</source>
+        <translation>Линейное отклонение</translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="67"/>
+        <location filename="../ui/info_tessellation.ui" line="164"/>
+        <source> mm</source>
+        <translation> мм</translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="95"/>
+        <source>Angular deflection</source>
+        <translation>Угловое отклонение</translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="101"/>
+        <source> °</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="126"/>
+        <source>Mefisto (slow)</source>
+        <translation>Mefisto (медленный)</translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="132"/>
+        <source>Use the Mefisto mesher</source>
+        <translation>Генератор Mefisto</translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="158"/>
+        <source>Maximum edge lenght</source>
+        <translation>Макс. длина ребра</translation>
+    </message>
+    <message>
+        <location filename="../ui/linker.ui" line="21"/>
+        <source>Linker</source>
+        <translation>Линкер</translation>
+    </message>
+    <message>
+        <location filename="../ui/linker.ui" line="29"/>
+        <source>Number of links</source>
+        <translation>Количество ссылок</translation>
+    </message>
+    <message>
+        <location filename="../ui/linker.ui" line="36"/>
+        <source>Link copy on change</source>
+        <translation>Копировать ссылку
+при изменении</translation>
     </message>
 </context>
 </TS>

@@ -560,11 +560,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="comboBoxExportFormat">
-             <property name="toolTip">
-              <string>123</string>
-             </property>
-            </widget>
+            <widget class="QComboBox" name="comboBoxExportFormat"/>
            </item>
            <item>
             <spacer name="verticalSpacer_E3">

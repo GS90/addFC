@@ -2,6 +2,10 @@
 
 ## Release notes
 
+#### 2025.07.18 (**1.8.3**):
+* Updating translation files.
+* Renaming templates.
+
 #### 2025.07.17 (**1.8.1**):
 * Linker: create a link with specified parameters.
 * Fixes.

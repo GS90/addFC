@@ -34,95 +34,24 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="118"/>
-        <location filename="../ui/pref_sm.ui" line="21"/>
-        <source>Sheet metal</source>
+        <location filename="../ui/info.ui" line="122"/>
+        <location filename="../ui/info_set.ui" line="7"/>
+        <location filename="../../utils/addFC_Explode.ui" line="508"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="7"/>
+        <source>Export settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="165"/>
-        <source>Unfold all</source>
+        <location filename="../ui/info.ui" line="132"/>
+        <location filename="../ui/info.ui" line="607"/>
+        <location filename="../../utils/addFC_Explode.ui" line="478"/>
+        <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="191"/>
-        <source>Unfold value:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="198"/>
-        <source>All in True</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="205"/>
-        <source>All in False</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="215"/>
-        <source>Unfold as:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="222"/>
-        <source>.dxf</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="232"/>
-        <source>.svg</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="239"/>
-        <source>.step</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="249"/>
-        <source>Sketch placement:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="256"/>
-        <source>Centering</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="263"/>
-        <source>Along the X axis</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="273"/>
-        <source>File name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="286"/>
-        <source>File signature:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="299"/>
-        <source>Unfold prefix:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="306"/>
-        <source>Result</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="326"/>
-        <location filename="../../utils/addFC_Explode_set.ui" line="184"/>
-        <source>Select a directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/info.ui" line="355"/>
-        <location filename="../ui/info.ui" line="393"/>
+        <location filename="../ui/info.ui" line="142"/>
+        <location filename="../ui/info.ui" line="402"/>
+        <location filename="../ui/info.ui" line="694"/>
         <location filename="../../utils/addFC_Explode.ui" line="131"/>
         <location filename="../../utils/addFC_Explode.ui" line="376"/>
         <location filename="../../utils/addFC_Explode.ui" line="434"/>
@@ -132,44 +61,168 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="375"/>
+        <location filename="../ui/info.ui" line="165"/>
+        <source>Sheet Metal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="212"/>
+        <source>Unfold all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="238"/>
+        <source>Unfold value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="245"/>
+        <location filename="../ui/info.ui" line="512"/>
+        <source>All in True</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="252"/>
+        <location filename="../ui/info.ui" line="519"/>
+        <source>All in False</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="262"/>
+        <source>Unfold as</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="269"/>
+        <source>.dxf</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="279"/>
+        <source>.svg</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="286"/>
+        <source>.step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="296"/>
+        <source>Sketch placement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="303"/>
+        <source>Centering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="310"/>
+        <source>Along the X axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="320"/>
+        <location filename="../ui/info.ui" line="587"/>
+        <source>File name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="333"/>
+        <source>File signature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="346"/>
+        <source>Unfold prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="353"/>
+        <source>Result</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="373"/>
+        <location filename="../ui/info.ui" line="665"/>
+        <location filename="../../utils/addFC_Explode_set.ui" line="184"/>
+        <source>Select a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="422"/>
+        <location filename="../ui/info.ui" line="714"/>
         <source>... Desktop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="417"/>
-        <location filename="../ui/info_set.ui" line="7"/>
-        <location filename="../../utils/addFC_Explode.ui" line="508"/>
-        <location filename="../../utils/addFC_Explode_set.ui" line="7"/>
-        <source>Export settings</source>
+        <location filename="../ui/info.ui" line="432"/>
+        <source>Export 3D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="427"/>
-        <location filename="../../utils/addFC_Explode.ui" line="478"/>
-        <source>Export</source>
+        <location filename="../ui/info.ui" line="479"/>
+        <source>Export all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="447"/>
+        <location filename="../ui/info.ui" line="505"/>
+        <source>Export value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="545"/>
+        <source>All objects of type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="558"/>
+        <source>in export format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="600"/>
+        <source>Export prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="614"/>
+        <source>Save by type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="621"/>
+        <source>Save copies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="644"/>
+        <source>Tessellation
+settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info.ui" line="739"/>
         <source>Strict mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="457"/>
+        <location filename="../ui/info.ui" line="749"/>
         <location filename="../../utils/addFC_Explode.ui" line="471"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="464"/>
+        <location filename="../ui/info.ui" line="756"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/info.ui" line="471"/>
-        <location filename="../ui/insert.ui" line="85"/>
-        <location filename="../ui/list.ui" line="57"/>
+        <location filename="../ui/info.ui" line="763"/>
+        <location filename="../ui/insert.ui" line="86"/>
+        <location filename="../ui/linker.ui" line="86"/>
+        <location filename="../ui/list.ui" line="58"/>
         <location filename="../ui/properties.ui" line="153"/>
         <location filename="../../utils/addFC_Explode.ui" line="574"/>
         <location filename="../../utils/addFC_Pipe.ui" line="160"/>
@@ -223,49 +276,117 @@
     </message>
     <message>
         <location filename="../ui/info_set.ui" line="140"/>
+        <location filename="../ui/info_tessellation.ui" line="216"/>
         <location filename="../../utils/addFC_Explode_set.ui" line="204"/>
         <location filename="../../utils/addFC_Library_set.ui" line="182"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="26"/>
+        <location filename="../ui/info_tessellation.ui" line="15"/>
+        <source>Meshing options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="23"/>
+        <source>Standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="29"/>
+        <source>Use the standard mesher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="58"/>
+        <source>Linear deflection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="67"/>
+        <location filename="../ui/info_tessellation.ui" line="164"/>
+        <source> mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="95"/>
+        <source>Angular deflection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="101"/>
+        <source> °</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="126"/>
+        <source>Mefisto (slow)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="132"/>
+        <source>Use the Mefisto mesher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/info_tessellation.ui" line="158"/>
+        <source>Maximum edge lenght</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/insert.ui" line="27"/>
         <source>Select a template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="34"/>
+        <location filename="../ui/insert.ui" line="35"/>
         <source>Source of templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="56"/>
+        <location filename="../ui/insert.ui" line="57"/>
         <source>Select a template to create a drawing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="65"/>
+        <location filename="../ui/insert.ui" line="66"/>
         <source>Switch to TechDraw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="92"/>
+        <location filename="../ui/insert.ui" line="93"/>
+        <location filename="../ui/linker.ui" line="93"/>
         <location filename="../../utils/addFC_Explode.ui" line="311"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/list.ui" line="26"/>
+        <location filename="../ui/linker.ui" line="21"/>
+        <source>Linker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/linker.ui" line="29"/>
+        <source>Number of links</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/linker.ui" line="36"/>
+        <source>Link copy on change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/list.ui" line="27"/>
         <source>Select an element</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/list.ui" line="64"/>
+        <location filename="../ui/list.ui" line="65"/>
         <source>Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/list.ui" line="79"/>
+        <location filename="../ui/list.ui" line="80"/>
         <source>Attention!
 All models are created in FreeCAD version 0.21.2.</source>
         <translation type="unfinished"></translation>
@@ -451,6 +572,11 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../ui/pref_other.ui" line="412"/>
         <source>Шаблон графического документа</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/pref_sm.ui" line="21"/>
+        <source>Sheet metal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
