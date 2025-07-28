@@ -169,18 +169,22 @@ def compilation(strict: bool = True,
                         analysis(g, 1, g.Document.Name)
                     elif g.TypeId == 'App::Link' and g.Visibility:
                         analysis(g.getLinkedObject(), 1, g.Document.Name)
-                    elif g.TypeId == 'Part::FeaturePython':  # array
-                        lo = g.Base.getLinkedObject()
-                        if lo.TypeId == 'App::Part':
-                            # example: assembly of a fastener in an array
-                            for i in lo.Group:
-                                if i.Visibility and i.TypeId == 'App::Link':
-                                    analysis(i.getLinkedObject(),
-                                             g.Count,
-                                             lo.Document.Name)
-                        elif lo.TypeId == 'PartDesign::Body':
-                            # example: fastening element in the array
-                            analysis(lo, g.Count, lo.Document.Name)
+                    elif g.TypeId == 'Part::FeaturePython':  # array?
+                        try:
+                            lo = g.Base.getLinkedObject()
+                            if lo.TypeId == 'App::Part':
+                                # example: assembly of a fastener in an array
+                                for i in lo.Group:
+                                    if i.Visibility:
+                                        if i.TypeId == 'App::Link':
+                                            analysis(i.getLinkedObject(),
+                                                     g.Count,
+                                                     lo.Document.Name)
+                            elif lo.TypeId == 'PartDesign::Body':
+                                # example: fastening element in the array
+                                analysis(lo, g.Count, lo.Document.Name)
+                        except BaseException:
+                            pass  # todo: think about it
         # standard:
         if property_name in obj.PropertiesList:
             dn = obj.Document.Name if doc == '' else doc

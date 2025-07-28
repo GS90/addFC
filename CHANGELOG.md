@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.07.28 (**1.8.4**):
+* Fixes.
+
 #### 2025.07.18 (**1.8.3**):
 * Updating translation files.
 * Renaming templates.
