@@ -1097,8 +1097,8 @@ All models are created in FreeCAD version 0.21.2.</source>
     </message>
     <message>
         <location filename="../../utils/addFC_Summary.ui" line="286"/>
-        <source> kg^m3</source>
-        <translation> кг^m3</translation>
+        <source> kg/m^3</source>
+        <translation> кг/м^3</translation>
     </message>
     <message>
         <location filename="../../utils/addFC_Summary.ui" line="319"/>

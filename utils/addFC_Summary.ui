@@ -283,7 +283,7 @@
            <item>
             <widget class="QDoubleSpinBox" name="Density_Value">
              <property name="suffix">
-              <string> kg^m3</string>
+              <string> kg/m^3</string>
              </property>
              <property name="decimals">
               <number>0</number>

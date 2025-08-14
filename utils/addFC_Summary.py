@@ -10,6 +10,9 @@ import FreeCADGui as Gui
 import os
 
 
+freeze = True
+
+
 units_weight = {
     'g': 1000000,
     'kg': 1000000000,
@@ -128,6 +131,10 @@ class Info():
 
         self.form.Material.currentTextChanged.connect(change_material)
 
+        def change_density():
+            self.set_mass()
+        self.form.Density_Value.valueChanged.connect(change_density)
+
         # previously used values
         self.form.Area_U.setCurrentText(pref['Area_U'])
         self.form.BB_U.setCurrentText(pref['BB_U'])
@@ -194,6 +201,9 @@ class Info():
             self.decimals = value
             self.set_decimals()
         self.form.Decimals.valueChanged.connect(change_decimals)
+
+        global freeze
+        freeze = False
 
         self.add_selection(FreeCAD.ActiveDocument.Name, '', '')
         self.fill()
@@ -330,6 +340,8 @@ class Info():
         self.form.Z_Value.setValue(value_z)
 
     def set_mass(self) -> None:
+        if freeze:
+            return
         unit_volume = self.form.Volume_U.currentText()
         unit_weight = self.form.Weight_U.currentText()
         u_volume = units_volume[unit_volume]
@@ -337,7 +349,7 @@ class Info():
         value_volume = round(self.volume / u_volume, self.decimals)
         self.form.Volume_Value.setMaximum(value_volume)
         self.form.Volume_Value.setValue(value_volume)
-        density = self.form.Density_Value.value()  # important: kg^m3
+        density = self.form.Density_Value.value()  # important: kg/m^3
         value_weight = round(self.volume * density / u_weight, self.decimals)
         self.form.Weight_Value.setMaximum(value_weight)
         self.form.Weight_Value.setValue(value_weight)

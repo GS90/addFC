@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.08.14 (**1.8.5**):
+* Summary: fixes and improvements.
+
 #### 2025.07.28 (**1.8.4**):
 * Fixes.
 
