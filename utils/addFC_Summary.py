@@ -10,8 +10,11 @@ import FreeCADGui as Gui
 import os
 
 
-freeze = True
+# todo: sketches
+# todo: perimeter: use 'Length'
 
+
+freeze = True
 
 units_weight = {
     'g': 1000000,
@@ -288,8 +291,9 @@ class Info():
                 x = 1
                 for i in obj.Shape.Edges:
                     if sub.Curve.isClosed() == i.isClosed():
-                        if radius == round(i.Curve.Radius, self.decimals):
-                            similar.append(('Edge' + str(x), i))
+                        if hasattr(i.Curve, 'Radius'):
+                            if radius == round(i.Curve.Radius, self.decimals):
+                                similar.append(('Edge' + str(x), i))
                     x += 1
             elif sub.Curve.TypeId == 'Part::GeomLine':
                 length = round(sub.Length, self.decimals)

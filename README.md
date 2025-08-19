@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 1.8.5 - [release notes](CHANGELOG.md).
+Current version 1.9.0 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -16,7 +16,8 @@ At the moment it is:
 5. Assistance in creating design documentation.
 6. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
 7. Creating a pipeline.
-8. Process automation.
+8. Export models for viewing.
+9. Process automation.
 
 ### Preview
 
@@ -59,7 +60,8 @@ Explosion (30 FPS)
 10. Exploded view
 11. Creating a pipe by points
 12. Isolate selected objects
-13. Documentation, help and examples
+13. Export models for viewing (beta)
+14. Documentation, help and examples
 
 
 ### Documentation

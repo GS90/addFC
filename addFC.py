@@ -19,6 +19,8 @@ import os
 import subprocess
 import sys
 
+# todo: graphical error messages
+
 
 EXPORT_OPTIONS_BOM = {
     'JSON': ('JSON (*.json)'),
@@ -1891,3 +1893,29 @@ class AddFCIsolation():
 
 
 FreeCAD.Gui.addCommand('AddFCIsolation', AddFCIsolation())
+
+
+# ----
+
+
+class AddFCViewer():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_PATH_ICON, 'viewer.svg'),
+                'Accel': 'Shift+V',
+                'MenuText': FreeCAD.Qt.translate(
+                    'addFC', 'Model Viewer'),
+                'ToolTip': FreeCAD.Qt.translate(
+                    'addFC', 'Exporting a model for viewing in a web browser')}
+
+    def Activated(self):
+        f = os.path.join(P.AFC_PATH, 'utils', 'addFC_Viewer.py')
+        loader = importlib.machinery.SourceFileLoader('addFC_Viewer', f)
+        _ = loader.load_module()
+        return
+
+    def IsActive(self):
+        return True if len(FreeCAD.Gui.Selection.getSelection()) > 0 else False
+
+
+FreeCAD.Gui.addCommand('AddFCViewer', AddFCViewer())

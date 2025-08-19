@@ -16,8 +16,8 @@ class addFC(FreeCAD.Gui.Workbench):
     import addFC
 
     def Initialize(self):
+
         self.list = [
-            # core
             'AddFCOpenRecentFile',
             'AddFCDisplay',
             'AddFCModelControl',
@@ -25,13 +25,13 @@ class addFC(FreeCAD.Gui.Workbench):
             'AddFCProperties',
             'AddFCInsert',
             'AddFCLinker',
-            'AddFCAssistant',
-            # utils
+            'AddFCIsolation',
             'AddFCLibrary',
             'AddFCSummary',
             'AddFCExplode',
             'AddFCPipe',
-            'AddFCIsolation',
+            'AddFCViewer',
+            'AddFCAssistant',
         ]
 
         self.appendToolbar('addFC', self.list)

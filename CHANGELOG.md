@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.08.20 (**1.9.0**):
+* Export models for viewing: html & model-viewer.js
+
 #### 2025.08.14 (**1.8.5**):
 * Summary: fixes and improvements.
 
