@@ -16,7 +16,7 @@ At the moment it is:
 5. Assistance in creating design documentation.
 6. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
 7. Creating a pipeline.
-8. Export models for viewing.
+8. Export models for viewing - [example](https://digiroad.tech/share/addFC/viewer.html).
 9. Process automation.
 
 ### Preview
@@ -68,7 +68,7 @@ Explosion (30 FPS)
 
 [Quick reference guide](/repo/doc/quickstart_EN.md)
 
-[Documentation](repo/doc) available in PDF format:
+[Documentation](repo/doc) available in PDF format (it is somewhat outdated...):
 
 * [English](https://digiroad.tech/share/addFC/documentation_EN.pdf)
 * [Russian](https://digiroad.tech/share/addFC/documentation_RU.pdf)
