@@ -10,11 +10,8 @@ import FreeCADGui as Gui
 import os
 
 
-# todo: sketches
-# todo: perimeter: use 'Length'
-
-
 freeze = True
+
 
 units_weight = {
     'g': 1000000,
@@ -214,33 +211,57 @@ class Info():
 # ------------------------------------------------------------------------------
 
     def add_selection(self, doc, obj, sub) -> None:
-        selection = Gui.Selection.getSelectionEx('', 0)
+        flat_objects = ('Sketcher::SketchObject', 'Part::Part2DObjectPython')
+
+        selection = Gui.Selection.getSelection()
         if len(selection) == 0:
             return
         selection = selection[0]
+        if selection.TypeId in flat_objects:
+            flat = True
+            s = Gui.Selection.getSelectionEx('', 0)[0]
+            if s.HasSubObjects:
+                object = selection
+                sub_object_shape = s.SubObjects[-1]
+                sub = s.SubElementNames[-1]
+                # exception...
+                sp = sub.split('.')
+                if len(sp) == 2:
+                    if sp[1] == '':
+                        sub = ''
+            else:
+                object, sub = selection, ''
+        else:
+            flat = False
 
-        sub_object_shape = None
-        if selection.HasSubObjects:
-            sub_object_shape = selection.SubObjects[-1]
-            shape_type = sub_object_shape.ShapeType
-            if len(selection.SubElementNames) > 0:
-                sen = selection.SubElementNames[-1]
-                sol = selection.Object.getSubObjectList(sen)
-                if shape_type == 'Solid' or len(sol) == 1:
-                    object = sol[-1]
-                    if obj == '' and sub == '':  # init
-                        obj, sub = object.Name, sen
+        if not flat:
+            selection = Gui.Selection.getSelectionEx('', 0)
+            if len(selection) == 0:
+                return
+            selection = selection[0]
+
+            sub_object_shape = None
+            if selection.HasSubObjects:
+                sub_object_shape = selection.SubObjects[-1]
+                shape_type = sub_object_shape.ShapeType
+                if len(selection.SubElementNames) > 0:
+                    sen = selection.SubElementNames[-1]
+                    sol = selection.Object.getSubObjectList(sen)
+                    if shape_type == 'Solid' or len(sol) == 1:
+                        object = sol[-1]
+                        if obj == '' and sub == '':  # init
+                            obj, sub = object.Name, sen
+                    else:
+                        object = sol[-2]
+                        if obj == '' and sub == '':  # init
+                            sp = sen.split('.')
+                            sub = sp[-1]
+                            if len(sp) > 1:
+                                obj = sp[-2]
                 else:
-                    object = sol[-2]
-                    if obj == '' and sub == '':  # init
-                        sp = sen.split('.')
-                        sub = sp[-1]
-                        if len(sp) > 1:
-                            obj = sp[-2]
+                    object = selection.Object
             else:
                 object = selection.Object
-        else:
-            object = selection.Object
 
         key = f'{doc}.{object.Name}'
 
@@ -256,7 +277,15 @@ class Info():
             else:
                 log_err('object "sub_object_shape" is none...')
         else:
-            self.last_selection = None
+            if flat:
+                n = 1
+                for edge in object.Shape.Edges:
+                    self.subobjects[f'{key}.Edge{str(n)}'] = edge
+                    if n == 1:
+                        self.last_selection = [object, edge]
+                    n += 1
+            else:
+                self.last_selection = None
 
     def remove_selection(self, doc, obj, sub) -> None:
         _ = self.objects.pop(f'{doc}.{obj}', None)
