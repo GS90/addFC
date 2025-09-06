@@ -197,6 +197,8 @@ class AddFCModelInfo():
         w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
             P.AFC_PATH, 'repo', 'ui', 'info.ui'))
 
+        w.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+
         if not P.afc_additions['sm'][0]:
             w.tabWidget.setTabEnabled(1, False)
 
@@ -246,8 +248,8 @@ class AddFCModelInfo():
         table_details = w.detailsTable
         table_export_3d = w.exportTable
 
-        color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
-        color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
+        color_blue = P.afc_theme[P.afc_theme['current']]['qt-blue']
+        color_red = P.afc_theme[P.afc_theme['current']]['qt-red']
 
         FORBIDDEN = ('!Body', '!Trace', 'Unit')
 
@@ -1109,8 +1111,8 @@ class AddFCProperties():
         # properties #
         # ---------- #
 
-        color_black = QtGui.QBrush(QtGui.QColor(0, 0, 0))
-        color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
+        color_default = P.afc_theme[P.afc_theme['current']]['qt-default']
+        color_blue = P.afc_theme[P.afc_theme['current']]['qt-blue']
 
         table = w.tableWidget
 
@@ -1186,7 +1188,7 @@ class AddFCProperties():
                 if item.checkState() != QtCore.Qt.Unchecked:
                     item.setForeground(color_blue)
                 else:
-                    item.setForeground(color_black)
+                    item.setForeground(color_default)
             elif item.column() == 1:
                 if item.text() != '':
                     i = table.item(item.row(), 0)
@@ -1383,7 +1385,7 @@ class AddFCProperties():
                 else:
                     if i.checkState() != QtCore.Qt.Unchecked:
                         i.setCheckState(QtCore.Qt.CheckState.Unchecked)
-                        i.setForeground(color_black)
+                        i.setForeground(color_default)
         w.pushButtonPrev.clicked.connect(select_prev)
 
         def select_core() -> None:
@@ -1398,7 +1400,7 @@ class AddFCProperties():
                 else:
                     if i.checkState() != QtCore.Qt.Unchecked:
                         i.setCheckState(QtCore.Qt.CheckState.Unchecked)
-                        i.setForeground(color_black)
+                        i.setForeground(color_default)
         w.pushButtonCore.clicked.connect(select_core)
 
         def select_none() -> None:
@@ -1410,7 +1412,7 @@ class AddFCProperties():
                     continue
                 if i.checkState() != QtCore.Qt.Unchecked:
                     i.setCheckState(QtCore.Qt.CheckState.Unchecked)
-                    i.setForeground(color_black)
+                    i.setForeground(color_default)
         w.pushButtonNone.clicked.connect(select_none)
 
         def state_smp(state) -> None:

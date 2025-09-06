@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.09.06 (**1.9.2**):
+* Fixes for theme support.
+
 #### 2025.08.20 (**1.9.1**):
 * Export models for viewing: html & model-viewer.js
 * Summary: fixes and improvements.

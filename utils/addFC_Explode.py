@@ -962,7 +962,7 @@ def dialog() -> None:
             es.spinBoxHeight.setValue(s[1])
         es.comboBoxSize.currentTextChanged.connect(resize)
 
-        es.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        # es.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         es.show()
 
         def ccs(method) -> None:

@@ -484,7 +484,7 @@ class widget():
 
             u.refresh.clicked.connect(library_upgrade_wrapper)
 
-            u.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+            # u.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
             u.show()
 
             def apply() -> None:

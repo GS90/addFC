@@ -2,7 +2,7 @@
 <ui version="4.0">
  <author>Golodnikov Sergey</author>
  <class>Form</class>
- <widget class="QWidget" name="Form">
+ <widget class="QDialog" name="Form">
   <property name="windowTitle">
    <string>Export settings</string>
   </property>

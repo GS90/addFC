@@ -51,6 +51,16 @@ class addFC(FreeCAD.Gui.Workbench):
             from PySide import QtGui
             QtGui.QApplication.setFont(QtGui.QFont(font[1], font[2]))
 
+        # application theme:
+        pref_str = 'User parameter:BaseApp/Preferences/MainWindow'
+        app_theme = str(FreeCAD.ParamGet(pref_str).GetString('Theme')).lower()
+        if 'dark' in app_theme:
+            P.afc_theme['current'] = 'dark'
+        elif 'light' in app_theme:
+            P.afc_theme['current'] = 'light'
+        else:
+            P.afc_theme['current'] = 'std'
+
     def Activated(self):
         return
 

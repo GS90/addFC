@@ -19,6 +19,30 @@ import xml.etree.ElementTree as ET
 # ------------------------------------------------------------------------------
 
 
+afc_theme = {
+    'current': 'std',
+    # color:
+    'std': {
+        'qt-blue': QtGui.QBrush(QtGui.QColor(0, 0, 150)),
+        'qt-default': QtGui.QBrush(QtGui.QColor(0, 0, 0)),
+        'qt-grey': QtGui.QBrush(QtGui.QColor(100, 100, 100)),
+        'qt-red': QtGui.QBrush(QtGui.QColor(150, 0, 0)),
+    },
+    'dark': {
+        'qt-blue': QtGui.QBrush(QtGui.QColor(80, 140, 240)),
+        'qt-default': QtGui.QBrush(QtGui.QColor(255, 255, 255)),
+        'qt-grey': QtGui.QBrush(QtGui.QColor(80, 80, 80)),
+        'qt-red': QtGui.QBrush(QtGui.QColor(150, 0, 0)),
+    },
+    'light': {
+        'qt-blue': QtGui.QBrush(QtGui.QColor(0, 0, 150)),
+        'qt-default': QtGui.QBrush(QtGui.QColor(0, 0, 0)),
+        'qt-grey': QtGui.QBrush(QtGui.QColor(100, 100, 100)),
+        'qt-red': QtGui.QBrush(QtGui.QColor(150, 0, 0)),
+    },
+}
+
+
 afc_additions = {
     'ezdxf': [True, '', 'color: #005500'],
     'ffmpeg': [True, '', 'color: #005500'],
@@ -218,10 +242,10 @@ class addFCPreferenceProperties():
         headers_properties = ('Title', 'Type', 'Addition', 'Alias')
         headers_values = ('Property', 'Values')
 
-        color_black = QtGui.QBrush(QtGui.QColor(0, 0, 0))
-        color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
-        color_grey = QtGui.QBrush(QtGui.QColor(100, 100, 100))
-        color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
+        color_default = afc_theme[afc_theme['current']]['qt-default']
+        color_blue = afc_theme[afc_theme['current']]['qt-blue']
+        color_grey = afc_theme[afc_theme['current']]['qt-grey']
+        color_red = afc_theme[afc_theme['current']]['qt-red']
 
         table_properties = self.form.tableProperties
         table_values = self.form.tableValues
@@ -270,7 +294,7 @@ class addFCPreferenceProperties():
                 i.setFlags(QtCore.Qt.NoItemFlags)
             else:
                 i.setFlags(addition_flags)
-                i.setForeground(color_black if b else color_grey)
+                i.setForeground(color_default if b else color_grey)
             table_properties.setItem(x, 2, i)
             # alias:
             i = QtGui.QTableWidgetItem(str(value[3]))
@@ -433,7 +457,7 @@ class addFCPreferenceProperties():
                     item.setForeground(color_grey)
                 else:
                     item.setText('True')
-                    item.setForeground(color_black)
+                    item.setForeground(color_default)
 
         self.form.tableProperties.itemChanged.connect(changed_wrapper)
         self.form.tableProperties.itemDoubleClicked.connect(switch)
@@ -528,10 +552,10 @@ class addFCPreferenceMaterials():
         table = self.form.tableMaterials
         units = Data.properties_core['Unit'][2]  # standard
 
-        color_black = QtGui.QBrush(QtGui.QColor(0, 0, 0))
-        color_blue = QtGui.QBrush(QtGui.QColor(0, 0, 150))
-        color_grey = QtGui.QBrush(QtGui.QColor(100, 100, 100))
-        color_red = QtGui.QBrush(QtGui.QColor(150, 0, 0))
+        color_default = afc_theme[afc_theme['current']]['qt-default']
+        color_blue = afc_theme[afc_theme['current']]['qt-blue']
+        color_grey = afc_theme[afc_theme['current']]['qt-grey']
+        color_red = afc_theme[afc_theme['current']]['qt-red']
 
         def set_default_material(default='') -> None:
             current = self.form.comboBoxDM.currentText()
@@ -583,7 +607,7 @@ class addFCPreferenceMaterials():
                     if ' (duplicate)' in key:
                         i.setForeground(color_red)
                     else:
-                        i.setForeground(color_black)
+                        i.setForeground(color_default)
                 table.setItem(x, 0, i)  # title
                 i = QtGui.QTableWidgetItem(value[0])
                 if std:
@@ -592,7 +616,7 @@ class addFCPreferenceMaterials():
                 # density:
                 density = value[1]
                 i = QtGui.QTableWidgetItem(str(density))
-                i.setForeground(color_grey if density == 0 else color_black)
+                i.setForeground(color_grey if density == 0 else color_default)
                 table.setItem(x, 2, i)
                 # unit:
                 unit = value[2]
@@ -604,7 +628,7 @@ class addFCPreferenceMaterials():
                 # price:
                 price = value[3]
                 i = QtGui.QTableWidgetItem(str(price))
-                i.setForeground(color_grey if price == 0 else color_black)
+                i.setForeground(color_grey if price == 0 else color_default)
                 table.setItem(x, 4, i)
                 #
                 x += 1
@@ -662,14 +686,14 @@ class addFCPreferenceMaterials():
                     if ' (duplicate)' in text:
                         item.setForeground(color_red)
                     else:
-                        item.setForeground(color_black)
+                        item.setForeground(color_default)
                 case 1:  # category
                     if text == '':
                         item.setText('User')
                 case 2 | 4:  # density and price
                     try:
                         i = int(text)
-                        color = color_grey if i == 0 else color_black
+                        color = color_grey if i == 0 else color_default
                     except BaseException:
                         i = 0
                         color = color_grey
