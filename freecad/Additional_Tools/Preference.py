@@ -4,8 +4,8 @@
 
 from importlib.metadata import version
 from PySide import QtGui, QtCore
-import addFC_Data as Data
-import addFC_Logger as Logger
+import freecad.Additional_Tools.Data as Data
+import freecad.Additional_Tools.Logger as Logger
 import copy
 import FreeCAD
 import json

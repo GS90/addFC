@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 # Copyright 2025 Golodnikov Sergey
 
+from .Unfold import unfold as unfoldPart
+from .Export import batch_export_3d
 
 from PySide import QtGui, QtCore
 from zipfile import ZipFile
-import addFC_Data as Data
-import addFC_Export
-import addFC_Info as Info
-import addFC_Logger as Logger
-import addFC_Other as Other
-import addFC_Preference as P
-import addFC_Unfold
+import freecad.Additional_Tools.Data as Data
+import freecad.Additional_Tools.Info as Info
+import freecad.Additional_Tools.Logger as Logger
+import freecad.Additional_Tools.Other as Other
+import freecad.Additional_Tools.Preference as P
 import datetime
 import difflib
 import FreeCAD
@@ -986,7 +986,7 @@ class AddFCModelInfo():
             P.save_pref(P.PATH_CONFIGURATION, conf)
             # unfold:
             path = os.path.join(conf['working_directory'], prefix)
-            addFC_Unfold.unfold(w, structure[2], path, unfold_revision())
+            unfoldPart(w, structure[2], path, unfold_revision())
 
         w.pushButtonUnfold.clicked.connect(unfold)
 
@@ -1002,7 +1002,7 @@ class AddFCModelInfo():
             P.save_pref(P.PATH_CONFIGURATION, conf)
             # export:
             path = os.path.join(conf['working_directory'], prefix)
-            addFC_Export.batch_export_3d(w,
+            batch_export_3d(w,
                                          structure[0],
                                          path,
                                          *export_3d_revision())

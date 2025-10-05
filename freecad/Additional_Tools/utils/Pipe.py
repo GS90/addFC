@@ -2,7 +2,7 @@
 # Copyright 2025 Golodnikov Sergey
 
 
-from addFC_Other import error
+from freecad.Additional_Tools.Other import error
 from PySide import QtCore
 import Arch
 import Draft

@@ -2,10 +2,10 @@
 # Copyright 2025 Golodnikov Sergey
 
 
-from addFC_Data import explosion as std_pref
+from freecad.Additional_Tools.Data import explosion as std_pref
 from PySide import QtGui, QtCore
-import addFC_Logger as Logger
-import addFC_Preference as P
+import freecad.Additional_Tools.Logger as Logger
+import freecad.Additional_Tools.Preference as P
 import FreeCAD
 import os
 import re

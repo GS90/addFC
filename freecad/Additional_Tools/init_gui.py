@@ -2,7 +2,7 @@
 # Copyright 2025 Golodnikov Sergey
 
 
-import addFC_Preference as P
+import freecad.Additional_Tools.Preference as P
 import FreeCAD
 import os
 

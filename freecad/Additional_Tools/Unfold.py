@@ -2,8 +2,8 @@
 # Copyright 2025 Golodnikov Sergey
 
 
-import addFC_Logger as Logger
-import addFC_Preference as P
+import freecad.Additional_Tools.Logger as Logger
+import freecad.Additional_Tools.Preference as P
 import FreeCAD
 import importDXF
 import ImportGui

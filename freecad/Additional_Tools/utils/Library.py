@@ -4,9 +4,9 @@
 
 from PySide import QtGui, QtCore, QtWidgets
 from zipfile import ZipFile
-import addFC_Logger as Logger
-import addFC_Other as Other
-import addFC_Preference as P
+import freecad.Additional_Tools.Logger as Logger
+import freecad.Additional_Tools.Other as Other
+import freecad.Additional_Tools.Preference as P
 import FreeCAD
 import FreeCADGui as Gui
 import json

@@ -2,7 +2,7 @@
 # Copyright 2025 Golodnikov Sergey
 
 
-import addFC_Logger as Logger
+import freecad.Additional_Tools.Logger as Logger
 import FreeCAD
 
 
