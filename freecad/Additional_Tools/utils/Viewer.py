@@ -146,7 +146,7 @@ class Viewer():
 
     def __init__(self):
         self.form = FreeCAD.Gui.PySideUic.loadUi(
-            os.path.join(os.path.dirname(__file__), 'addFC_Viewer.ui'))
+            os.path.join(os.path.dirname(__file__), 'Viewer.ui'))
 
         prop = P.pref_properties
 

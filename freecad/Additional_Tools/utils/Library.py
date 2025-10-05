@@ -30,8 +30,8 @@ if not os.path.exists(DIR):
     z.close()
 
 
-ui = os.path.join(os.path.dirname(__file__), 'addFC_Library.ui')
-ls = os.path.join(os.path.dirname(__file__), 'addFC_Library_set.ui')
+ui = os.path.join(os.path.dirname(__file__), 'Library.ui')
+ls = os.path.join(os.path.dirname(__file__), 'Library_set.ui')
 
 
 library_title = ''

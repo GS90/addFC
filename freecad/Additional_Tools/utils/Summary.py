@@ -95,7 +95,7 @@ class Info():
 
     def __init__(self):
         self.form = Gui.PySideUic.loadUi(
-            os.path.join(os.path.dirname(__file__), 'addFC_Summary.ui'))
+            os.path.join(os.path.dirname(__file__), 'Summary.ui'))
 
         Gui.Selection.addObserver(observer)
 
