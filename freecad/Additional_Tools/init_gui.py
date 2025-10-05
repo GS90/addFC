@@ -13,7 +13,7 @@ class addFC(FreeCAD.Gui.Workbench):
     ToolTip = 'addFC Workbench'
     Icon = os.path.join(P.AFC_PATH_ICON, 'workbench.svg')
 
-    import addFC
+    import freecad.Additional_Tools.addFC
 
     def Initialize(self):
 
