@@ -4,7 +4,7 @@
 <context>
     <name>addFC</name>
     <message>
-        <location filename="../../addFC_Export.py" line="41"/>
+        <location filename="../../Export.py" line="41"/>
         <source>No objects for export</source>
         <translation type="unfinished"></translation>
     </message>
@@ -179,7 +179,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../addFC_Unfold.py" line="83"/>
+        <location filename="../../Unfold.py" line="83"/>
         <source>No sheet metal parts</source>
         <translation type="unfinished"></translation>
     </message>

@@ -2,9 +2,9 @@
 # Copyright 2025 Golodnikov Sergey
 
 
-from addFC_Data import summary as std_pref
-from addFC_Logger import error as log_err
-import addFC_Preference as P
+from freecad.Additional_Tools.Data import summary as std_pref
+from freecad.Additional_Tools.Logger import error as log_err
+import freecad.Additional_Tools.Preference as P
 import FreeCAD
 import FreeCADGui as Gui
 import os
@@ -95,7 +95,7 @@ class Info():
 
     def __init__(self):
         self.form = Gui.PySideUic.loadUi(
-            os.path.join(os.path.dirname(__file__), 'addFC_Summary.ui'))
+            os.path.join(os.path.dirname(__file__), 'Summary.ui'))
 
         Gui.Selection.addObserver(observer)
 

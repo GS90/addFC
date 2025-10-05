@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 # Copyright 2025 Golodnikov Sergey
 
+from .Unfold import unfold as unfoldPart
+from .Export import batch_export_3d
 
 from PySide import QtGui, QtCore
 from zipfile import ZipFile
-import addFC_Data as Data
-import addFC_Export
-import addFC_Info as Info
-import addFC_Logger as Logger
-import addFC_Other as Other
-import addFC_Preference as P
-import addFC_Unfold
+import freecad.Additional_Tools.Data as Data
+import freecad.Additional_Tools.Info as Info
+import freecad.Additional_Tools.Logger as Logger
+import freecad.Additional_Tools.Other as Other
+import freecad.Additional_Tools.Preference as P
 import datetime
 import difflib
 import FreeCAD
@@ -986,7 +986,7 @@ class AddFCModelInfo():
             P.save_pref(P.PATH_CONFIGURATION, conf)
             # unfold:
             path = os.path.join(conf['working_directory'], prefix)
-            addFC_Unfold.unfold(w, structure[2], path, unfold_revision())
+            unfoldPart(w, structure[2], path, unfold_revision())
 
         w.pushButtonUnfold.clicked.connect(unfold)
 
@@ -1002,7 +1002,7 @@ class AddFCModelInfo():
             P.save_pref(P.PATH_CONFIGURATION, conf)
             # export:
             path = os.path.join(conf['working_directory'], prefix)
-            addFC_Export.batch_export_3d(w,
+            batch_export_3d(w,
                                          structure[0],
                                          path,
                                          *export_3d_revision())
@@ -1781,8 +1781,8 @@ class AddFCLibrary():
                     'addFC', 'Component library')}
 
     def Activated(self):
-        file = os.path.join(P.AFC_PATH, 'utils', 'addFC_Library.py')
-        loader = importlib.machinery.SourceFileLoader('addFC_Library', file)
+        file = os.path.join(P.AFC_PATH, 'utils', 'Library.py')
+        loader = importlib.machinery.SourceFileLoader('Library', file)
         _ = loader.load_module()
         return
 
@@ -1807,8 +1807,8 @@ class AddFCExplode():
                     'addFC', 'Exploded view')}
 
     def Activated(self):
-        file = os.path.join(P.AFC_PATH, 'utils', 'addFC_Explode.py')
-        loader = importlib.machinery.SourceFileLoader('addFC_Explode', file)
+        file = os.path.join(P.AFC_PATH, 'utils', 'Explode.py')
+        loader = importlib.machinery.SourceFileLoader('Explode', file)
         _ = loader.load_module()
         return
 
@@ -1833,8 +1833,8 @@ class AddFCPipe():
                     'addFC', 'Creating a pipe by points')}
 
     def Activated(self):
-        file = os.path.join(P.AFC_PATH, 'utils', 'addFC_Pipe.py')
-        loader = importlib.machinery.SourceFileLoader('addFC_Pipe', file)
+        file = os.path.join(P.AFC_PATH, 'utils', 'Pipe.py')
+        loader = importlib.machinery.SourceFileLoader('Pipe', file)
         _ = loader.load_module()
         return
 
@@ -1859,8 +1859,8 @@ class AddFCSummary():
                     'addFC', 'Information about selected elements')}
 
     def Activated(self):
-        f = os.path.join(P.AFC_PATH, 'utils', 'addFC_Summary.py')
-        loader = importlib.machinery.SourceFileLoader('addFC_Summary', f)
+        f = os.path.join(P.AFC_PATH, 'utils', 'Summary.py')
+        loader = importlib.machinery.SourceFileLoader('Summary', f)
         _ = loader.load_module()
         return
 
@@ -1885,8 +1885,8 @@ class AddFCIsolation():
                     'addFC', 'Isolate selected objects')}
 
     def Activated(self):
-        f = os.path.join(P.AFC_PATH, 'utils', 'addFC_Isolation.py')
-        loader = importlib.machinery.SourceFileLoader('addFC_Isolation', f)
+        f = os.path.join(P.AFC_PATH, 'utils', 'Isolation.py')
+        loader = importlib.machinery.SourceFileLoader('Isolation', f)
         _ = loader.load_module()
         return
 
@@ -1911,8 +1911,8 @@ class AddFCViewer():
                     'addFC', 'Exporting a model for viewing in a web browser')}
 
     def Activated(self):
-        f = os.path.join(P.AFC_PATH, 'utils', 'addFC_Viewer.py')
-        loader = importlib.machinery.SourceFileLoader('addFC_Viewer', f)
+        f = os.path.join(P.AFC_PATH, 'utils', 'Viewer.py')
+        loader = importlib.machinery.SourceFileLoader('Viewer', f)
         _ = loader.load_module()
         return
 

@@ -2,7 +2,7 @@
 # Copyright 2025 Golodnikov Sergey
 
 
-from addFC_Other import error
+from freecad.Additional_Tools.Other import error
 from PySide import QtCore
 import Arch
 import Draft
@@ -216,7 +216,7 @@ def dialog() -> None:
             return
 
     w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
-        os.path.normpath(os.path.dirname(__file__)), 'addFC_Pipe.ui'))
+        os.path.normpath(os.path.dirname(__file__)), 'Pipe.ui'))
     w.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
     w.comboBoxVariations.addItems(PIPE_VARIATIONS.keys())
     w.comboBoxMaterial.addItems(PIPE_MATERIALS.keys())
@@ -383,7 +383,7 @@ def remove_fittings() -> None:
 
 def add_fittings() -> None:
     pd = os.path.join(os.path.normpath(
-        os.path.dirname(__file__)), 'addFC_Pipe.FCStd')
+        os.path.dirname(__file__)), 'Pipe.FCStd')
     d = FreeCAD.openDocument(pd, True)
     FreeCAD.setActiveDocument(ad.Name)
 

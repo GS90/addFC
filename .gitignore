@@ -1,5 +1,6 @@
 __pycache__
 .vscode
-pref
-repo/add/Library
-repo/example
+
+freecad/Additional_Tools/repo/add/Library/**
+freecad/Additional_Tools/repo/example/**
+freecad/Additional_Tools/pref/**

@@ -4,8 +4,8 @@
 
 from PySide import QtGui, QtCore
 from string import Template
-import addFC_Logger as Logger
-import addFC_Preference as P
+import freecad.Additional_Tools.Logger as Logger
+import freecad.Additional_Tools.Preference as P
 import base64
 import FreeCAD
 import ImportGui
@@ -146,7 +146,7 @@ class Viewer():
 
     def __init__(self):
         self.form = FreeCAD.Gui.PySideUic.loadUi(
-            os.path.join(os.path.dirname(__file__), 'addFC_Viewer.ui'))
+            os.path.join(os.path.dirname(__file__), 'Viewer.ui'))
 
         prop = P.pref_properties
 
