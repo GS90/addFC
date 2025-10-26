@@ -45,6 +45,7 @@
         <location filename="../ui/info.ui" line="132"/>
         <location filename="../ui/info.ui" line="607"/>
         <location filename="../../utils/addFC_Explode.ui" line="478"/>
+        <location filename="../../utils/addFC_Viewer.ui" line="106"/>
         <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
@@ -220,10 +221,10 @@ settings</source>
     </message>
     <message>
         <location filename="../ui/info.ui" line="763"/>
-        <location filename="../ui/insert.ui" line="86"/>
+        <location filename="../ui/insert.ui" line="102"/>
         <location filename="../ui/linker.ui" line="86"/>
         <location filename="../ui/list.ui" line="58"/>
-        <location filename="../ui/properties.ui" line="153"/>
+        <location filename="../ui/properties.ui" line="160"/>
         <location filename="../../utils/addFC_Explode.ui" line="574"/>
         <location filename="../../utils/addFC_Pipe.ui" line="160"/>
         <source>Exit</source>
@@ -349,12 +350,12 @@ settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="66"/>
+        <location filename="../ui/insert.ui" line="82"/>
         <source>Switch to TechDraw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/insert.ui" line="93"/>
+        <location filename="../ui/insert.ui" line="109"/>
         <location filename="../ui/linker.ui" line="93"/>
         <location filename="../../utils/addFC_Explode.ui" line="311"/>
         <source>Create</source>
@@ -392,24 +393,24 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_materials.ui" line="20"/>
+        <location filename="../ui/pref_materials.ui" line="21"/>
         <source>Materials</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_materials.ui" line="28"/>
+        <location filename="../ui/pref_materials.ui" line="29"/>
         <source>Default material</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_materials.ui" line="64"/>
+        <location filename="../ui/pref_materials.ui" line="65"/>
         <location filename="../ui/pref_sm.ui" line="140"/>
         <location filename="../ui/pref_sm.ui" line="221"/>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_materials.ui" line="77"/>
+        <location filename="../ui/pref_materials.ui" line="78"/>
         <location filename="../ui/pref_sm.ui" line="160"/>
         <location filename="../ui/pref_sm.ui" line="241"/>
         <location filename="../ui/pref_uProp.ui" line="55"/>
@@ -419,11 +420,11 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/pref_materials.ui" line="90"/>
+        <location filename="../ui/pref_materials.ui" line="91"/>
         <location filename="../ui/pref_sm.ui" line="167"/>
         <location filename="../ui/pref_sm.ui" line="248"/>
         <location filename="../ui/pref_uProp.ui" line="71"/>
-        <location filename="../ui/properties.ui" line="173"/>
+        <location filename="../ui/properties.ui" line="180"/>
         <location filename="../../utils/addFC_Explode.ui" line="44"/>
         <location filename="../../utils/addFC_Library.ui" line="292"/>
         <source>Add</source>
@@ -661,16 +662,21 @@ All models are created in FreeCAD version 0.21.2.</source>
     </message>
     <message>
         <location filename="../ui/properties.ui" line="100"/>
+        <source>Link the Name and Label with an equation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/properties.ui" line="107"/>
         <source>Set weight and price as an equation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/properties.ui" line="119"/>
+        <location filename="../ui/properties.ui" line="126"/>
         <source>Sheet metal part</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/properties.ui" line="129"/>
+        <location filename="../ui/properties.ui" line="136"/>
         <source>Link thickness</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1193,6 +1199,31 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../../utils/addFC_Summary.ui" line="569"/>
         <source>Decimals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Viewer.ui" line="21"/>
+        <source>Export viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Viewer.ui" line="29"/>
+        <source>Export object names</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Viewer.ui" line="36"/>
+        <source>Export format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Viewer.ui" line="46"/>
+        <source>Export only addFC names</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../utils/addFC_Viewer.ui" line="55"/>
+        <source>Export names for selected types:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

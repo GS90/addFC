@@ -9,6 +9,8 @@ configuration = {
     'interface_font': [False, 'Sans Serif', 10],
     'working_directory': '',
     'default_material': 'Galvanized',
+    'add_properties_nl': False,
+    'add_properties_eq': True,
     # unfold:
     'unfold_dxf': True,
     'unfold_svg': False,

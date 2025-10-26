@@ -80,12 +80,14 @@ except ImportError:
 
 try:
     import smwb_locator
-    f = os.path.join(os.path.dirname(smwb_locator.__file__), 'package.xml')
-    root = ET.parse(f).getroot()
-    for i in root:
-        if 'version' in i.tag:
-            afc_additions['sm'][1] = i.text
-            break
+    path = smwb_locator.__file__
+    if path is not None:
+        f = os.path.join(os.path.dirname(path), 'package.xml')
+        root = ET.parse(f).getroot()
+        for i in root:
+            if 'version' in i.tag:
+                afc_additions['sm'][1] = i.text
+                break
 except ImportError:
     afc_additions['sm'][0] = False
     afc_additions['sm'][2] = 'color: #aa0000'

@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2025.10.27 (**1.9.3**):
+* Properties: ability to associate a Add_Name with a Label.
+
 #### 2025.09.06 (**1.9.2**):
 * Fixes for theme support.
 

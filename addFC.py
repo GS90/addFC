@@ -1079,6 +1079,14 @@ class AddFCProperties():
 
         core = Data.properties_core
 
+        # the user's last choice:
+        nl = configuration.get('add_properties_nl')
+        if nl is not None:
+            w.checkBoxNL.setChecked(nl)
+        eq = configuration.get('add_properties_eq')
+        if eq is not None:
+            w.checkBoxEq.setChecked(eq)
+
         default_material = configuration['default_material']
         if default_material not in materials:
             default_material = '-'
@@ -1257,6 +1265,7 @@ class AddFCProperties():
                     )
 
                 index, name = parse_label(i.Label)
+                nl = w.checkBoxNL.isChecked()
                 eq = w.checkBoxEq.isChecked()
 
                 keys = list(stuff.keys())
@@ -1289,10 +1298,13 @@ class AddFCProperties():
 
                     match k:
                         case 'Add_Name':
-                            if old == '':
-                                i.Add_Name = name if v[2] == '' else v[2]
-                            elif old != v[2] and v[2] != '':
-                                i.Add_Name = v[2]
+                            if nl:
+                                i.setExpression('Add_Name', 'Label')
+                            else:
+                                if old == '':
+                                    i.Add_Name = name if v[2] == '' else v[2]
+                                elif old != v[2] and v[2] != '':
+                                    i.Add_Name = v[2]
                         case 'Add_Index':
                             if old == '':
                                 i.Add_Index = index if v[2] == '' else v[2]
@@ -1358,6 +1370,11 @@ class AddFCProperties():
                                 case _:
                                     if old != v[2] and v[2] != '':
                                         setattr(i, k, v[2])
+
+            # saving the user's choice:
+            configuration['add_properties_nl'] = nl
+            configuration['add_properties_eq'] = eq
+            P.save_pref(P.PATH_CONFIGURATION, configuration)
 
             FreeCAD.activeDocument().recompute()
 
