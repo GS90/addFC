@@ -2,8 +2,13 @@
 
 ## Release notes
 
+#### 2026.01.20 (**2.0.0**):
+* Refactor codebase structure.
+* Updating files in examples.
+* Fixes.
+
 #### 2025.10.27 (**1.9.3**):
-* Properties: ability to associate a Add_Name with a Label.
+* Properties: ability to associate a __Add_Name__ with a Label.
 
 #### 2025.09.06 (**1.9.2**):
 * Fixes for theme support.
@@ -132,7 +137,7 @@
     + BOM: Possibility of export according to standard.
     + New function: Create a drawing based on a template.
     + Automatic filling of the template stamp.
-    + Additional files added: [templates and font](/repo/add/stdRU)
+    + Additional files added: [templates and font](addon/extra/stdRU)
     + Added a special example of work and design: stdRU.
 * Updating documentation and fixes.
 * Fixes.

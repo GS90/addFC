@@ -1,74 +1,75 @@
 # addFC - additional tools for FreeCAD
 
-Current version 1.9.3 - [release notes](CHANGELOG.md).
+Current version 2.0.0 - [release notes](CHANGELOG.md).
 
 
 ### Overview
 
-This workbench contains tools that simplify the solution of some tasks in FreeCAD.
+This workbench contains tools that simplify solving certain tasks in FreeCAD.
 
-At the moment it is:
+At present, this is:
 
-1. Generate a BOM based on the model.
+1. Generating a BOM from the model.
 2. Batch processing of sheet metal parts.
 3. Batch export to 3D formats.
-4. Component library - [internal](repo/add/Library.md).
+4. Component library - [internal](addon/extra/Library.md).
 5. Assistance in creating design documentation.
 6. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
 7. Creating a pipeline.
 8. Export models for viewing - [example](https://digiroad.tech/add/addFC/viewer.html).
 9. Process automation.
 
+
 ### Preview
 
 Bill of materials - BOM
 
-![Bill of materials - BOM](repo/doc/img/info_bom.png)
+![Bill of materials - BOM](doc/img/info_bom.png)
 
-Component library - beta
+Component library
 
-![Library](repo/doc/img/library.png)
+![Library](doc/img/library.png)
 
 Information about selected elements
 
-![Summary](repo/doc/img/summary.png)
+![Summary](doc/img/summary.png)
 
 Pipeline and pipe fittings
 
-![Pipeline and pipe fittings](repo/doc/img/pipe_result.png)
+![Pipeline and pipe fittings](doc/img/pipe_result.png)
 
 Explosion (30 FPS)
 
-![Explosion (30 FPS)](repo/doc/other/explosion.gif)
+![Explosion (30 FPS)](doc/other/explosion.gif)
 
 
 ## Description
 
 ### Toolbox
 
-![](repo/doc/img/toolbar.svg)
+![](doc/img/toolbar.svg)
 
-1. Open last working file
-2. Isometry and fit all
-3. Run the model control file
-4. Bill of materials (BOM) and working with it
+1. Open the last working file
+2. Isometric view and fit all objects
+3. Execute the model control file
+4. Bill of Materials (BOM) and related workflows
 5. Add properties to an object
 6. Create a drawing based on a template
 7. Create a link(s) with specified parameters
-8. Library of elements and nodes
-9. Information about selected elements
+8. Element and node library
+9. Display information about selected elements
 10. Exploded view
-11. Creating a pipe by points
+11. Create a pipe using points
 12. Isolate selected objects
-13. Export models for viewing (beta)
-14. Documentation, help and examples
+13. Export models for viewing
+14. Documentation, help, and examples
 
 
 ### Documentation
 
-[Quick reference guide](/repo/doc/quickstart_EN.md)
+[Quick reference guide](doc/quickstart_EN.md)
 
-[Documentation](repo/doc) available in PDF format (it is somewhat outdated...):
+[Documentation](doc) available in PDF format (it is somewhat outdated...):
 
 * [English](https://digiroad.tech/add/addFC/documentation_EN.pdf)
 * [Russian](https://digiroad.tech/add/addFC/documentation_RU.pdf)
@@ -82,15 +83,15 @@ Forum:
 
 ### Notes
 
-The workbench is under development.
+The workbench is currently in development.
 
-Testing is performed on stable versions (0.20 and 0.21) of FreeCAD.
+Testing primarily targets the old (0.21) stable version of FreeCAD.
 
-__Potential sheet metal issues when running version 1 and above.__
+__Warning: Potential sheet metal functionality issues in FreeCAD versions 1.0 and higher.__
 
-If you encounter problems after the update, try deleting the preferences directory:
+If issues arise after updating, consider resetting preferences by deleting the configuration directory:
 
-`FreeCAD/Mod/addFC/pref`
+`FreeCAD/Mod/addFC/addon/pref`
 
 
 ## Installation
@@ -120,11 +121,12 @@ To update the module, while in the __addFC__ directory, use:
 
 </details>
 
+
 ### Dependencies
 
 Requirements:
 
-* FreeCAD >= 0.20
+* FreeCAD >= 0.21
 * Python >= 3.10
 
 For full functionality, you need:
@@ -135,7 +137,7 @@ For full functionality, you need:
 
 When installing the workbench using __Addon Manager__, all dependencies (except FFmpeg) will be installed automatically.
 
-To install additional Python modules manually, the easiest way is to use [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)):
+For manual installation of additional Python modules, use [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)):
 
 * `pip install numpy ezdxf`
 

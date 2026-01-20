@@ -2,8 +2,8 @@
 <package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
   <name>AddFC Workbench</name>
   <description>Additional tools for FreeCAD.</description>
-  <version>1.9.3</version>
-  <date>2025-10-27</date>
+  <version>2.0.0</version>
+  <date>2026-01-20</date>
   <maintainer email="nn19051990@gmail.com">Golodnikov Sergey</maintainer>
   <author email="nn19051990@gmail.com">Golodnikov Sergey</author>
   <license file="LICENSE">LGPL-2.1-or-later</license>
@@ -14,16 +14,16 @@
   <content>
     <workbench>
       <classname>AddFC</classname>
-      <subdirectory>./</subdirectory>
-      <freecadmin>0.20.2</freecadmin>
+      <subdirectory>./addon/addFC</subdirectory>
+      <freecadmin>0.21.2</freecadmin>
       <!-- dependencies -->
       <depend optional="true" type="addon">sheetmetal</depend>
       <depend optional="true" type="python">numpy</depend>
       <depend optional="true" type="python">ezdxf</depend>
       <!-- tags -->
       <tag>bom</tag>
-      <tag>library</tag>
       <tag>exploded</tag>
+      <tag>library</tag>
       <tag>sheetmetal</tag>
     </workbench>
   </content>

@@ -1,5 +1,5 @@
 __pycache__
 .vscode
 pref
-repo/add/Library
-repo/example
+addon/extra/Library
+addon/extra/example
