@@ -2,6 +2,10 @@
 
 ## Release notes
 
+#### 2026.01.31 (**2.1.2**):
+* Added: viewport recording.
+* Minor fixes and improvements.
+
 #### 2026.01.20 (**2.0.0**):
 * Refactor codebase structure.
 * Updating files in examples.

@@ -102,19 +102,6 @@ configuration = {
 }
 
 
-explosion = {
-    'export_size': '1080p (FHD)',
-    'export_width': 1920,
-    'export_height': 1080,
-    'export_background': 'Current',
-    'export_method': 'Framebuffer',
-    'export_ccs': False,
-    'export_image_format': 'PNG',
-    'export_framerate': 60,
-    'export_dir': os.path.expanduser('~/Desktop'),
-}
-
-
 # materials = title: [category, density, unit, price per unit]
 
 materials = {
@@ -262,4 +249,41 @@ summary = {
     # last used material and precision
     'Material': '-',
     'Decimals': 2,
+}
+
+
+# video
+
+video_options = {
+    'size': {
+        '480p (SD)': (640, 480),
+        '720p (HD)': (1280, 720),
+        '1080p (FHD)': (1920, 1080),
+        '1440p (QHD)': (2560, 1440),
+        '2K video': (2048, 1080),
+        '4K video': (3840, 2160),
+        '8K video': (7680, 4320),
+    },
+    'background': ('Current', 'White', 'Black', 'Transparent'),
+    'method': {
+        'Offscreen': 'QtOffscreenRenderer',
+        'Framebuffer': 'FramebufferObject',
+    },
+    'image_format': {
+        'PNG': '.png',
+        'JPG': '.jpg'
+    }
+}
+
+video_pref_std = {
+    'size': '1080p (FHD)',
+    'width': 1920,
+    'height': 1080,
+    'background': 'Current',
+    'method': 'Framebuffer',
+    'image_format': 'PNG',
+    'framerate': 60,
+    'export_dir': os.path.expanduser('~/Desktop'),
+    'export_storyboard': os.path.join(
+        os.path.expanduser('~/Desktop'), '_storyboard'),
 }

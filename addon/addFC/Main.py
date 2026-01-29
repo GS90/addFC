@@ -25,8 +25,6 @@ import difflib
 import FreeCAD
 import importlib.machinery
 import os
-import subprocess
-import sys
 
 import Data
 import Export
@@ -110,7 +108,7 @@ class AddFCOpenRecentFile():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'resent.svg'),
-                'Accel': 'R',
+                'Accel': 'Shift+R',
                 'MenuText': FreeCAD.Qt.translate(
                     'addFC', 'Open Recent'),
                 'ToolTip': FreeCAD.Qt.translate(
@@ -266,8 +264,8 @@ class AddFCModelInfo():
         table_details = w.detailsTable
         table_export_3d = w.exportTable
 
-        color_blue = P.afc_theme[P.afc_theme['current']]['qt-blue']
-        color_red = P.afc_theme[P.afc_theme['current']]['qt-red']
+        color_blue = P.afc_theme_get('qt-blue')
+        color_red = P.afc_theme_get('qt-red')
 
         FORBIDDEN = ('!Body', '!Trace', 'Unit')
 
@@ -1089,6 +1087,7 @@ class AddFCProperties():
     def Activated(self):
         w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
             P.AFC_DIR, 'ui', 'properties.ui'))
+
         w.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
 
         configuration = P.pref_configuration
@@ -1137,8 +1136,8 @@ class AddFCProperties():
         # properties #
         # ---------- #
 
-        color_default = P.afc_theme[P.afc_theme['current']]['qt-default']
-        color_blue = P.afc_theme[P.afc_theme['current']]['qt-blue']
+        color_default = P.afc_theme_get('qt-default')
+        color_blue = P.afc_theme_get('qt-blue')
 
         table = w.tableWidget
 
@@ -1522,7 +1521,7 @@ class AddFCInsert():
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'insert.svg'),
                 'MenuText': FreeCAD.Qt.translate(
-                    'addFC', 'Creating a Drawing'),
+                    'addFC', 'Creating Drawing'),
                 'ToolTip': FreeCAD.Qt.translate(
                     'addFC', 'Create a drawing based on a template')}
 
@@ -1710,11 +1709,9 @@ class AddFCAssistant():
                 path = examples[item][0]
                 w.close()
                 if 'files' in item:
-                    run(path)
+                    Other.open(path, False)
                 elif path.endswith('.pdf'):
-                    cp = run(path)
-                    if cp.returncode != 0:
-                        run(os.path.dirname(path))
+                    Other.open(path, True)
                 else:
                     unzip(True if not os.path.exists(path) else False)
                     FreeCAD.openDocument(path)
@@ -1728,13 +1725,6 @@ class AddFCAssistant():
 FreeCAD.Gui.addCommand('AddFCAssistant', AddFCAssistant())
 
 
-def run(path: str) -> subprocess.CompletedProcess:
-    match sys.platform:
-        case 'win32': return subprocess.run(['explorer', path])
-        case 'darwin': return subprocess.run(['open', path])
-        case _: return subprocess.run(['xdg-open', path])
-
-
 # ------------------------------------------------------------------------------
 
 
@@ -1745,9 +1735,9 @@ class AddFCLinker():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'linker.svg'),
-                'Accel': 'M',
+                'Accel': 'Shift+C',
                 'MenuText': FreeCAD.Qt.translate(
-                    'addFC', 'Make Link(s)'),
+                    'addFC', 'Create Link(s)'),
                 'ToolTip': FreeCAD.Qt.translate(
                     'addFC', 'Create a link(s) with specified parameters')}
 
@@ -1810,7 +1800,7 @@ class AddFCLibrary():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'library.svg'),
-                'Accel': 'L',
+                'Accel': 'Shift+A',
                 'MenuText': FreeCAD.Qt.translate(
                     'addFC', 'Library'),
                 'ToolTip': FreeCAD.Qt.translate(
@@ -1836,7 +1826,6 @@ class AddFCExplode():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'explode.svg'),
-                'Accel': 'E',
                 'MenuText': FreeCAD.Qt.translate(
                     'addFC', 'Explode'),
                 'ToolTip': FreeCAD.Qt.translate(
@@ -1862,7 +1851,6 @@ class AddFCPipe():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'pipe.svg'),
-                'Accel': 'P',
                 'MenuText': FreeCAD.Qt.translate(
                     'addFC', 'Pipe'),
                 'ToolTip': FreeCAD.Qt.translate(
@@ -1940,7 +1928,6 @@ class AddFCViewer():
 
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'viewer.svg'),
-                'Accel': 'Shift+V',
                 'MenuText': FreeCAD.Qt.translate(
                     'addFC', 'Model Viewer'),
                 'ToolTip': FreeCAD.Qt.translate(
@@ -1957,3 +1944,28 @@ class AddFCViewer():
 
 
 FreeCAD.Gui.addCommand('AddFCViewer', AddFCViewer())
+
+
+# ----
+
+
+class AddFCRecording():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'recording.svg'),
+                'MenuText': FreeCAD.Qt.translate(
+                    'addFC', 'Viewport Recording'),
+                'ToolTip': FreeCAD.Qt.translate(
+                    'addFC', 'Recording the 3D viewport to a video file')}
+
+    def Activated(self):
+        f = os.path.join(P.AFC_DIR, 'toolkit', 'Recording.py')
+        loader = importlib.machinery.SourceFileLoader('Recording', f)
+        _ = loader.load_module()
+        return
+
+    def IsActive(self):
+        return True if FreeCAD.ActiveDocument else False
+
+
+FreeCAD.Gui.addCommand('AddFCRecording', AddFCRecording())

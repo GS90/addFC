@@ -26,8 +26,6 @@ import json
 import os
 import Part
 import shutil
-import subprocess
-import sys
 
 import Logger
 import Other
@@ -391,11 +389,7 @@ class widget():
         # open library root directory:
 
         def open_library() -> None:
-            match sys.platform:
-                case 'win32': subprocess.run(['explorer', library_path])
-                case 'darwin': subprocess.run(['open', library_path])
-                case _: subprocess.run(['xdg-open', library_path])
-
+            Other.open(library_path, False)
         self.form.openLibrary.clicked.connect(open_library)
 
         # add or replace object:

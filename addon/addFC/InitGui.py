@@ -52,6 +52,7 @@ class addFC(FreeCAD.Gui.Workbench):
             'AddFCExplode',
             'AddFCPipe',
             'AddFCViewer',
+            'AddFCRecording',
             'AddFCAssistant',
         ]
 

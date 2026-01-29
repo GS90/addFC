@@ -44,20 +44,30 @@ afc_theme = {
         'qt-default': QtGui.QBrush(QtGui.QColor(0, 0, 0)),
         'qt-grey': QtGui.QBrush(QtGui.QColor(100, 100, 100)),
         'qt-red': QtGui.QBrush(QtGui.QColor(150, 0, 0)),
+        'css-default': 'color: #000000',
+        'css-red': 'color: #aa0000',
     },
     'dark': {
         'qt-blue': QtGui.QBrush(QtGui.QColor(80, 140, 240)),
         'qt-default': QtGui.QBrush(QtGui.QColor(255, 255, 255)),
         'qt-grey': QtGui.QBrush(QtGui.QColor(80, 80, 80)),
         'qt-red': QtGui.QBrush(QtGui.QColor(150, 0, 0)),
+        'css-default': 'color: #ffffff',
+        'css-red': 'color: #aa0000',
     },
     'light': {
         'qt-blue': QtGui.QBrush(QtGui.QColor(0, 0, 150)),
         'qt-default': QtGui.QBrush(QtGui.QColor(0, 0, 0)),
         'qt-grey': QtGui.QBrush(QtGui.QColor(100, 100, 100)),
         'qt-red': QtGui.QBrush(QtGui.QColor(150, 0, 0)),
+        'css-default': 'color: #000000',
+        'css-red': 'color: #aa0000',
     },
 }
+
+
+def afc_theme_get(value: str):
+    return afc_theme[afc_theme['current']][value]
 
 
 afc_additions = {
@@ -122,11 +132,11 @@ AFC_DIR_PREF = os.path.join(AFC_DIR_BASE, 'pref')
 AFC_DIR_ICON = os.path.join(AFC_DIR, 'ui', 'icon')
 
 PATH_CONFIGURATION = os.path.join(AFC_DIR_PREF, 'configuration.json')
-PATH_EXPLOSION = os.path.join(AFC_DIR_PREF, 'explosion.json')
 PATH_MATERIALS = os.path.join(AFC_DIR_PREF, 'materials.json')
 PATH_PROPERTIES = os.path.join(AFC_DIR_PREF, 'properties.json')
 PATH_STEEL = os.path.join(AFC_DIR_PREF, 'steel.json')
 PATH_SUMMARY = os.path.join(AFC_DIR_PREF, 'summary.json')
+PATH_VIDEO = os.path.join(AFC_DIR_PREF, 'video.json')
 
 AVAILABLE_PROPERTY_TYPES = (
     'Bool',

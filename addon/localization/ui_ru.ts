@@ -81,7 +81,7 @@
         <translation>Вдоль оси X</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="184"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="191"/>
         <location filename="../addFC/ui/info.ui" line="373"/>
         <location filename="../addFC/ui/info.ui" line="665"/>
         <source>Select a directory</source>
@@ -91,8 +91,8 @@
         <location filename="../addFC/toolkit/Explode.ui" line="131"/>
         <location filename="../addFC/toolkit/Explode.ui" line="376"/>
         <location filename="../addFC/toolkit/Explode.ui" line="434"/>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="175"/>
         <location filename="../addFC/toolkit/Summary.ui" line="375"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="182"/>
         <location filename="../addFC/ui/info.ui" line="142"/>
         <location filename="../addFC/ui/info.ui" line="402"/>
         <location filename="../addFC/ui/info.ui" line="694"/>
@@ -107,7 +107,7 @@
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="508"/>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="7"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="21"/>
         <location filename="../addFC/ui/info.ui" line="122"/>
         <location filename="../addFC/ui/info_set.ui" line="7"/>
         <source>Export settings</source>
@@ -115,6 +115,7 @@
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="478"/>
+        <location filename="../addFC/toolkit/Presentation.ui" line="134"/>
         <location filename="../addFC/toolkit/Viewer.ui" line="106"/>
         <location filename="../addFC/ui/info.ui" line="132"/>
         <location filename="../addFC/ui/info.ui" line="607"/>
@@ -282,8 +283,8 @@ settings</source>
         <translation>Только для Spreadsheets</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="204"/>
         <location filename="../addFC/toolkit/Library_set.ui" line="182"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="211"/>
         <location filename="../addFC/ui/info_set.ui" line="140"/>
         <location filename="../addFC/ui/info_tessellation.ui" line="216"/>
         <source>Apply</source>
@@ -761,57 +762,56 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation>Скорость</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="16"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="30"/>
         <source>Resolution</source>
         <translation>Размеры</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="24"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="38"/>
         <source>Width</source>
         <translation>Ширина</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="31"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="45"/>
         <source>Standard sizes</source>
         <translation>Разрешение</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="38"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="52"/>
         <source>Height</source>
         <translation>Высота</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="76"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="90"/>
         <source>Image</source>
         <translation>Изображение</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="90"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="104"/>
         <source>Creation method</source>
         <translation>Способ создания</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="97"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="111"/>
         <source>Image format</source>
         <translation>Формат изображения</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="104"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="118"/>
         <source>Background</source>
         <translation>Задний план, фон</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="116"/>
         <source>Show corner coordinate system</source>
-        <translation>Показать систему координат</translation>
+        <translation type="vanished">Показать систему координат</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="129"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="136"/>
         <source>Video</source>
         <translation>Видео</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="137"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="144"/>
         <source>Frame rate</source>
         <translation>Частота кадров</translation>
     </message>
@@ -1205,9 +1205,45 @@ All models are created in FreeCAD version 0.21.2.</source>
 при изменении</translation>
     </message>
     <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="15"/>
         <location filename="../addFC/toolkit/Viewer.ui" line="21"/>
         <source>Export viewer</source>
         <translation>Экспорт для просмотра</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="23"/>
+        <source>Target object</source>
+        <translation>Целевой объект</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="30"/>
+        <source>Rotation cycles</source>
+        <translation>Циклы вращения</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="63"/>
+        <source>Rotation axis</source>
+        <translation>Ось вращения</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="73"/>
+        <source>Rotation angle</source>
+        <translation>Угол вращения</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="83"/>
+        <source>Pendulum</source>
+        <translation>Режим маятника</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="107"/>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="127"/>
+        <source>Preview</source>
+        <translation>Просмотр</translation>
     </message>
     <message>
         <location filename="../addFC/toolkit/Viewer.ui" line="29"/>

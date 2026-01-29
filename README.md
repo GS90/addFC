@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 2.0.0 - [release notes](CHANGELOG.md).
+Current version 2.1.2 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -62,7 +62,8 @@ Explosion (30 FPS)
 11. Create a pipe using points
 12. Isolate selected objects
 13. Export models for viewing
-14. Documentation, help, and examples
+14. Recording the 3D viewport to a video file
+15. Documentation, help, and examples
 
 
 ### Documentation

@@ -58,8 +58,8 @@
         <location filename="../addFC/toolkit/Explode.ui" line="131"/>
         <location filename="../addFC/toolkit/Explode.ui" line="376"/>
         <location filename="../addFC/toolkit/Explode.ui" line="434"/>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="175"/>
         <location filename="../addFC/toolkit/Summary.ui" line="375"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="182"/>
         <location filename="../addFC/ui/info.ui" line="142"/>
         <location filename="../addFC/ui/info.ui" line="402"/>
         <location filename="../addFC/ui/info.ui" line="694"/>
@@ -180,6 +180,7 @@
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="478"/>
+        <location filename="../addFC/toolkit/Presentation.ui" line="134"/>
         <location filename="../addFC/toolkit/Viewer.ui" line="106"/>
         <location filename="../addFC/ui/info.ui" line="132"/>
         <location filename="../addFC/ui/info.ui" line="607"/>
@@ -198,7 +199,7 @@
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="508"/>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="7"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="21"/>
         <location filename="../addFC/ui/info.ui" line="122"/>
         <location filename="../addFC/ui/info_set.ui" line="7"/>
         <source>Export settings</source>
@@ -218,76 +219,6 @@
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="594"/>
         <source>All groups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="16"/>
-        <source>Resolution</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="24"/>
-        <source>Width</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="31"/>
-        <source>Standard sizes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="38"/>
-        <source>Height</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="76"/>
-        <source>Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="90"/>
-        <source>Creation method</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="97"/>
-        <source>Image format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="104"/>
-        <source>Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="116"/>
-        <source>Show corner coordinate system</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="129"/>
-        <source>Video</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="137"/>
-        <source>Frame rate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="184"/>
-        <location filename="../addFC/ui/info.ui" line="373"/>
-        <location filename="../addFC/ui/info.ui" line="665"/>
-        <source>Select a directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Explode_set.ui" line="204"/>
-        <location filename="../addFC/toolkit/Library_set.ui" line="182"/>
-        <location filename="../addFC/ui/info_set.ui" line="140"/>
-        <location filename="../addFC/ui/info_tessellation.ui" line="216"/>
-        <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -442,6 +373,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../addFC/toolkit/Library_set.ui" line="182"/>
+        <location filename="../addFC/toolkit/Video_set.ui" line="211"/>
+        <location filename="../addFC/ui/info_set.ui" line="140"/>
+        <location filename="../addFC/ui/info_tessellation.ui" line="216"/>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../addFC/toolkit/Pipe.ui" line="21"/>
         <location filename="../addFC/toolkit/Pipe.ui" line="79"/>
         <source>Pipe</source>
@@ -485,6 +424,47 @@
     <message>
         <location filename="../addFC/toolkit/Pipe.ui" line="186"/>
         <source>Create pipe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="15"/>
+        <location filename="../addFC/toolkit/Viewer.ui" line="21"/>
+        <source>Export viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="23"/>
+        <source>Target object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="30"/>
+        <source>Rotation cycles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="63"/>
+        <source>Rotation axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="73"/>
+        <source>Rotation angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="83"/>
+        <source>Pendulum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="107"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Presentation.ui" line="127"/>
+        <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -613,8 +593,60 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Viewer.ui" line="21"/>
-        <source>Export viewer</source>
+        <location filename="../addFC/toolkit/Video_set.ui" line="30"/>
+        <source>Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="38"/>
+        <source>Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="45"/>
+        <source>Standard sizes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="52"/>
+        <source>Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="90"/>
+        <source>Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="104"/>
+        <source>Creation method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="111"/>
+        <source>Image format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="118"/>
+        <source>Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="136"/>
+        <source>Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="144"/>
+        <source>Frame rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Video_set.ui" line="191"/>
+        <location filename="../addFC/ui/info.ui" line="373"/>
+        <location filename="../addFC/ui/info.ui" line="665"/>
+        <source>Select a directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
