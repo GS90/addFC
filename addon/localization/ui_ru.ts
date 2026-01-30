@@ -115,7 +115,7 @@
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="478"/>
-        <location filename="../addFC/toolkit/Presentation.ui" line="134"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="165"/>
         <location filename="../addFC/toolkit/Viewer.ui" line="106"/>
         <location filename="../addFC/ui/info.ui" line="132"/>
         <location filename="../addFC/ui/info.ui" line="607"/>
@@ -647,6 +647,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="243"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="83"/>
         <source>Rotation</source>
         <translation>Вращение</translation>
     </message>
@@ -1205,43 +1206,72 @@ All models are created in FreeCAD version 0.21.2.</source>
 при изменении</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="15"/>
         <location filename="../addFC/toolkit/Viewer.ui" line="21"/>
         <source>Export viewer</source>
         <translation>Экспорт для просмотра</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="23"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="119"/>
         <source>Target object</source>
         <translation>Целевой объект</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="30"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="146"/>
         <source>Rotation cycles</source>
         <translation>Циклы вращения</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="63"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="89"/>
         <source>Rotation axis</source>
         <translation>Ось вращения</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="73"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="21"/>
+        <source>Viewport recording</source>
+        <translation>Запись сцены</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="30"/>
+        <source>Free camera</source>
+        <translation>Свободная камера</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="36"/>
+        <source>Camera control</source>
+        <translation>Управление</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="45"/>
+        <source>Record</source>
+        <translation>Запись</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="55"/>
+        <source>Stop</source>
+        <translation>Стоп</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="129"/>
         <source>Rotation angle</source>
         <translation>Угол вращения</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="83"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="202"/>
+        <source>Open file</source>
+        <translation>Открыть</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="99"/>
         <source>Pendulum</source>
         <translation>Режим маятника</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="107"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="192"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="127"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="158"/>
         <source>Preview</source>
         <translation>Просмотр</translation>
     </message>

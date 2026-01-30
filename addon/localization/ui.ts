@@ -88,6 +88,7 @@
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="243"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="83"/>
         <source>Rotation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -180,7 +181,7 @@
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="478"/>
-        <location filename="../addFC/toolkit/Presentation.ui" line="134"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="165"/>
         <location filename="../addFC/toolkit/Viewer.ui" line="106"/>
         <location filename="../addFC/ui/info.ui" line="132"/>
         <location filename="../addFC/ui/info.ui" line="607"/>
@@ -427,44 +428,68 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="15"/>
-        <location filename="../addFC/toolkit/Viewer.ui" line="21"/>
-        <source>Export viewer</source>
+        <location filename="../addFC/toolkit/Recording.ui" line="21"/>
+        <source>Viewport recording</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="23"/>
-        <source>Target object</source>
+        <location filename="../addFC/toolkit/Recording.ui" line="30"/>
+        <source>Free camera</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="30"/>
-        <source>Rotation cycles</source>
+        <location filename="../addFC/toolkit/Recording.ui" line="36"/>
+        <source>Camera control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="63"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="45"/>
+        <source>Record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="55"/>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="89"/>
         <source>Rotation axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="73"/>
-        <source>Rotation angle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="83"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="99"/>
         <source>Pendulum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="107"/>
+        <location filename="../addFC/toolkit/Recording.ui" line="119"/>
+        <source>Target object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="129"/>
+        <source>Rotation angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="146"/>
+        <source>Rotation cycles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="158"/>
+        <source>Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Recording.ui" line="192"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Presentation.ui" line="127"/>
-        <source>Preview</source>
+        <location filename="../addFC/toolkit/Recording.ui" line="202"/>
+        <source>Open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -647,6 +672,11 @@
         <location filename="../addFC/ui/info.ui" line="373"/>
         <location filename="../addFC/ui/info.ui" line="665"/>
         <source>Select a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Viewer.ui" line="21"/>
+        <source>Export viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

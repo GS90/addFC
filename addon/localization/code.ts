@@ -9,193 +9,193 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="114"/>
+        <location filename="../addFC/Main.py" line="112"/>
         <source>Open Recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="116"/>
+        <location filename="../addFC/Main.py" line="114"/>
         <source>Open the last working file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="151"/>
+        <location filename="../addFC/Main.py" line="149"/>
         <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="153"/>
+        <location filename="../addFC/Main.py" line="151"/>
         <source>Isometric view and fit all objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="179"/>
+        <location filename="../addFC/Main.py" line="177"/>
         <source>Model Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="181"/>
+        <location filename="../addFC/Main.py" line="179"/>
         <source>Execute the model control file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="209"/>
+        <location filename="../addFC/Main.py" line="207"/>
         <source>Model Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="211"/>
+        <location filename="../addFC/Main.py" line="209"/>
         <source>Bill of Materials (BOM) and related workflows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="541"/>
+        <location filename="../addFC/Main.py" line="539"/>
         <source>Updated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="562"/>
+        <location filename="../addFC/Main.py" line="560"/>
         <source>Cleared</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="677"/>
+        <location filename="../addFC/Main.py" line="675"/>
         <source>Elements are indexed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="689"/>
+        <location filename="../addFC/Main.py" line="687"/>
         <source>Enumerations updated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="701"/>
+        <location filename="../addFC/Main.py" line="699"/>
         <source>Equations updated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1084"/>
+        <location filename="../addFC/Main.py" line="1082"/>
         <source>Add Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1086"/>
+        <location filename="../addFC/Main.py" line="1084"/>
         <source>Add properties to an object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1233"/>
+        <location filename="../addFC/Main.py" line="1232"/>
         <source>You need to select an object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1524"/>
+        <location filename="../addFC/Main.py" line="1523"/>
         <source>Creating Drawing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1526"/>
+        <location filename="../addFC/Main.py" line="1525"/>
         <source>Create a drawing based on a template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1630"/>
+        <location filename="../addFC/Main.py" line="1629"/>
         <source>Additional files, such as templates and fonts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1678"/>
+        <location filename="../addFC/Main.py" line="1677"/>
         <source>Help and Examples</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1680"/>
+        <location filename="../addFC/Main.py" line="1679"/>
         <source>Help, examples and additional files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1692"/>
+        <location filename="../addFC/Main.py" line="1691"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1749"/>
+        <location filename="../addFC/Main.py" line="1739"/>
         <source>Create Link(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1751"/>
+        <location filename="../addFC/Main.py" line="1741"/>
         <source>Create a link(s) with specified parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1814"/>
+        <location filename="../addFC/Main.py" line="1804"/>
         <source>Library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1816"/>
+        <location filename="../addFC/Main.py" line="1806"/>
         <source>Element and node library</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1839"/>
+        <location filename="../addFC/Main.py" line="1829"/>
         <source>Explode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1841"/>
+        <location filename="../addFC/Main.py" line="1831"/>
         <source>Exploded view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1864"/>
+        <location filename="../addFC/Main.py" line="1854"/>
         <source>Pipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1866"/>
+        <location filename="../addFC/Main.py" line="1856"/>
         <source>Create a pipe using points</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1890"/>
+        <location filename="../addFC/Main.py" line="1880"/>
         <source>Summary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1892"/>
+        <location filename="../addFC/Main.py" line="1882"/>
         <source>Display information about selected elements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1916"/>
+        <location filename="../addFC/Main.py" line="1906"/>
         <source>Isolation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1918"/>
+        <location filename="../addFC/Main.py" line="1908"/>
         <source>Isolate selected objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1941"/>
+        <location filename="../addFC/Main.py" line="1931"/>
         <source>Model Viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1943"/>
+        <location filename="../addFC/Main.py" line="1933"/>
         <source>Export models for viewing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1966"/>
-        <source>Presentation</source>
+        <location filename="../addFC/Main.py" line="1956"/>
+        <source>Viewport Recording</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1968"/>
-        <source>Create and save a presentation as a video file</source>
+        <location filename="../addFC/Main.py" line="1958"/>
+        <source>Recording the 3D viewport to a video file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
