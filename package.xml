@@ -9,8 +9,8 @@
   <license file="LICENSE">LGPL-2.1-or-later</license>
   <url type="repository" branch="main">https://github.com/GS90/addFC</url>
   <url type="readme">https://github.com/GS90/addFC/blob/main/README.md</url>
-  <url type="documentation">https://github.com/GS90/addFC/blob/main/repo/doc</url>
-  <icon>repo/icon/workbench.svg</icon>
+  <url type="documentation">https://github.com/GS90/addFC/tree/main/doc</url>
+  <icon>addon/addFC/ui/icon/workbench.svg</icon>
   <content>
     <workbench>
       <classname>AddFC</classname>
