@@ -20,7 +20,7 @@
 
 import FreeCAD
 
-import Logger
+from addon.addFC import Logger
 
 
 FEATURES = (

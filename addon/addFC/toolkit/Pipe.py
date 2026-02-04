@@ -25,7 +25,7 @@ import FreeCAD
 import os
 import Part
 
-from Other import error
+from addon.addFC.Other import error
 
 
 ad = FreeCAD.activeDocument()
@@ -443,6 +443,7 @@ def add_fittings() -> None:
         group.addObject(ad.ActiveObject)
 
     fittings['allowed'] = False
+
     FreeCAD.closeDocument(d.Name)
     ad.recompute()
 

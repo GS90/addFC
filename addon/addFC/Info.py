@@ -24,9 +24,7 @@ import FreeCAD
 import json
 import os
 
-import Logger
-import Other
-import Preference as P
+from addon.addFC import Logger, Other, Preference as P
 
 
 BASE_ENUMERATION = tuple(['',] + [str(i).rjust(3, '0') for i in range(1, 51)])
@@ -450,8 +448,7 @@ def compilation(strict: bool = True,
         try:
             Other.recompute_configuration_tables()
         except BaseException:
-            pass
-            # todo: ...
+            pass  # todo: ...
 
     details, info_headers, details_headers = {}, {}, {}
 

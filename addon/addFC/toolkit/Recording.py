@@ -23,9 +23,9 @@ from PySide import QtCore
 import FreeCAD
 import os
 
-from Data import video_pref_std
-from Other import video_export_settings, video_make, open
-import Preference as P
+from addon.addFC.Data import video_pref_std
+from addon.addFC.Other import video_export_settings, video_make, open
+import addon.addFC.Preference as P
 
 
 CCS_STR = 'User parameter:BaseApp/Preferences/View'

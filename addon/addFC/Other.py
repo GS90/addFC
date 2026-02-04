@@ -26,13 +26,11 @@ import shutil
 import subprocess
 import sys
 
-from Data import video_options, video_pref_std
-import Logger
-import Preference as P
+from addon.addFC import Logger, Preference as P
+from addon.addFC.Data import video_options, video_pref_std
 
 
 DIGIT = re.compile('\\d+')
-
 ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 

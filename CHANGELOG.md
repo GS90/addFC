@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2026.02.04 (**2.1.3**):
+* Fix import statements.
+
 #### 2026.01.31 (**2.1.2**):
 * Added: viewport recording.
 * Minor fixes and improvements.

@@ -26,13 +26,8 @@ import FreeCAD
 import importlib.machinery
 import os
 
-import Data
-import Export
-import Info
-import Logger
-import Other
-import Preference as P
-import Unfold
+from addon.addFC import Data, Export, Info, Logger, Other, Unfold
+import addon.addFC.Preference as P
 
 
 # todo: graphical error messages
@@ -67,7 +62,6 @@ STEPZ (*.stpZ) ISO 10303 (compressed)\n\
 IGES (*.iges) Initial Graphics Exchange Specification\n\n\
 Formats for 3D graphics:\n\
 glTF (*.glb) GL Transmission Format"
-
 
 FILE_NAME_OPTIONS = (
     'Name',

@@ -27,8 +27,7 @@ import os
 import Part
 import tempfile
 
-import Logger
-import Preference as P
+from addon.addFC import Logger, Preference as P
 
 
 ad = FreeCAD.ActiveDocument

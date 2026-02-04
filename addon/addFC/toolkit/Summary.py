@@ -22,9 +22,9 @@ import FreeCAD
 import FreeCADGui as Gui
 import os
 
-import Preference as P
-from Data import summary as std_pref
-from Logger import error as log_err
+from addon.addFC.Data import summary as std_pref
+from addon.addFC.Logger import error as log_err
+import addon.addFC.Preference as P
 
 
 freeze = True

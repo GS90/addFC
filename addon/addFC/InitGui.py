@@ -21,7 +21,7 @@
 import FreeCAD
 import os
 
-import Preference as P
+import addon.addFC.Preference as P
 
 
 class addFC(FreeCAD.Gui.Workbench):
@@ -35,7 +35,7 @@ class addFC(FreeCAD.Gui.Workbench):
         from PySide import QtGui
         QtGui.QApplication.setFont(QtGui.QFont(font[1], font[2]))
 
-    import Main
+    import addon.addFC.Main
 
     def Initialize(self):
         self.list = [

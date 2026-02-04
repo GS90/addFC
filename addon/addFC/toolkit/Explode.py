@@ -24,10 +24,9 @@ import os
 import re
 import time
 
-from Data import video_pref_std
-from Other import video_export_settings, video_make
-import Logger
-import Preference as P
+from addon.addFC import Logger, Preference as P
+from addon.addFC.Data import video_pref_std
+from addon.addFC.Other import video_export_settings, video_make
 
 if P.afc_additions['numpy'][0]:
     import numpy as np
@@ -39,6 +38,7 @@ ad = FreeCAD.ActiveDocument
 
 w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
     os.path.normpath(os.path.dirname(__file__)), 'Explode.ui'))
+
 
 storage = None
 explosion = {}

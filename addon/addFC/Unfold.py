@@ -29,8 +29,7 @@ import re
 import shutil
 import time
 
-import Logger
-import Preference as P
+from addon.addFC import Logger, Preference as P
 
 
 # todo: use '!Trace' instead of 'Body'?

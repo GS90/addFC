@@ -30,8 +30,7 @@ import shutil
 import stepZ
 import time
 
-import Logger
-import Preference as P
+from addon.addFC import Logger, Preference as P
 
 
 REPRODUCTION = 'Reproduction'

@@ -29,8 +29,7 @@ import re
 import subprocess
 import xml.etree.ElementTree as ET
 
-import Data
-import Logger
+from addon.addFC import Data, Logger
 
 
 # ------------------------------------------------------------------------------
@@ -138,6 +137,7 @@ PATH_STEEL = os.path.join(AFC_DIR_PREF, 'steel.json')
 PATH_SUMMARY = os.path.join(AFC_DIR_PREF, 'summary.json')
 PATH_VIDEO = os.path.join(AFC_DIR_PREF, 'video.json')
 
+
 AVAILABLE_PROPERTY_TYPES = (
     'Bool',
     'Enumeration',
@@ -223,7 +223,7 @@ def load_properties() -> dict:
                     i = enum.index('-')
                     if i != 0:
                         enum[i], enum[0] = enum[0], enum[i]
-                #
+                # ...
                 properties[key][2] = enum
     return properties
 

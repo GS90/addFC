@@ -27,13 +27,10 @@ import os
 import Part
 import shutil
 
-import Logger
-import Other
-import Preference as P
+from addon.addFC import Logger, Other, Preference as P
 
 
 VERSION = 4
-
 
 DIR = os.path.join(P.AFC_DIR_EXTRA, 'Library')
 ZIP = os.path.join(P.AFC_DIR_EXTRA, 'Library.zip')
