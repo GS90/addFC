@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 2.1.3 - [release notes](CHANGELOG.md).
+Current version 2.2.0 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -18,6 +18,10 @@ At present, this is:
 7. Creating a pipeline.
 8. Export models for viewing - [example](https://digiroad.tech/add/addFC/viewer.html).
 9. Process automation.
+
+This workbench is primarily considered an additional tool that expands functionality, not a standalone solution.
+
+FreeCAD allows you to create custom toolbars. I recommend using this feature to build your own toolbar with the most frequently used functions and place it on your main workbench - for example, in the PartDesign workbench.
 
 
 ### Preview
@@ -63,7 +67,8 @@ Explosion (30 FPS)
 12. Isolate selected objects
 13. Export models for viewing
 14. Recording the 3D viewport to a video file
-15. Documentation, help, and examples
+15. HUD (Head‑Up Display) - beta.
+16. Documentation, help, and examples
 
 
 ### Documentation

@@ -37,6 +37,7 @@ from addon.addFC import Data, Logger
 
 afc_theme = {
     'current': 'std',
+    'hud': 'Standard',
     # color:
     'std': {
         'qt-blue': QtGui.QBrush(QtGui.QColor(0, 0, 150)),
@@ -249,6 +250,8 @@ def load_steel() -> dict:
 
 
 def save_pref(path: str, pref: dict, indent=4) -> None:
+    if indent == 0:
+        indent = None
     try:
         file = open(path, 'w+', encoding='utf-8')
         json.dump(pref, file, ensure_ascii=False, indent=indent)
@@ -568,7 +571,7 @@ class addFCPreferenceProperties():
 
         global pref_properties
         pref_properties = properties
-        save_pref(PATH_PROPERTIES, pref_properties)
+        save_pref(PATH_PROPERTIES, pref_properties, 0)
 
 
 # ------------------------------------------------------------------------------
@@ -806,7 +809,7 @@ class addFCPreferenceMaterials():
 
         global pref_materials
         pref_materials = materials
-        save_pref(PATH_MATERIALS, pref_materials)
+        save_pref(PATH_MATERIALS, pref_materials, 0)
 
 
 # ------------------------------------------------------------------------------
@@ -942,13 +945,95 @@ class addFCPreferenceSM():
 
         global pref_steel
         pref_steel = steel
-        save_pref(PATH_STEEL, pref_steel)
+        save_pref(PATH_STEEL, pref_steel, 0)
 
         color = self.form.color.text().lstrip('#')
         color = tuple(int(color[i:i + 2], 16) for i in (0, 2, 4))
         pref_configuration['smp_color'] = color
         save_pref(PATH_CONFIGURATION, pref_configuration)
         return
+
+
+# ------------------------------------------------------------------------------
+
+
+class addFCPreferenceOther():
+    def __init__(self):
+        self.form = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
+            AFC_DIR, 'ui', 'pref_other.ui'))
+
+        font = pref_configuration['interface_font']
+
+        self.form.fontCheckBox.setChecked(font[0])
+        self.form.fontComboBox.setCurrentText(font[1])
+        self.form.fontSpinBox.setValue(font[2])
+
+        # hud:
+        _autoload = pref_configuration['hud_autoload']
+        self.form.checkBox_hud_autoload.setChecked(_autoload)
+        self.form.comboBox_hud_theme.addItems(('Standard', 'Rounded'))
+        for panel in pref_configuration['hud_panels']:
+            match panel:
+                case 'smart': self.form.checkBox_hud_smart.setChecked(True)
+                case 'top': pass
+                case 'right': pass
+
+        # additions:
+        self.form.sm.setChecked(afc_additions['sm'][0])
+        self.form.sm.setStyleSheet(afc_additions['sm'][2])
+        if afc_additions['sm'][0]:
+            self.form.sm.setText(f"SheetMetal ({afc_additions['sm'][1]})")
+        self.form.ezdxf.setChecked(afc_additions['ezdxf'][0])
+        self.form.ezdxf.setStyleSheet(afc_additions['ezdxf'][2])
+        if afc_additions['ezdxf'][0]:
+            self.form.ezdxf.setText(f"ezdxf ({afc_additions['ezdxf'][1]})")
+        self.form.numpy.setChecked(afc_additions['numpy'][0])
+        self.form.numpy.setStyleSheet(afc_additions['numpy'][2])
+        if afc_additions['numpy'][0]:
+            self.form.numpy.setText(f"NumPy ({afc_additions['numpy'][1]})")
+        self.form.ffmpeg.setChecked(afc_additions['ffmpeg'][0])
+        self.form.ffmpeg.setStyleSheet(afc_additions['ffmpeg'][2])
+
+        # user templates:
+        self.form.utLineEdit.setText(
+            pref_configuration.get('drawing_templates_user', ''))
+
+        def select() -> None:
+            d = os.path.normcase(QtGui.QFileDialog.getExistingDirectory())
+            if d != '':
+                self.form.utLineEdit.setText(d)
+        self.form.utSelect.clicked.connect(select)
+
+        return
+
+    def saveSettings(self):
+        if self.form.fontCheckBox.isChecked():
+            add_autoload()
+
+        panels = []
+        if self.form.checkBox_hud_smart.isChecked():
+            panels.append('smart')
+        if self.form.checkBox_hud_top.isChecked():
+            panels.append('top')
+        if self.form.checkBox_hud_right.isChecked():
+            panels.append('right')
+
+        global afc_theme
+        afc_theme['hud'] = self.form.comboBox_hud_theme.currentText()
+
+        fresh = {
+            'interface_font': [
+                self.form.fontCheckBox.isChecked(),
+                self.form.fontComboBox.currentText(),
+                self.form.fontSpinBox.value(),
+            ],
+            'hud_autoload': self.form.checkBox_hud_autoload.isChecked(),
+            'hud_theme': self.form.comboBox_hud_theme.currentText(),
+            'hud_panels': panels,
+            'drawing_templates_user': self.form.utLineEdit.text(),
+        }
+        pref_configuration.update(fresh)
+        save_pref(PATH_CONFIGURATION, pref_configuration)
 
 
 # ------------------------------------------------------------------------------
@@ -981,44 +1066,11 @@ def get_user_tpl(path: str) -> dict:
     return tpl
 
 
-class addFCPreferenceOther():
+class addFCPreferenceRU():
     def __init__(self):
         self.form = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
-            AFC_DIR, 'ui', 'pref_other.ui'))
+            AFC_DIR, 'ui', 'pref_stdRU.ui'))
 
-        font = pref_configuration['interface_font']
-
-        self.form.fontCheckBox.setChecked(font[0])
-        self.form.fontComboBox.setCurrentText(font[1])
-        self.form.fontSpinBox.setValue(font[2])
-
-        # additions:
-        self.form.sm.setChecked(afc_additions['sm'][0])
-        self.form.sm.setStyleSheet(afc_additions['sm'][2])
-        if afc_additions['sm'][0]:
-            self.form.sm.setText(f"SheetMetal ({afc_additions['sm'][1]})")
-        self.form.ezdxf.setChecked(afc_additions['ezdxf'][0])
-        self.form.ezdxf.setStyleSheet(afc_additions['ezdxf'][2])
-        if afc_additions['ezdxf'][0]:
-            self.form.ezdxf.setText(f"ezdxf ({afc_additions['ezdxf'][1]})")
-        self.form.numpy.setChecked(afc_additions['numpy'][0])
-        self.form.numpy.setStyleSheet(afc_additions['numpy'][2])
-        if afc_additions['numpy'][0]:
-            self.form.numpy.setText(f"NumPy ({afc_additions['numpy'][1]})")
-        self.form.ffmpeg.setChecked(afc_additions['ffmpeg'][0])
-        self.form.ffmpeg.setStyleSheet(afc_additions['ffmpeg'][2])
-
-        # user templates:
-        self.form.utLineEdit.setText(
-            pref_configuration.get('drawing_templates_user', ''))
-
-        def select() -> None:
-            d = os.path.normcase(QtGui.QFileDialog.getExistingDirectory())
-            if d != '':
-                self.form.utLineEdit.setText(d)
-        self.form.utSelect.clicked.connect(select)
-
-        # stdRU:
         stamp = pref_configuration['ru_std_tpl_stamp']
 
         self.form.Designation.setText(stamp['Designation'])
@@ -1054,15 +1106,7 @@ class addFCPreferenceOther():
         return
 
     def saveSettings(self):
-        if self.form.fontCheckBox.isChecked():
-            add_autoload()
         fresh = {
-            'interface_font': [
-                self.form.fontCheckBox.isChecked(),
-                self.form.fontComboBox.currentText(),
-                self.form.fontSpinBox.value(),
-            ],
-            'drawing_templates_user': self.form.utLineEdit.text(),
             'ru_std_tpl_drawing': self.form.Drawing.currentText(),
             'ru_std_tpl_text': self.form.Text.currentText(),
             'ru_std_tpl_stamp': {
@@ -1085,9 +1129,13 @@ class addFCPreferenceOther():
                 'Letter 1': self.form.Letter1.text(),
                 'Letter 2': self.form.Letter1.text(),
                 'Letter 3': self.form.Letter1.text(),
-            }}
+            },
+        }
         pref_configuration.update(fresh)
         save_pref(PATH_CONFIGURATION, pref_configuration)
+
+
+# ------------------------------------------------------------------------------
 
 
 def add_autoload() -> None:

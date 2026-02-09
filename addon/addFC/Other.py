@@ -31,6 +31,7 @@ from addon.addFC.Data import video_options, video_pref_std
 
 
 DIGIT = re.compile('\\d+')
+
 ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
@@ -94,7 +95,6 @@ def video_export_settings():
         form.spinBoxHeight.setValue(s[1])
     form.comboBoxSize.currentTextChanged.connect(resize)
 
-    # es.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
     form.show()
 
     video_pref = P.load_pref(P.PATH_VIDEO, video_pref_std)

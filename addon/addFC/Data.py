@@ -27,6 +27,10 @@ configuration = {
     'default_material': 'Galvanized',
     'add_properties_nl': False,
     'add_properties_eq': True,
+    # hud:
+    'hud_autoload': False,
+    'hud_theme': 'Standard',  # 'Standard' or 'Rounded'
+    'hud_panels': ['smart',],
     # unfold:
     'unfold_dxf': True,
     'unfold_svg': False,
@@ -128,7 +132,7 @@ materials = {
     'AISI 430': ['Sheet metal', 7720, 'm^2', 0],
     # plastic:
     'ABS': ['Plastic', 1040, 'kg', 0],
-    'PET/G': ['Plastic', 1340, 'kg', 0],
+    'PETG': ['Plastic', 1340, 'kg', 0],
     'PLA': ['Plastic', 1240, 'kg', 0],
     'PP': ['Plastic', 900, 'kg', 0],
     'PVC': ['Plastic', 1330, 'kg', 0],

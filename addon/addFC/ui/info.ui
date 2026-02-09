@@ -3,6 +3,9 @@
  <author>Golodnikov Sergey</author>
  <class>Form</class>
  <widget class="QDialog" name="Form">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>

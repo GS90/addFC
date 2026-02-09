@@ -207,7 +207,7 @@ class AddFCModelInfo():
         w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
             P.AFC_DIR, 'ui', 'info.ui'))
 
-        w.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        w.setWindowFlags(QtCore.Qt.WindowSystemMenuHint)
 
         if not P.afc_additions['sm'][0]:
             w.tabWidget.setTabEnabled(1, False)
@@ -654,6 +654,7 @@ class AddFCModelInfo():
             w.comboBoxSignature.setEnabled(False)
 
         w.show()
+        w.pushButtonExport.setFocus()
 
         w.pushButtonUpdate.clicked.connect(structure_update_wrapper)
         w.pushButtonClear.clicked.connect(structure_purge_wrapper)
@@ -1565,10 +1566,12 @@ class AddFCInsert():
             model.clear()
             if target == 'stdRU':
                 for i in std_tpl.keys():
-                    model.appendRow(QtGui.QStandardItem(i.rstrip('.svg')))
+                    item = os.path.splitext(os.path.basename(i))[0]
+                    model.appendRow(QtGui.QStandardItem(item))
             else:
                 for i in user_tpl.keys():
-                    model.appendRow(QtGui.QStandardItem(i.rstrip('.svg')))
+                    item = os.path.splitext(os.path.basename(i))[0]
+                    model.appendRow(QtGui.QStandardItem(item))
 
         w.resources.currentTextChanged.connect(fill)
 
@@ -1963,3 +1966,39 @@ class AddFCRecording():
 
 
 FreeCAD.Gui.addCommand('AddFCRecording', AddFCRecording())
+
+
+# ----
+
+
+class AddFCHeadUpDisplay():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'hud.svg'),
+                'Accel': 'Shift+H',
+                'MenuText': FreeCAD.Qt.translate(
+                    'addFC', 'Head‑Up Display'),
+                'ToolTip': FreeCAD.Qt.translate(
+                    'addFC', 'Activate the HUD')}
+
+    def Activated(self):
+
+        for panel in P.pref_configuration['hud_panels']:
+            match panel:
+                case 'smart':
+                    f = os.path.join(P.AFC_DIR, 'hud', 'Smart.py')
+                    n = 'SmartHUD'
+                    loader = importlib.machinery.SourceFileLoader(n, f)
+                    _ = loader.load_module()
+                case 'top':
+                    pass
+                case 'right':
+                    pass
+
+        return
+
+    def IsActive(self):
+        return True
+
+
+FreeCAD.Gui.addCommand('AddFCHeadUpDisplay', AddFCHeadUpDisplay())

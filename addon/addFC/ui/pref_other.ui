@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>877</width>
-    <height>771</height>
+    <width>639</width>
+    <height>497</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,36 +16,109 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox_font">
+    <widget class="QGroupBox" name="groupBox_interface">
      <property name="title">
       <string>FreeCAD interface</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,5,1">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
       <item>
-       <widget class="QCheckBox" name="fontCheckBox">
-        <property name="text">
-         <string>Use a custom font</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_font">
+        <item>
+         <widget class="QCheckBox" name="fontCheckBox">
+          <property name="text">
+           <string>Use a custom font</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFontComboBox" name="fontComboBox">
+          <property name="currentText">
+           <string>Sans Serif</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="fontSpinBox">
+          <property name="minimum">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <number>96</number>
+          </property>
+          <property name="value">
+           <number>11</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QFontComboBox" name="fontComboBox">
-        <property name="currentText">
-         <string>Sans Serif</string>
+       <spacer name="verticalSpacer_hud">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
-       </widget>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
-       <widget class="QSpinBox" name="fontSpinBox">
-        <property name="minimum">
-         <number>6</number>
+       <widget class="QGroupBox" name="groupBox_hud">
+        <property name="title">
+         <string>HUD (Head‑Up Display)</string>
         </property>
-        <property name="maximum">
-         <number>96</number>
-        </property>
-        <property name="value">
-         <number>11</number>
-        </property>
+        <layout class="QGridLayout" name="gridLayout" columnstretch="2,0,1">
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="checkBox_hud_top">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Top panel</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="checkBox_hud_smart">
+           <property name="text">
+            <string>Smart panel (dynamic)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_hud_theme">
+           <property name="text">
+            <string>Theme</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="checkBox_hud_autoload">
+           <property name="text">
+            <string>Launch HUD on Startup</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QCheckBox" name="checkBox_hud_right">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Right panel</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QComboBox" name="comboBox_hud_theme"/>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -63,6 +136,48 @@
    </item>
    <item>
     <spacer name="verticalSpacer_upper">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Minimum</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_ut">
+     <property name="title">
+      <string>User templates</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="4,5,1">
+      <item>
+       <widget class="QLabel" name="utLabel">
+        <property name="text">
+         <string>Directory with templates</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="utLineEdit"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="utSelect">
+        <property name="text">
+         <string>Select</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_centre">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -121,302 +236,6 @@
         <property name="text">
          <string>FFmpeg</string>
         </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_centre">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Minimum</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>10</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox_ut">
-     <property name="title">
-      <string>User templates</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="4,5,1">
-      <item>
-       <widget class="QLabel" name="utLabel">
-        <property name="text">
-         <string>Directory with templates</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="utLineEdit"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="utSelect">
-        <property name="text">
-         <string>Select</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_lower">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Minimum</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>10</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox_stdRU">
-     <property name="title">
-      <string>RU std: Template</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QGroupBox" name="groupBox_stamp">
-        <property name="title">
-         <string>Основная надпись</string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
-         <item>
-          <layout class="QGridLayout" name="gridLayout_L">
-           <item row="5" column="0">
-            <widget class="QLabel" name="ApproverLabel">
-             <property name="text">
-              <string>Утвердил</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="Control1"/>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="Control2"/>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="DesignationLabel">
-             <property name="text">
-              <string>Обозначение</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="AuthorLabel">
-             <property name="text">
-              <string>Разработ.</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="Control2Label">
-             <property name="text">
-              <string>Н. контр.</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <widget class="QLineEdit" name="Material1"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="InspectorLabel">
-             <property name="text">
-              <string>Проверил</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="Control1Label">
-             <property name="text">
-              <string>Т. контр.</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="Inspector"/>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="Author">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="MaterialLabel">
-             <property name="text">
-              <string>Материал</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QLineEdit" name="Approver"/>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="Designation">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="1">
-            <widget class="QLineEdit" name="Material2"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QGridLayout" name="gridLayout_R">
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="Company1"/>
-           </item>
-           <item row="5" column="1">
-            <widget class="QLineEdit" name="Title3"/>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="TitleLabel">
-             <property name="text">
-              <string>Наименование</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="Title1"/>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="CompanyLabel">
-             <property name="text">
-              <string>Организация</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QLabel" name="LetterLabel">
-             <property name="text">
-              <string>Литера</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="Title2"/>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="Company3"/>
-           </item>
-           <item row="7" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout_L">
-             <item>
-              <widget class="QLineEdit" name="Letter1"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="Letter2"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="Letter3"/>
-             </item>
-            </layout>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="Company2"/>
-           </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="WeightScaleLabel">
-             <property name="text">
-              <string>Масса | Маштаб</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <layout class="QHBoxLayout" name="horizontalLayout_SW">
-             <item>
-              <widget class="QLineEdit" name="Weight"/>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="Scale"/>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_tpl">
-        <property name="title">
-         <string>Шаблоны по умолчанию</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="1" column="0">
-          <widget class="QLabel" name="TextLabel">
-           <property name="text">
-            <string>Шаблон текстового документа</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QComboBox" name="Text"/>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="DrawingLabel">
-           <property name="text">
-            <string>Шаблон графического документа</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QComboBox" name="Drawing"/>
-         </item>
-        </layout>
        </widget>
       </item>
      </layout>

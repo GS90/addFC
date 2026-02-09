@@ -38,6 +38,7 @@ class addFC(FreeCAD.Gui.Workbench):
     import addon.addFC.Main
 
     def Initialize(self):
+
         self.list = [
             'AddFCOpenRecentFile',
             'AddFCDisplay',
@@ -53,6 +54,7 @@ class addFC(FreeCAD.Gui.Workbench):
             'AddFCPipe',
             'AddFCViewer',
             'AddFCRecording',
+            'AddFCHeadUpDisplay',
             'AddFCAssistant',
         ]
 
@@ -65,6 +67,7 @@ class addFC(FreeCAD.Gui.Workbench):
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceMaterials, 'addFC')
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceSM, 'addFC')
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceOther, 'addFC')
+        FreeCAD.Gui.addPreferencePage(P.addFCPreferenceRU, 'addFC')
 
         FreeCAD.Gui.addIconPath(P.AFC_DIR_ICON)
 
@@ -77,6 +80,10 @@ class addFC(FreeCAD.Gui.Workbench):
             P.afc_theme['current'] = 'light'
         else:
             P.afc_theme['current'] = 'std'
+
+        if P.pref_configuration['hud_autoload']:
+            from addon.addFC.Main import AddFCHeadUpDisplay
+            AddFCHeadUpDisplay().Activated()
 
     def Activated(self):
         return

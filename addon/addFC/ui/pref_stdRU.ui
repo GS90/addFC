@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <author>Golodnikov Sergey</author>
+ <class>Form</class>
+ <widget class="QDialog" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>880</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>stdRU</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox_stdRU">
+     <property name="title">
+      <string>RU std: Шаблон</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QGroupBox" name="groupBox_stamp">
+        <property name="title">
+         <string>Основная надпись</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_L">
+           <item row="5" column="0">
+            <widget class="QLabel" name="ApproverLabel">
+             <property name="text">
+              <string>Утвердил</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="Control1"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="Control2"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="DesignationLabel">
+             <property name="text">
+              <string>Обозначение</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="AuthorLabel">
+             <property name="text">
+              <string>Разработ.</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="Control2Label">
+             <property name="text">
+              <string>Н. контр.</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QLineEdit" name="Material1"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="InspectorLabel">
+             <property name="text">
+              <string>Проверил</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="Control1Label">
+             <property name="text">
+              <string>Т. контр.</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="Inspector"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="Author">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="MaterialLabel">
+             <property name="text">
+              <string>Материал</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="Approver"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="Designation">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QLineEdit" name="Material2"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_R">
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="Company1"/>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="Title3"/>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="TitleLabel">
+             <property name="text">
+              <string>Наименование</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="Title1"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="CompanyLabel">
+             <property name="text">
+              <string>Организация</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="LetterLabel">
+             <property name="text">
+              <string>Литера</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="Title2"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="Company3"/>
+           </item>
+           <item row="7" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_L">
+             <item>
+              <widget class="QLineEdit" name="Letter1"/>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="Letter2"/>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="Letter3"/>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="Company2"/>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="WeightScaleLabel">
+             <property name="text">
+              <string>Масса | Маштаб</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_SW">
+             <item>
+              <widget class="QLineEdit" name="Weight"/>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="Scale"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_tpl">
+        <property name="title">
+         <string>Шаблоны по умолчанию</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="1" column="0">
+          <widget class="QLabel" name="TextLabel">
+           <property name="text">
+            <string>Шаблон текстового документа</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="Text"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="DrawingLabel">
+           <property name="text">
+            <string>Шаблон графического документа</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="Drawing"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

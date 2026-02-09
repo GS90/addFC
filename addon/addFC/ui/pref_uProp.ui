@@ -7,15 +7,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>600</height>
+    <width>490</width>
+    <height>520</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>700</width>
-    <height>600</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Properties</string>
