@@ -396,10 +396,13 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def selection_add(self, doc, obj, sub, pos):
-        if not self.is_available():
-            return
-        if not self.selection_parsing(doc, obj, sub, pos):
-            return
+        try:
+            if not self.is_available():
+                return
+            if not self.selection_parsing(doc, obj, sub, pos):
+                return
+        except BaseException:
+            return  # todo: error
         w = Gui.getMainWindow()
         position_local = w.mapFromGlobal(self.position_current)
         self.activate(position_local)
@@ -485,7 +488,7 @@ class SmartHUD(QtWidgets.QWidget):
                 btn.setVisible(True)
             else:
                 btn.setVisible(False)
-        self.max_distance_x = distance_x
+        self.max_distance_x = max(200, distance_x)
 
     def selection_remove(self, doc, obj, sub):
         pass  # print('... selection_remove ...')
@@ -544,7 +547,8 @@ class SmartHUD(QtWidgets.QWidget):
         if not self.current_tool:
             return
         target = content.findChild(*tools_control[self.current_tool][:2])
-        target.setProperty('rawValue', value)
+        if target:
+            target.setProperty('rawValue', value)
         # debug, search:
         #     task = Gui.Control.activeTaskDialog()
         #     content = task.getDialogContent()[0]
