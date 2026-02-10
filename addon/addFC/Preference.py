@@ -972,6 +972,8 @@ class addFCPreferenceOther():
         _autoload = pref_configuration['hud_autoload']
         self.form.checkBox_hud_autoload.setChecked(_autoload)
         self.form.comboBox_hud_theme.addItems(('Standard', 'Rounded'))
+        _theme = pref_configuration['hud_theme']
+        self.form.comboBox_hud_theme.setCurrentText(_theme)
         for panel in pref_configuration['hud_panels']:
             match panel:
                 case 'smart': self.form.checkBox_hud_smart.setChecked(True)

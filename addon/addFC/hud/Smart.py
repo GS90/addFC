@@ -120,39 +120,90 @@ def preparation():
 def generate_css(app_theme, hud_theme) -> tuple[str, str]:
 
     if hud_theme == 'Standard':
-        border = '1px solid #646464'
-        border_box = '1px solid #646464'
+        if app_theme == 'dark':
+            background_color = 'rgba(45, 45, 45, 180)'
+            background_color_box = 'rgba(60, 60, 60, 180)'
+            background_color_box_hover = 'rgba(20, 20, 20, 140)'
+            border = '1px solid #282d2d'
+            border_box = '1px solid #282d2d'
+            # appy
+            css_apply = (
+                'QToolButton {'
+                'border: 1px solid #282d2d;'
+                'border-left: none;'
+                '}'
+                'QToolButton:hover {'
+                'background-color: #141818;'
+                '}'
+            )
+        else:
+            background_color = 'rgba(248, 248, 248, 120)'
+            background_color_box = 'rgba(248, 248, 248, 120)'
+            background_color_box_hover = 'rgba(248, 248, 248, 200)'
+            border = '1px solid #646464'
+            border_box = '1px solid #646464'
+            # appy
+            css_apply = (
+                'QToolButton {'
+                'border: 1px solid #646464;'
+                'border-left: none;'
+                '}'
+                'QToolButton:hover {'
+                'background-color: #8c8c8c;'
+                '}'
+            )
         border_radius = '0'
         border_radius_button = '0'
-        padding_button = '2px'
+        padding_button = '4px'
         spin_box_radius = 'border-radius: 0;'
-        css_apply = 'border: 1px solid #646464; border-left: none;'
     else:
-        border = 'none'
+        if app_theme == 'dark':
+            background_color = 'rgba(45, 45, 45, 200)'
+            background_color_box = 'rgba(45, 45, 45, 230)'
+            background_color_box_hover = 'rgba(25, 25, 25, 220)'
+            border = '1px solid #141414'
+            # appy
+            css_apply = (
+                'QToolButton {'
+                'background-color: #232828;'
+                'border-radius: 0;'
+                'border-top-right-radius: 4px;'
+                'border-bottom-right-radius: 4px;'
+                '}'
+                'QToolButton:hover {'
+                'background-color: #141818;'
+                '}'
+            )
+        else:
+            background_color = 'rgba(248, 248, 248, 120)'
+            background_color_box = 'rgba(248, 248, 248, 120)'
+            background_color_box_hover = 'rgba(248, 248, 248, 180)'
+            border = 'none'
+            # appy
+            css_apply = (
+                'QToolButton {'
+                'background-color: #a0a0a0;'
+                'border-radius: 0;'
+                'border-top-right-radius: 6px;'
+                'border-bottom-right-radius: 6px;'
+                '}'
+                'QToolButton:hover {'
+                'background-color: #8c8c8c;'
+                '}'
+            )
         border_box = 'none'
-        border_radius = '8px'
-        border_radius_button = '6px'
+        border_radius = '4px'
+        border_radius_button = '4px'
         padding_button = '4px'
         spin_box_radius = (
             'border-radius: 0;'
-            'border-top-left-radius: 6px;'
-            'border-bottom-left-radius: 6px;'
-        )
-        css_apply = (
-            'QToolButton {'
-            'background-color: #a0a0a0;'
-            'border-radius: 0;'
-            'border-top-right-radius: 6px;'
-            'border-bottom-right-radius: 6px;'
-            '}'
-            'QToolButton:hover {'
-            'background-color: #828282;'
-            '}'
+            'border-top-left-radius: 4px;'
+            'border-bottom-left-radius: 4px;'
         )
 
     css = (
         'QWidget#HUD {'
-        'background-color: rgba(248, 248, 248, 120);'
+        f'background-color: {background_color};'
         f'border-radius: {border_radius};'
         f'border: {border};'
         '}'
@@ -166,26 +217,13 @@ def generate_css(app_theme, hud_theme) -> tuple[str, str]:
         'background-color: rgba(0, 0, 0, 60);'
         '}'
         'QDoubleSpinBox {'
-        'background-color: rgba(248, 248, 248, 120);'
+        f'background-color: {background_color_box};'
         f'{spin_box_radius}'
         f'border: {border_box};'
         'padding: 2px 4px;'
         '}'
         'QDoubleSpinBox:hover {'
-        'background-color: #f0f0f0;'
-        '}'
-        'QDoubleSpinBox::up-button,'
-        'QDoubleSpinBox::down-button {'
-        'height: 0;'
-        'margin: 0;'
-        'padding: 0;'
-        'width: 0;'
-        '}'
-        'QDoubleSpinBox::up-arrow,'
-        'QDoubleSpinBox::down-arrow {'
-        'height: 0;'
-        'image: none;'
-        'width: 0;'
+        f'background-color: {background_color_box_hover};'
         '}'
     )
 
@@ -271,6 +309,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.spinbox.setFixedHeight(25)
         self.spinbox.setFixedWidth(80)
         self.spinbox.valueChanged.connect(self.value_changed)
+        self.spinbox.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.c_layout.addWidget(self.spinbox)
 
         # control: apply
@@ -570,12 +609,15 @@ init = True
 app = Gui.getMainWindow()
 for child in app.children():
     if type(child).__name__ == 'SmartHUD':
-        child.clear()
+        try:
+            child.clear()
+        except BaseException:
+            pass
         child.deleteLater()
         init = False
-        Logger.info('HUD is disabled')
+        Logger.info('HUD (beta) is disabled')
 
 if init:
     overlay = SmartHUD(app)
     overlay.adjustSize()
-    Logger.info('HUD is activated')
+    Logger.info('HUD (beta) is activated')
