@@ -30,6 +30,10 @@ Bill of materials - BOM
 
 ![Bill of materials - BOM](doc/img/info_bom.png)
 
+HUD (Head‑Up Display), smart panel - beta
+
+![HUD](doc/other/hud.gif)
+
 Component library
 
 ![Library](doc/img/library.png)
