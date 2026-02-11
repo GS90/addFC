@@ -37,7 +37,6 @@ from addon.addFC import Data, Logger
 
 afc_theme = {
     'current': 'std',
-    'hud': 'Standard',
     # color:
     'std': {
         'qt-blue': QtGui.QBrush(QtGui.QColor(0, 0, 150)),
@@ -1020,9 +1019,6 @@ class addFCPreferenceOther():
         if self.form.checkBox_hud_right.isChecked():
             panels.append('right')
 
-        global afc_theme
-        afc_theme['hud'] = self.form.comboBox_hud_theme.currentText()
-
         fresh = {
             'interface_font': [
                 self.form.fontCheckBox.isChecked(),
@@ -1030,7 +1026,7 @@ class addFCPreferenceOther():
                 self.form.fontSpinBox.value(),
             ],
             'hud_autoload': self.form.checkBox_hud_autoload.isChecked(),
-            'hud_theme': afc_theme['hud'],
+            'hud_theme': self.form.comboBox_hud_theme.currentText(),
             'hud_panels': panels,
             'drawing_templates_user': self.form.utLineEdit.text(),
         }

@@ -1990,11 +1990,16 @@ class AddFCHeadUpDisplay():
                     n = 'SmartHUD'
                     loader = importlib.machinery.SourceFileLoader(n, f)
                     _ = loader.load_module()
-                case 'top':
-                    pass
-                case 'right':
-                    pass
-
+                # case 'top':
+                #     f = os.path.join(P.AFC_DIR, 'hud', 'Top.py')
+                #     n = 'TopHUD'
+                #     loader = importlib.machinery.SourceFileLoader(n, f)
+                #     _ = loader.load_module()
+                # case 'right':
+                #     f = os.path.join(P.AFC_DIR, 'hud', 'Right.py')
+                #     n = 'TopHUD'
+                #     loader = importlib.machinery.SourceFileLoader(n, f)
+                #     _ = loader.load_module()
         return
 
     def IsActive(self):
