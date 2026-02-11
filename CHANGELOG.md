@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2026.02.11 (**2.3.0**):
+* HUD (Head‑Up Display): fixes and improvements.
+
 #### 2026.02.10 (**2.2.2**):
 * Added: HUD (Head‑Up Display) - beta.
 * Improve window management.

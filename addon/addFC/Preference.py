@@ -1030,7 +1030,7 @@ class addFCPreferenceOther():
                 self.form.fontSpinBox.value(),
             ],
             'hud_autoload': self.form.checkBox_hud_autoload.isChecked(),
-            'hud_theme': self.form.comboBox_hud_theme.currentText(),
+            'hud_theme': afc_theme['hud'],
             'hud_panels': panels,
             'drawing_templates_user': self.form.utLineEdit.text(),
         }
