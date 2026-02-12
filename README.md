@@ -71,7 +71,7 @@ Explosion (30 FPS)
 12. Isolate selected objects
 13. Export models for viewing
 14. Recording the 3D viewport to a video file
-15. HUD (Head‑Up Display) - beta.
+15. HUD (Head‑Up Display) - beta, only for PartDesign (currently)
 16. Documentation, help, and examples
 
 
