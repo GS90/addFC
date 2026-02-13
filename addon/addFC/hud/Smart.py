@@ -26,16 +26,6 @@ from addon.addFC import Logger, Preference as P
 from addon.addFC.hud.Theme import generate_css
 
 
-OFFSET_FROM_CURSOR = 10
-
-P_STR_UNITS = 'User parameter:BaseApp/Preferences/Units'
-
-OUTLINE = ('Sketcher::SketchObject', 'Part::Part2DObjectPython')
-
-
-# ------------------------------------------------------------------------------
-
-
 tools_all = [
     # other
     ('Go to Linked Object', 'Std_LinkSelectLinked', 'LinkSelect'),
@@ -68,7 +58,7 @@ tools_access = {
             'Pad',
             'Pocket',
             'Hole',
-            'SMBase',
+            'Make Base Wall',
         ],
         'Edge': [
             'Fillet',
@@ -85,6 +75,9 @@ tools_access = {
             'Thickness',
             'Extend Face',
             'Unattended Unfold',
+        ],
+        'Datum': [
+            'New Sketch',
         ],
     },
 }
@@ -128,6 +121,14 @@ tools_check = {
         (QtWidgets.QCheckBox, 'checkIntersection', False, 'Intersection'),
         (QtWidgets.QCheckBox, 'checkReverse', False, 'Inwards'),
     ),
+    # sm
+    'Make Wall': (
+        (QtWidgets.QPushButton, 'buttRevWall', False, 'Reverse'),
+    ),
+    'Make Base Wall': (
+        (QtWidgets.QCheckBox, 'checkSymetric', False, 'Symmetric'),
+        (QtWidgets.QCheckBox, 'checkRevDirection', False, 'Reversed'),
+    ),
 }
 
 # differences in version 1.2+
@@ -166,25 +167,28 @@ def configure():
 
 
 class SelectionObserverHUD:
+    def __init__(self, parent):
+        self.overlay = parent
+
     def addSelection(self, doc, obj, sub, pos):
         try:
-            overlay.selection_add(doc, obj, sub, pos)
-        except BaseException as err:
-            Logger.error(str(err))
+            self.overlay.selection_add(doc, obj, sub, pos)
+        except Exception as err:
+            Logger.error('HUD, addSelection: ' + str(err))
             Gui.Selection.removeObserver(self)
 
     def removeSelection(self, doc, obj, sub):
         try:
-            overlay.selection_remove(doc, obj, sub)
-        except BaseException as err:
-            Logger.error(str(err))
+            self.overlay.selection_remove(doc, obj, sub)
+        except Exception as err:
+            Logger.error('HUD, removeSelection: ' + str(err))
             Gui.Selection.removeObserver(self)
 
     def clearSelection(self, doc):
         try:
-            overlay.selection_clear()
-        except BaseException as err:
-            Logger.error(str(err))
+            self.overlay.selection_clear()
+        except Exception as err:
+            Logger.error('HUD, clearSelection: ' + str(err))
             Gui.Selection.removeObserver(self)
 
 
@@ -192,8 +196,28 @@ class SelectionObserverHUD:
 
 
 class SmartHUD(QtWidgets.QWidget):
+
+    OUTLINE = ('Sketcher::SketchObject', 'Part::Part2DObjectPython')
+    P_STR_UNITS = 'User parameter:BaseApp/Preferences/Units'
+
+    OFFSET_CURSOR = 10
+
+    DISTANCE_FADE = 300
+    DISTANCE_MIN = 200
+    DISTANCE_OFFSET = 100
+    DISTANCE_STEP = 40
+
+    TIMER_SLOW = 400
+    TIMER_FAST = 60
+
+    OPACITY_MIN = 0.0
+    OPACITY_MAX = 1.0
+
+    HEIGHT_CONTROL = 28
+
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setObjectName('SmartHUD')
 
         configure()
 
@@ -205,7 +229,10 @@ class SmartHUD(QtWidgets.QWidget):
 
         app_theme = P.afc_theme['current']  # std, dark, light
         hud_theme = conf['hud_theme']       # Standard, Rounded
-        css, css_apply = generate_css('smart', app_theme, hud_theme)
+
+        css, css_apply, self.css_active = generate_css(
+            'smart', app_theme, hud_theme)
+
         self.setStyleSheet(css)
 
         self.container = QtWidgets.QWidget()
@@ -235,10 +262,10 @@ class SmartHUD(QtWidgets.QWidget):
         self.spinbox.setToolTip('Set the value')
         self.spinbox.setRange(0, 1000)
         self.spinbox.setValue(1)
-        self.spinbox.setSingleStep(1)
-        _d = FreeCAD.ParamGet(P_STR_UNITS).GetInt('Decimals')
+        self.spinbox.setSingleStep(1)  # todo: preference
+        _d = FreeCAD.ParamGet(self.P_STR_UNITS).GetInt('Decimals')
         self.spinbox.setDecimals(_d)
-        self.spinbox.setFixedHeight(26)
+        self.spinbox.setFixedHeight(self.HEIGHT_CONTROL)
         self.spinbox.setFixedWidth(80)
         self.spinbox.valueChanged.connect(self.value_changed)
         self.spinbox.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
@@ -248,7 +275,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.apply = QtWidgets.QToolButton()
         self.apply.setText('OK')
         self.apply.setStyleSheet(css_apply)
-        self.apply.setFixedHeight(26)
+        self.apply.setFixedHeight(self.HEIGHT_CONTROL)
         self.apply.clicked.connect(self.apply_values)
         self.c_layout.addWidget(self.apply)
 
@@ -279,26 +306,31 @@ class SmartHUD(QtWidgets.QWidget):
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.container)
 
-        self.is_visible = False
+        self.freeze = False
+
         self.position_init = None
         self.position_current = None
         self.active_workbench = Gui.activeWorkbench().name()
+        self.parent = None
         self.sketch_profile = None
-
         self.current_button = None
-        self.current_tool = None
+        self.current_control = None
         self.dialog = None
         self.content = None
-
-        self.freeze = False
-
-        self.max_distance_x = 400
-        self.max_distance_y = 100
+        self.selected_widget = None
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_position)
 
-        self.observer = SelectionObserverHUD()
+        self.distance_max = self.DISTANCE_MIN
+
+        # opacity
+        self.opacity_effect = QtWidgets.QGraphicsOpacityEffect(self)
+        self.setGraphicsEffect(self.opacity_effect)
+        self.fade = QtCore.QPropertyAnimation(self.opacity_effect, b'opacity')
+        self.fade.setEasingCurve(QtCore.QEasingCurve.OutQuad)
+
+        self.observer = SelectionObserverHUD(self)
         Gui.Selection.addObserver(self.observer)
 
         self.get_view()
@@ -306,7 +338,6 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def add_buttons(self):
-        # todo: if the 'cmd' is not available?
         for name, cmd, icon in tools_all:
             btn = QtWidgets.QToolButton()
             btn.setObjectName(name)
@@ -314,7 +345,7 @@ class SmartHUD(QtWidgets.QWidget):
             btn.setIconSize(QtCore.QSize(24, 24))
             i = Gui.getIcon(icon)
             if i is None:
-                continue  # todo: error?
+                continue  # todo: ..?
             btn.setIcon(i)
             btn.clicked.connect(lambda checked=False,
                                 n=name,
@@ -325,37 +356,36 @@ class SmartHUD(QtWidgets.QWidget):
         self.b_layout.addStretch(1)
 
     def run_cmd(self, cmd, name, btn):
-        if self.current_button and self.current_tool:
-            return  # if the button is already pressed
+        if self.current_button and self.current_control:
+            return  # button already pressed
 
         # editing the basic sketch
         if name == 'Edit Sketch' and self.sketch_profile:
             Gui.activeDocument().setEdit(self.sketch_profile)
             self.collapse()
             return
-
+        # make the 'PartDesign::Body' active
+        if self.parent:
+            Gui.ActiveDocument.ActiveView.setActiveObject(
+                'pdbody', self.parent)
         # reset
         self.c_widget.setVisible(False)
         self.check_uno.setVisible(False)
         self.check_dos.setVisible(False)
-        self.max_distance_y = 90
 
-        # adjustment
+        # adaptation
         self.freeze = True
         if name in tools_control or name in tools_check:
-
-            self.current_tool = name
+            self.current_control = name
             # button style: active
-            btn.setStyleSheet('background-color: rgba(0, 0, 0, 30);')
+            btn.setStyleSheet(self.css_active)
             btn.setToolTip(None)
             self.current_button = btn
-
+            # control & check
             if name in tools_control:
                 self.c_widget.setVisible(True)
-                self.max_distance_y = 120
                 self.spinbox.setValue(tools_control[name][-1])
             if name in tools_check:
-                self.max_distance_y = 150
                 check = tools_check[name]
                 # there is always one element
                 self.check_uno.setVisible(True)
@@ -363,13 +393,12 @@ class SmartHUD(QtWidgets.QWidget):
                 self.check_uno.setText(n)
                 self.check_uno.setChecked(b)
                 if len(check) > 1:
-                    self.max_distance_y = 180
                     self.check_dos.setVisible(True)
                     b, n = check[1][-2:]
                     self.check_dos.setText(n)
                     self.check_dos.setChecked(b)
         else:
-            self.current_tool = None
+            self.current_control = None
             self.dialog = None
             self.content = None
             self.collapse()
@@ -377,30 +406,49 @@ class SmartHUD(QtWidgets.QWidget):
 
         # initializing
         Gui.runCommand(cmd)
-        if self.current_tool:
-            self.get_dialog_content()
+        if self.current_control:
+            self.get_dialog_and_content()
 
-    def get_dialog_content(self):
-        Gui.updateGui()
+    def get_dialog_and_content(self):
         self.raise_()  # ...features of version 1+
         self.dialog = Gui.Control.activeTaskDialog()
         if self.dialog:
             content = self.dialog.getDialogContent()
             if content:
                 self.content = content[0]  # todo: always 0?
+                # focus
+                Gui.updateGui()
+                self.spinbox.setFocus()
+                self.spinbox.selectAll()
                 return
         self.dialog = None
         self.content = None
 
     def update_position(self):
-        if self.is_visible:
-            cursor_position = QtGui.QCursor.pos()
-            x = abs(cursor_position.x() - self.position_init.x())
-            y = abs(cursor_position.y() - self.position_init.y())
-            if x > self.max_distance_x or y > self.max_distance_y:
+        if not self.isVisible():
+            return
+        cursor_position = QtGui.QCursor.pos()
+        # position difference
+        position_x = self.position_init.x() + self.DISTANCE_OFFSET
+        position_y = self.position_init.y() + self.DISTANCE_OFFSET
+        dx = cursor_position.x() - position_x
+        dy = cursor_position.y() - position_y
+        # Euclidean distance
+        distance = (dx ** 2 + dy ** 2) ** 0.5
+        # fade distance
+        max_distance_fade = self.distance_max + self.DISTANCE_FADE
+        if distance > self.distance_max:
+            if distance > max_distance_fade:
                 self.collapse()
-            # else:
-            #     todo: display when the cursor returns
+            else:
+                self.timer.setInterval(self.TIMER_FAST)
+                fade_range = max_distance_fade - self.distance_max
+                adjusted_distance = distance - self.distance_max
+                opacity = 1.0 - (adjusted_distance / fade_range)
+                self.opacity_effect.setOpacity(opacity)
+        else:
+            self.timer.setInterval(self.TIMER_SLOW)
+            self.opacity_effect.setOpacity(self.OPACITY_MAX)
 
     def get_view(self):
         try:
@@ -412,15 +460,15 @@ class SmartHUD(QtWidgets.QWidget):
             pass  # todo: error?
 
     def eventFilter(self, obj, event):
-        self.adjustSize()  # performance issue?
-        if obj == self.view and event.type() == QtCore.QEvent.MouseButtonPress:
-            if event.button() == QtCore.Qt.LeftButton:
-                return True
+        if self.isVisible():
+            self.adjustSize()
         return super().eventFilter(obj, event)
 
     def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key_Return:
-            if self.current_tool:
+        if event.key() == QtCore.Qt.Key_Escape:
+            self.collapse()
+        elif event.key() == QtCore.Qt.Key_Return:
+            if self.current_control:
                 self.apply_values()
         else:
             super().keyPressEvent(event)
@@ -428,13 +476,16 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def selection_add(self, doc, obj, sub, pos):
+        self.parent = None
+        self.sketch_profile = None
         try:
             if not self.is_available():
                 return
             if not self.selection_parsing(doc, obj, sub, pos):
                 return
-        except BaseException:
-            return  # todo: error?
+        except BaseException as err:
+            Logger.error('HUD, selection parsing: ' + str(err))
+            return
         w = Gui.getMainWindow()
         position_local = w.mapFromGlobal(self.position_current)
         self.activate(position_local)
@@ -451,6 +502,14 @@ class SmartHUD(QtWidgets.QWidget):
 
     def is_viewport(self) -> bool:
         self.position_current = QtGui.QCursor.pos()
+
+        widget = QtGui.QApplication.widgetAt(self.position_current)
+        if widget:
+            # overlay treeView: 'qt_scrollarea_viewport'
+            self.selected_widget = widget.objectName().lower()
+        else:
+            self.selected_widget = None
+
         view_global = self.view.mapToGlobal(QtCore.QPoint(0, 0))
         view_rect = QtCore.QRect(view_global, self.view.size())
         return view_rect.contains(self.position_current)
@@ -459,27 +518,35 @@ class SmartHUD(QtWidgets.QWidget):
         ad = FreeCAD.ActiveDocument
 
         if ad.Name != doc:
-            self.preparation('Other', None)
+            self.preparation_panel('Other', None)
             return True
 
         selection = Gui.Selection.getSelection(doc)
         if len(selection) == 0:
             return False
         selection = selection[0]
-        if selection.TypeId in OUTLINE:
-            self.preparation('Outline', selection.TypeId)
-            return True
+        if selection.TypeId in self.OUTLINE:
+            self.preparation_panel('Outline', selection.TypeId)
+            if self.selected_widget == 'qt_scrollarea_viewport':
+                return False  # overlay treeView
+            else:
+                return True
 
         self.sketch_profile = None
         parent = selection.getParentGeoFeatureGroup()
+
         if hasattr(parent, 'Profile'):
             self.sketch_profile = selection.Profile[0]
         else:
             if hasattr(parent, 'Group'):
                 for g in parent.Group:
                     if g.TypeId == 'Sketcher::SketchObject':
+                        if self.sketch_profile:
+                            self.sketch_profile = None
+                            break
                         self.sketch_profile = g
-                        break
+        if parent.TypeId == 'PartDesign::Body':
+            self.parent = parent
 
         selection = Gui.Selection.getSelectionEx(doc, 0)
         if len(selection) == 0:
@@ -489,37 +556,58 @@ class SmartHUD(QtWidgets.QWidget):
             return False
 
         so = selection.SubObjects[-1]
+
+        # overlay treeView
+        if self.selected_widget == 'qt_scrollarea_viewport':
+            if so.ShapeType not in ('Edge', 'Face'):
+                return False
+
+        # datum
+        try:
+            sen = selection.SubElementNames[-1]
+            if 'datumplane' in sen.lower():
+                self.preparation_panel('Datum', None)
+                return True
+            elif 'datum' in sen.lower():
+                return False
+        except BaseException:
+            pass
+
         match so.ShapeType:
             case 'Edge' | 'Face':
-                self.preparation(so.ShapeType, so.ShapeType)
+                self.preparation_panel(so.ShapeType, so.TypeId)
                 return True
             case 'Vertex':
                 return False  # todo: what to do with this?
             case _:
                 return False  # todo: what could it be?
 
-    def preparation(self, entity, type_id):
+    def preparation_panel(self, entity, type_id):
         workbench_set = tools_access.get(self.active_workbench)
         if not workbench_set:
             return  # todo: debug?
-        entity_set = workbench_set.get(entity)
+        entity_set = workbench_set.get(entity).copy()
         if not entity_set:
             return  # todo: debug?
 
-        # exception
+        # exceptions
         if entity == 'Outline' and type_id == 'Part::Part2DObjectPython':
-            entity_set.remove('Edit Sketch')
+            if 'Edit Sketch' in entity_set:
+                entity_set.remove('Edit Sketch')
+        if entity == 'Face' and not self.sketch_profile:
+            if 'Edit Sketch' in entity_set:
+                entity_set.remove('Edit Sketch')
 
         # available buttons
-        distance_x = 0
+        max_distance = 0
         buttons = self.b_widget.findChildren(QtWidgets.QToolButton)
         for btn in buttons:
             if btn.objectName() in entity_set:
-                distance_x += 40
+                max_distance += self.DISTANCE_STEP
                 btn.setVisible(True)
             else:
                 btn.setVisible(False)
-        self.max_distance_x = max(200, distance_x)
+        self.distance_max = max(self.DISTANCE_MIN, max_distance)
 
     def selection_remove(self, doc, obj, sub):
         if not self.current_button:
@@ -536,14 +624,14 @@ class SmartHUD(QtWidgets.QWidget):
             self.move_to_cursor(position)
         else:
             self.move_to_cursor(position)
+            self.opacity_effect.setOpacity(self.OPACITY_MAX)
             self.show()
             self.position_init = QtGui.QCursor.pos()
-            self.is_visible = True
-            self.timer.start(400)  # 200, set a higher value, 400?
+            self.timer.start(self.TIMER_SLOW)
 
     def move_to_cursor(self, cursor_local):
-        x = cursor_local.x() + OFFSET_FROM_CURSOR
-        y = cursor_local.y() + OFFSET_FROM_CURSOR
+        x = cursor_local.x() + self.OFFSET_CURSOR
+        y = cursor_local.y() + self.OFFSET_CURSOR
         w = Gui.getMainWindow()
         x = max(0, min(x, w.width() - self.width()))
         y = max(0, min(y, w.height() - self.height()))
@@ -562,12 +650,20 @@ class SmartHUD(QtWidgets.QWidget):
         self.check_dos.setVisible(False)
         self.dialog = None
         self.content = None
+        self.selected_widget = None
+        self.opacity_effect.setOpacity(self.OPACITY_MIN)
         self.hide()
-        self.is_visible = False
         self.timer.stop()
 
     def clear(self):
-        Gui.Selection.removeObserver(self.observer)
+        try:
+            if self.observer:
+                Gui.Selection.removeObserver(self.observer)
+                self.observer = None
+        except Exception as err:
+            Logger.warning('HUD, observer removal: ' + str(err))
+        finally:
+            self.timer.stop()
 
     # --------------------------------------------------------------------------
 
@@ -613,19 +709,22 @@ class SmartHUD(QtWidgets.QWidget):
         widget, name = check_sender[:2]
         target = self.content.findChild(widget, name)
         if target:
-            target.setChecked(state)
+            if current_tool == 'Make Wall':
+                # exception, button
+                target.click()
+            else:
+                target.setChecked(state)
 
     def check_changed(self) -> None | str:
         if self.freeze:
             return
-        if not self.current_tool:
+        if not self.current_control:
             return None
         if not self.dialog:
-            # ? self.get_dialog_content()
             return None
         if not self.content:
             return None
-        return self.current_tool
+        return self.current_control
 
     def apply_values(self):
         if self.dialog:
@@ -647,9 +746,9 @@ for child in app.children():
             pass
         child.deleteLater()
         init = False
-        Logger.info('HUD (beta) is disabled')
+        Logger.info('SmartHUD: disabled')
 
 if init:
     overlay = SmartHUD(app)
     overlay.adjustSize()
-    Logger.info('HUD (beta) is activated')
+    Logger.info('SmartHUD: activated')

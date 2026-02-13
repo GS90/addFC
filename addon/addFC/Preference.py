@@ -976,8 +976,8 @@ class addFCPreferenceOther():
         for panel in pref_configuration['hud_panels']:
             match panel:
                 case 'smart': self.form.checkBox_hud_smart.setChecked(True)
-                case 'top': pass
-                case 'right': pass
+                case 'top': self.form.checkBox_hud_top.setChecked(True)
+                case 'right': self.form.checkBox_hud_right.setChecked(True)
 
         # additions:
         self.form.sm.setChecked(afc_additions['sm'][0])
