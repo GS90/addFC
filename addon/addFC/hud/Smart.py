@@ -233,6 +233,21 @@ class SmartHUD(QtWidgets.QWidget):
         css, css_apply, self.css_active = generate_css(
             'smart', app_theme, hud_theme)
 
+        # panel background transparency
+        _transparency = conf.get('hud_transparency')
+        if _transparency:
+            css = css.replace('#e6e6e6;', 'rgba(230, 230, 230, 220);')
+            css = css.replace('#2e3436;', 'rgba(46, 52, 54, 220);')
+
+        # value step
+        _step = conf.get('hud_value_step')
+        if _step:
+            try:
+                _step_value = float(_step)
+            except ValueError as err:
+                Logger.warning('HUD, value step: ' + str(err))
+                _step_value = 1
+
         self.setStyleSheet(css)
 
         self.container = QtWidgets.QWidget()
@@ -262,7 +277,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.spinbox.setToolTip('Set the value')
         self.spinbox.setRange(0, 1000)
         self.spinbox.setValue(1)
-        self.spinbox.setSingleStep(1)  # todo: preference
+        self.spinbox.setSingleStep(_step_value)
         _d = FreeCAD.ParamGet(self.P_STR_UNITS).GetInt('Decimals')
         self.spinbox.setDecimals(_d)
         self.spinbox.setFixedHeight(self.HEIGHT_CONTROL)
@@ -444,7 +459,7 @@ class SmartHUD(QtWidgets.QWidget):
                 self.timer.setInterval(self.TIMER_FAST)
                 fade_range = max_distance_fade - self.distance_max
                 adjusted_distance = distance - self.distance_max
-                opacity = 1.0 - (adjusted_distance / fade_range)
+                opacity = self.OPACITY_MAX - (adjusted_distance / fade_range)
                 self.opacity_effect.setOpacity(opacity)
         else:
             self.timer.setInterval(self.TIMER_SLOW)

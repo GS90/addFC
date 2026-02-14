@@ -73,38 +73,7 @@
         <property name="title">
          <string>HUD (Head‑Up Display)</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout" columnstretch="2,0,1">
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="checkBox_hud_top">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Top panel</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="checkBox_hud_smart">
-           <property name="text">
-            <string>Smart panel (dynamic)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_hud_theme">
-           <property name="text">
-            <string>Theme</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="checkBox_hud_autoload">
-           <property name="text">
-            <string>Launch HUD on Startup</string>
-           </property>
-          </widget>
-         </item>
+        <layout class="QGridLayout" name="gridLayout" columnstretch="2,0,0">
          <item row="3" column="0">
           <widget class="QCheckBox" name="checkBox_hud_right">
            <property name="enabled">
@@ -115,8 +84,75 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="2">
+          <widget class="QCheckBox" name="checkBox_hud_transparency">
+           <property name="toolTip">
+            <string>Panel background transparency</string>
+           </property>
+           <property name="text">
+            <string>Transparency</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="checkBox_hud_smart">
+           <property name="text">
+            <string>Smart panel (dynamic)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="checkBox_hud_autoload">
+           <property name="text">
+            <string>Launch HUD on Startup</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="checkBox_hud_top">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Top panel</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="2">
           <widget class="QComboBox" name="comboBox_hud_theme"/>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_hud_theme">
+           <property name="text">
+            <string>Theme</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="label_hud_value_step">
+           <property name="toolTip">
+            <string>Controls the step size when changing the value</string>
+           </property>
+           <property name="text">
+            <string>Value step</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QComboBox" name="comboBox_hud_value_step">
+           <property name="toolTip">
+            <string>Controls the step size when changing the value</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

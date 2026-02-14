@@ -973,6 +973,12 @@ class addFCPreferenceOther():
         self.form.comboBox_hud_theme.addItems(('Standard', 'Rounded'))
         _theme = pref_configuration['hud_theme']
         self.form.comboBox_hud_theme.setCurrentText(_theme)
+        _transparency = pref_configuration['hud_transparency']
+        self.form.checkBox_hud_transparency.setChecked(_transparency)
+        self.form.comboBox_hud_value_step.addItems(
+            ('10.0', '1.0', '0.1', '0.01'))
+        _step = pref_configuration['hud_value_step']
+        self.form.comboBox_hud_value_step.setCurrentText(_step)
         for panel in pref_configuration['hud_panels']:
             match panel:
                 case 'smart': self.form.checkBox_hud_smart.setChecked(True)
@@ -1019,6 +1025,8 @@ class addFCPreferenceOther():
         if self.form.checkBox_hud_right.isChecked():
             panels.append('right')
 
+        _transparency = self.form.checkBox_hud_transparency.isChecked()
+
         fresh = {
             'interface_font': [
                 self.form.fontCheckBox.isChecked(),
@@ -1027,6 +1035,8 @@ class addFCPreferenceOther():
             ],
             'hud_autoload': self.form.checkBox_hud_autoload.isChecked(),
             'hud_theme': self.form.comboBox_hud_theme.currentText(),
+            'hud_transparency': _transparency,
+            'hud_value_step': self.form.comboBox_hud_value_step.currentText(),
             'hud_panels': panels,
             'drawing_templates_user': self.form.utLineEdit.text(),
         }

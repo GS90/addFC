@@ -30,6 +30,8 @@ configuration = {
     # hud:
     'hud_autoload': False,
     'hud_theme': 'Standard',  # 'Standard' or 'Rounded'
+    'hud_transparency': True,
+    'hud_value_step': '1.0',
     'hud_panels': ['smart',],
     # unfold:
     'unfold_dxf': True,
