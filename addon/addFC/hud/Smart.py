@@ -670,10 +670,10 @@ class SmartHUD(QtWidgets.QWidget):
             self.move_to_cursor(position)
             self.opacity_effect.setOpacity(self.OPACITY_MAX)
             self.show()
-            self.position_init = QtGui.QCursor.pos()
             self.timer.start(self.TIMER_SLOW)
 
     def move_to_cursor(self, cursor_local):
+        self.position_init = QtGui.QCursor.pos()
         x = cursor_local.x() + self.OFFSET_CURSOR
         y = cursor_local.y() + self.OFFSET_CURSOR
         w = Gui.getMainWindow()
