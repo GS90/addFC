@@ -330,9 +330,15 @@ class SmartHUD(QtWidgets.QWidget):
         self.sketch_profile = None
         self.current_button = None
         self.current_control = None
+        self.selected_widget = None
         self.dialog = None
         self.content = None
-        self.selected_widget = None
+        self.transaction = None
+
+        if int(P.FC_VERSION[0]) > 0 and int(P.FC_VERSION[1]) > 1:
+            self.draggers = True
+        else:
+            self.draggers = False
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_position)
@@ -414,8 +420,6 @@ class SmartHUD(QtWidgets.QWidget):
                     self.check_dos.setChecked(b)
         else:
             self.current_control = None
-            self.dialog = None
-            self.content = None
             self.collapse()
         self.freeze = False
 
@@ -425,6 +429,7 @@ class SmartHUD(QtWidgets.QWidget):
             self.get_dialog_and_content()
 
     def get_dialog_and_content(self):
+        self.clear_dialog_and_content()
         self.raise_()  # ...features of version 1+
         self.dialog = Gui.Control.activeTaskDialog()
         if self.dialog:
@@ -435,13 +440,32 @@ class SmartHUD(QtWidgets.QWidget):
                 Gui.updateGui()
                 self.spinbox.setFocus()
                 self.spinbox.selectAll()
+                # value, transaction
+                if self.current_control:
+                    try:
+                        widget, name = tools_control[self.current_control][:2]
+                        _transaction = self.content.findChild(widget, name)
+                        if _transaction:
+                            self.transaction = _transaction
+                            self.transaction.valueChanged.connect(
+                                self.transaction_changed)
+                        else:
+                            self.transaction = None
+                    except BaseException as err:
+                        Logger.warning('transaction, add: ' + str(err))
+                        self.transaction = None
                 return
-        self.dialog = None
-        self.content = None
+        self.clear_dialog_and_content()
+
+    def clear_dialog_and_content(self):
+        self.dialog, self.content, self.transaction = None, None, None
 
     def update_position(self):
         if not self.isVisible():
             return
+        # synchronization of values
+        if self.draggers and self.transaction:
+            self.transaction_verification()
         cursor_position = QtGui.QCursor.pos()
         # position difference
         position_x = self.position_init.x() + self.DISTANCE_OFFSET
@@ -499,7 +523,7 @@ class SmartHUD(QtWidgets.QWidget):
             if not self.selection_parsing(doc, obj, sub, pos):
                 return
         except BaseException as err:
-            Logger.error('HUD, selection parsing: ' + str(err))
+            Logger.warning('HUD, selection parsing: ' + str(err))
             return
         w = Gui.getMainWindow()
         position_local = w.mapFromGlobal(self.position_current)
@@ -555,13 +579,15 @@ class SmartHUD(QtWidgets.QWidget):
         else:
             if hasattr(parent, 'Group'):
                 for g in parent.Group:
-                    if g.TypeId == 'Sketcher::SketchObject':
-                        if self.sketch_profile:
-                            self.sketch_profile = None
-                            break
-                        self.sketch_profile = g
-        if parent.TypeId == 'PartDesign::Body':
-            self.parent = parent
+                    if hasattr(g, 'TypeId'):
+                        if g.TypeId == 'Sketcher::SketchObject':
+                            if self.sketch_profile:
+                                self.sketch_profile = None
+                                break
+                            self.sketch_profile = g
+        if hasattr(parent, 'TypeId'):
+            if parent.TypeId == 'PartDesign::Body':
+                self.parent = parent
 
         selection = Gui.Selection.getSelectionEx(doc, 0)
         if len(selection) == 0:
@@ -570,7 +596,10 @@ class SmartHUD(QtWidgets.QWidget):
         if not selection.HasSubObjects:
             return False
 
-        so = selection.SubObjects[-1]
+        try:
+            so = selection.SubObjects[-1]
+        except BaseException:
+            return False
 
         # overlay treeView
         if self.selected_widget == 'qt_scrollarea_viewport':
@@ -663,8 +692,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.c_widget.setVisible(False)
         self.check_uno.setVisible(False)
         self.check_dos.setVisible(False)
-        self.dialog = None
-        self.content = None
+        self.clear_dialog_and_content()
         self.selected_widget = None
         self.opacity_effect.setOpacity(self.OPACITY_MIN)
         self.hide()
@@ -688,7 +716,31 @@ class SmartHUD(QtWidgets.QWidget):
     #     content.findChildren(QtWidgets.QAbstractSpinBox)
     #     content.findChildren(QtWidgets.QCheckBox)
 
+    def transaction_verification(self):
+        try:
+            value_fc = self.transaction.property('rawValue')
+            value_p = self.spinbox.value()
+            if value_fc != value_p:
+                self.spinbox.setValue(value_fc)
+        except BaseException as err:
+            Logger.warning('transaction, verification: ' + str(err))
+            self.transaction = None
+
+    def transaction_changed(self, value):
+        if self.freeze:
+            return
+        self.spinbox.setValue(value)
+
     def value_changed(self, value):
+        if self.freeze:
+            return
+        if self.transaction:
+            try:
+                self.transaction.setProperty('rawValue', value)
+                return
+            except BaseException as err:
+                Logger.warning('transaction, changed: ' + str(err))
+                self.transaction = None
         current_tool = self.check_changed()
         if not current_tool:
             return
@@ -698,6 +750,8 @@ class SmartHUD(QtWidgets.QWidget):
             target.setProperty('rawValue', value)
 
     def state_changed(self, state):
+        if self.freeze:
+            return
         current_tool = self.check_changed()
         if not current_tool:
             return
@@ -731,8 +785,6 @@ class SmartHUD(QtWidgets.QWidget):
                 target.setChecked(state)
 
     def check_changed(self) -> None | str:
-        if self.freeze:
-            return
         if not self.current_control:
             return None
         if not self.dialog:

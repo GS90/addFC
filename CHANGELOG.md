@@ -2,13 +2,15 @@
 
 ## Release notes
 
-#### 2026.02.14 (**2.3.6**):
+#### 2026.02.14 (**2.4.0**):
 * HUD (Head‑Up Display):
     - Automatic activation of the "Body" component.
     - Enhanced support for Sheet Metal features.
     - Fade‑out animation implemented.
     - Improved workflow with overlay tree view.
     - Performance optimizations.
+    - Support for interaction with "draggers".
+    - Synchronization of values.
     - Themes updated.
 
 #### 2026.02.11 (**2.3.0**):
