@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2026.02.16 (**2.4.3**):
+* HUD (Head‑Up Display): fixes and improvements.
+
 #### 2026.02.14 (**2.4.0**):
 * HUD (Head‑Up Display):
     - Automatic activation of the "Body" component.

@@ -31,6 +31,8 @@ tools_all = [
     ('Go to Linked Object', 'Std_LinkSelectLinked', 'LinkSelect'),
     ('Fit Selection', 'Std_ViewFitSelection', 'zoom-selection'),
     ('Transform', 'Std_TransformManip', 'Std_TransformManip'),
+    # pd:binder
+    ('Binder', 'PartDesign_SubShapeBinder', 'PartDesign_SubShapeBinder'),
     # pd:sketch
     ('New Sketch', 'PartDesign_NewSketch', 'Sketcher_NewSketch'),
     ('Edit Sketch', 'Sketcher_EditSketch', 'Sketcher_EditSketch'),
@@ -50,10 +52,12 @@ tools_access = {
         'Other': [
             'Align to Selection',  # 1+
             'Go to Linked Object',
+            'Measure',             # 2 entities
             'Transform',
             'Fit Selection',
         ],
         'Outline': [
+            'Measure',      # 2 entities
             'Edit Sketch',  # exception
             'Pad',
             'Pocket',
@@ -61,13 +65,16 @@ tools_access = {
             'Make Base Wall',
         ],
         'Edge': [
+            'Measure',  # 2 entities
             'Fillet',
             'Chamfer',
             'Make Wall',
         ],
         'Face': [
             'Align to Selection',  # 1+
+            'Measure',             # 2 entities
             'Edit Sketch',         # exception
+            'Binder',
             'New Sketch',
             'Pad',
             'Pocket',
@@ -75,6 +82,9 @@ tools_access = {
             'Thickness',
             'Extend Face',
             'Unattended Unfold',
+        ],
+        'Vertex': [
+            'Measure',  # 2 entities
         ],
         'Datum': [
             'New Sketch',
@@ -106,6 +116,7 @@ tools_check = {
     'Pocket': (
         (QtWidgets.QCheckBox, 'checkBoxMidplane', False, 'Symmetric'),
         (QtWidgets.QCheckBox, 'checkBoxReversed', False, 'Reversed'),
+        (QtWidgets.QComboBox, 'changeMode', False, 'Through all'),
     ),
     # pd:dos
     'Fillet': (
@@ -139,9 +150,22 @@ def configure():
     global tools_all
 
     if int(P.FC_VERSION[0]) > 0:
-        tools_all.insert(0, ('Align to Selection',
-                             'Std_AlignToSelection',
-                             'align-to-selection'))
+        tools_all[:0] = [
+            (
+                'Align to Selection',
+                'Std_AlignToSelection',
+                'align-to-selection',
+            ),
+            (
+                'Measure',
+                'Std_Measure',
+                'umf-measurement',
+            ),
+        ]
+    else:
+        tools_all.insert(0, ('Measure',
+                             'Part_Measure_Linear',
+                             'Part_Measure_Linear'))
 
     if P.afc_additions['sm'][0]:
         import SheetMetalTools
@@ -204,8 +228,7 @@ class SmartHUD(QtWidgets.QWidget):
 
     DISTANCE_FADE = 300
     DISTANCE_MIN = 200
-    DISTANCE_OFFSET = 100
-    DISTANCE_STEP = 40
+    DISTANCE_STEP = 30
 
     TIMER_SLOW = 400
     TIMER_FAST = 60
@@ -304,7 +327,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.wrapper.addWidget(self.b_widget)
         self.wrapper.addWidget(self.c_widget)
 
-        # check: uno & dos
+        # check: uno, dos and tres
         self.check_uno = QtWidgets.QCheckBox()
         self.check_uno.setText('CheckBoxUno')
         self.check_uno.setVisible(False)
@@ -315,6 +338,11 @@ class SmartHUD(QtWidgets.QWidget):
         self.check_dos.setVisible(False)
         self.check_dos.stateChanged.connect(self.state_changed)
         self.wrapper.addWidget(self.check_dos)
+        self.check_tres = QtWidgets.QCheckBox()
+        self.check_tres.setText('CheckBoxTres')
+        self.check_tres.setVisible(False)
+        self.check_tres.stateChanged.connect(self.state_changed)
+        self.wrapper.addWidget(self.check_tres)
 
         # building
         self.container.setLayout(self.wrapper)
@@ -340,10 +368,13 @@ class SmartHUD(QtWidgets.QWidget):
         else:
             self.draggers = False
 
+        self.selected_count = 0
+
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.update_position)
+        self.timer.timeout.connect(self.update_panel)
 
         self.distance_max = self.DISTANCE_MIN
+        self.distance_offset = self.distance_max / 2
 
         # opacity
         self.opacity_effect = QtWidgets.QGraphicsOpacityEffect(self)
@@ -393,6 +424,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.c_widget.setVisible(False)
         self.check_uno.setVisible(False)
         self.check_dos.setVisible(False)
+        self.check_tres.setVisible(False)
 
         # adaptation
         self.freeze = True
@@ -418,6 +450,11 @@ class SmartHUD(QtWidgets.QWidget):
                     b, n = check[1][-2:]
                     self.check_dos.setText(n)
                     self.check_dos.setChecked(b)
+                    if len(check) > 2:
+                        self.check_tres.setVisible(True)
+                        b, n = check[2][-2:]
+                        self.check_tres.setText(n)
+                        self.check_tres.setChecked(b)
         else:
             self.current_control = None
             self.collapse()
@@ -460,7 +497,7 @@ class SmartHUD(QtWidgets.QWidget):
     def clear_dialog_and_content(self):
         self.dialog, self.content, self.transaction = None, None, None
 
-    def update_position(self):
+    def update_panel(self):
         if not self.isVisible():
             return
         # synchronization of values
@@ -468,8 +505,8 @@ class SmartHUD(QtWidgets.QWidget):
             self.transaction_verification()
         cursor_position = QtGui.QCursor.pos()
         # position difference
-        position_x = self.position_init.x() + self.DISTANCE_OFFSET
-        position_y = self.position_init.y() + self.DISTANCE_OFFSET
+        position_x = self.position_init.x() + self.distance_offset
+        position_y = self.position_init.y() + self.distance_offset
         dx = cursor_position.x() - position_x
         dy = cursor_position.y() - position_y
         # Euclidean distance
@@ -554,6 +591,8 @@ class SmartHUD(QtWidgets.QWidget):
         return view_rect.contains(self.position_current)
 
     def selection_parsing(self, doc, obj, sub, pos) -> bool:
+        self.selected_count = len(Gui.Selection.getCompleteSelection())
+
         ad = FreeCAD.ActiveDocument
 
         if ad.Name != doc:
@@ -622,7 +661,11 @@ class SmartHUD(QtWidgets.QWidget):
                 self.preparation_panel(so.ShapeType, so.TypeId)
                 return True
             case 'Vertex':
-                return False  # todo: what to do with this?
+                if self.selected_count > 1:  # only 'Measure'
+                    self.preparation_panel(so.ShapeType, so.TypeId)
+                    return True
+                else:
+                    return False
             case _:
                 return False  # todo: what could it be?
 
@@ -646,12 +689,17 @@ class SmartHUD(QtWidgets.QWidget):
         max_distance = 0
         buttons = self.b_widget.findChildren(QtWidgets.QToolButton)
         for btn in buttons:
-            if btn.objectName() in entity_set:
+            object_name = btn.objectName()
+            if object_name in entity_set:
+                if object_name == 'Measure' and self.selected_count < 2:
+                    btn.setVisible(False)
+                    continue
                 max_distance += self.DISTANCE_STEP
                 btn.setVisible(True)
             else:
                 btn.setVisible(False)
         self.distance_max = max(self.DISTANCE_MIN, max_distance)
+        self.distance_offset = self.distance_max / 2
 
     def selection_remove(self, doc, obj, sub):
         if not self.current_button:
@@ -692,6 +740,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.c_widget.setVisible(False)
         self.check_uno.setVisible(False)
         self.check_dos.setVisible(False)
+        self.check_tres.setVisible(False)
         self.clear_dialog_and_content()
         self.selected_widget = None
         self.opacity_effect.setOpacity(self.OPACITY_MIN)
@@ -758,15 +807,25 @@ class SmartHUD(QtWidgets.QWidget):
         check_tuple = tools_check[current_tool]
         checkbox = self.sender()
         text = checkbox.text()
+
+        if text == 'Through all' and current_tool == 'Pocket':
+            widget, name = tools_check['Pocket'][2][:2]
+            target = self.content.findChild(widget, name)
+            if state:
+                target.setCurrentIndex(1)  # Through all
+            else:
+                target.setCurrentIndex(0)  # Dimension
+            return
+
         if int(P.FC_VERSION[0]) > 0 and int(P.FC_VERSION[1]) > 1:
             if text == 'Symmetric':
                 if current_tool == 'Pad' or current_tool == 'Pocket':
                     widget, name = tools_check_exception[:2]
                     target = self.content.findChild(widget, name)
                     if state:
-                        target.setCurrentText('Symmetric')
+                        target.setCurrentIndex(2)  # Symmetric
                     else:
-                        target.setCurrentText('One sided')
+                        target.setCurrentIndex(0)  # One sided
                     return
         check_sender = None
         for i in check_tuple:
@@ -795,7 +854,10 @@ class SmartHUD(QtWidgets.QWidget):
 
     def apply_values(self):
         if self.dialog:
-            self.dialog.accept()
+            try:
+                self.dialog.accept()
+            except BaseException:
+                pass
         self.collapse()
 
 
