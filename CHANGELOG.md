@@ -2,6 +2,12 @@
 
 ## Release notes
 
+#### 2026.02.17 (**2.4.5**):
+* HUD (Head‑Up Display), improvements:
+    - Continuing to work with a panel after creating a new sketch.
+    - Sheet metal tools are now optional.
+    - Performance optimizations.
+
 #### 2026.02.16 (**2.4.3**):
 * HUD (Head‑Up Display): fixes and improvements.
 

@@ -31,11 +31,11 @@ tools_all = [
     ('Go to Linked Object', 'Std_LinkSelectLinked', 'LinkSelect'),
     ('Fit Selection', 'Std_ViewFitSelection', 'zoom-selection'),
     ('Transform', 'Std_TransformManip', 'Std_TransformManip'),
-    # pd:binder
-    ('Binder', 'PartDesign_SubShapeBinder', 'PartDesign_SubShapeBinder'),
     # pd:sketch
     ('New Sketch', 'PartDesign_NewSketch', 'Sketcher_NewSketch'),
     ('Edit Sketch', 'Sketcher_EditSketch', 'Sketcher_EditSketch'),
+    # pd:binder
+    ('Binder', 'PartDesign_SubShapeBinder', 'PartDesign_SubShapeBinder'),
     # pd:uno
     ('Pad', 'PartDesign_Pad', 'PartDesign_Pad'),
     ('Pocket', 'PartDesign_Pocket', 'PartDesign_Pocket'),
@@ -46,6 +46,13 @@ tools_all = [
     ('Draft', 'PartDesign_Draft', 'PartDesign_Draft'),
     ('Thickness', 'PartDesign_Thickness', 'PartDesign_Thickness'),
 ]
+
+activity_ban = (
+    'Go to Linked Object',
+    'Fit Selection',
+    'Transform',
+    'Binder',
+)
 
 tools_access = {
     'PartDesignWorkbench': {
@@ -78,6 +85,8 @@ tools_access = {
             'New Sketch',
             'Pad',
             'Pocket',
+            # 'Fillet',
+            # 'Chamfer',
             'Draft',
             'Thickness',
             'Extend Face',
@@ -168,6 +177,9 @@ def configure():
                              'Part_Measure_Linear'))
 
     if P.afc_additions['sm'][0]:
+        if not P.pref_configuration['hud_tools_sm']:
+            return
+
         import SheetMetalTools
         Gui.addIconPath(SheetMetalTools.icons_path)
         sm = (
@@ -238,9 +250,12 @@ class SmartHUD(QtWidgets.QWidget):
 
     HEIGHT_CONTROL = 28
 
-    def __init__(self, parent=None):
+    def __init__(self, parent):
         super().__init__(parent)
         self.setObjectName('SmartHUD')
+        self.parent = parent
+
+        self.is_raised = False
 
         configure()
 
@@ -350,11 +365,13 @@ class SmartHUD(QtWidgets.QWidget):
         self.layout.addWidget(self.container)
 
         self.freeze = False
+        self.new_sketch = False
+
+        self.active_workbench = Gui.activeWorkbench().name()
 
         self.position_init = None
         self.position_current = None
-        self.active_workbench = Gui.activeWorkbench().name()
-        self.parent = None
+        self.active_object = None
         self.sketch_profile = None
         self.current_button = None
         self.current_control = None
@@ -384,6 +401,8 @@ class SmartHUD(QtWidgets.QWidget):
 
         self.observer = SelectionObserverHUD(self)
         Gui.Selection.addObserver(self.observer)
+
+        parent.workbenchActivated.connect(self.workbench_changed)
 
         self.get_view()
 
@@ -417,14 +436,16 @@ class SmartHUD(QtWidgets.QWidget):
             self.collapse()
             return
         # make the 'PartDesign::Body' active
-        if self.parent:
-            Gui.ActiveDocument.ActiveView.setActiveObject(
-                'pdbody', self.parent)
+        if self.active_object:
+            if name not in activity_ban:
+                Gui.ActiveDocument.ActiveView.setActiveObject(
+                    'pdbody', self.active_object)
         # reset
         self.c_widget.setVisible(False)
         self.check_uno.setVisible(False)
         self.check_dos.setVisible(False)
         self.check_tres.setVisible(False)
+        self.new_sketch = False
 
         # adaptation
         self.freeze = True
@@ -458,6 +479,8 @@ class SmartHUD(QtWidgets.QWidget):
         else:
             self.current_control = None
             self.collapse()
+            if name == 'New Sketch':
+                self.new_sketch = True
         self.freeze = False
 
         # initializing
@@ -467,7 +490,7 @@ class SmartHUD(QtWidgets.QWidget):
 
     def get_dialog_and_content(self):
         self.clear_dialog_and_content()
-        self.raise_()  # ...features of version 1+
+        self.raise_()
         self.dialog = Gui.Control.activeTaskDialog()
         if self.dialog:
             content = self.dialog.getDialogContent()
@@ -528,17 +551,44 @@ class SmartHUD(QtWidgets.QWidget):
 
     def get_view(self):
         try:
-            w = Gui.getMainWindow()
-            area = w.centralWidget()
+            area = self.parent.centralWidget()
             self.view = area.currentSubWindow()
             self.view.installEventFilter(self)
         except BaseException:
             pass  # todo: error?
 
+    def workbench_changed(self, workbench_name):
+        if not self.new_sketch:
+            return
+        if workbench_name != 'PartDesignWorkbench':
+            return
+        selection = Gui.Selection.getSelection()
+        if not selection:
+            return
+        s = selection[0]
+        if hasattr(s, 'TypeId'):
+            if s.TypeId == 'Sketcher::SketchObject':
+                if self.is_viewport():
+                    self.preparation_panel('Outline', s.TypeId)
+                    position_local = self.parent.mapFromGlobal(
+                        self.position_current)
+                    self.activate(position_local)
+                    self.new_sketch = False
+
     def eventFilter(self, obj, event):
         if self.isVisible():
-            self.adjustSize()
+            current_size = self.size()
+            preferred_size = self.sizeHint()
+            if current_size != preferred_size:
+                self.adjustSize()
+            if not self.is_raised:
+                self.raise_()
+                self.is_raised = True
         return super().eventFilter(obj, event)
+
+    def hideEvent(self, event):
+        self.is_raised = False
+        super().hideEvent(event)
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Escape:
@@ -552,7 +602,7 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def selection_add(self, doc, obj, sub, pos):
-        self.parent = None
+        self.active_object = None
         self.sketch_profile = None
         try:
             if not self.is_available():
@@ -562,15 +612,14 @@ class SmartHUD(QtWidgets.QWidget):
         except BaseException as err:
             Logger.warning('HUD, selection parsing: ' + str(err))
             return
-        w = Gui.getMainWindow()
-        position_local = w.mapFromGlobal(self.position_current)
+        position_local = self.parent.mapFromGlobal(self.position_current)
         self.activate(position_local)
+        self.raise_()
 
     def is_available(self):
         self.get_view()
         if not self.view:
             return False
-        # todo: add other workbenches
         self.active_workbench = Gui.activeWorkbench().name()
         if self.active_workbench == 'PartDesignWorkbench':
             return self.is_viewport()
@@ -626,7 +675,7 @@ class SmartHUD(QtWidgets.QWidget):
                             self.sketch_profile = g
         if hasattr(parent, 'TypeId'):
             if parent.TypeId == 'PartDesign::Body':
-                self.parent = parent
+                self.active_object = parent
 
         selection = Gui.Selection.getSelectionEx(doc, 0)
         if len(selection) == 0:
@@ -712,6 +761,8 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def activate(self, position):
+        if self.current_button and self.current_control:
+            return  # button already pressed
         if self.isVisible():
             self.move_to_cursor(position)
         else:
@@ -724,9 +775,8 @@ class SmartHUD(QtWidgets.QWidget):
         self.position_init = QtGui.QCursor.pos()
         x = cursor_local.x() + self.OFFSET_CURSOR
         y = cursor_local.y() + self.OFFSET_CURSOR
-        w = Gui.getMainWindow()
-        x = max(0, min(x, w.width() - self.width()))
-        y = max(0, min(y, w.height() - self.height()))
+        x = max(0, min(x, self.parent.width() - self.width()))
+        y = max(0, min(y, self.parent.height() - self.height()))
         self.move(int(x), int(y))
         self.raise_()
 

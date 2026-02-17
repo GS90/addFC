@@ -970,6 +970,12 @@ class addFCPreferenceOther():
         # hud:
         _autoload = pref_configuration['hud_autoload']
         self.form.checkBox_hud_autoload.setChecked(_autoload)
+        for panel in pref_configuration['hud_panels']:
+            match panel:
+                case 'smart': self.form.checkBox_hud_smart.setChecked(True)
+                case 'top': self.form.checkBox_hud_top.setChecked(True)
+                case 'right': self.form.checkBox_hud_right.setChecked(True)
+
         self.form.comboBox_hud_theme.addItems(('Standard', 'Rounded'))
         _theme = pref_configuration['hud_theme']
         self.form.comboBox_hud_theme.setCurrentText(_theme)
@@ -979,11 +985,8 @@ class addFCPreferenceOther():
             ('10.0', '1.0', '0.1', '0.01'))
         _step = pref_configuration['hud_value_step']
         self.form.comboBox_hud_value_step.setCurrentText(_step)
-        for panel in pref_configuration['hud_panels']:
-            match panel:
-                case 'smart': self.form.checkBox_hud_smart.setChecked(True)
-                case 'top': self.form.checkBox_hud_top.setChecked(True)
-                case 'right': self.form.checkBox_hud_right.setChecked(True)
+        _sm_tools = pref_configuration['hud_tools_sm']
+        self.form.checkBox_hud_tools_sm.setChecked(_sm_tools)
 
         # additions:
         self.form.sm.setChecked(afc_additions['sm'][0])
@@ -1034,10 +1037,11 @@ class addFCPreferenceOther():
                 self.form.fontSpinBox.value(),
             ],
             'hud_autoload': self.form.checkBox_hud_autoload.isChecked(),
+            'hud_panels': panels,
             'hud_theme': self.form.comboBox_hud_theme.currentText(),
             'hud_transparency': _transparency,
             'hud_value_step': self.form.comboBox_hud_value_step.currentText(),
-            'hud_panels': panels,
+            'hud_tools_sm': self.form.checkBox_hud_tools_sm.isChecked(),
             'drawing_templates_user': self.form.utLineEdit.text(),
         }
         pref_configuration.update(fresh)

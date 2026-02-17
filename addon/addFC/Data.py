@@ -29,10 +29,11 @@ configuration = {
     'add_properties_eq': True,
     # hud:
     'hud_autoload': False,
+    'hud_panels': ['smart',],
     'hud_theme': 'Standard',  # 'Standard' or 'Rounded'
     'hud_transparency': True,
     'hud_value_step': '1.0',
-    'hud_panels': ['smart',],
+    'hud_tools_sm': True,
     # unfold:
     'unfold_dxf': True,
     'unfold_svg': False,
@@ -275,10 +276,7 @@ video_options = {
         'Offscreen': 'QtOffscreenRenderer',
         'Framebuffer': 'FramebufferObject',
     },
-    'image_format': {
-        'PNG': '.png',
-        'JPG': '.jpg'
-    }
+    'image_format': {'PNG': '.png', 'JPG': '.jpg'}
 }
 
 video_pref_std = {
