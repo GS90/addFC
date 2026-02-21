@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# directory removal with examples:
-rm -rf ./addon/extra/example
-
 # translation file updates:
 rm ./addon/localization/ui.ts ./addon/localization/code.ts
 lupdate ./addon/addFC -ts ./addon/localization/ui.ts

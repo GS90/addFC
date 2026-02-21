@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 2.4.5 - [release notes](CHANGELOG.md).
+Current version 3.0.0 - [release notes](CHANGELOG.md).
 
 
 ### Overview
@@ -12,7 +12,7 @@ At present, this is:
 1. Generating a BOM from the model.
 2. Batch processing of sheet metal parts.
 3. Batch export to 3D formats.
-4. Component library - [internal](addon/extra/Library.md).
+4. Component library - [internal](addon/extra/library.md).
 5. Assistance in creating design documentation.
 6. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
 7. Creating a pipeline.
@@ -101,7 +101,7 @@ __Warning: Potential sheet metal functionality issues in FreeCAD versions 1.0 an
 
 If issues arise after updating, consider resetting preferences by deleting the configuration directory:
 
-`FreeCAD/Mod/addFC/addon/pref`
+`FreeCAD/addData/pref`
 
 
 ## Installation

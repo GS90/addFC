@@ -28,23 +28,45 @@ from addon.addFC.hud.Theme import generate_css
 
 tools_all = [
     # other
-    ('Go to Linked Object', 'Std_LinkSelectLinked', 'LinkSelect'),
-    ('Fit Selection', 'Std_ViewFitSelection', 'zoom-selection'),
-    ('Transform', 'Std_TransformManip', 'Std_TransformManip'),
+    ('Go to Linked Object', 'Std_LinkSelectLinked', 'LinkSelect', 1),
+    ('Fit Selection', 'Std_ViewFitSelection', 'zoom-selection', 1),
+
+    # todo: use active_object
+    # ('Transform', 'Std_TransformManip', 'Std_TransformManip', 1),
+    # ('Random Color', 'Std_RandomColor', 'Std_RandomColor', 1),
+
+    # datum
+    ('Datum Point',
+     'PartDesign_Point', 'PartDesign_Point', 1),
+    ('Datum Line',
+     'PartDesign_Line', 'PartDesign_Line', 1),
+    ('Datum Plane',
+     'PartDesign_Plane', 'PartDesign_Plane', 1),
+    ('Coordinate System',
+     'PartDesign_CoordinateSystem', 'PartDesign_CoordinateSystem', 1),
     # pd:sketch
-    ('New Sketch', 'PartDesign_NewSketch', 'Sketcher_NewSketch'),
-    ('Edit Sketch', 'Sketcher_EditSketch', 'Sketcher_EditSketch'),
+    ('New Sketch', 'PartDesign_NewSketch', 'Sketcher_NewSketch', 1),
+    ('Edit Sketch', 'Sketcher_EditSketch', 'Sketcher_EditSketch', 1),
     # pd:binder
-    ('Binder', 'PartDesign_SubShapeBinder', 'PartDesign_SubShapeBinder'),
+    ('Binder', 'PartDesign_SubShapeBinder', 'PartDesign_SubShapeBinder', 1),
     # pd:uno
-    ('Pad', 'PartDesign_Pad', 'PartDesign_Pad'),
-    ('Pocket', 'PartDesign_Pocket', 'PartDesign_Pocket'),
-    ('Hole', 'PartDesign_Hole', 'PartDesign_Hole'),
+    ('Pad', 'PartDesign_Pad', 'PartDesign_Pad', 2),
+    ('Pocket', 'PartDesign_Pocket', 'PartDesign_Pocket', 2),
+    ('Hole', 'PartDesign_Hole', 'PartDesign_Hole', 2),
     # pd:dos
-    ('Fillet', 'PartDesign_Fillet', 'PartDesign_Fillet'),
-    ('Chamfer', 'PartDesign_Chamfer', 'PartDesign_Chamfer'),
-    ('Draft', 'PartDesign_Draft', 'PartDesign_Draft'),
-    ('Thickness', 'PartDesign_Thickness', 'PartDesign_Thickness'),
+    ('Fillet', 'PartDesign_Fillet', 'PartDesign_Fillet', 2),
+    ('Chamfer', 'PartDesign_Chamfer', 'PartDesign_Chamfer', 2),
+    ('Draft', 'PartDesign_Draft', 'PartDesign_Draft', 2),
+    ('Thickness', 'PartDesign_Thickness', 'PartDesign_Thickness', 2),
+    # pd:secondary
+    ('Mirror',
+     'PartDesign_Mirrored', 'PartDesign_Mirrored', 2),
+    ('Linear Pattern',
+     'PartDesign_LinearPattern', 'PartDesign_LinearPattern', 1),
+    ('Polar Pattern',
+     'PartDesign_PolarPattern', 'PartDesign_PolarPattern', 1),
+    ('Multi Transform',
+     'PartDesign_MultiTransform', 'PartDesign_MultiTransform', 1),
 ]
 
 activity_ban = (
@@ -57,11 +79,11 @@ activity_ban = (
 tools_access = {
     'PartDesignWorkbench': {
         'Other': [
-            'Align to Selection',  # 1+
-            'Go to Linked Object',
-            'Measure',             # 2 entities
-            'Transform',
+            'Measure',              # 2 entities
+            'Go to Linked Object',  # link
+            'Align to Selection',   # 1+
             'Fit Selection',
+            'Transform',            # active_object
         ],
         'Outline': [
             'Measure',      # 2 entities
@@ -72,7 +94,9 @@ tools_access = {
             'Make Base Wall',
         ],
         'Edge': [
-            'Measure',  # 2 entities
+            'Measure',       # 2 entities
+            'Datum Point',
+            'Datum Line',
             'Fillet',
             'Chamfer',
             'Make Wall',
@@ -83,14 +107,16 @@ tools_access = {
             'Edit Sketch',         # exception
             'Binder',
             'New Sketch',
+            'Datum Plane',
             'Pad',
             'Pocket',
-            # 'Fillet',
-            # 'Chamfer',
+            'Fillet',
+            'Chamfer',
             'Draft',
             'Thickness',
             'Extend Face',
             'Unattended Unfold',
+            'Transform',           # active_object
         ],
         'Vertex': [
             'Measure',  # 2 entities
@@ -98,8 +124,19 @@ tools_access = {
         'Datum': [
             'New Sketch',
         ],
+        'Secondary': [
+            'Mirror',
+            'Linear Pattern',
+            'Polar Pattern',
+            'Multi Transform',
+        ]
     },
 }
+
+tools_before = (
+    'Pad',
+    'Pocket',
+)
 
 tools_control = {
     # pd:uno
@@ -155,48 +192,44 @@ tools_check = {
 tools_check_exception = (QtWidgets.QComboBox, 'sidesMode', False, 'Symmetric')
 
 
+# ----
+
+tools_next = (
+    ('Measure', 'Std_Measure', 'umf-measurement', 1),
+    ('Align to Selection', 'Std_AlignToSelection', 'align-to-selection', 1),
+    ('Transparency', 'Std_ToggleTransparency', 'Std_ToggleTransparency', 1),
+)
+
+toold_old = (
+    ('Measure', 'Part_Measure_Linear', 'Part_Measure_Linear', 1),
+)
+
+tools_sm = (
+    ('Make Base Wall',
+     'SheetMetal_AddBase', 'SheetMetal_AddBase', 2),
+    ('Make Wall',
+     'SheetMetal_AddWall', 'SheetMetal_AddWall', 2),
+    ('Extend Face',
+     'SheetMetal_Extrude', 'SheetMetal_Extrude', 2),
+    ('Unattended Unfold',
+     'SheetMetal_UnattendedUnfold', 'SheetMetal_UnfoldUnattended', 2),
+)
+
+# ----
+
+
 def configure():
     global tools_all
-
     if int(P.FC_VERSION[0]) > 0:
-        tools_all[:0] = [
-            (
-                'Align to Selection',
-                'Std_AlignToSelection',
-                'align-to-selection',
-            ),
-            (
-                'Measure',
-                'Std_Measure',
-                'umf-measurement',
-            ),
-        ]
+        tools_all[:0] = tools_next
     else:
-        tools_all.insert(0, ('Measure',
-                             'Part_Measure_Linear',
-                             'Part_Measure_Linear'))
-
+        tools_all.insert(0, toold_old[0])
     if P.afc_additions['sm'][0]:
         if not P.pref_configuration['hud_tools_sm']:
             return
-
         import SheetMetalTools
         Gui.addIconPath(SheetMetalTools.icons_path)
-        sm = (
-            ('Make Base Wall',
-             'SheetMetal_AddBase',
-             'SheetMetal_AddBase'),
-            ('Make Wall',
-             'SheetMetal_AddWall',
-             'SheetMetal_AddWall'),
-            ('Extend Face',
-             'SheetMetal_Extrude',
-             'SheetMetal_Extrude'),
-            ('Unattended Unfold',
-             'SheetMetal_UnattendedUnfold',
-             'SheetMetal_UnfoldUnattended'),
-        )
-        tools_all.extend(sm)
+        tools_all.extend(tools_sm)
 
 
 # ------------------------------------------------------------------------------
@@ -292,9 +325,20 @@ class SmartHUD(QtWidgets.QWidget):
         self.container.setObjectName('HUD')
 
         # buttons
-        self.b_layout = QtWidgets.QHBoxLayout()
+
+        self.b_layout = QtWidgets.QVBoxLayout()
         self.b_layout.setContentsMargins(2, 2, 2, 2)
         self.b_layout.setSpacing(2)
+        # uno
+        self.uno_layout = QtWidgets.QHBoxLayout()
+        self.uno_layout.setSpacing(2)
+        # dos
+        self.dos_layout = QtWidgets.QHBoxLayout()
+        self.dos_layout.setSpacing(2)
+        # add
+        self.b_layout.addLayout(self.uno_layout)
+        self.b_layout.addLayout(self.dos_layout)
+        # button container
         self.b_widget = QtWidgets.QWidget()
         self.b_widget.setObjectName('HUD_buttons')
         self.b_widget.setLayout(self.b_layout)
@@ -409,7 +453,7 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def add_buttons(self):
-        for name, cmd, icon in tools_all:
+        for name, cmd, icon, row in tools_all:
             btn = QtWidgets.QToolButton()
             btn.setObjectName(name)
             btn.setToolTip(name)
@@ -423,8 +467,13 @@ class SmartHUD(QtWidgets.QWidget):
                                 c=cmd,
                                 b=btn: self.run_cmd(c, n, b))
             self.b_layout.addWidget(btn)
+            if row == 1:
+                self.uno_layout.addWidget(btn)
+            else:
+                self.dos_layout.addWidget(btn)
         # add spacer
-        self.b_layout.addStretch(1)
+        self.uno_layout.addStretch(1)
+        self.dos_layout.addStretch(1)
 
     def run_cmd(self, cmd, name, btn):
         if self.current_button and self.current_control:
@@ -495,7 +544,8 @@ class SmartHUD(QtWidgets.QWidget):
         if self.dialog:
             content = self.dialog.getDialogContent()
             if content:
-                self.content = content[0]  # todo: always 0?
+                # todo: get all the content, not just the first one [0]
+                self.content = content[0]
                 # focus
                 Gui.updateGui()
                 self.spinbox.setFocus()
@@ -606,7 +656,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.sketch_profile = None
         try:
             if not self.is_available():
-                return
+                return  # todo: working with the construction tree
             if not self.selection_parsing(doc, obj, sub, pos):
                 return
         except BaseException as err:
@@ -652,6 +702,12 @@ class SmartHUD(QtWidgets.QWidget):
         if len(selection) == 0:
             return False
         selection = selection[0]
+
+        parent = selection.getParentGeoFeatureGroup()
+        if hasattr(parent, 'TypeId'):
+            if parent.TypeId == 'PartDesign::Body':
+                self.active_object = parent
+
         if selection.TypeId in self.OUTLINE:
             self.preparation_panel('Outline', selection.TypeId)
             if self.selected_widget == 'qt_scrollarea_viewport':
@@ -660,7 +716,6 @@ class SmartHUD(QtWidgets.QWidget):
                 return True
 
         self.sketch_profile = None
-        parent = selection.getParentGeoFeatureGroup()
 
         if hasattr(parent, 'Profile'):
             self.sketch_profile = selection.Profile[0]
@@ -673,9 +728,6 @@ class SmartHUD(QtWidgets.QWidget):
                                 self.sketch_profile = None
                                 break
                             self.sketch_profile = g
-        if hasattr(parent, 'TypeId'):
-            if parent.TypeId == 'PartDesign::Body':
-                self.active_object = parent
 
         selection = Gui.Selection.getSelectionEx(doc, 0)
         if len(selection) == 0:
@@ -706,6 +758,7 @@ class SmartHUD(QtWidgets.QWidget):
             pass
 
         match so.ShapeType:
+            # todo: add 'Solid'
             case 'Edge' | 'Face':
                 self.preparation_panel(so.ShapeType, so.TypeId)
                 return True
@@ -814,6 +867,7 @@ class SmartHUD(QtWidgets.QWidget):
     #     content = Gui.Control.activeTaskDialog().getDialogContent()[0]
     #     content.findChildren(QtWidgets.QAbstractSpinBox)
     #     content.findChildren(QtWidgets.QCheckBox)
+    #     content.findChildren(QtWidgets.QComboBox)
 
     def transaction_verification(self):
         try:
@@ -908,6 +962,20 @@ class SmartHUD(QtWidgets.QWidget):
                 self.dialog.accept()
             except BaseException:
                 pass
+
+        # # the ability to continue working with the panel
+        # if self.active_object:
+        #     if self.current_control in tools_before:
+        #         Gui.Selection.clearSelection()
+        #         Gui.Selection.addSelection(FreeCAD.ActiveDocument.Name,
+        #                                    self.active_object.Tip.Name, '')
+        #         self.preparation_panel('Secondary', '')
+        #         position_local = self.parent.mapFromGlobal(
+        #             self.position_current)
+        #         self.collapse()
+        #         self.activate(position_local)
+        #         return
+
         self.collapse()
 
 

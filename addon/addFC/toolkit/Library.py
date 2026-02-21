@@ -32,12 +32,12 @@ from addon.addFC import Logger, Other, Preference as P
 
 VERSION = 4
 
-DIR = os.path.join(P.AFC_DIR_EXTRA, 'Library')
-ZIP = os.path.join(P.AFC_DIR_EXTRA, 'Library.zip')
+DIR = os.path.join(P.AFC_DIR_DATA, 'library')
+ZIP = os.path.join(P.AFC_DIR_EXTRA, 'library.zip')
 
 if not os.path.exists(DIR):
     z = ZipFile(ZIP, 'r')
-    z.extractall(P.AFC_DIR_EXTRA)
+    z.extractall(P.AFC_DIR_DATA)
     z.close()
 
 ui = os.path.join(os.path.dirname(__file__), 'Library.ui')
@@ -63,7 +63,7 @@ def set_library_location(title: str, path=''):
     global library_thumbnails
     library_title = title
     if standard:
-        library_path = os.path.join(P.AFC_DIR_EXTRA, 'Library', title)
+        library_path = os.path.join(P.AFC_DIR_DATA, 'library', title)
         library_cache = os.path.join(library_path, f'{title}_library.json')
         library_thumbnails = os.path.join(DIR, 'thumbnails')
     else:
@@ -117,7 +117,7 @@ ad = FreeCAD.activeDocument()
 def library_upgrade() -> None:
     shutil.rmtree(DIR, ignore_errors=True)
     z = ZipFile(ZIP, 'r')
-    z.extractall(P.AFC_DIR_EXTRA)
+    z.extractall(P.AFC_DIR_DATA)
     z.close()
 
 
@@ -458,7 +458,7 @@ class widget():
             # standard library:
             update = False
             try:
-                f = open(os.path.join(DIR, 'Version'), 'r')
+                f = open(os.path.join(DIR, 'version'), 'r')
                 s = f.readline().strip('\n')
                 f.close()
                 v = int(s)

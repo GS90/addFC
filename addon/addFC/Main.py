@@ -1619,7 +1619,7 @@ FreeCAD.Gui.addCommand('AddFCInsert', AddFCInsert())
 DOCUMENTATION_PATH = os.path.join(os.path.dirname(P.AFC_DIR_BASE), 'doc')
 
 EXAMPLES_PATH_ZIP = os.path.join(P.AFC_DIR_EXTRA, 'example.zip')
-EXAMPLES_PATH = os.path.join(P.AFC_DIR_EXTRA, 'example')
+EXAMPLES_PATH = os.path.join(P.AFC_DIR_DATA, 'example')
 
 
 examples: dict = {
@@ -1691,7 +1691,7 @@ class AddFCAssistant():
         def unzip(reset: bool) -> None:
             if reset or not os.path.exists(EXAMPLES_PATH):
                 z = ZipFile(EXAMPLES_PATH_ZIP, 'r')
-                z.extractall(P.AFC_DIR_EXTRA)
+                z.extractall(P.AFC_DIR_DATA)
                 z.close()
 
         def select() -> None:

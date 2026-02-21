@@ -19,7 +19,7 @@
 
 
 from importlib.metadata import version
-from PySide import QtGui, QtCore
+from PySide import QtCore, QtGui  # QtWidgets
 import copy
 import FreeCAD
 import json
@@ -127,8 +127,10 @@ FC_VERSION = tuple(FreeCAD.Version()[0:3])
 AFC_DIR = os.path.normpath(os.path.dirname(__file__))
 AFC_DIR_BASE = os.path.dirname(AFC_DIR)
 AFC_DIR_EXTRA = os.path.join(AFC_DIR_BASE, 'extra')
-AFC_DIR_PREF = os.path.join(AFC_DIR_BASE, 'pref')
 AFC_DIR_ICON = os.path.join(AFC_DIR, 'ui', 'icon')
+
+AFC_DIR_DATA = os.path.join(FreeCAD.getUserAppDataDir(), 'addData')
+AFC_DIR_PREF = os.path.join(AFC_DIR_DATA, 'pref')
 
 PATH_CONFIGURATION = os.path.join(AFC_DIR_PREF, 'configuration.json')
 PATH_MATERIALS = os.path.join(AFC_DIR_PREF, 'materials.json')
@@ -987,6 +989,8 @@ class addFCPreferenceOther():
         self.form.comboBox_hud_value_step.setCurrentText(_step)
         _sm_tools = pref_configuration['hud_tools_sm']
         self.form.checkBox_hud_tools_sm.setChecked(_sm_tools)
+        # hud, tools:
+        # self.form.pushButton_hud_tools.clicked.connect(configuring_tools)
 
         # additions:
         self.form.sm.setChecked(afc_additions['sm'][0])
@@ -1145,6 +1149,18 @@ class addFCPreferenceRU():
         }
         pref_configuration.update(fresh)
         save_pref(PATH_CONFIGURATION, pref_configuration)
+
+
+# ------------------------------------------------------------------------------
+
+
+def configuring_tools() -> None:
+    form = FreeCAD.Gui.PySideUic.loadUi(
+        os.path.join(AFC_DIR, 'hud', 'Tools.ui'))
+
+    # todo: ...
+
+    form.show()
 
 
 # ------------------------------------------------------------------------------
