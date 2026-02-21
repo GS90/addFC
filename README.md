@@ -14,10 +14,10 @@ At present, this is:
 3. Batch export to 3D formats.
 4. Component library - [internal](addon/extra/library.md).
 5. Assistance in creating design documentation.
-6. Exploded view (creation and visualization) - [preview](https://youtu.be/G9eikdejY6g).
-7. Creating a pipeline.
-8. Export models for viewing - [example](https://digiroad.tech/add/addFC/viewer.html).
-9. Process automation.
+6. Exploded view - [screencast](https://youtu.be/G9eikdejY6g).
+7. Export models for viewing - [example](https://digiroad.tech/add/addFC/viewer.html).
+8. Process automation.
+9. Design aids.
 
 This workbench is primarily considered an additional tool that expands functionality, not a standalone solution.
 
