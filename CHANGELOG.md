@@ -2,11 +2,12 @@
 
 ## Release notes
 
-#### 2026.02.21 (**3.0.0**):
+#### 2026.02.21 (**3.0.1**):
 * Important: additional files storage reworked: now in the `addData` directory.
 * HUD (Head‑Up Display), improvements:
     - Tools added.
     - Tool buttons laid out in two tiers.
+* Minor fixes and improvements.
 
 #### 2026.02.17 (**2.4.5**):
 * HUD (Head‑Up Display), improvements:

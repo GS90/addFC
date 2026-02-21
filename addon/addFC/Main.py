@@ -95,6 +95,14 @@ index_export_3d_type = 0
 properties_last = ['Name',]
 
 
+COMBO_BOX_STYLE = (
+    'QComboBox {'
+    'border: none;'
+    'padding-left: 4px;'
+    '}'
+)
+
+
 # ------------------------------------------------------------------------------
 
 
@@ -300,6 +308,17 @@ class AddFCModelInfo():
 
         w.comboBoxNodes.currentTextChanged.connect(changed_node)
 
+        def format_changed_3d(value, name):
+            for r in range(table_export_3d.rowCount()):
+                i = table_export_3d.item(r, 0)
+                if i is not None:
+                    if i.text() == name:
+                        item = table_export_3d.item(r, index_export_3d_value)
+                        if item is not None:
+                            if item.text() == 'False':
+                                item.setText('True')
+                                item.setForeground(color_blue)
+
         # update model information:
 
         def structure_update() -> None:
@@ -437,9 +456,10 @@ class AddFCModelInfo():
                 # format:
                 cb = QtGui.QComboBox()
                 cb.addItems(EXPORT_OPTIONS_3D.keys())
-                cb.setStyleSheet('border: none')
+                cb.setStyleSheet(COMBO_BOX_STYLE)
                 table_export_3d.setCellWidget(x, index_export_3d_format, cb)
-
+                cb.currentTextChanged.connect(
+                    lambda text, name=i: format_changed_3d(text, name))
                 x += 1
 
             table_export_3d.setHorizontalHeaderLabels(labels)
@@ -862,14 +882,6 @@ class AddFCModelInfo():
                         item.setForeground(color_blue)
         table_export_3d.itemDoubleClicked.connect(switch_export_3d)
 
-        def format_changed(row, column):
-            item = table_export_3d.item(row, index_export_3d_value)
-            if item is not None:
-                if item.text() == 'False':
-                    item.setText('True')
-                    item.setForeground(color_blue)
-        table_export_3d.currentCellChanged.connect(format_changed)
-
         def select_unfold_all() -> None:
             for row in range(table_details.rowCount()):
                 item = table_details.item(row, index_details_unfold)
@@ -1173,23 +1185,23 @@ class AddFCProperties():
                 if key == 'Material':
                     cb_materials.addItems(materials.keys())
                     cb_materials.setCurrentText(default_material)
-                    cb_materials.setStyleSheet('border: none')
+                    cb_materials.setStyleSheet(COMBO_BOX_STYLE)
                     table.setCellWidget(x, 1, cb_materials)
                     cb_materials.currentTextChanged.connect(cb_changed)
                 elif key == 'Type':
                     cb_type.addItems(properties[key][2])
-                    cb_type.setStyleSheet('border: none')
+                    cb_type.setStyleSheet(COMBO_BOX_STYLE)
                     table.setCellWidget(x, 1, cb_type)
                     cb_type.currentTextChanged.connect(cb_changed)
                 else:
                     cb.addItems(properties[key][2])
-                    cb.setStyleSheet('border: none')
+                    cb.setStyleSheet(COMBO_BOX_STYLE)
                     table.setCellWidget(x, 1, cb)
                     cb.currentTextChanged.connect(cb_changed)
             elif properties[key][0] == 'Bool':
                 cb = QtGui.QComboBox()
                 cb.addItems(('True', 'False'))
-                cb.setStyleSheet('border: none')
+                cb.setStyleSheet(COMBO_BOX_STYLE)
                 table.setCellWidget(x, 1, cb)
                 cb.currentTextChanged.connect(cb_changed)
             else:
