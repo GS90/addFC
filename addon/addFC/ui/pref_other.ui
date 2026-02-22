@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>660</width>
-    <height>590</height>
+    <width>710</width>
+    <height>630</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,9 +20,9 @@
      <property name="title">
       <string>FreeCAD interface</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_font">
+       <layout class="QHBoxLayout" name="fontHorizontalLayout">
         <item>
          <widget class="QCheckBox" name="fontCheckBox">
           <property name="text">
@@ -62,28 +62,40 @@
         </property>
        </widget>
       </item>
-      <item>
-       <spacer name="verticalSpacer_interface">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Minimum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>30</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_1">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Minimum</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_hud">
+     <property name="title">
+      <string>HUD (Head‑Up Display)</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_hud">
         <item>
-         <widget class="QGroupBox" name="groupBox_hud">
+         <widget class="QGroupBox" name="groupBox_hud_main">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox:title {color: #666}</string>
+          </property>
           <property name="title">
-           <string>HUD (Head‑Up Display)</string>
+           <string>Basic settings</string>
           </property>
           <layout class="QGridLayout" name="gridLayout">
            <item row="4" column="0">
@@ -92,6 +104,12 @@
               <widget class="QPushButton" name="pushButton_hud_tools">
                <property name="enabled">
                 <bool>true</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>110</width>
+                 <height>0</height>
+                </size>
                </property>
                <property name="text">
                 <string>Tool selection</string>
@@ -113,10 +131,10 @@
              </item>
             </layout>
            </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox_hud_autoload">
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="checkBox_hud_smart">
              <property name="text">
-              <string>Launch HUD on Startup</string>
+              <string>Smart panel (dynamic)</string>
              </property>
             </widget>
            </item>
@@ -130,13 +148,6 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="checkBox_hud_smart">
-             <property name="text">
-              <string>Smart panel (dynamic)</string>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="0">
             <widget class="QCheckBox" name="checkBox_hud_top">
              <property name="enabled">
@@ -144,6 +155,13 @@
              </property>
              <property name="text">
               <string>Top panel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox_hud_autoload">
+             <property name="text">
+              <string>Launch HUD on Startup</string>
              </property>
             </widget>
            </item>
@@ -169,6 +187,13 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="1">
+            <widget class="QComboBox" name="comboBox_hud_value_step">
+             <property name="toolTip">
+              <string>Controls the step size when changing the value.</string>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_hud_theme">
              <property name="text">
@@ -179,24 +204,8 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_hud_value_step">
-             <property name="toolTip">
-              <string>Controls the step size when changing the value</string>
-             </property>
-             <property name="text">
-              <string>Value step</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="comboBox_hud_theme"/>
-           </item>
-           <item row="3" column="1">
-            <spacer name="verticalSpacer_hud_pref">
+           <item row="4" column="1">
+            <spacer name="verticalSpacer_5">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -208,10 +217,16 @@
              </property>
             </spacer>
            </item>
-           <item row="2" column="1">
-            <widget class="QComboBox" name="comboBox_hud_value_step">
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_hud_value_step">
              <property name="toolTip">
-              <string>Controls the step size when changing the value</string>
+              <string>Controls the step size when changing the value.</string>
+             </property>
+             <property name="text">
+              <string>Value step</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -225,6 +240,20 @@
              </property>
              <property name="value">
               <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QComboBox" name="comboBox_hud_theme"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QCheckBox" name="checkBox_hud_sequential">
+             <property name="toolTip">
+              <string>Enable secondary tools - they activate automatically after
+completing specific operations such as Pad, Pocket, and similar ones.</string>
+             </property>
+             <property name="text">
+              <string>Sequential tools</string>
              </property>
             </widget>
            </item>
@@ -263,7 +292,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label_hud_cursor_offset">
              <property name="text">
-              <string>Cursor offset</string>
+              <string>Offset</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -274,7 +303,7 @@
             <widget class="QComboBox" name="comboBox_hud_spart_position"/>
            </item>
            <item row="2" column="1">
-            <spacer name="verticalSpacer_hud_pref_smart">
+            <spacer name="verticalSpacer_6">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -305,7 +334,7 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_upper">
+    <spacer name="verticalSpacer_4">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -347,7 +376,7 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer_centre">
+    <spacer name="verticalSpacer_3">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -368,23 +397,13 @@
       <string>Additions</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="sm">
+      <item row="0" column="3">
+       <widget class="QCheckBox" name="ffmpeg">
         <property name="enabled">
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>SheetMetal Workbench</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="ezdxf">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>ezdxf</string>
+         <string>FFmpeg</string>
         </property>
        </widget>
       </item>
@@ -398,13 +417,23 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QCheckBox" name="ffmpeg">
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="ezdxf">
         <property name="enabled">
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>FFmpeg</string>
+         <string>ezdxf</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="sm">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>SheetMetal Workbench</string>
         </property>
        </widget>
       </item>
@@ -412,7 +441,7 @@
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer">
+    <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>

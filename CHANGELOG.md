@@ -2,6 +2,10 @@
 
 ## Release notes
 
+#### 2026.02.23 (**3.1.2**):
+* HUD (Head‑Up Display): fixes and improvements.
+* Translation updated: Russian.
+
 #### 2026.02.22 (**3.1.0**):
 * HUD (Head‑Up Display), improvements:
     - New settings added: tool selection and panel layout options.

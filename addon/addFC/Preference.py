@@ -994,6 +994,9 @@ class addFCPreferenceOther():
             ('10.0', '1.0', '0.1', '0.01'))
         _step = pref_configuration['hud_value_step']
         self.form.comboBox_hud_value_step.setCurrentText(_step)
+        # sequential tools:
+        _tools_sequential = pref_configuration['hud_tools_sequential']
+        self.form.checkBox_hud_sequential.setChecked(_tools_sequential)
         # hud:smart, cursor offset:
         _offset = pref_configuration['hud_smart_cursor_offset']
         self.form.spinBox_hud_cursor_offset.setValue(_offset)
@@ -1042,6 +1045,7 @@ class addFCPreferenceOther():
         if self.form.checkBox_hud_right.isChecked():
             panels.append('right')
 
+        sequential = self.form.checkBox_hud_sequential.isChecked()
         offset = self.form.spinBox_hud_cursor_offset.value()
         position = self.form.comboBox_hud_spart_position.currentText()
 
@@ -1058,6 +1062,7 @@ class addFCPreferenceOther():
             'hud_theme': self.form.comboBox_hud_theme.currentText(),
             'hud_opacity': self.form.spinBox_hud_opacity.value(),
             'hud_value_step': self.form.comboBox_hud_value_step.currentText(),
+            'hud_tools_sequential': sequential,
             'hud_smart_cursor_offset': offset,
             'hud_smart_position': position,
             # other:
@@ -1223,7 +1228,7 @@ def configuring_tools() -> None:
         else:
             for s in secondary:
                 if s in cmd:
-                    table.setItem(x, 2, QtGui.QTableWidgetItem('Secondary'))
+                    table.setItem(x, 2, QtGui.QTableWidgetItem('Sequential'))
         x += 1
 
     table.resizeColumnsToContents()

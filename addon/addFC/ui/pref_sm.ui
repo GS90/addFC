@@ -12,7 +12,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Sheet metal</string>
+   <string>Sheet Metal</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

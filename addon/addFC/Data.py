@@ -33,9 +33,9 @@ configuration = {
     'hud_theme': 'Standard',  # 'Standard' or 'Rounded'
     'hud_opacity': 0,
     'hud_value_step': '1.0',
+    'hud_tools_sequential': False,
     'hud_smart_cursor_offset': 10,
     'hud_smart_position': 'Below',  # 'Above' or 'Below'
-    # hud, tools:
     'hud_tools_ban_smart': [
         'Appearance',
         'Datum Line',

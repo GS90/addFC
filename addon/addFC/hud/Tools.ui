@@ -10,14 +10,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
+    <width>520</width>
     <height>728</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>300</width>
-    <height>300</height>
+    <width>520</width>
+    <height>400</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -79,7 +79,7 @@
    <item>
     <widget class="QLabel" name="info">
      <property name="text">
-      <string>Secondary tools are activated only after specific operations are completed, such as Pad, Pocket, and similar operations.</string>
+      <string>Secondary tools are automatically activated only after specific operations are completed, such as Pad, Pocket, and similar operations.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

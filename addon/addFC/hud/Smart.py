@@ -228,14 +228,13 @@ class SmartHUD(QtWidgets.QWidget):
 
         self.freeze = False
         self.new_sketch = False
-
         if int(P.FC_VERSION[0]) > 0 and int(P.FC_VERSION[1]) > 1:
             self.draggers = True
         else:
             self.draggers = False
+        self.sequence = pref.get('hud_tools_sequential', False)
 
         self.active_workbench = Gui.activeWorkbench().name()
-
         self.selected_count = 0
 
         self.position_init = None
@@ -320,6 +319,7 @@ class SmartHUD(QtWidgets.QWidget):
             if name not in T.pd_activity_ban:
                 Gui.ActiveDocument.ActiveView.setActiveObject(
                     'pdbody', self.active_object)
+
         # reset
         self.c_widget.setVisible(False)
         self.check_uno.setVisible(False)
@@ -840,7 +840,7 @@ class SmartHUD(QtWidgets.QWidget):
                 pass
 
         # the ability to continue working with the panel
-        if self.active_object:
+        if self.sequence and self.active_object:
             if self.current_control in T.pd_tools_continuation:
                 Gui.Selection.clearSelection()
                 Gui.Selection.addSelection(FreeCAD.ActiveDocument.Name,
