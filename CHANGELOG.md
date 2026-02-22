@@ -2,6 +2,12 @@
 
 ## Release notes
 
+#### 2026.02.22 (**3.1.0**):
+* HUD (Head‑Up Display), improvements:
+    - New settings added: tool selection and panel layout options.
+    - Double‑click selection handling.
+    - Sequence support for certain operations.
+
 #### 2026.02.21 (**3.0.1**):
 * Important: additional files storage reworked: now in the `addData` directory.
 * HUD (Head‑Up Display), improvements:

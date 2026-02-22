@@ -24,212 +24,24 @@ import FreeCADGui as Gui
 
 from addon.addFC import Logger, Preference as P
 from addon.addFC.hud.Theme import generate_css
+import addon.addFC.hud.Tools as T
 
 
-tools_all = [
-    # other
-    ('Go to Linked Object', 'Std_LinkSelectLinked', 'LinkSelect', 1),
-    ('Fit Selection', 'Std_ViewFitSelection', 'zoom-selection', 1),
-
-    # todo: use active_object
-    # ('Transform', 'Std_TransformManip', 'Std_TransformManip', 1),
-    # ('Random Color', 'Std_RandomColor', 'Std_RandomColor', 1),
-
-    # datum
-    ('Datum Point',
-     'PartDesign_Point', 'PartDesign_Point', 1),
-    ('Datum Line',
-     'PartDesign_Line', 'PartDesign_Line', 1),
-    ('Datum Plane',
-     'PartDesign_Plane', 'PartDesign_Plane', 1),
-    ('Coordinate System',
-     'PartDesign_CoordinateSystem', 'PartDesign_CoordinateSystem', 1),
-    # pd:sketch
-    ('New Sketch', 'PartDesign_NewSketch', 'Sketcher_NewSketch', 1),
-    ('Edit Sketch', 'Sketcher_EditSketch', 'Sketcher_EditSketch', 1),
-    # pd:binder
-    ('Binder', 'PartDesign_SubShapeBinder', 'PartDesign_SubShapeBinder', 1),
-    # pd:uno
-    ('Pad', 'PartDesign_Pad', 'PartDesign_Pad', 2),
-    ('Pocket', 'PartDesign_Pocket', 'PartDesign_Pocket', 2),
-    ('Hole', 'PartDesign_Hole', 'PartDesign_Hole', 2),
-    # pd:dos
-    ('Fillet', 'PartDesign_Fillet', 'PartDesign_Fillet', 2),
-    ('Chamfer', 'PartDesign_Chamfer', 'PartDesign_Chamfer', 2),
-    ('Draft', 'PartDesign_Draft', 'PartDesign_Draft', 2),
-    ('Thickness', 'PartDesign_Thickness', 'PartDesign_Thickness', 2),
-    # pd:secondary
-    ('Mirror',
-     'PartDesign_Mirrored', 'PartDesign_Mirrored', 2),
-    ('Linear Pattern',
-     'PartDesign_LinearPattern', 'PartDesign_LinearPattern', 1),
-    ('Polar Pattern',
-     'PartDesign_PolarPattern', 'PartDesign_PolarPattern', 1),
-    ('Multi Transform',
-     'PartDesign_MultiTransform', 'PartDesign_MultiTransform', 1),
-]
-
-activity_ban = (
-    'Go to Linked Object',
-    'Fit Selection',
-    'Transform',
-    'Binder',
-)
-
-tools_access = {
-    'PartDesignWorkbench': {
-        'Other': [
-            'Measure',              # 2 entities
-            'Go to Linked Object',  # link
-            'Align to Selection',   # 1+
-            'Fit Selection',
-            'Transform',            # active_object
-        ],
-        'Outline': [
-            'Measure',      # 2 entities
-            'Edit Sketch',  # exception
-            'Pad',
-            'Pocket',
-            'Hole',
-            'Make Base Wall',
-        ],
-        'Edge': [
-            'Measure',       # 2 entities
-            'Datum Point',
-            'Datum Line',
-            'Fillet',
-            'Chamfer',
-            'Make Wall',
-        ],
-        'Face': [
-            'Align to Selection',  # 1+
-            'Measure',             # 2 entities
-            'Edit Sketch',         # exception
-            'Binder',
-            'New Sketch',
-            'Datum Plane',
-            'Pad',
-            'Pocket',
-            'Fillet',
-            'Chamfer',
-            'Draft',
-            'Thickness',
-            'Extend Face',
-            'Unattended Unfold',
-            'Transform',           # active_object
-        ],
-        'Vertex': [
-            'Measure',  # 2 entities
-        ],
-        'Datum': [
-            'New Sketch',
-        ],
-        'Secondary': [
-            'Mirror',
-            'Linear Pattern',
-            'Polar Pattern',
-            'Multi Transform',
-        ]
-    },
-}
-
-tools_before = (
-    'Pad',
-    'Pocket',
-)
-
-tools_control = {
-    # pd:uno
-    'Pad': (QtWidgets.QAbstractSpinBox, 'lengthEdit', 10),
-    'Pocket': (QtWidgets.QAbstractSpinBox, 'lengthEdit', 5),
-    # pd:dos
-    'Fillet': (QtWidgets.QAbstractSpinBox, 'filletRadius', 1),
-    'Chamfer': (QtWidgets.QAbstractSpinBox, 'chamferSize', 1),
-    'Draft': (QtWidgets.QAbstractSpinBox, 'draftAngle', 1),
-    'Thickness': (QtWidgets.QAbstractSpinBox, 'Value', 1),
-    # sm
-    'Make Base Wall': (QtWidgets.QAbstractSpinBox, 'spinLength', 100),
-    'Make Wall': (QtWidgets.QAbstractSpinBox, 'Length', 10),
-    'Extend Face': (QtWidgets.QAbstractSpinBox, 'Length', 10),
-}
-
-tools_check = {
-    # pd:uno
-    'Pad': (
-        (QtWidgets.QCheckBox, 'checkBoxMidplane', False, 'Symmetric'),
-        (QtWidgets.QCheckBox, 'checkBoxReversed', False, 'Reversed'),
-    ),
-    'Pocket': (
-        (QtWidgets.QCheckBox, 'checkBoxMidplane', False, 'Symmetric'),
-        (QtWidgets.QCheckBox, 'checkBoxReversed', False, 'Reversed'),
-        (QtWidgets.QComboBox, 'changeMode', False, 'Through all'),
-    ),
-    # pd:dos
-    'Fillet': (
-        (QtWidgets.QCheckBox, 'checkBoxUseAllEdges', False, 'All Edges'),
-    ),
-    'Chamfer': (
-        (QtWidgets.QCheckBox, 'checkBoxUseAllEdges', False, 'All Edges'),
-    ),
-    'Draft': (
-        (QtWidgets.QCheckBox, 'checkReverse', False, 'Reverse'),
-    ),
-    'Thickness': (
-        (QtWidgets.QCheckBox, 'checkIntersection', False, 'Intersection'),
-        (QtWidgets.QCheckBox, 'checkReverse', False, 'Inwards'),
-    ),
-    # sm
-    'Make Wall': (
-        (QtWidgets.QPushButton, 'buttRevWall', False, 'Reverse'),
-    ),
-    'Make Base Wall': (
-        (QtWidgets.QCheckBox, 'checkSymetric', False, 'Symmetric'),
-        (QtWidgets.QCheckBox, 'checkRevDirection', False, 'Reversed'),
-    ),
-}
-
-# differences in version 1.2+
-tools_check_exception = (QtWidgets.QComboBox, 'sidesMode', False, 'Symmetric')
-
-
-# ----
-
-tools_next = (
-    ('Measure', 'Std_Measure', 'umf-measurement', 1),
-    ('Align to Selection', 'Std_AlignToSelection', 'align-to-selection', 1),
-    ('Transparency', 'Std_ToggleTransparency', 'Std_ToggleTransparency', 1),
-)
-
-toold_old = (
-    ('Measure', 'Part_Measure_Linear', 'Part_Measure_Linear', 1),
-)
-
-tools_sm = (
-    ('Make Base Wall',
-     'SheetMetal_AddBase', 'SheetMetal_AddBase', 2),
-    ('Make Wall',
-     'SheetMetal_AddWall', 'SheetMetal_AddWall', 2),
-    ('Extend Face',
-     'SheetMetal_Extrude', 'SheetMetal_Extrude', 2),
-    ('Unattended Unfold',
-     'SheetMetal_UnattendedUnfold', 'SheetMetal_UnfoldUnattended', 2),
-)
-
-# ----
+pd_tools = []
 
 
 def configure():
-    global tools_all
-    if int(P.FC_VERSION[0]) > 0:
-        tools_all[:0] = tools_next
-    else:
-        tools_all.insert(0, toold_old[0])
+    ban = P.pref_configuration['hud_tools_ban_smart']
+    global pd_tools
+    for tool in T.pd_tools_std:
+        if tool[0] not in ban:
+            pd_tools.append(tool)
     if P.afc_additions['sm'][0]:
-        if not P.pref_configuration['hud_tools_sm']:
-            return
         import SheetMetalTools
         Gui.addIconPath(SheetMetalTools.icons_path)
-        tools_all.extend(tools_sm)
+        for tool in T.pd_tools_sm:
+            if tool[0] not in ban:
+                pd_tools.append(tool)
 
 
 # ------------------------------------------------------------------------------
@@ -269,8 +81,6 @@ class SmartHUD(QtWidgets.QWidget):
     OUTLINE = ('Sketcher::SketchObject', 'Part::Part2DObjectPython')
     P_STR_UNITS = 'User parameter:BaseApp/Preferences/Units'
 
-    OFFSET_CURSOR = 10
-
     DISTANCE_FADE = 300
     DISTANCE_MIN = 200
     DISTANCE_STEP = 30
@@ -280,6 +90,9 @@ class SmartHUD(QtWidgets.QWidget):
 
     OPACITY_MIN = 0.0
     OPACITY_MAX = 1.0
+
+    OFFSET_Y_UNO = 60
+    OFFSET_Y_DOS = 90
 
     HEIGHT_CONTROL = 28
 
@@ -296,28 +109,33 @@ class SmartHUD(QtWidgets.QWidget):
         self.setWindowFlags(_f)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
-        conf = P.pref_configuration
+        pref = P.pref_configuration
 
         app_theme = P.afc_theme['current']  # std, dark, light
-        hud_theme = conf['hud_theme']       # Standard, Rounded
+        hud_theme = pref['hud_theme']       # Standard, Rounded
 
         css, css_apply, self.css_active = generate_css(
             'smart', app_theme, hud_theme)
 
-        # panel background transparency
-        _transparency = conf.get('hud_transparency')
-        if _transparency:
-            css = css.replace('#e6e6e6;', 'rgba(230, 230, 230, 220);')
-            css = css.replace('#2e3436;', 'rgba(46, 52, 54, 220);')
+        # background opacity
+        _opacity = pref.get('hud_opacity', 0)
+        try:
+            _opacity = int(_opacity)
+        except ValueError as err:
+            Logger.warning('HUD, opacity value: ' + str(err))
+            _opacity = 0
+        if _opacity != 0:
+            _v = int(round((100 - _opacity) * 2.55))
+            css = css.replace('#e6e6e6;', f'rgba(230, 230, 230, {_v});')
+            css = css.replace('#2e3436;', f'rgba(46, 52, 54, {_v});')
 
-        # value step
-        _step = conf.get('hud_value_step')
-        if _step:
-            try:
-                _step_value = float(_step)
-            except ValueError as err:
-                Logger.warning('HUD, value step: ' + str(err))
-                _step_value = 1
+        # step value
+        _step = pref.get('hud_value_step', '1.0')
+        try:
+            value_step = float(_step)
+        except ValueError as err:
+            Logger.warning('HUD, step value: ' + str(err))
+            value_step = 1
 
         self.setStyleSheet(css)
 
@@ -359,7 +177,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.spinbox.setToolTip('Set the value')
         self.spinbox.setRange(0, 1000)
         self.spinbox.setValue(1)
-        self.spinbox.setSingleStep(_step_value)
+        self.spinbox.setSingleStep(value_step)
         _d = FreeCAD.ParamGet(self.P_STR_UNITS).GetInt('Decimals')
         self.spinbox.setDecimals(_d)
         self.spinbox.setFixedHeight(self.HEIGHT_CONTROL)
@@ -411,10 +229,18 @@ class SmartHUD(QtWidgets.QWidget):
         self.freeze = False
         self.new_sketch = False
 
+        if int(P.FC_VERSION[0]) > 0 and int(P.FC_VERSION[1]) > 1:
+            self.draggers = True
+        else:
+            self.draggers = False
+
         self.active_workbench = Gui.activeWorkbench().name()
+
+        self.selected_count = 0
 
         self.position_init = None
         self.position_current = None
+        self.parent_object = None
         self.active_object = None
         self.sketch_profile = None
         self.current_button = None
@@ -424,24 +250,28 @@ class SmartHUD(QtWidgets.QWidget):
         self.content = None
         self.transaction = None
 
-        if int(P.FC_VERSION[0]) > 0 and int(P.FC_VERSION[1]) > 1:
-            self.draggers = True
-        else:
-            self.draggers = False
-
-        self.selected_count = 0
-
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.update_panel)
-
+        # distance
         self.distance_max = self.DISTANCE_MIN
         self.distance_offset = self.distance_max / 2
+
+        # position and offset
+        self.position_panel = pref['hud_smart_position']
+        self.cursor_offset_x = pref['hud_smart_cursor_offset']
+        if self.position_panel == 'Below':
+            # stable
+            self.cursor_offset_y = self.cursor_offset_x
+        else:
+            # dependence on rows
+            self.cursor_offset_y = -(self.cursor_offset_x + self.OFFSET_Y_UNO)
 
         # opacity
         self.opacity_effect = QtWidgets.QGraphicsOpacityEffect(self)
         self.setGraphicsEffect(self.opacity_effect)
         self.fade = QtCore.QPropertyAnimation(self.opacity_effect, b'opacity')
         self.fade.setEasingCurve(QtCore.QEasingCurve.OutQuad)
+
+        self.timer = QtCore.QTimer(self)
+        self.timer.timeout.connect(self.update_panel)
 
         self.observer = SelectionObserverHUD(self)
         Gui.Selection.addObserver(self.observer)
@@ -453,9 +283,10 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def add_buttons(self):
-        for name, cmd, icon, row in tools_all:
+        for name, cmd, icon, row in pd_tools:
             btn = QtWidgets.QToolButton()
             btn.setObjectName(name)
+            btn.setProperty('row', row)
             btn.setToolTip(name)
             btn.setIconSize(QtCore.QSize(24, 24))
             i = Gui.getIcon(icon)
@@ -486,7 +317,7 @@ class SmartHUD(QtWidgets.QWidget):
             return
         # make the 'PartDesign::Body' active
         if self.active_object:
-            if name not in activity_ban:
+            if name not in T.pd_activity_ban:
                 Gui.ActiveDocument.ActiveView.setActiveObject(
                     'pdbody', self.active_object)
         # reset
@@ -496,20 +327,21 @@ class SmartHUD(QtWidgets.QWidget):
         self.check_tres.setVisible(False)
         self.new_sketch = False
 
-        # adaptation
         self.freeze = True
-        if name in tools_control or name in tools_check:
+
+        # adaptation
+        if name in T.tools_value or name in T.tools_checkbox:
             self.current_control = name
             # button style: active
             btn.setStyleSheet(self.css_active)
             btn.setToolTip(None)
             self.current_button = btn
             # control & check
-            if name in tools_control:
+            if name in T.tools_value:
                 self.c_widget.setVisible(True)
-                self.spinbox.setValue(tools_control[name][-1])
-            if name in tools_check:
-                check = tools_check[name]
+                self.spinbox.setValue(T.tools_value[name][-1])
+            if name in T.tools_checkbox:
+                check = T.tools_checkbox[name]
                 # there is always one element
                 self.check_uno.setVisible(True)
                 b, n = check[0][-2:]
@@ -530,6 +362,13 @@ class SmartHUD(QtWidgets.QWidget):
             self.collapse()
             if name == 'New Sketch':
                 self.new_sketch = True
+        # parent tool
+        if self.parent_object:
+            if name in T.pd_tools_parent:
+                Gui.Selection.clearSelection()
+                Gui.Selection.addSelection(
+                    FreeCAD.ActiveDocument.Name, self.parent_object.Name, '')
+
         self.freeze = False
 
         # initializing
@@ -553,7 +392,7 @@ class SmartHUD(QtWidgets.QWidget):
                 # value, transaction
                 if self.current_control:
                     try:
-                        widget, name = tools_control[self.current_control][:2]
+                        widget, name = T.tools_value[self.current_control][:2]
                         _transaction = self.content.findChild(widget, name)
                         if _transaction:
                             self.transaction = _transaction
@@ -619,6 +458,7 @@ class SmartHUD(QtWidgets.QWidget):
         if hasattr(s, 'TypeId'):
             if s.TypeId == 'Sketcher::SketchObject':
                 if self.is_viewport():
+                    self.active_workbench = Gui.activeWorkbench().name()
                     self.preparation_panel('Outline', s.TypeId)
                     position_local = self.parent.mapFromGlobal(
                         self.position_current)
@@ -652,6 +492,9 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def selection_add(self, doc, obj, sub, pos):
+        if self.freeze:
+            return
+        self.parent_object = None
         self.active_object = None
         self.sketch_profile = None
         try:
@@ -703,10 +546,17 @@ class SmartHUD(QtWidgets.QWidget):
             return False
         selection = selection[0]
 
-        parent = selection.getParentGeoFeatureGroup()
-        if hasattr(parent, 'TypeId'):
-            if parent.TypeId == 'PartDesign::Body':
-                self.active_object = parent
+        self.parent_object = selection.getParentGeoFeatureGroup()
+        if hasattr(self.parent_object, 'TypeId'):
+            if self.parent_object.TypeId == 'PartDesign::Body':
+                self.active_object = self.parent_object
+
+        if selection.TypeId == 'App::Plane':
+            self.preparation_panel('Plane', selection.TypeId)
+            if self.selected_widget == 'qt_scrollarea_viewport':
+                return False  # overlay treeView
+            else:
+                return True
 
         if selection.TypeId in self.OUTLINE:
             self.preparation_panel('Outline', selection.TypeId)
@@ -717,11 +567,11 @@ class SmartHUD(QtWidgets.QWidget):
 
         self.sketch_profile = None
 
-        if hasattr(parent, 'Profile'):
+        if hasattr(self.parent_object, 'Profile'):
             self.sketch_profile = selection.Profile[0]
         else:
-            if hasattr(parent, 'Group'):
-                for g in parent.Group:
+            if hasattr(self.parent_object, 'Group'):
+                for g in self.parent_object.Group:
                     if hasattr(g, 'TypeId'):
                         if g.TypeId == 'Sketcher::SketchObject':
                             if self.sketch_profile:
@@ -758,7 +608,6 @@ class SmartHUD(QtWidgets.QWidget):
             pass
 
         match so.ShapeType:
-            # todo: add 'Solid'
             case 'Edge' | 'Face':
                 self.preparation_panel(so.ShapeType, so.TypeId)
                 return True
@@ -768,14 +617,17 @@ class SmartHUD(QtWidgets.QWidget):
                     return True
                 else:
                     return False
+            case 'Solid':
+                self.preparation_panel(so.ShapeType, '')
+                return True
             case _:
                 return False  # todo: what could it be?
 
     def preparation_panel(self, entity, type_id):
-        workbench_set = tools_access.get(self.active_workbench)
+        workbench_set = T.tools_access.get(self.active_workbench)
         if not workbench_set:
             return  # todo: debug?
-        entity_set = workbench_set.get(entity).copy()
+        entity_set = workbench_set.get(entity, []).copy()
         if not entity_set:
             return  # todo: debug?
 
@@ -788,20 +640,44 @@ class SmartHUD(QtWidgets.QWidget):
                 entity_set.remove('Edit Sketch')
 
         # available buttons
+        used_button_rows = 1
         max_distance = 0
         buttons = self.b_widget.findChildren(QtWidgets.QToolButton)
         for btn in buttons:
             object_name = btn.objectName()
             if object_name in entity_set:
-                if object_name == 'Measure' and self.selected_count < 2:
-                    btn.setVisible(False)
-                    continue
+                # exceptions
+                if self.selected_count < 2:
+                    if object_name == 'Measure':
+                        btn.setVisible(False)
+                        continue
+                    elif object_name == 'Datum Plane' and entity == 'Outline':
+                        btn.setVisible(False)
+                        continue
                 max_distance += self.DISTANCE_STEP
+                row = btn.property('row')
+                if row > used_button_rows:
+                    used_button_rows = row
                 btn.setVisible(True)
             else:
                 btn.setVisible(False)
+
+        # checking for at least one button
+        if max_distance == 0:
+            for btn in buttons:
+                if btn.objectName() == 'Fit Selection':  # todo: ..?
+                    btn.setVisible(True)
+                    break
+
         self.distance_max = max(self.DISTANCE_MIN, max_distance)
         self.distance_offset = self.distance_max / 2
+        if self.position_panel == 'Above':
+            # dependence on rows
+            if used_button_rows == 1:
+                _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_UNO)
+            else:
+                _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_DOS)
+            self.cursor_offset_y = _offset_y
 
     def selection_remove(self, doc, obj, sub):
         if not self.current_button:
@@ -826,8 +702,8 @@ class SmartHUD(QtWidgets.QWidget):
 
     def move_to_cursor(self, cursor_local):
         self.position_init = QtGui.QCursor.pos()
-        x = cursor_local.x() + self.OFFSET_CURSOR
-        y = cursor_local.y() + self.OFFSET_CURSOR
+        x = cursor_local.x() + self.cursor_offset_x
+        y = cursor_local.y() + self.cursor_offset_y
         x = max(0, min(x, self.parent.width() - self.width()))
         y = max(0, min(y, self.parent.height() - self.height()))
         self.move(int(x), int(y))
@@ -897,7 +773,7 @@ class SmartHUD(QtWidgets.QWidget):
         current_tool = self.check_changed()
         if not current_tool:
             return
-        widget, name = tools_control[current_tool][:2]
+        widget, name = T.tools_value[current_tool][:2]
         target = self.content.findChild(widget, name)
         if target:
             target.setProperty('rawValue', value)
@@ -908,12 +784,12 @@ class SmartHUD(QtWidgets.QWidget):
         current_tool = self.check_changed()
         if not current_tool:
             return
-        check_tuple = tools_check[current_tool]
+        check_tuple = T.tools_checkbox[current_tool]
         checkbox = self.sender()
         text = checkbox.text()
 
         if text == 'Through all' and current_tool == 'Pocket':
-            widget, name = tools_check['Pocket'][2][:2]
+            widget, name = T.tools_checkbox['Pocket'][2][:2]
             target = self.content.findChild(widget, name)
             if state:
                 target.setCurrentIndex(1)  # Through all
@@ -924,7 +800,7 @@ class SmartHUD(QtWidgets.QWidget):
         if int(P.FC_VERSION[0]) > 0 and int(P.FC_VERSION[1]) > 1:
             if text == 'Symmetric':
                 if current_tool == 'Pad' or current_tool == 'Pocket':
-                    widget, name = tools_check_exception[:2]
+                    widget, name = T.tools_checkbox_exception[:2]
                     target = self.content.findChild(widget, name)
                     if state:
                         target.setCurrentIndex(2)  # Symmetric
@@ -963,18 +839,18 @@ class SmartHUD(QtWidgets.QWidget):
             except BaseException:
                 pass
 
-        # # the ability to continue working with the panel
-        # if self.active_object:
-        #     if self.current_control in tools_before:
-        #         Gui.Selection.clearSelection()
-        #         Gui.Selection.addSelection(FreeCAD.ActiveDocument.Name,
-        #                                    self.active_object.Tip.Name, '')
-        #         self.preparation_panel('Secondary', '')
-        #         position_local = self.parent.mapFromGlobal(
-        #             self.position_current)
-        #         self.collapse()
-        #         self.activate(position_local)
-        #         return
+        # the ability to continue working with the panel
+        if self.active_object:
+            if self.current_control in T.pd_tools_continuation:
+                Gui.Selection.clearSelection()
+                Gui.Selection.addSelection(FreeCAD.ActiveDocument.Name,
+                                           self.active_object.Tip.Name, '')
+                self.preparation_panel('Secondary', '')
+                position_local = self.parent.mapFromGlobal(
+                    self.position_current)
+                self.collapse()
+                self.activate(position_local)
+                return
 
         self.collapse()
 

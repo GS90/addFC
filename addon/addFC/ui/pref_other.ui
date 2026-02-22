@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>540</height>
+    <width>660</width>
+    <height>590</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
      <property name="title">
       <string>FreeCAD interface</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_font">
         <item>
@@ -46,14 +46,24 @@
            <number>96</number>
           </property>
           <property name="value">
-           <number>11</number>
+           <number>10</number>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <spacer name="verticalSpacer_hud">
+       <widget class="QLabel" name="fontNote">
+        <property name="styleSheet">
+         <string notr="true">color: #666</string>
+        </property>
+        <property name="text">
+         <string>For changes to take effect, you must restart FreeCAD</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_interface">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -63,148 +73,235 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>10</height>
+          <height>30</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_hud">
-        <property name="title">
-         <string>HUD (Head‑Up Display)</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout" columnstretch="2,0,0">
-         <item row="3" column="2">
-          <widget class="QCheckBox" name="checkBox_hud_tools_sm">
-           <property name="text">
-            <string>Add sheet metal tools</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QComboBox" name="comboBox_hud_value_step">
-           <property name="toolTip">
-            <string>Controls the step size when changing the value</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QCheckBox" name="checkBox_hud_transparency">
-           <property name="toolTip">
-            <string>Panel background transparency</string>
-           </property>
-           <property name="text">
-            <string>Transparency</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="checkBox_hud_autoload">
-           <property name="text">
-            <string>Launch HUD on Startup</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QComboBox" name="comboBox_hud_theme"/>
-         </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="checkBox_hud_right">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Right panel</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="checkBox_hud_smart">
-           <property name="text">
-            <string>Smart panel (dynamic)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="checkBox_hud_top">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Top panel</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_hud_theme">
-           <property name="text">
-            <string>Theme</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="label_hud_value_step">
-           <property name="toolTip">
-            <string>Controls the step size when changing the value</string>
-           </property>
-           <property name="text">
-            <string>Value step</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <layout class="QHBoxLayout" name="horizontalLayout_hud_tools">
-           <item>
-            <widget class="QPushButton" name="pushButton_hud_tools">
+       <layout class="QHBoxLayout" name="horizontalLayout_hud">
+        <item>
+         <widget class="QGroupBox" name="groupBox_hud">
+          <property name="title">
+           <string>HUD (Head‑Up Display)</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="4" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_hud_tools">
+             <item>
+              <widget class="QPushButton" name="pushButton_hud_tools">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="text">
+                <string>Tool selection</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="spacer_hud_tools">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox_hud_autoload">
+             <property name="text">
+              <string>Launch HUD on Startup</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="checkBox_hud_right">
              <property name="enabled">
               <bool>false</bool>
              </property>
              <property name="text">
-              <string>Configuring Tools</string>
+              <string>Right panel</string>
              </property>
             </widget>
            </item>
-           <item>
-            <spacer name="spacer_hud_tools">
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="checkBox_hud_smart">
+             <property name="text">
+              <string>Smart panel (dynamic)</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="checkBox_hud_top">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Top panel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_hud_pref">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox:title {color: #666}</string>
+          </property>
+          <property name="title">
+           <string>Preferences</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_hud_opacity">
+             <property name="text">
+              <string>Opacity</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_hud_theme">
+             <property name="text">
+              <string>Theme</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_hud_value_step">
+             <property name="toolTip">
+              <string>Controls the step size when changing the value</string>
+             </property>
+             <property name="text">
+              <string>Value step</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QComboBox" name="comboBox_hud_theme"/>
+           </item>
+           <item row="3" column="1">
+            <spacer name="verticalSpacer_hud_pref">
              <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+              <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>40</width>
-               <height>20</height>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="1">
+            <widget class="QComboBox" name="comboBox_hud_value_step">
+             <property name="toolTip">
+              <string>Controls the step size when changing the value</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="spinBox_hud_opacity">
+             <property name="minimum">
+              <number>0</number>
+             </property>
+             <property name="maximum">
+              <number>50</number>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_hud_pref_smart">
+          <property name="styleSheet">
+           <string notr="true">QGroupBox:title {color: #666}</string>
+          </property>
+          <property name="title">
+           <string>Preferences, smart panel</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_hud_spart_position">
+             <property name="text">
+              <string>Position</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QSpinBox" name="spinBox_hud_cursor_offset">
+             <property name="minimum">
+              <number>10</number>
+             </property>
+             <property name="maximum">
+              <number>60</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_hud_cursor_offset">
+             <property name="text">
+              <string>Cursor offset</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QComboBox" name="comboBox_hud_spart_position"/>
+           </item>
+           <item row="2" column="1">
+            <spacer name="verticalSpacer_hud_pref_smart">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
               </size>
              </property>
             </spacer>
            </item>
           </layout>
-         </item>
-        </layout>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="hudNote">
+        <property name="styleSheet">
+         <string notr="true">color: #666</string>
+        </property>
+        <property name="text">
+         <string>Changes require a HUD interface restart</string>
+        </property>
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="note">
-     <property name="styleSheet">
-      <string notr="true">color: #666</string>
-     </property>
-     <property name="text">
-      <string>For changes to take effect, you must restart FreeCAD</string>
-     </property>
     </widget>
    </item>
    <item>
@@ -218,7 +315,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>20</height>
+       <height>30</height>
       </size>
      </property>
     </spacer>

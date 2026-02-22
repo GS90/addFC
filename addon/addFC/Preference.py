@@ -19,7 +19,7 @@
 
 
 from importlib.metadata import version
-from PySide import QtCore, QtGui  # QtWidgets
+from PySide import QtCore, QtGui
 import copy
 import FreeCAD
 import json
@@ -977,20 +977,30 @@ class addFCPreferenceOther():
                 case 'smart': self.form.checkBox_hud_smart.setChecked(True)
                 case 'top': self.form.checkBox_hud_top.setChecked(True)
                 case 'right': self.form.checkBox_hud_right.setChecked(True)
-
+        self.form.pushButton_hud_tools.clicked.connect(configuring_tools)
+        # hud, theme:
         self.form.comboBox_hud_theme.addItems(('Standard', 'Rounded'))
         _theme = pref_configuration['hud_theme']
         self.form.comboBox_hud_theme.setCurrentText(_theme)
-        _transparency = pref_configuration['hud_transparency']
-        self.form.checkBox_hud_transparency.setChecked(_transparency)
+        # hud, opacity:
+        _opacity = pref_configuration['hud_opacity']
+        try:
+            _opacity = int(_opacity)
+        except ValueError:
+            _opacity = 0
+        self.form.spinBox_hud_opacity.setValue(_opacity)
+        # hud, value step:
         self.form.comboBox_hud_value_step.addItems(
             ('10.0', '1.0', '0.1', '0.01'))
         _step = pref_configuration['hud_value_step']
         self.form.comboBox_hud_value_step.setCurrentText(_step)
-        _sm_tools = pref_configuration['hud_tools_sm']
-        self.form.checkBox_hud_tools_sm.setChecked(_sm_tools)
-        # hud, tools:
-        # self.form.pushButton_hud_tools.clicked.connect(configuring_tools)
+        # hud:smart, cursor offset:
+        _offset = pref_configuration['hud_smart_cursor_offset']
+        self.form.spinBox_hud_cursor_offset.setValue(_offset)
+        # hud:smart, position:
+        self.form.comboBox_hud_spart_position.addItems(('Above', 'Below'))
+        _position = pref_configuration['hud_smart_position']
+        self.form.comboBox_hud_spart_position.setCurrentText(_position)
 
         # additions:
         self.form.sm.setChecked(afc_additions['sm'][0])
@@ -1032,20 +1042,25 @@ class addFCPreferenceOther():
         if self.form.checkBox_hud_right.isChecked():
             panels.append('right')
 
-        _transparency = self.form.checkBox_hud_transparency.isChecked()
+        offset = self.form.spinBox_hud_cursor_offset.value()
+        position = self.form.comboBox_hud_spart_position.currentText()
 
         fresh = {
+            # interface:
             'interface_font': [
                 self.form.fontCheckBox.isChecked(),
                 self.form.fontComboBox.currentText(),
                 self.form.fontSpinBox.value(),
             ],
+            # hud:
             'hud_autoload': self.form.checkBox_hud_autoload.isChecked(),
             'hud_panels': panels,
             'hud_theme': self.form.comboBox_hud_theme.currentText(),
-            'hud_transparency': _transparency,
+            'hud_opacity': self.form.spinBox_hud_opacity.value(),
             'hud_value_step': self.form.comboBox_hud_value_step.currentText(),
-            'hud_tools_sm': self.form.checkBox_hud_tools_sm.isChecked(),
+            'hud_smart_cursor_offset': offset,
+            'hud_smart_position': position,
+            # other:
             'drawing_templates_user': self.form.utLineEdit.text(),
         }
         pref_configuration.update(fresh)
@@ -1158,9 +1173,91 @@ def configuring_tools() -> None:
     form = FreeCAD.Gui.PySideUic.loadUi(
         os.path.join(AFC_DIR, 'hud', 'Tools.ui'))
 
+    from addon.addFC.hud.Tools import pd_tools_std, pd_tools_sm
+
+    tools = pd_tools_std.copy()
+    if afc_additions['sm'][0]:
+        tools.extend(pd_tools_sm)
+
     # todo: ...
+    form.comboBoxW.addItems(('PartDesign',))
+    form.comboBoxP.addItems(('Smart',))
+
+    labels = ('Tool', 'Status', 'Note')
+
+    table = form.tableTools
+    table.setIconSize(QtCore.QSize(24, 24))
+    table.setColumnCount(len(labels))
+    table.setRowCount(len(tools))
+    table.setHorizontalHeaderLabels(labels)
+
+    f = QtCore.Qt.ItemFlag
+    ban = pref_configuration['hud_tools_ban_smart']
+    color_blue = afc_theme[afc_theme['current']]['qt-blue']
+    color_red = afc_theme[afc_theme['current']]['qt-red']
+
+    secondary = ('Mirrored', 'Pattern', 'MultiTransform')
+
+    x = 0
+    for name, cmd, icon, _ in tools:
+        # icon and name
+        i = FreeCAD.Gui.getIcon(icon)
+        if i is None:
+            continue  # todo: ..?
+        table.setItem(x, 0, QtGui.QTableWidgetItem(i, name))
+        # checkbox
+        if name in ban:
+            item = QtGui.QTableWidgetItem('Disabled')
+            item.setFlags(f.ItemIsUserCheckable | f.ItemIsEnabled)
+            item.setCheckState(QtCore.Qt.CheckState.Unchecked)
+            item.setForeground(color_red)
+        else:
+            item = QtGui.QTableWidgetItem('Enabled')
+            item.setFlags(f.ItemIsUserCheckable | f.ItemIsEnabled)
+            item.setCheckState(QtCore.Qt.CheckState.Checked)
+            item.setForeground(color_blue)
+        table.setItem(x, 1, item)
+        # note
+        if 'SheetMetal' in cmd:
+            table.setItem(x, 2, QtGui.QTableWidgetItem('Sheet Metal'))
+        else:
+            for s in secondary:
+                if s in cmd:
+                    table.setItem(x, 2, QtGui.QTableWidgetItem('Secondary'))
+        x += 1
+
+    table.resizeColumnsToContents()
+    table.resizeRowsToContents()
+    table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.Stretch)
+
+    table.setSortingEnabled(False)
+    table.horizontalHeader().setSortIndicatorShown(False)
+
+    def item_changed(item):
+        if item.checkState() == QtCore.Qt.CheckState.Checked:
+            item.setText('Enabled')
+            item.setForeground(color_blue)
+        else:
+            item.setText('Disabled')
+            item.setForeground(color_red)
+    table.itemChanged.connect(item_changed)
+
+    def apply():
+        ban = []
+        for row in range(table.rowCount()):
+            n = table.item(row, 0)
+            b = table.item(row, 1)
+            if n is None or b is None:
+                continue
+            if b.text() == 'Disabled':
+                ban.append(n.text())
+        pref_configuration['hud_tools_ban_smart'] = ban
+        save_pref(PATH_CONFIGURATION, pref_configuration)
+        form.close()
+    form.pushButtonApply.clicked.connect(apply)
 
     form.show()
+    form.pushButtonApply.setFocus()
 
 
 # ------------------------------------------------------------------------------
