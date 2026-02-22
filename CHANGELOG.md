@@ -2,7 +2,7 @@
 
 ## Release notes
 
-#### 2026.02.23 (**3.1.2**):
+#### 2026.02.23 (**3.1.4**):
 * HUD (Head‑Up Display): fixes and improvements.
 * Translation updated: Russian.
 

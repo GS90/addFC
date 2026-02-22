@@ -640,7 +640,7 @@ class SmartHUD(QtWidgets.QWidget):
                 entity_set.remove('Edit Sketch')
 
         # available buttons
-        used_button_rows = 1
+        used_button_rows = []
         max_distance = 0
         buttons = self.b_widget.findChildren(QtWidgets.QToolButton)
         for btn in buttons:
@@ -656,8 +656,8 @@ class SmartHUD(QtWidgets.QWidget):
                         continue
                 max_distance += self.DISTANCE_STEP
                 row = btn.property('row')
-                if row > used_button_rows:
-                    used_button_rows = row
+                if row not in used_button_rows:
+                    used_button_rows.append(row)
                 btn.setVisible(True)
             else:
                 btn.setVisible(False)
@@ -673,7 +673,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.distance_offset = self.distance_max / 2
         if self.position_panel == 'Above':
             # dependence on rows
-            if used_button_rows == 1:
+            if len(used_button_rows) == 1:
                 _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_UNO)
             else:
                 _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_DOS)
