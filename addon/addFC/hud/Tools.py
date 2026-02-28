@@ -187,7 +187,8 @@ tools_access = {
             'Datum Point',
             'Coordinate System',
         ],
-        'Solid': [  # impact on the parent
+        'Solid': [  # or 'Compound'
+            'Measure',              # 2 entities
             'Toggle Transparency',
             'Transform',
             'Appearance',

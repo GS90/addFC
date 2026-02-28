@@ -2,13 +2,15 @@
 
 ## Release notes
 
-#### 2026.02.23 (**3.2.0**):
+#### 2026.02.28 (**3.3.0**):
 * HUD (Head‑Up Display), improvements:
     - Added functionality to enter and evaluate expressions.
     - Added margin and fade settings.
     - Added __Draft__ tools: __Clone__, __Mirror__, and __Array__.
+    - Working with _simple_ objects such as: __Feature__, __FeaturePython__.
     - Enhanced visual display and user interaction experience.
     - Performance optimizations.
+    - Improved default settings.
 * Buttons of active tools now show a pressed visual state.
 * Translation updated: Russian.
 

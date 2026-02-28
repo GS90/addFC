@@ -102,6 +102,8 @@ class SelectionObserverHUD:
 class SmartHUD(QtWidgets.QWidget):
 
     OUTLINE = ('Sketcher::SketchObject', 'Part::Part2DObjectPython')
+    FEATURE = ('Part::Feature', 'Part::FeaturePython')
+
     P_STR_UNITS = 'User parameter:BaseApp/Preferences/Units'
 
     TIMER_SLOW = 400
@@ -751,8 +753,18 @@ class SmartHUD(QtWidgets.QWidget):
         if len(selection) == 0:
             return False
         selection = selection[0]
+        selection_obj = selection.Object
+        selection_obj_type = selection_obj.TypeId
+
         if not selection.HasSubObjects:
+            if selection_obj_type == 'Part::Feature':
+                self.preparation_panel('Solid', '')
+                return True
             return False
+
+        if selection_obj_type in self.FEATURE:
+            self.preparation_panel('Solid', '')
+            return True
 
         try:
             so = selection.SubObjects[-1]
@@ -774,8 +786,6 @@ class SmartHUD(QtWidgets.QWidget):
                 return False
         except BaseException:
             pass
-
-        print(so.ShapeType)
 
         match so.ShapeType:
             case 'Edge' | 'Face':
