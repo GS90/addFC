@@ -204,14 +204,22 @@ class ViewportRecording():
                     self.create_frame()
                 rotation = FreeCAD.Base.Rotation(vector, j)
                 object.Placement = FreeCAD.Base.Placement(base, rotation)
-                FreeCAD.Gui.updateGui()
+                # FreeCAD.Gui.updateGui()
+                object.recompute()
+                self.av.redraw()
+                print(j)
             if pendulum:
                 for j in range(int(angle) - 1, -1, -1):
                     if record:
                         self.create_frame()
                     rotation = FreeCAD.Base.Rotation(vector, j)
                     object.Placement = FreeCAD.Base.Placement(base, rotation)
-                    FreeCAD.Gui.updateGui()
+                    # FreeCAD.Gui.updateGui()
+                    object.recompute()
+                    self.av.redraw()
+                    print(j)
+
+        # FreeCAD.Gui.activeDocument().activeView().redraw()
 
         object.Placement = original
 

@@ -2,7 +2,7 @@
 
 ## Release notes
 
-#### 2026.02.28 (**3.3.0**):
+#### 2026.02.28 (**3.3.1**):
 * HUD (Head‑Up Display), improvements:
     - Added functionality to enter and evaluate expressions.
     - Added margin and fade settings.
@@ -13,6 +13,7 @@
     - Improved default settings.
 * Buttons of active tools now show a pressed visual state.
 * Translation updated: Russian.
+* Minor fixes.
 
 #### 2026.02.23 (**3.1.4**):
 * HUD (Head‑Up Display): fixes and improvements.

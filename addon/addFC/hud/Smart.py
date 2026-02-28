@@ -716,6 +716,10 @@ class SmartHUD(QtWidgets.QWidget):
             return False
         selection = selection[0]
 
+        if selection.TypeId == 'App::Link':
+            self.preparation_panel('Other', None)
+            return True
+
         self.parent_object = selection.getParentGeoFeatureGroup()
         if hasattr(self.parent_object, 'TypeId'):
             if self.parent_object.TypeId == 'PartDesign::Body':

@@ -22,6 +22,9 @@ from PySide import QtWidgets
 from addon.addFC import Preference as P
 
 
+# todo: Gui.runCommand('Std_TreeSelection')
+
+
 if int(P.FC_VERSION[0]) > 0:
     pd_tools_std = [
         ('Measure', 'Std_Measure', 'umf-measurement', 1),
