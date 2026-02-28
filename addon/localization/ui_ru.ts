@@ -414,12 +414,6 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation>Прозрачность</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="193"/>
-        <location filename="../addFC/ui/pref_other.ui" line="223"/>
-        <source>Controls the step size when changing the value.</source>
-        <translation>Настройка размера шага изменения значения.</translation>
-    </message>
-    <message>
         <location filename="../addFC/ui/pref_other.ui" line="200"/>
         <source>Theme</source>
         <translation>Оформление</translation>
@@ -430,16 +424,9 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation>Величина шага</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="252"/>
-        <source>Enable secondary tools - they activate automatically after
-completing specific operations such as Pad, Pocket, and similar ones.</source>
-        <translation>Включение вторичных инструментов: активируются автоматически
-после операций типа Pad, Pocket и аналогичных.</translation>
-    </message>
-    <message>
         <location filename="../addFC/ui/pref_other.ui" line="256"/>
         <source>Sequential tools</source>
-        <translation>Последовательность</translation>
+        <translation>Вторичные</translation>
     </message>
     <message>
         <location filename="../addFC/ui/pref_other.ui" line="269"/>
@@ -447,32 +434,39 @@ completing specific operations such as Pad, Pocket, and similar ones.</source>
         <translation>Параметры умной панели</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="329"/>
+        <location filename="../addFC/ui/pref_other.ui" line="366"/>
+        <location filename="../addFC/ui/pref_other.ui" line="382"/>
+        <source>The active zone border defines the area around the panel where the panel is fully visible and interactive before fading begins</source>
+        <translation>Граница активной зоны определяет область вокруг панели, в пределах которой
+панель полностью видна и интерактивна до начала плавного исчезновения</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="403"/>
         <source>Changes require a HUD interface restart</source>
         <translation>Для применения изменений требуется перезапуск интерфейса HUD</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="397"/>
+        <location filename="../addFC/ui/pref_other.ui" line="471"/>
         <source>Additions</source>
         <translation>Дополнения</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="436"/>
+        <location filename="../addFC/ui/pref_other.ui" line="510"/>
         <source>SheetMetal Workbench</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="426"/>
+        <location filename="../addFC/ui/pref_other.ui" line="500"/>
         <source>ezdxf</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="416"/>
+        <location filename="../addFC/ui/pref_other.ui" line="490"/>
         <source>NumPy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="406"/>
+        <location filename="../addFC/ui/pref_other.ui" line="480"/>
         <source>FFmpeg</source>
         <translation></translation>
     </message>
@@ -482,22 +476,63 @@ completing specific operations such as Pad, Pocket, and similar ones.</source>
         <translation>Базовые настройки</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="295"/>
+        <location filename="../addFC/ui/pref_other.ui" line="193"/>
+        <location filename="../addFC/ui/pref_other.ui" line="223"/>
+        <source>Controls the step size when changing the value</source>
+        <translation>Размер шага изменения значения</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="252"/>
+        <source>Enable secondary tools - they activate automatically after
+completing specific operations such as Pad, Pocket, and similar ones</source>
+        <translation>Включить вторичные инструменты - они автоматически
+активируются после операций типа Pad, Pocket и аналогичных</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="275"/>
+        <location filename="../addFC/ui/pref_other.ui" line="340"/>
+        <source>Distance over which the panel fades out</source>
+        <translation>Расстояние, в пределах которого происходит плавное скрытие панели</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="291"/>
+        <location filename="../addFC/ui/pref_other.ui" line="298"/>
+        <source>Panel position relative to cursor, above or below</source>
+        <translation>Позиция панели относительно положения курсора - сверху либо снизу</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="324"/>
+        <location filename="../addFC/ui/pref_other.ui" line="353"/>
+        <source>Distance between the cursor and the panel</source>
+        <translation>Расстояние от курсора до панели</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="343"/>
+        <source>Fade distance</source>
+        <translation>Скрытие</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="356"/>
         <source>Offset</source>
         <translation>Смещение</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="355"/>
+        <location filename="../addFC/ui/pref_other.ui" line="385"/>
+        <source>Panel margin</source>
+        <translation>Отступ</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="429"/>
         <source>User templates</source>
         <translation>Пользовательские шаблоны</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="361"/>
+        <location filename="../addFC/ui/pref_other.ui" line="435"/>
         <source>Directory with templates</source>
         <translation>Каталог с шаблонами</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="371"/>
+        <location filename="../addFC/ui/pref_other.ui" line="445"/>
         <source>Select</source>
         <translation>Выбрать</translation>
     </message>
@@ -738,7 +773,7 @@ completing specific operations such as Pad, Pocket, and similar ones.</source>
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="236"/>
-        <location filename="../addFC/ui/pref_other.ui" line="275"/>
+        <location filename="../addFC/ui/pref_other.ui" line="301"/>
         <source>Position</source>
         <translation>Позиция</translation>
     </message>

@@ -1915,9 +1915,10 @@ class AddFCIsolation():
                 'MenuText': FreeCAD.Qt.translate(
                     'addFC', 'Isolation'),
                 'ToolTip': FreeCAD.Qt.translate(
-                    'addFC', 'Isolate selected objects')}
+                    'addFC', 'Isolate selected objects'),
+                'Checkable': False}
 
-    def Activated(self):
+    def Activated(self, status=False):
         f = os.path.join(P.AFC_DIR, 'toolkit', 'Isolation.py')
         loader = importlib.machinery.SourceFileLoader('Isolation', f)
         _ = loader.load_module()
@@ -1985,15 +1986,18 @@ FreeCAD.Gui.addCommand('AddFCRecording', AddFCRecording())
 
 class AddFCHeadUpDisplay():
 
+    enabled = P.pref_configuration['hud_autoload']
+
     def GetResources(self):
         return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'hud.svg'),
                 'Accel': 'Shift+H',
                 'MenuText': FreeCAD.Qt.translate(
                     'addFC', 'Head‑Up Display'),
                 'ToolTip': FreeCAD.Qt.translate(
-                    'addFC', 'Activate the HUD')}
+                    'addFC', 'Activate the HUD'),
+                'Checkable': self.enabled}
 
-    def Activated(self):
+    def Activated(self, status=False):
 
         for panel in P.pref_configuration['hud_panels']:
             match panel:

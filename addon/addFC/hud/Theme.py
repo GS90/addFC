@@ -18,7 +18,8 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 
-def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str]:
+def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str, str]:
+    # todo: panel
 
     if app_theme == 'dark':
         if hud_theme == 'Rounded':
@@ -97,6 +98,16 @@ def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str]:
                 'background-color: #000000;'
                 '}'
             )
+        css_fx = (
+            'QToolButton {'
+            'background-color: #1c2223;'
+            'border-radius: 0;'
+            'border: none;'
+            '}'
+            'QToolButton:hover {'
+            'background-color: #2e3436;'
+            '}'
+        )
         css_active = 'background-color: #1c2223;'
     else:
         # std, light
@@ -130,13 +141,13 @@ def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str]:
             )
             css_apply = (
                 'QToolButton {'
-                'background-color: #c8c8c8;'
+                'background-color: #b4b4b4;'
                 'border-radius: 0;'
                 'border-top-right-radius: 6px;'
                 'border-bottom-right-radius: 6px;'
                 '}'
                 'QToolButton:hover {'
-                'background-color: #b4b4b4;'
+                'background-color: #a0a0a0;'
                 '}'
             )
         else:
@@ -176,6 +187,15 @@ def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str]:
                 'background-color: #b4b4b4;'
                 '}'
             )
+        css_fx = (
+            'QToolButton {'
+            'background-color: #ffffff;'
+            'border-radius: 0;'
+            '}'
+            'QToolButton:hover {'
+            'background-color: #e6e6e6;'
+            '}'
+        )
         css_active = 'background-color: #b4b4b4;'
 
-    return css, css_apply, css_active
+    return css, css_fx, css_apply, css_active

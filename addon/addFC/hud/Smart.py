@@ -21,10 +21,13 @@
 from PySide import QtCore, QtGui, QtWidgets
 import FreeCAD
 import FreeCADGui as Gui
+import math
 
 from addon.addFC import Logger, Preference as P
 from addon.addFC.hud.Theme import generate_css
 import addon.addFC.hud.Tools as T
+
+Draft = None  # import
 
 
 pd_tools = []
@@ -33,15 +36,35 @@ pd_tools = []
 def configure():
     ban = P.pref_configuration['hud_tools_ban_smart']
     global pd_tools
+
+    # std
     for tool in T.pd_tools_std:
         if tool[0] not in ban:
             pd_tools.append(tool)
+    # draft
+    draft = False
+    for tool in T.pd_tools_draft:
+        if tool[0] not in ban:
+            pd_tools.append(tool)
+            if not draft:
+                draft = True
+    # sm
+    sm = False
     if P.afc_additions['sm'][0]:
-        import SheetMetalTools
-        Gui.addIconPath(SheetMetalTools.icons_path)
         for tool in T.pd_tools_sm:
             if tool[0] not in ban:
                 pd_tools.append(tool)
+                if not sm:
+                    sm = True
+
+    # import
+    if draft:
+        global Draft
+        import Draft
+    if sm:
+        # todo: import tools if the workbench is not loaded
+        import SheetMetalTools
+        Gui.addIconPath(SheetMetalTools.icons_path)
 
 
 # ------------------------------------------------------------------------------
@@ -81,25 +104,21 @@ class SmartHUD(QtWidgets.QWidget):
     OUTLINE = ('Sketcher::SketchObject', 'Part::Part2DObjectPython')
     P_STR_UNITS = 'User parameter:BaseApp/Preferences/Units'
 
-    DISTANCE_FADE = 300
-    DISTANCE_MIN = 200
-    DISTANCE_STEP = 30
-
     TIMER_SLOW = 400
-    TIMER_FAST = 60
+    TIMER_FAST = 40
 
     OPACITY_MIN = 0.0
     OPACITY_MAX = 1.0
 
-    OFFSET_Y_UNO = 60
+    OFFSET_Y_UNO = 50
     OFFSET_Y_DOS = 90
 
     HEIGHT_CONTROL = 28
 
-    def __init__(self, parent):
+    def __init__(self, parent: QtWidgets.QMainWindow):
         super().__init__(parent)
-        self.setObjectName('SmartHUD')
         self.parent = parent
+        self.setObjectName('SmartHUD')
 
         self.is_raised = False
 
@@ -114,7 +133,7 @@ class SmartHUD(QtWidgets.QWidget):
         app_theme = P.afc_theme['current']  # std, dark, light
         hud_theme = pref['hud_theme']       # Standard, Rounded
 
-        css, css_apply, self.css_active = generate_css(
+        css, css_fx, css_apply, self.css_active = generate_css(
             'smart', app_theme, hud_theme)
 
         # background opacity
@@ -129,6 +148,8 @@ class SmartHUD(QtWidgets.QWidget):
             css = css.replace('#e6e6e6;', f'rgba(230, 230, 230, {_v});')
             css = css.replace('#2e3436;', f'rgba(46, 52, 54, {_v});')
 
+        self.setStyleSheet(css)
+
         # step value
         _step = pref.get('hud_value_step', '1.0')
         try:
@@ -137,7 +158,9 @@ class SmartHUD(QtWidgets.QWidget):
             Logger.warning('HUD, step value: ' + str(err))
             value_step = 1
 
-        self.setStyleSheet(css)
+        # distances
+        self.PM = pref['hud_smart_panel_margin']
+        self.FD = pref['hud_smart_fade_distance']
 
         self.container = QtWidgets.QWidget()
         self.container.setObjectName('HUD')
@@ -153,7 +176,7 @@ class SmartHUD(QtWidgets.QWidget):
         # dos
         self.dos_layout = QtWidgets.QHBoxLayout()
         self.dos_layout.setSpacing(2)
-        # add
+        # adding
         self.b_layout.addLayout(self.uno_layout)
         self.b_layout.addLayout(self.dos_layout)
         # button container
@@ -174,23 +197,33 @@ class SmartHUD(QtWidgets.QWidget):
 
         # control: value
         self.spinbox = QtWidgets.QDoubleSpinBox()
-        self.spinbox.setToolTip('Set the value')
-        self.spinbox.setRange(0, 1000)
+        self.spinbox.setRange(0, 10000)
         self.spinbox.setValue(1)
         self.spinbox.setSingleStep(value_step)
-        _d = FreeCAD.ParamGet(self.P_STR_UNITS).GetInt('Decimals')
-        self.spinbox.setDecimals(_d)
+        self.spinbox.setDecimals(
+            FreeCAD.ParamGet(self.P_STR_UNITS).GetInt('Decimals'))
         self.spinbox.setFixedHeight(self.HEIGHT_CONTROL)
-        self.spinbox.setFixedWidth(80)
+        self.spinbox.setFixedWidth(90)
         self.spinbox.valueChanged.connect(self.value_changed)
         self.spinbox.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.spinbox.installEventFilter(self)  # =
         self.c_layout.addWidget(self.spinbox)
+
+        # control: expression
+        self.fx = QtWidgets.QToolButton()
+        self.fx.setToolTip('Expression, key "="')
+        self.fx.setIcon(Gui.getIcon('bound-expression-unset'))
+        self.fx.setIconSize(QtCore.QSize(16, 16))
+        self.fx.setFixedHeight(self.HEIGHT_CONTROL)
+        self.fx.setStyleSheet(css_fx)
+        self.fx.clicked.connect(self.expression)
+        self.c_layout.addWidget(self.fx)
 
         # control: apply
         self.apply = QtWidgets.QToolButton()
         self.apply.setText('OK')
-        self.apply.setStyleSheet(css_apply)
         self.apply.setFixedHeight(self.HEIGHT_CONTROL)
+        self.apply.setStyleSheet(css_apply)
         self.apply.clicked.connect(self.apply_values)
         self.c_layout.addWidget(self.apply)
 
@@ -221,6 +254,8 @@ class SmartHUD(QtWidgets.QWidget):
         self.check_tres.stateChanged.connect(self.state_changed)
         self.wrapper.addWidget(self.check_tres)
 
+        # todo: QComboBox
+
         # building
         self.container.setLayout(self.wrapper)
         self.layout = QtWidgets.QVBoxLayout(self)
@@ -242,16 +277,12 @@ class SmartHUD(QtWidgets.QWidget):
         self.parent_object = None
         self.active_object = None
         self.sketch_profile = None
-        self.current_button = None
-        self.current_control = None
+        self.current_button = None   # pressed button
+        self.current_control = None  # active taskbar
         self.selected_widget = None
         self.dialog = None
         self.content = None
         self.transaction = None
-
-        # distance
-        self.distance_max = self.DISTANCE_MIN
-        self.distance_offset = self.distance_max / 2
 
         # position and offset
         self.position_panel = pref['hud_smart_position']
@@ -262,6 +293,12 @@ class SmartHUD(QtWidgets.QWidget):
         else:
             # dependence on rows
             self.cursor_offset_y = -(self.cursor_offset_x + self.OFFSET_Y_UNO)
+
+        # panel update
+        self.boundary_rect_valid = False
+        self.cache_position_init = QtCore.QPoint(0, 0)
+        self.cache_panel_size = QtCore.QSize(0, 0)
+        self.cache_boundary_rect = QtCore.QRect(0, 0, 0, 0)
 
         # opacity
         self.opacity_effect = QtWidgets.QGraphicsOpacityEffect(self)
@@ -285,13 +322,10 @@ class SmartHUD(QtWidgets.QWidget):
         for name, cmd, icon, row in pd_tools:
             btn = QtWidgets.QToolButton()
             btn.setObjectName(name)
-            btn.setProperty('row', row)
             btn.setToolTip(name)
+            btn.setProperty('row', row)
             btn.setIconSize(QtCore.QSize(24, 24))
-            i = Gui.getIcon(icon)
-            if i is None:
-                continue  # todo: ..?
-            btn.setIcon(i)
+            btn.setIcon(Gui.getIcon(icon))
             btn.clicked.connect(lambda checked=False,
                                 n=name,
                                 c=cmd,
@@ -301,7 +335,7 @@ class SmartHUD(QtWidgets.QWidget):
                 self.uno_layout.addWidget(btn)
             else:
                 self.dos_layout.addWidget(btn)
-        # add spacer
+        # stretch
         self.uno_layout.addStretch(1)
         self.dos_layout.addStretch(1)
 
@@ -362,7 +396,7 @@ class SmartHUD(QtWidgets.QWidget):
             self.collapse()
             if name == 'New Sketch':
                 self.new_sketch = True
-        # parent tool
+        # parent tools
         if self.parent_object:
             if name in T.pd_tools_parent:
                 Gui.Selection.clearSelection()
@@ -372,9 +406,88 @@ class SmartHUD(QtWidgets.QWidget):
         self.freeze = False
 
         # initializing
-        Gui.runCommand(cmd)
-        if self.current_control:
-            self.get_dialog_and_content()
+        if cmd != '':
+            Gui.runCommand(cmd)
+            if self.current_control:
+                self.get_dialog_and_content()
+        else:
+            self.other_cmd(name)
+
+    def other_cmd(self, cmd_name):
+        # todo: set parameters without task interface
+
+        array = None
+
+        match cmd_name:
+            case 'Draft Clone':
+                if Draft and self.parent_object:
+                    clone = Draft.make_clone(self.parent_object)
+                    if clone:
+                        clone.recompute(True)
+
+            case 'Draft Mirror':
+                try:
+                    Gui.runCommand('Draft_Mirror')
+                except BaseException:
+                    if Draft and self.parent_object:
+                        try:
+                            bb = self.parent_object.Shape.BoundBox
+                            v = int(bb.YMax)
+                        except BaseException:
+                            v = 10
+                        mirror = Draft.mirror(self.parent_object,
+                                              FreeCAD.Vector(0, v, 0),
+                                              FreeCAD.Vector(v, v, 0))
+                        if mirror:
+                            mirror.recompute(True)
+
+            case 'Draft Array Ortho':
+                try:
+                    Gui.runCommand('Draft_OrthoArray')
+                except BaseException:
+                    if Draft and self.parent_object:
+                        array = Draft.make_ortho_array(
+                            self.parent_object,
+                            v_x=FreeCAD.Vector(0.0, 0.0, 0.0),
+                            v_y=FreeCAD.Vector(0.0, 100.0, 0.0),
+                            v_z=FreeCAD.Vector(0.0, 0.0, 0.0),
+                            n_x=1, n_y=2, n_z=1,
+                            use_link=True)
+                        if array:
+                            array.Fuse = False
+                            Draft.autogroup(array)
+                            array.recompute(True)
+
+            case 'Draft Array Polar':
+                try:
+                    Gui.runCommand('Draft_PolarArray')
+                except BaseException:
+                    if Draft and self.parent_object:
+                        array = Draft.make_polar_array(
+                            self.parent_object,
+                            number=4, angle=360.0,
+                            center=FreeCAD.Vector(0.0, 0.0, 0.0),
+                            use_link=True)
+
+            case 'Draft Array Circular':
+                try:
+                    Gui.runCommand('Draft_CircularArray')
+                except BaseException:
+                    if Draft and self.parent_object:
+                        array = Draft.make_circular_array(
+                            self.parent_object,
+                            r_distance=200.0,
+                            tan_distance=100.0,
+                            number=2,
+                            symmetry=1,
+                            axis=FreeCAD.Vector(0.0, 0.0, 1.0),
+                            center=FreeCAD.Vector(0.0, 0.0, 0.0),
+                            use_link=True)
+
+        if array:
+            array.Fuse = False
+            Draft.autogroup(array)
+            array.recompute(True)
 
     def get_dialog_and_content(self):
         self.clear_dialog_and_content()
@@ -398,13 +511,9 @@ class SmartHUD(QtWidgets.QWidget):
                             self.transaction = _transaction
                             self.transaction.valueChanged.connect(
                                 self.transaction_changed)
-                        else:
-                            self.transaction = None
                     except BaseException as err:
                         Logger.warning('transaction, add: ' + str(err))
                         self.transaction = None
-                return
-        self.clear_dialog_and_content()
 
     def clear_dialog_and_content(self):
         self.dialog, self.content, self.transaction = None, None, None
@@ -415,28 +524,72 @@ class SmartHUD(QtWidgets.QWidget):
         # synchronization of values
         if self.draggers and self.transaction:
             self.transaction_verification()
+
         cursor_position = QtGui.QCursor.pos()
-        # position difference
-        position_x = self.position_init.x() + self.distance_offset
-        position_y = self.position_init.y() + self.distance_offset
-        dx = cursor_position.x() - position_x
-        dy = cursor_position.y() - position_y
-        # Euclidean distance
-        distance = (dx ** 2 + dy ** 2) ** 0.5
-        # fade distance
-        max_distance_fade = self.distance_max + self.DISTANCE_FADE
-        if distance > self.distance_max:
-            if distance > max_distance_fade:
-                self.collapse()
-            else:
-                self.timer.setInterval(self.TIMER_FAST)
-                fade_range = max_distance_fade - self.distance_max
-                adjusted_distance = distance - self.distance_max
-                opacity = self.OPACITY_MAX - (adjusted_distance / fade_range)
-                self.opacity_effect.setOpacity(opacity)
-        else:
+        size = self.size()
+        boundary_rect = self.get_boundary_rect(self.position_init, size)
+        inside_boundary = boundary_rect.contains(cursor_position)
+
+        if inside_boundary:
             self.timer.setInterval(self.TIMER_SLOW)
             self.opacity_effect.setOpacity(self.OPACITY_MAX)
+        else:
+            self.timer.setInterval(self.TIMER_FAST)
+            x = max(0,
+                    boundary_rect.left() - cursor_position.x(),
+                    cursor_position.x() - boundary_rect.right())
+            y = max(0,
+                    boundary_rect.top() - cursor_position.y(),
+                    cursor_position.y() - boundary_rect.bottom())
+
+            # distance_from_boundary = x + y  # Manhattan
+            distance_from_boundary = math.sqrt(x ** 2 + y ** 2)  # Euclidean
+
+            if distance_from_boundary > self.FD:
+                self.collapse()
+            else:
+                adjusted = max(0, distance_from_boundary)
+                opacity = self.OPACITY_MAX - (adjusted / self.FD)
+                opacity = max(self.OPACITY_MIN, min(self.OPACITY_MAX, opacity))
+                self.opacity_effect.setOpacity(opacity)
+
+    def get_boundary_rect(self, position_init, size):
+        if self.boundary_rect_valid \
+                and self.cache_position_init == position_init \
+                and self.cache_panel_size == size:
+            return self.cache_boundary_rect
+
+        # panel size
+        size_x = self.cursor_offset_x + size.width()
+        if self.position_panel == 'Below':
+            size_y = self.cursor_offset_y + size.height()
+        else:
+            size_y_t = abs(self.cursor_offset_y)
+            size_y_b = max(0, (size.height() - abs(self.cursor_offset_y)))
+
+        # active area
+        boundary_left = self.position_init.x() - self.PM
+        boundary_right = self.position_init.x() + size_x + self.PM
+        if self.position_panel == 'Below':
+            boundary_top = self.position_init.y() - self.PM
+            boundary_bottom = self.position_init.y() + size_y + self.PM
+        else:
+            boundary_top = self.position_init.y() - size_y_t - self.PM
+            boundary_bottom = self.position_init.y() + size_y_b + self.PM
+
+        self.cache_boundary_rect = QtCore.QRect(
+            boundary_left,
+            boundary_top,
+            boundary_right - boundary_left,
+            boundary_bottom - boundary_top,
+        )
+
+        # refresh cache
+        self.boundary_rect_valid = True
+        self.cache_position_init = position_init
+        self.cache_panel_size = size
+
+        return self.cache_boundary_rect
 
     def get_view(self):
         try:
@@ -474,6 +627,10 @@ class SmartHUD(QtWidgets.QWidget):
             if not self.is_raised:
                 self.raise_()
                 self.is_raised = True
+            if event.type() == QtCore.QEvent.KeyPress:
+                if event.key() == QtCore.Qt.Key_Equal:
+                    self.expression()
+                    return True
         return super().eventFilter(obj, event)
 
     def hideEvent(self, event):
@@ -489,6 +646,16 @@ class SmartHUD(QtWidgets.QWidget):
         else:
             super().keyPressEvent(event)
 
+    def expression(self):
+        if self.transaction:
+            self.transaction.setFocus()
+            event = QtGui.QKeyEvent(QtCore.QEvent.KeyPress,
+                                    QtCore.Qt.Key_Equal,
+                                    QtCore.Qt.NoModifier,
+                                    '=', False, 1)
+            QtCore.QCoreApplication.postEvent(self.transaction, event)
+            self.collapse()
+
     # --------------------------------------------------------------------------
 
     def selection_add(self, doc, obj, sub, pos):
@@ -499,7 +666,8 @@ class SmartHUD(QtWidgets.QWidget):
         self.sketch_profile = None
         try:
             if not self.is_available():
-                return  # todo: working with the construction tree
+                # todo: working with the construction tree
+                return
             if not self.selection_parsing(doc, obj, sub, pos):
                 return
         except BaseException as err:
@@ -607,6 +775,8 @@ class SmartHUD(QtWidgets.QWidget):
         except BaseException:
             pass
 
+        print(so.ShapeType)
+
         match so.ShapeType:
             case 'Edge' | 'Face':
                 self.preparation_panel(so.ShapeType, so.TypeId)
@@ -617,8 +787,8 @@ class SmartHUD(QtWidgets.QWidget):
                     return True
                 else:
                     return False
-            case 'Solid':
-                self.preparation_panel(so.ShapeType, '')
+            case 'Solid' | 'Compound':
+                self.preparation_panel('Solid', '')  # so.ShapeType
                 return True
             case _:
                 return False  # todo: what could it be?
@@ -640,8 +810,7 @@ class SmartHUD(QtWidgets.QWidget):
                 entity_set.remove('Edit Sketch')
 
         # available buttons
-        used_button_rows = []
-        max_distance = 0
+        used_tools, used_rows = False, []
         buttons = self.b_widget.findChildren(QtWidgets.QToolButton)
         for btn in buttons:
             object_name = btn.objectName()
@@ -654,26 +823,25 @@ class SmartHUD(QtWidgets.QWidget):
                     elif object_name == 'Datum Plane' and entity == 'Outline':
                         btn.setVisible(False)
                         continue
-                max_distance += self.DISTANCE_STEP
+                if not used_tools:
+                    used_tools = True
                 row = btn.property('row')
-                if row not in used_button_rows:
-                    used_button_rows.append(row)
+                if row not in used_rows:
+                    used_rows.append(row)
                 btn.setVisible(True)
             else:
                 btn.setVisible(False)
 
         # checking for at least one button
-        if max_distance == 0:
+        if not used_tools:
             for btn in buttons:
-                if btn.objectName() == 'Fit Selection':  # todo: ..?
+                if btn.objectName() == 'Fit Selection':  # todo: what else?
                     btn.setVisible(True)
                     break
 
-        self.distance_max = max(self.DISTANCE_MIN, max_distance)
-        self.distance_offset = self.distance_max / 2
         if self.position_panel == 'Above':
             # dependence on rows
-            if len(used_button_rows) == 1:
+            if len(used_rows) == 1:
                 _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_UNO)
             else:
                 _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_DOS)
@@ -734,7 +902,7 @@ class SmartHUD(QtWidgets.QWidget):
         except Exception as err:
             Logger.warning('HUD, observer removal: ' + str(err))
         finally:
-            self.timer.stop()
+            self.collapse()
 
     # --------------------------------------------------------------------------
 
@@ -807,6 +975,7 @@ class SmartHUD(QtWidgets.QWidget):
                     else:
                         target.setCurrentIndex(0)  # One sided
                     return
+
         check_sender = None
         for i in check_tuple:
             if i[3] == text:
@@ -818,8 +987,7 @@ class SmartHUD(QtWidgets.QWidget):
         target = self.content.findChild(widget, name)
         if target:
             if current_tool == 'Make Wall':
-                # exception, button
-                target.click()
+                target.click()  # exception, button
             else:
                 target.setChecked(state)
 
@@ -869,9 +1037,7 @@ for child in app.children():
             pass
         child.deleteLater()
         init = False
-        Logger.info('SmartHUD: disabled')
 
 if init:
     overlay = SmartHUD(app)
     overlay.adjustSize()
-    Logger.info('SmartHUD: activated')

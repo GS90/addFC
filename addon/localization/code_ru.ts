@@ -119,7 +119,7 @@
         <translation>Нет деталей из листового металла</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1940"/>
+        <location filename="../addFC/Main.py" line="1941"/>
         <source>Model Viewer</source>
         <translation>Просмотрщик моделей</translation>
     </message>
@@ -179,7 +179,7 @@
         <translation>Отобразить информацию о выбранных элементах</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1942"/>
+        <location filename="../addFC/Main.py" line="1943"/>
         <source>Export models for viewing</source>
         <translation>Экспорт модели для просмотра</translation>
     </message>
@@ -194,22 +194,22 @@
         <translation>Создать ссылку(и)</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1965"/>
+        <location filename="../addFC/Main.py" line="1966"/>
         <source>Viewport Recording</source>
         <translation>Запись сцены</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1967"/>
+        <location filename="../addFC/Main.py" line="1968"/>
         <source>Recording the 3D viewport to a video file</source>
         <translation>Запись сцены из окна 3D просмотра в видео</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1991"/>
+        <location filename="../addFC/Main.py" line="1994"/>
         <source>Head‑Up Display</source>
         <translation>Дополнительный интерфейс</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1993"/>
+        <location filename="../addFC/Main.py" line="1996"/>
         <source>Activate the HUD</source>
         <translation>Активировать дополнительный интерфейс</translation>
     </message>

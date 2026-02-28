@@ -34,13 +34,27 @@ configuration = {
     'hud_opacity': 0,
     'hud_value_step': '1.0',
     'hud_tools_sequential': False,
-    'hud_smart_cursor_offset': 20,
-    'hud_smart_position': 'Below',  # 'Above' or 'Below'
+    'hud_smart_cursor_offset': 40,
+    'hud_smart_position': 'Above',  # 'Above' or 'Below'
+    'hud_smart_panel_margin': 20,
+    'hud_smart_fade_distance': 200,
     'hud_tools_ban_smart': [
+        # std
         'Appearance',
         'Datum Line',
         'Datum Plane',
         'Coordinate System',
+        # draft
+        'Draft Clone',
+        'Draft Mirror',
+        'Draft Array Ortho',
+        'Draft Array Polar',
+        'Draft Array Circular',
+        # sm
+        'Make Base Wall',
+        'Make Wall',
+        'Extend Face',
+        'Unattended Unfold',
     ],
     # unfold:
     'unfold_dxf': True,

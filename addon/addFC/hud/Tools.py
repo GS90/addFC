@@ -86,6 +86,14 @@ pd_tools_sm = [
      'SheetMetal_UnattendedUnfold', 'SheetMetal_UnfoldUnattended', 2),
 ]
 
+pd_tools_draft = [  # other cmd
+    ('Draft Clone', '', 'Draft_Clone', 1),
+    ('Draft Mirror', '', 'Draft_Mirror', 1),
+    ('Draft Array Ortho', '', 'Draft_Array', 1),
+    ('Draft Array Polar', '', 'Draft_PolarArray', 1),
+    ('Draft Array Circular', '', 'Draft_CircularArray', 1),
+]
+
 pd_activity_ban = (
     'Measure',
     'Go to Linked Object',
@@ -96,6 +104,12 @@ pd_activity_ban = (
     'Appearance',
     'Random Color',
     'Binder',
+    # Draft
+    'Draft Clone',
+    'Draft Mirror',
+    'Draft Array Ortho',
+    'Draft Array Polar',
+    'Draft Array Circular',
 )
 
 pd_tools_continuation = (
@@ -108,6 +122,12 @@ pd_tools_parent = (
     'Transform',
     'Appearance',
     'Random Color',
+    # Draft
+    'Draft Clone',
+    'Draft Mirror',
+    'Draft Array Ortho',
+    'Draft Array Polar',
+    'Draft Array Circular',
 )
 
 
@@ -172,6 +192,12 @@ tools_access = {
             'Transform',
             'Appearance',
             'Random Color',
+            # draft
+            'Draft Clone',
+            'Draft Mirror',
+            'Draft Array Ortho',
+            'Draft Array Polar',
+            'Draft Array Circular',
         ],
         'Plane': [
             'New Sketch',

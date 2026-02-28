@@ -1004,6 +1004,12 @@ class addFCPreferenceOther():
         self.form.comboBox_hud_spart_position.addItems(('Above', 'Below'))
         _position = pref_configuration['hud_smart_position']
         self.form.comboBox_hud_spart_position.setCurrentText(_position)
+        # hud:smart, panel margin:
+        _margin = pref_configuration['hud_smart_panel_margin']
+        self.form.spinBox_hud_smart_margin.setValue(_margin)
+        # hud:smart, fade distance:
+        _fade = pref_configuration['hud_smart_fade_distance']
+        self.form.spinBox_hud_smart_fade.setValue(_fade)
 
         # additions:
         self.form.sm.setChecked(afc_additions['sm'][0])
@@ -1045,9 +1051,11 @@ class addFCPreferenceOther():
         if self.form.checkBox_hud_right.isChecked():
             panels.append('right')
 
-        sequential = self.form.checkBox_hud_sequential.isChecked()
-        offset = self.form.spinBox_hud_cursor_offset.value()
-        position = self.form.comboBox_hud_spart_position.currentText()
+        _sequential = self.form.checkBox_hud_sequential.isChecked()
+        _offset = self.form.spinBox_hud_cursor_offset.value()
+        _position = self.form.comboBox_hud_spart_position.currentText()
+        _margin = self.form.spinBox_hud_smart_margin.value()
+        _fade = self.form.spinBox_hud_smart_fade.value()
 
         fresh = {
             # interface:
@@ -1062,9 +1070,11 @@ class addFCPreferenceOther():
             'hud_theme': self.form.comboBox_hud_theme.currentText(),
             'hud_opacity': self.form.spinBox_hud_opacity.value(),
             'hud_value_step': self.form.comboBox_hud_value_step.currentText(),
-            'hud_tools_sequential': sequential,
-            'hud_smart_cursor_offset': offset,
-            'hud_smart_position': position,
+            'hud_tools_sequential': _sequential,
+            'hud_smart_cursor_offset': _offset,
+            'hud_smart_position': _position,
+            'hud_smart_panel_margin': _margin,
+            'hud_smart_fade_distance': _fade,
             # other:
             'drawing_templates_user': self.form.utLineEdit.text(),
         }
@@ -1178,9 +1188,11 @@ def configuring_tools() -> None:
     form = FreeCAD.Gui.PySideUic.loadUi(
         os.path.join(AFC_DIR, 'hud', 'Tools.ui'))
 
-    from addon.addFC.hud.Tools import pd_tools_std, pd_tools_sm
+    from addon.addFC.hud.Tools import pd_tools_std, pd_tools_draft, pd_tools_sm
 
     tools = pd_tools_std.copy()
+    tools.extend(pd_tools_draft)
+
     if afc_additions['sm'][0]:
         tools.extend(pd_tools_sm)
 
@@ -1207,8 +1219,6 @@ def configuring_tools() -> None:
     for name, cmd, icon, _ in tools:
         # icon and name
         i = FreeCAD.Gui.getIcon(icon)
-        if i is None:
-            continue  # todo: ..?
         table.setItem(x, 0, QtGui.QTableWidgetItem(i, name))
         # checkbox
         if name in ban:
@@ -1223,6 +1233,8 @@ def configuring_tools() -> None:
             item.setForeground(color_blue)
         table.setItem(x, 1, item)
         # note
+        if 'Draft ' in name:
+            table.setItem(x, 2, QtGui.QTableWidgetItem('Draft Workbench'))
         if 'SheetMetal' in cmd:
             table.setItem(x, 2, QtGui.QTableWidgetItem('Sheet Metal'))
         else:

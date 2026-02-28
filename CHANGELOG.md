@@ -2,6 +2,16 @@
 
 ## Release notes
 
+#### 2026.02.23 (**3.2.0**):
+* HUD (Head‑Up Display), improvements:
+    - Added functionality to enter and evaluate expressions.
+    - Added margin and fade settings.
+    - Added __Draft__ tools: __Clone__, __Mirror__, and __Array__.
+    - Enhanced visual display and user interaction experience.
+    - Performance optimizations.
+* Buttons of active tools now show a pressed visual state.
+* Translation updated: Russian.
+
 #### 2026.02.23 (**3.1.4**):
 * HUD (Head‑Up Display): fixes and improvements.
 * Translation updated: Russian.

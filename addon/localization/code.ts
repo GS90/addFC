@@ -179,32 +179,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1940"/>
+        <location filename="../addFC/Main.py" line="1941"/>
         <source>Model Viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1942"/>
+        <location filename="../addFC/Main.py" line="1943"/>
         <source>Export models for viewing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1965"/>
+        <location filename="../addFC/Main.py" line="1966"/>
         <source>Viewport Recording</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1967"/>
+        <location filename="../addFC/Main.py" line="1968"/>
         <source>Recording the 3D viewport to a video file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1991"/>
+        <location filename="../addFC/Main.py" line="1994"/>
         <source>Head‑Up Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1993"/>
+        <location filename="../addFC/Main.py" line="1996"/>
         <source>Activate the HUD</source>
         <translation type="unfinished"></translation>
     </message>

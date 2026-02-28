@@ -114,7 +114,7 @@
     </message>
     <message>
         <location filename="../addFC/toolkit/Explode.ui" line="236"/>
-        <location filename="../addFC/ui/pref_other.ui" line="275"/>
+        <location filename="../addFC/ui/pref_other.ui" line="301"/>
         <source>Position</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1121,7 +1121,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../addFC/ui/pref_other.ui" line="193"/>
         <location filename="../addFC/ui/pref_other.ui" line="223"/>
-        <source>Controls the step size when changing the value.</source>
+        <source>Controls the step size when changing the value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1137,7 +1137,7 @@ All models are created in FreeCAD version 0.21.2.</source>
     <message>
         <location filename="../addFC/ui/pref_other.ui" line="252"/>
         <source>Enable secondary tools - they activate automatically after
-completing specific operations such as Pad, Pocket, and similar ones.</source>
+completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1151,52 +1151,86 @@ completing specific operations such as Pad, Pocket, and similar ones.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="295"/>
+        <location filename="../addFC/ui/pref_other.ui" line="275"/>
+        <location filename="../addFC/ui/pref_other.ui" line="340"/>
+        <source>Distance over which the panel fades out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="291"/>
+        <location filename="../addFC/ui/pref_other.ui" line="298"/>
+        <source>Panel position relative to cursor, above or below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="324"/>
+        <location filename="../addFC/ui/pref_other.ui" line="353"/>
+        <source>Distance between the cursor and the panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="343"/>
+        <source>Fade distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="356"/>
         <source>Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="329"/>
+        <location filename="../addFC/ui/pref_other.ui" line="366"/>
+        <location filename="../addFC/ui/pref_other.ui" line="382"/>
+        <source>The active zone border defines the area around the panel where the panel is fully visible and interactive before fading begins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="385"/>
+        <source>Panel margin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="403"/>
         <source>Changes require a HUD interface restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="355"/>
+        <location filename="../addFC/ui/pref_other.ui" line="429"/>
         <source>User templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="361"/>
+        <location filename="../addFC/ui/pref_other.ui" line="435"/>
         <source>Directory with templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="371"/>
+        <location filename="../addFC/ui/pref_other.ui" line="445"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="397"/>
+        <location filename="../addFC/ui/pref_other.ui" line="471"/>
         <source>Additions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="406"/>
+        <location filename="../addFC/ui/pref_other.ui" line="480"/>
         <source>FFmpeg</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="416"/>
+        <location filename="../addFC/ui/pref_other.ui" line="490"/>
         <source>NumPy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="426"/>
+        <location filename="../addFC/ui/pref_other.ui" line="500"/>
         <source>ezdxf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="436"/>
+        <location filename="../addFC/ui/pref_other.ui" line="510"/>
         <source>SheetMetal Workbench</source>
         <translation type="unfinished"></translation>
     </message>
