@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2026.03.01 (**3.3.2**):
+* HUD (Head‑Up Display): fixing the panel color theme.
+
 #### 2026.02.28 (**3.3.1**):
 * HUD (Head‑Up Display), improvements:
     - Added functionality to enter and evaluate expressions.

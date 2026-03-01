@@ -61,6 +61,16 @@ def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str, str]:
                 'background-color: #000000;'
                 '}'
             )
+            css_fx = (
+                'QToolButton {'
+                'background-color: #1c2223;'
+                'border-radius: 0;'
+                'border: none;'
+                '}'
+                'QToolButton:hover {'
+                'background-color: #141e1e;'
+                '}'
+            )
         else:
             # Standard
             css = (
@@ -82,6 +92,7 @@ def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str, str]:
                 'background-color: #1c2223;'
                 'border-radius: 0;'
                 'border: 1px solid #080e0f;'
+                'border-right: none;'
                 'padding: 2px 4px;'
                 '}'
                 'QCheckBox {'
@@ -92,22 +103,24 @@ def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str, str]:
                 'QToolButton {'
                 'background-color: #121819;'
                 'border: 1px solid #080e0f;'
-                'border-left: none;'
                 '}'
                 'QToolButton:hover {'
                 'background-color: #000000;'
                 '}'
             )
-        css_fx = (
-            'QToolButton {'
-            'background-color: #1c2223;'
-            'border-radius: 0;'
-            'border: none;'
-            '}'
-            'QToolButton:hover {'
-            'background-color: #2e3436;'
-            '}'
-        )
+            css_fx = (
+                'QToolButton {'
+                'background-color: #1c2223;'
+                'border-bottom: 1px solid #080e0f;'
+                'border-left: none;'
+                'border-radius: 0;'
+                'border-right: none;'
+                'border-top: 1px solid #080e0f;'
+                '}'
+                'QToolButton:hover {'
+                'background-color: #141e1e;'
+                '}'
+            )
         css_active = 'background-color: #1c2223;'
     else:
         # std, light
@@ -150,6 +163,15 @@ def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str, str]:
                 'background-color: #a0a0a0;'
                 '}'
             )
+            css_fx = (
+                'QToolButton {'
+                'background-color: #ffffff;'
+                'border-radius: 0;'
+                '}'
+                'QToolButton:hover {'
+                'background-color: #dcdcdc;'
+                '}'
+            )
         else:
             # Standard
             css = (
@@ -171,6 +193,7 @@ def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str, str]:
                 'background-color: #ffffff;'
                 'border-radius: 0;'
                 'border: 1px solid #8c8c8c;'
+                'border-right: none;'
                 'padding: 2px 4px;'
                 '}'
                 'QCheckBox {'
@@ -181,21 +204,24 @@ def generate_css(panel, app_theme, hud_theme) -> tuple[str, str, str, str]:
                 'QToolButton {'
                 'background-color: #c8c8c8;'
                 'border: 1px solid #8c8c8c;'
-                'border-left: none;'
                 '}'
                 'QToolButton:hover {'
                 'background-color: #b4b4b4;'
                 '}'
             )
-        css_fx = (
-            'QToolButton {'
-            'background-color: #ffffff;'
-            'border-radius: 0;'
-            '}'
-            'QToolButton:hover {'
-            'background-color: #e6e6e6;'
-            '}'
-        )
+            css_fx = (
+                'QToolButton {'
+                'background-color: #ffffff;'
+                'border-bottom: 1px solid #8c8c8c;'
+                'border-left: none;'
+                'border-radius: 0;'
+                'border-right: none;'
+                'border-top: 1px solid #8c8c8c;'
+                '}'
+                'QToolButton:hover {'
+                'background-color: #e6e6e6;'
+                '}'
+            )
         css_active = 'background-color: #b4b4b4;'
 
     return css, css_fx, css_apply, css_active

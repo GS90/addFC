@@ -189,6 +189,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.add_buttons()
 
         # control
+
         self.c_layout = QtWidgets.QHBoxLayout()
         self.c_layout.setContentsMargins(2, 2, 2, 2)
         self.c_layout.setSpacing(0)
@@ -217,6 +218,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.fx.setIcon(Gui.getIcon('bound-expression-unset'))
         self.fx.setIconSize(QtCore.QSize(16, 16))
         self.fx.setFixedHeight(self.HEIGHT_CONTROL)
+        self.fx.setFixedWidth(self.HEIGHT_CONTROL)
         self.fx.setStyleSheet(css_fx)
         self.fx.clicked.connect(self.expression)
         self.c_layout.addWidget(self.fx)
