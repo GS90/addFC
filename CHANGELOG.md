@@ -2,8 +2,10 @@
 
 ## Release notes
 
-#### 2026.03.01 (**3.3.2**):
-* HUD (Head‑Up Display): fixing the panel color theme.
+#### 2026.03.03 (**3.3.3**):
+* HUD (Head‑Up Display):
+    - Fixing the panel color theme.
+    - Prevent display during active dialogue.
 
 #### 2026.02.28 (**3.3.1**):
 * HUD (Head‑Up Display), improvements:

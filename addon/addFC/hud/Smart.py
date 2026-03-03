@@ -685,6 +685,8 @@ class SmartHUD(QtWidgets.QWidget):
         self.get_view()
         if not self.view:
             return False
+        if Gui.Control.activeTaskDialog() is not None:
+            return False
         self.active_workbench = Gui.activeWorkbench().name()
         if self.active_workbench == 'PartDesignWorkbench':
             return self.is_viewport()
