@@ -12,16 +12,16 @@ At present, this is:
 1. Generating a BOM from the model.
 2. Batch processing of sheet metal parts.
 3. Batch export to 3D formats.
-4. Component library - [internal](addon/extra/library.md).
+4. Component library, custom and [built-in](addon/extra/library.md).
 5. Assistance in creating design documentation.
 6. Exploded view - [screencast](https://youtu.be/G9eikdejY6g).
 7. Export models for viewing - [example](https://digiroad.tech/add/addFC/viewer.html).
-8. Process automation.
-9. Design aids.
+8. Automate processes to improve work efficiency.
+9. Auxiliary design tools.
 
-This workbench is primarily considered an additional tool that expands functionality, not a standalone solution.
+This workbench should be viewed primarily as a set of __tools that extend standard functionality__, rather than as a standalone solution.
 
-FreeCAD allows you to create custom toolbars. I recommend using this feature to build your own toolbar with the most frequently used functions and place it on your main workbench - for example, in the PartDesign workbench.
+Take advantage of FreeCAD's ability to create custom toolbars: create a toolbar with frequently used commands and place it on the main workbench (for example, on PartDesign).
 
 
 ### Preview
@@ -30,15 +30,15 @@ Bill of materials - BOM
 
 ![Bill of materials - BOM](doc/img/info_bom.png)
 
-HUD (Head‑Up Display), smart panel - beta
+Additional interface, smart pop‑up panel
 
 ![HUD](doc/other/hud.gif)
 
-Component library
+Library of elements and nodes
 
 ![Library](doc/img/library.png)
 
-Information about selected elements
+Data for the selected elements
 
 ![Summary](doc/img/summary.png)
 
@@ -65,13 +65,13 @@ Explosion (30 FPS)
 6. Create a drawing based on a template
 7. Create a link(s) with specified parameters
 8. Element and node library
-9. Display information about selected elements
+9. Data for the selected elements: mass, dimensions and other parameters.
 10. Exploded view
 11. Create a pipe using points
 12. Isolate selected objects
 13. Export models for viewing
-14. Recording the 3D viewport to a video file
-15. HUD (Head‑Up Display) - beta, only for PartDesign (currently)
+14. Capturing the view area with saving to a video file
+15. Activating the additional interface, only for PartDesign (currently)
 16. Documentation, help, and examples
 
 
