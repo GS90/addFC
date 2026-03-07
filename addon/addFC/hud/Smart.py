@@ -624,10 +624,7 @@ class SmartHUD(QtWidgets.QWidget):
 
     def eventFilter(self, obj, event):
         if self.isVisible():
-            current_size = self.size()
-            preferred_size = self.sizeHint()
-            if current_size != preferred_size:
-                self.adjustSize()
+            self.resize()
             if not self.is_raised:
                 self.raise_()
                 self.is_raised = True
@@ -636,6 +633,12 @@ class SmartHUD(QtWidgets.QWidget):
                     self.expression()
                     return True
         return super().eventFilter(obj, event)
+
+    def resize(self):
+        current_size = self.size()
+        preferred_size = self.sizeHint()
+        if current_size != preferred_size:
+            self.adjustSize()
 
     def hideEvent(self, event):
         self.is_raised = False
@@ -697,14 +700,19 @@ class SmartHUD(QtWidgets.QWidget):
 
         widget = QtGui.QApplication.widgetAt(self.position_current)
         if widget:
-            # overlay treeView: 'qt_scrollarea_viewport'
             self.selected_widget = widget.objectName().lower()
         else:
             self.selected_widget = None
 
         view_global = self.view.mapToGlobal(QtCore.QPoint(0, 0))
         view_rect = QtCore.QRect(view_global, self.view.size())
-        return view_rect.contains(self.position_current)
+
+        if view_rect.contains(self.position_current):
+            return True   # 3d view
+        elif self.selected_widget == 'qt_scrollarea_viewport':
+            return False  # treeView
+
+        return False
 
     def selection_parsing(self, doc, obj, sub, pos) -> bool:
         self.selected_count = len(Gui.Selection.getCompleteSelection())
@@ -724,6 +732,11 @@ class SmartHUD(QtWidgets.QWidget):
             self.preparation_panel('Other', None)
             return True
 
+        if selection.TypeId in self.FEATURE:
+            self.parent_object = selection
+            self.preparation_panel('Solid', '')
+            return True
+
         self.parent_object = selection.getParentGeoFeatureGroup()
         if hasattr(self.parent_object, 'TypeId'):
             if self.parent_object.TypeId == 'PartDesign::Body':
@@ -732,14 +745,14 @@ class SmartHUD(QtWidgets.QWidget):
         if selection.TypeId == 'App::Plane':
             self.preparation_panel('Plane', selection.TypeId)
             if self.selected_widget == 'qt_scrollarea_viewport':
-                return False  # overlay treeView
+                return False  # treeView
             else:
                 return True
 
         if selection.TypeId in self.OUTLINE:
             self.preparation_panel('Outline', selection.TypeId)
             if self.selected_widget == 'qt_scrollarea_viewport':
-                return False  # overlay treeView
+                return False  # treeView
             else:
                 return True
 
@@ -770,7 +783,7 @@ class SmartHUD(QtWidgets.QWidget):
                 return True
             return False
 
-        if selection_obj_type in self.FEATURE:
+        if selection_obj_type in self.FEATURE:  # duplicate?
             self.preparation_panel('Solid', '')
             return True
 
@@ -779,7 +792,7 @@ class SmartHUD(QtWidgets.QWidget):
         except BaseException:
             return False
 
-        # overlay treeView
+        # treeView
         if self.selected_widget == 'qt_scrollarea_viewport':
             if so.ShapeType not in ('Edge', 'Face'):
                 return False
