@@ -38,9 +38,13 @@ configuration = {
     'hud_smart_position': 'Above',  # 'Above' or 'Below'
     'hud_smart_panel_margin': 20,
     'hud_smart_fade_distance': 200,
+    'hud_smart_icon_size': 24,
+    'hud_smart_tree_work': True,
     'hud_tools_ban_smart': [
-        # std
         'Appearance',
+        'Validate Sketch',
+        # datum
+        'Datum Point',
         'Datum Line',
         'Datum Plane',
         'Coordinate System',

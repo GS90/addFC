@@ -79,7 +79,7 @@
    <item>
     <widget class="QLabel" name="info">
      <property name="text">
-      <string>Secondary tools are automatically activated only after specific operations are completed, such as Pad, Pocket, and similar operations.</string>
+      <string>«Sequential» tools are automatically activated only after specific operations are completed, such as Pad, Pocket, and similar operations.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

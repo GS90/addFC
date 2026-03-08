@@ -27,8 +27,10 @@ from addon.addFC import Logger, Preference as P
 from addon.addFC.hud.Theme import generate_css
 import addon.addFC.hud.Tools as T
 
+
 Draft = None  # import
 
+TREE = 'qt_scrollarea_viewport'
 
 pd_tools = []
 
@@ -37,8 +39,12 @@ def configure():
     ban = P.pref_configuration['hud_tools_ban_smart']
     global pd_tools
 
-    # std
+    # pd:std
     for tool in T.pd_tools_std:
+        if tool[0] not in ban:
+            pd_tools.append(tool)
+    # part
+    for tool in T.pd_tools_part:
         if tool[0] not in ban:
             pd_tools.append(tool)
     # draft
@@ -115,6 +121,11 @@ class SmartHUD(QtWidgets.QWidget):
     OFFSET_Y_UNO = 50
     OFFSET_Y_DOS = 90
 
+    OFFSET_TREE_X = 50
+    OFFSET_TREE_Y = 10
+    OFFSET_TREE_Y_UNO = 50
+    OFFSET_TREE_Y_DOS = 100
+
     HEIGHT_CONTROL = 28
 
     def __init__(self, parent: QtWidgets.QMainWindow):
@@ -163,6 +174,11 @@ class SmartHUD(QtWidgets.QWidget):
         # distances
         self.PM = pref['hud_smart_panel_margin']
         self.FD = pref['hud_smart_fade_distance']
+
+        # other
+        icon_size = pref.get('hud_smart_icon_size', 24)
+        self.ICON_SIZE = QtCore.QSize(icon_size, icon_size)
+        self.TREE_WORK = pref.get('hud_smart_tree_work', True)
 
         self.container = QtWidgets.QWidget()
         self.container.setObjectName('HUD')
@@ -328,7 +344,7 @@ class SmartHUD(QtWidgets.QWidget):
             btn.setObjectName(name)
             btn.setToolTip(name)
             btn.setProperty('row', row)
-            btn.setIconSize(QtCore.QSize(24, 24))
+            btn.setIconSize(self.ICON_SIZE)
             btn.setIcon(Gui.getIcon(icon))
             btn.clicked.connect(lambda checked=False,
                                 n=name,
@@ -367,8 +383,9 @@ class SmartHUD(QtWidgets.QWidget):
 
         self.freeze = True
 
+        tree = self.selected_widget == TREE
         # adaptation
-        if name in T.tools_value or name in T.tools_checkbox:
+        if (name in T.tools_value or name in T.tools_checkbox) and not tree:
             self.current_control = name
             # button style: active
             btn.setStyleSheet(self.css_active)
@@ -401,7 +418,7 @@ class SmartHUD(QtWidgets.QWidget):
             if name == 'New Sketch':
                 self.new_sketch = True
         # parent tools
-        if self.parent_object:
+        if not tree and self.parent_object:
             if name in T.pd_tools_parent:
                 Gui.Selection.clearSelection()
                 Gui.Selection.addSelection(
@@ -634,11 +651,18 @@ class SmartHUD(QtWidgets.QWidget):
                     return True
         return super().eventFilter(obj, event)
 
-    def resize(self):
-        current_size = self.size()
-        preferred_size = self.sizeHint()
-        if current_size != preferred_size:
+    def resize(self, force=False):
+        if force:
+            # problems with the display?
             self.adjustSize()
+            Gui.updateGui()
+            self.adjustSize()
+            self.raise_()
+        else:
+            current_size = self.size()
+            preferred_size = self.sizeHint()
+            if current_size != preferred_size:
+                self.adjustSize()
 
     def hideEvent(self, event):
         self.is_raised = False
@@ -673,7 +697,6 @@ class SmartHUD(QtWidgets.QWidget):
         self.sketch_profile = None
         try:
             if not self.is_available():
-                # todo: working with the construction tree
                 return
             if not self.selection_parsing(doc, obj, sub, pos):
                 return
@@ -682,7 +705,9 @@ class SmartHUD(QtWidgets.QWidget):
             return
         position_local = self.parent.mapFromGlobal(self.position_current)
         self.activate(position_local)
+        # display
         self.raise_()
+        self.resize(force=True)
 
     def is_available(self):
         self.get_view()
@@ -708,9 +733,9 @@ class SmartHUD(QtWidgets.QWidget):
         view_rect = QtCore.QRect(view_global, self.view.size())
 
         if view_rect.contains(self.position_current):
-            return True   # 3d view
-        elif self.selected_widget == 'qt_scrollarea_viewport':
-            return False  # treeView
+            return True  # 3d view
+        elif self.selected_widget == TREE:
+            return True if self.TREE_WORK else False  # treeView
 
         return False
 
@@ -720,7 +745,7 @@ class SmartHUD(QtWidgets.QWidget):
         ad = FreeCAD.ActiveDocument
 
         if ad.Name != doc:
-            self.preparation_panel('Other', None)
+            self.preparation_panel('Other', None)  # or 'Link'
             return True
 
         selection = Gui.Selection.getSelection(doc)
@@ -728,8 +753,40 @@ class SmartHUD(QtWidgets.QWidget):
             return False
         selection = selection[0]
 
+        if self.TREE_WORK and self.selected_widget == TREE:
+            if not hasattr(selection, 'TypeId'):
+                return False
+            _type = selection.TypeId
+            if _type == 'App::Link':
+                self.preparation_panel('TreeLink', _type)
+                self.parent_object = selection
+                return True
+            elif _type == 'App::Part':
+                self.preparation_panel('TreePart', _type)
+                self.parent_object = selection
+                return True
+            elif _type == 'PartDesign::Body':
+                self.preparation_panel('TreeParent', _type)
+                self.parent_object = selection
+                return True
+            elif _type in self.FEATURE:
+                self.preparation_panel('Solid', _type)
+                self.parent_object = selection
+                return True
+            elif _type in self.OUTLINE:
+                self.preparation_panel('Outline', _type, obj)
+                return True
+            elif _type in T.pd_tree_entity:
+                self.preparation_panel('TreeEntity', _type, obj)
+                return True
+            elif _type == 'App::Plane':
+                self.preparation_panel('Plane', selection.TypeId)
+                return True
+            else:
+                return False
+
         if selection.TypeId == 'App::Link':
-            self.preparation_panel('Other', None)
+            self.preparation_panel('Other', None)  # or 'Link'
             return True
 
         if selection.TypeId in self.FEATURE:
@@ -737,6 +794,7 @@ class SmartHUD(QtWidgets.QWidget):
             self.preparation_panel('Solid', '')
             return True
 
+        # todo: check if this method always works?
         self.parent_object = selection.getParentGeoFeatureGroup()
         if hasattr(self.parent_object, 'TypeId'):
             if self.parent_object.TypeId == 'PartDesign::Body':
@@ -744,17 +802,11 @@ class SmartHUD(QtWidgets.QWidget):
 
         if selection.TypeId == 'App::Plane':
             self.preparation_panel('Plane', selection.TypeId)
-            if self.selected_widget == 'qt_scrollarea_viewport':
-                return False  # treeView
-            else:
-                return True
+            return True
 
         if selection.TypeId in self.OUTLINE:
-            self.preparation_panel('Outline', selection.TypeId)
-            if self.selected_widget == 'qt_scrollarea_viewport':
-                return False  # treeView
-            else:
-                return True
+            self.preparation_panel('Outline', selection.TypeId, obj)
+            return True
 
         self.sketch_profile = None
 
@@ -792,11 +844,6 @@ class SmartHUD(QtWidgets.QWidget):
         except BaseException:
             return False
 
-        # treeView
-        if self.selected_widget == 'qt_scrollarea_viewport':
-            if so.ShapeType not in ('Edge', 'Face'):
-                return False
-
         # datum
         try:
             sen = selection.SubElementNames[-1]
@@ -819,18 +866,21 @@ class SmartHUD(QtWidgets.QWidget):
                 else:
                     return False
             case 'Solid' | 'Compound':
-                self.preparation_panel('Solid', '')  # so.ShapeType
+                self.preparation_panel('Solid', '')  # so.ShapeType?
                 return True
             case _:
                 return False  # todo: what could it be?
 
-    def preparation_panel(self, entity, type_id):
+    def preparation_panel(self, entity, type_id, obj=''):
         workbench_set = T.tools_access.get(self.active_workbench)
         if not workbench_set:
             return  # todo: debug?
         entity_set = workbench_set.get(entity, []).copy()
         if not entity_set:
             return  # todo: debug?
+
+        ad = FreeCAD.ActiveDocument
+        tree = self.selected_widget == TREE
 
         # exceptions
         if entity == 'Outline' and type_id == 'Part::Part2DObjectPython':
@@ -840,20 +890,47 @@ class SmartHUD(QtWidgets.QWidget):
             if 'Edit Sketch' in entity_set:
                 entity_set.remove('Edit Sketch')
 
+        # check if the sketch is in use
+        if entity == 'Outline' and obj != '':
+            try:
+                sketch = ad.getObject(obj)
+                if len(sketch.InList) > 2:
+                    entity_set = workbench_set.get('OutlineUsed', []).copy()
+            except BaseException as err:
+                Logger.warning('HUD, preparation: ' + str(err))
+
+        # editing the reference sketch
+        if entity == 'TreeEntity' and obj != '':
+            try:
+                element = ad.getObject(obj)
+                if hasattr(element, 'Profile'):
+                    self.sketch_profile = element.Profile[0]
+                else:
+                    entity_set.remove('Edit Sketch')
+            except BaseException as err:
+                Logger.warning('HUD, preparation: ' + str(err))
+                entity_set.remove('Edit Sketch')
+
         # available buttons
         used_tools, used_rows = False, []
         buttons = self.b_widget.findChildren(QtWidgets.QToolButton)
         for btn in buttons:
             object_name = btn.objectName()
             if object_name in entity_set:
+
                 # exceptions
-                if self.selected_count < 2:
-                    if object_name == 'Measure':
+                if self.selected_count > 1:
+                    if object_name not in T.tools_multiple_selection_ok:
+                        btn.setVisible(False)
+                        continue
+                else:
+                    if object_name in T.tools_single_selection_ban:
                         btn.setVisible(False)
                         continue
                     elif object_name == 'Datum Plane' and entity == 'Outline':
                         btn.setVisible(False)
                         continue
+
                 if not used_tools:
                     used_tools = True
                 row = btn.property('row')
@@ -872,11 +949,24 @@ class SmartHUD(QtWidgets.QWidget):
 
         if self.position_panel == 'Above':
             # dependence on rows
-            if len(used_rows) == 1:
-                _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_UNO)
+            if self.TREE_WORK and tree:
+                self.cursor_offset_x = self.OFFSET_TREE_X
+                if len(used_rows) == 1:
+                    self.cursor_offset_y = -self.OFFSET_TREE_Y_UNO
+                else:
+                    self.cursor_offset_y = -self.OFFSET_TREE_Y_DOS
             else:
-                _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_DOS)
-            self.cursor_offset_y = _offset_y
+                if len(used_rows) == 1:
+                    _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_UNO)
+                else:
+                    _offset_y = -(self.cursor_offset_x + self.OFFSET_Y_DOS)
+                self.cursor_offset_y = _offset_y
+        else:
+            if self.TREE_WORK and tree:
+                self.cursor_offset_x = self.OFFSET_TREE_X
+                self.cursor_offset_y = self.OFFSET_TREE_Y
+
+        self.adjustSize()
 
     def selection_remove(self, doc, obj, sub):
         if not self.current_button:
@@ -896,8 +986,8 @@ class SmartHUD(QtWidgets.QWidget):
         else:
             self.move_to_cursor(position)
             self.opacity_effect.setOpacity(self.OPACITY_MAX)
-            self.show()
             self.timer.start(self.TIMER_SLOW)
+            self.show()
 
     def move_to_cursor(self, cursor_local):
         self.position_init = QtGui.QCursor.pos()
@@ -906,7 +996,6 @@ class SmartHUD(QtWidgets.QWidget):
         x = max(0, min(x, self.parent.width() - self.width()))
         y = max(0, min(y, self.parent.height() - self.height()))
         self.move(int(x), int(y))
-        self.raise_()
 
     # --------------------------------------------------------------------------
 
@@ -1044,7 +1133,7 @@ class SmartHUD(QtWidgets.QWidget):
                 Gui.Selection.clearSelection()
                 Gui.Selection.addSelection(FreeCAD.ActiveDocument.Name,
                                            self.active_object.Tip.Name, '')
-                self.preparation_panel('Secondary', '')
+                self.preparation_panel('Sequential', '')
                 position_local = self.parent.mapFromGlobal(
                     self.position_current)
                 self.collapse()

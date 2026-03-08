@@ -1010,6 +1010,14 @@ class addFCPreferenceOther():
         # hud:smart, fade distance:
         _fade = pref_configuration['hud_smart_fade_distance']
         self.form.spinBox_hud_smart_fade.setValue(_fade)
+        # hud:smart, icon size:
+        self.form.comboBox_hud_smart_icon_size.addItems(
+            ('16', '24', '32', '48'))
+        _size = str(pref_configuration['hud_smart_icon_size'])
+        self.form.comboBox_hud_smart_icon_size.setCurrentText(_size)
+        # hud:smart, tree work:
+        _tree_work = pref_configuration['hud_smart_tree_work']
+        self.form.checkBox_hud_tree_work.setChecked(_tree_work)
 
         # additions:
         self.form.sm.setChecked(afc_additions['sm'][0])
@@ -1056,6 +1064,8 @@ class addFCPreferenceOther():
         _position = self.form.comboBox_hud_spart_position.currentText()
         _margin = self.form.spinBox_hud_smart_margin.value()
         _fade = self.form.spinBox_hud_smart_fade.value()
+        _size = int(self.form.comboBox_hud_smart_icon_size.currentText())
+        _tree_work = self.form.checkBox_hud_tree_work.isChecked()
 
         fresh = {
             # interface:
@@ -1075,6 +1085,8 @@ class addFCPreferenceOther():
             'hud_smart_position': _position,
             'hud_smart_panel_margin': _margin,
             'hud_smart_fade_distance': _fade,
+            'hud_smart_icon_size': _size,
+            'hud_smart_tree_work': _tree_work,
             # other:
             'drawing_templates_user': self.form.utLineEdit.text(),
         }
@@ -1188,13 +1200,13 @@ def configuring_tools() -> None:
     form = FreeCAD.Gui.PySideUic.loadUi(
         os.path.join(AFC_DIR, 'hud', 'Tools.ui'))
 
-    from addon.addFC.hud.Tools import pd_tools_std, pd_tools_draft, pd_tools_sm
+    import addon.addFC.hud.Tools as T
 
-    tools = pd_tools_std.copy()
-    tools.extend(pd_tools_draft)
-
+    tools = T.pd_tools_std.copy()
+    tools.extend(T.pd_tools_part)
+    tools.extend(T.pd_tools_draft)
     if afc_additions['sm'][0]:
-        tools.extend(pd_tools_sm)
+        tools.extend(T.pd_tools_sm)
 
     # todo: ...
     form.comboBoxW.addItems(('PartDesign',))
@@ -1235,8 +1247,10 @@ def configuring_tools() -> None:
         # note
         if 'Draft ' in name:
             table.setItem(x, 2, QtGui.QTableWidgetItem('Draft Workbench'))
-        if 'SheetMetal' in cmd:
+        elif 'SheetMetal' in cmd:
             table.setItem(x, 2, QtGui.QTableWidgetItem('Sheet Metal'))
+        elif cmd == 'Part_SimpleCopy':
+            table.setItem(x, 2, QtGui.QTableWidgetItem('Part Workbench'))
         else:
             for s in secondary:
                 if s in cmd:

@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>712</width>
-    <height>628</height>
+    <width>665</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -88,7 +88,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_hud">
+       <layout class="QHBoxLayout" name="horizontalLayout_hud" stretch="1,1,1">
         <item>
          <widget class="QGroupBox" name="groupBox_hud_main">
           <property name="styleSheet">
@@ -98,6 +98,30 @@
            <string>Basic settings</string>
           </property>
           <layout class="QGridLayout" name="gridLayout">
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="checkBox_hud_right">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Right panel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="checkBox_hud_smart">
+             <property name="text">
+              <string>Smart panel (dynamic)</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox_hud_autoload">
+             <property name="text">
+              <string>Launch HUD on Startup</string>
+             </property>
+            </widget>
+           </item>
            <item row="4" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_hud_tools">
              <item>
@@ -131,23 +155,6 @@
              </item>
             </layout>
            </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="checkBox_hud_smart">
-             <property name="text">
-              <string>Smart panel (dynamic)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="checkBox_hud_right">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Right panel</string>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="0">
             <widget class="QCheckBox" name="checkBox_hud_top">
              <property name="enabled">
@@ -158,12 +165,18 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox_hud_autoload">
-             <property name="text">
-              <string>Launch HUD on Startup</string>
+           <item row="5" column="0">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-            </widget>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -176,77 +189,68 @@
           <property name="title">
            <string>Preferences</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_hud_opacity">
-             <property name="text">
-              <string>Opacity</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <layout class="QGridLayout" name="gridLayout_hud_pref">
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_hud_opacity">
+               <property name="text">
+                <string>Opacity</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_hud_theme">
+               <property name="text">
+                <string>Theme</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QSpinBox" name="spinBox_hud_opacity">
+               <property name="minimum">
+                <number>0</number>
+               </property>
+               <property name="maximum">
+                <number>50</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="comboBox_hud_theme"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_hud_value_step">
+               <property name="toolTip">
+                <string>Controls the step size when changing the value</string>
+               </property>
+               <property name="text">
+                <string>Value step</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="comboBox_hud_value_step">
+               <property name="toolTip">
+                <string>Controls the step size when changing the value</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
-           <item row="2" column="1">
-            <widget class="QComboBox" name="comboBox_hud_value_step">
-             <property name="toolTip">
-              <string>Controls the step size when changing the value</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_hud_theme">
-             <property name="text">
-              <string>Theme</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <spacer name="verticalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_hud_value_step">
-             <property name="toolTip">
-              <string>Controls the step size when changing the value</string>
-             </property>
-             <property name="text">
-              <string>Value step</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_hud_opacity">
-             <property name="minimum">
-              <number>0</number>
-             </property>
-             <property name="maximum">
-              <number>50</number>
-             </property>
-             <property name="value">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="comboBox_hud_theme"/>
-           </item>
-           <item row="3" column="1">
+           <item alignment="Qt::AlignRight">
             <widget class="QCheckBox" name="checkBox_hud_sequential">
              <property name="toolTip">
               <string>Enable secondary tools - they activate automatically after
@@ -256,6 +260,19 @@ completing specific operations such as Pad, Pocket, and similar ones</string>
               <string>Sequential tools</string>
              </property>
             </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -268,44 +285,142 @@ completing specific operations such as Pad, Pocket, and similar ones</string>
           <property name="title">
            <string>Preferences, smart panel</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="3" column="1">
-            <widget class="QSpinBox" name="spinBox_hud_smart_fade">
-             <property name="toolTip">
-              <string>Distance over which the panel fades out</string>
-             </property>
-             <property name="minimum">
-              <number>10</number>
-             </property>
-             <property name="maximum">
-              <number>800</number>
-             </property>
-             <property name="value">
-              <number>200</number>
-             </property>
-            </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <layout class="QGridLayout" name="gridLayout_hud_pref_smart">
+             <item row="1" column="1">
+              <widget class="QComboBox" name="comboBox_hud_spart_position">
+               <property name="toolTip">
+                <string>Panel position relative to cursor, above or below</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QSpinBox" name="spinBox_hud_smart_margin">
+               <property name="toolTip">
+                <string>The active zone border defines the area around the panel where the panel is fully visible and interactive before fading begins</string>
+               </property>
+               <property name="minimum">
+                <number>10</number>
+               </property>
+               <property name="maximum">
+                <number>800</number>
+               </property>
+               <property name="value">
+                <number>20</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_hud_smart_position">
+               <property name="toolTip">
+                <string>Panel position relative to cursor, above or below</string>
+               </property>
+               <property name="text">
+                <string>Position</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_hud_smart_margin">
+               <property name="toolTip">
+                <string>The active zone border defines the area around the panel where the panel is fully visible and interactive before fading begins</string>
+               </property>
+               <property name="text">
+                <string>Panel margin</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="spinBox_hud_cursor_offset">
+               <property name="toolTip">
+                <string>Distance between the cursor and the panel</string>
+               </property>
+               <property name="minimum">
+                <number>10</number>
+               </property>
+               <property name="maximum">
+                <number>60</number>
+               </property>
+               <property name="value">
+                <number>40</number>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_hud_smart_fade">
+               <property name="toolTip">
+                <string>Distance over which the panel fades out</string>
+               </property>
+               <property name="text">
+                <string>Fade distance</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_hud_cursor_offset">
+               <property name="toolTip">
+                <string>Distance between the cursor and the panel</string>
+               </property>
+               <property name="text">
+                <string>Offset</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QSpinBox" name="spinBox_hud_smart_fade">
+               <property name="toolTip">
+                <string>Distance over which the panel fades out</string>
+               </property>
+               <property name="minimum">
+                <number>10</number>
+               </property>
+               <property name="maximum">
+                <number>800</number>
+               </property>
+               <property name="value">
+                <number>200</number>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_hud_smart_icon_size">
+               <property name="text">
+                <string>Icon size</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QComboBox" name="comboBox_hud_smart_icon_size"/>
+             </item>
+            </layout>
            </item>
-           <item row="1" column="1">
-            <widget class="QComboBox" name="comboBox_hud_spart_position">
-             <property name="toolTip">
-              <string>Panel position relative to cursor, above or below</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_hud_spart_position">
-             <property name="toolTip">
-              <string>Panel position relative to cursor, above or below</string>
-             </property>
+           <item alignment="Qt::AlignRight">
+            <widget class="QCheckBox" name="checkBox_hud_tree_work">
              <property name="text">
-              <string>Position</string>
+              <string>Show in TreeView</string>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
+           <item>
             <spacer name="verticalSpacer_6">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -313,81 +428,10 @@ completing specific operations such as Pad, Pocket, and similar ones</string>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>40</height>
+               <height>10</height>
               </size>
              </property>
             </spacer>
-           </item>
-           <item row="0" column="1">
-            <widget class="QSpinBox" name="spinBox_hud_cursor_offset">
-             <property name="toolTip">
-              <string>Distance between the cursor and the panel</string>
-             </property>
-             <property name="minimum">
-              <number>10</number>
-             </property>
-             <property name="maximum">
-              <number>60</number>
-             </property>
-             <property name="value">
-              <number>40</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_hud_smart_fade">
-             <property name="toolTip">
-              <string>Distance over which the panel fades out</string>
-             </property>
-             <property name="text">
-              <string>Fade distance</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_hud_cursor_offset">
-             <property name="toolTip">
-              <string>Distance between the cursor and the panel</string>
-             </property>
-             <property name="text">
-              <string>Offset</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBox_hud_smart_margin">
-             <property name="toolTip">
-              <string>The active zone border defines the area around the panel where the panel is fully visible and interactive before fading begins</string>
-             </property>
-             <property name="minimum">
-              <number>10</number>
-             </property>
-             <property name="maximum">
-              <number>800</number>
-             </property>
-             <property name="value">
-              <number>20</number>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_hud_smart_margin">
-             <property name="toolTip">
-              <string>The active zone border defines the area around the panel where the panel is fully visible and interactive before fading begins</string>
-             </property>
-             <property name="text">
-              <string>Panel margin</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
            </item>
           </layout>
          </widget>
