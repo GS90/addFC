@@ -102,10 +102,10 @@ pd_tools_part = [
 
 pd_tools_draft = [  # other cmd
     ('Draft Clone', '', 'Draft_Clone', 1),
-    ('Draft Mirror', '', 'Draft_Mirror', 2),
-    ('Draft Array Ortho', '', 'Draft_Array', 2),
-    ('Draft Array Polar', '', 'Draft_PolarArray', 2),
-    ('Draft Array Circular', '', 'Draft_CircularArray', 2),
+    ('Draft Mirror', '', 'Draft_Mirror', 1),
+    ('Draft Array Ortho', '', 'Draft_Array', 1),
+    ('Draft Array Polar', '', 'Draft_PolarArray', 1),
+    ('Draft Array Circular', '', 'Draft_CircularArray', 1),
 ]
 
 pd_activity_ban = (
@@ -206,6 +206,7 @@ tools_access = {
         ],
         'Face': [
             'Measure',
+            'Fit Selection',
             'Align to Selection',
             'Edit Sketch',
             'Datum Point',
@@ -340,6 +341,7 @@ tools_single_selection_ban = (
 # ------------------------------------------------------------------------------
 
 # todo: Revolution, Additive Loft
+
 
 tools_value = {
     # pd:uno

@@ -2,7 +2,7 @@
 
 ## Release notes
 
-#### 2026.03.08 (**3.4.0**):
+#### 2026.03.08 (**3.4.1**):
 * HUD (Head‑Up Display):
     - Working with the panel in the project tree.
     - Fixes and improvements.

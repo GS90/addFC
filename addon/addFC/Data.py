@@ -41,7 +41,9 @@ configuration = {
     'hud_smart_icon_size': 24,
     'hud_smart_tree_work': True,
     'hud_tools_ban_smart': [
+        # other
         'Appearance',
+        'Set Tip',
         'Validate Sketch',
         # datum
         'Datum Point',
