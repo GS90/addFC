@@ -77,29 +77,34 @@ def configure():
 
 
 class SelectionObserverHUD:
-    def __init__(self, parent):
-        self.overlay = parent
 
     def addSelection(self, doc, obj, sub, pos):
         try:
-            self.overlay.selection_add(doc, obj, sub, pos)
+            overlay.selection_add(doc, obj, sub, pos)
         except Exception as err:
             Logger.error('HUD, addSelection: ' + str(err))
             Gui.Selection.removeObserver(self)
 
     def removeSelection(self, doc, obj, sub):
         try:
-            self.overlay.selection_remove(doc, obj, sub)
+            overlay.selection_remove(doc, obj, sub)
         except Exception as err:
             Logger.error('HUD, removeSelection: ' + str(err))
             Gui.Selection.removeObserver(self)
 
     def clearSelection(self, doc):
         try:
-            self.overlay.selection_clear()
+            overlay.selection_clear()
         except Exception as err:
             Logger.error('HUD, clearSelection: ' + str(err))
             Gui.Selection.removeObserver(self)
+
+
+class DocumentObserverHUD:
+
+    def slotCreatedDocument(self, doc):
+        if overlay:
+            overlay.get_view()
 
 
 # ------------------------------------------------------------------------------
@@ -134,6 +139,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.setObjectName('SmartHUD')
 
         self.is_raised = False
+        self.draw_style = 0  # as is
 
         configure()
 
@@ -179,6 +185,7 @@ class SmartHUD(QtWidgets.QWidget):
         icon_size = pref.get('hud_smart_icon_size', 24)
         self.ICON_SIZE = QtCore.QSize(icon_size, icon_size)
         self.TREE_WORK = pref.get('hud_smart_tree_work', True)
+        self.EXTRA_MOUSE = pref.get('hud_smart_extra_mouse_buttons', True)
 
         self.container = QtWidgets.QWidget()
         self.container.setObjectName('HUD')
@@ -329,11 +336,15 @@ class SmartHUD(QtWidgets.QWidget):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_panel)
 
-        self.observer = SelectionObserverHUD(self)
-        Gui.Selection.addObserver(self.observer)
+        self.selectionObserver = SelectionObserverHUD()
+        Gui.Selection.addObserver(self.selectionObserver)
+
+        self.documentObserver = DocumentObserverHUD()
+        FreeCAD.addDocumentObserver(self.documentObserver)
 
         parent.workbenchActivated.connect(self.workbench_changed)
 
+        self.view = None
         self.get_view()
 
     # --------------------------------------------------------------------------
@@ -614,11 +625,17 @@ class SmartHUD(QtWidgets.QWidget):
 
     def get_view(self):
         try:
-            area = self.parent.centralWidget()
-            self.view = area.currentSubWindow()
-            self.view.installEventFilter(self)
-        except BaseException:
-            pass  # todo: error?
+            cw = self.parent.centralWidget()
+            csw = cw.currentSubWindow()
+            if csw is None:
+                return
+            if self.view is csw:
+                return
+            else:
+                self.view = csw
+                self.view.installEventFilter(self)
+        except BaseException as err:
+            Logger.error('HUD, view: ' + str(err))
 
     def workbench_changed(self, workbench_name):
         if not self.new_sketch:
@@ -649,6 +666,26 @@ class SmartHUD(QtWidgets.QWidget):
                 if event.key() == QtCore.Qt.Key_Equal:
                     self.expression()
                     return True
+        else:
+            if event.type() == QtCore.QEvent.MouseButtonPress:
+                if event.button() == QtCore.Qt.ForwardButton:
+                    try:
+                        if not self.EXTRA_MOUSE or self.freeze:
+                            return False
+                        if not self.is_available():
+                            return False
+                        self.parent_object = None
+                        self.active_object = None
+                        self.sketch_profile = None
+                        self.preparation_panel('Base', '')
+                        position_local = self.parent.mapFromGlobal(
+                            self.position_current)
+                        self.activate(position_local)
+                        return True
+                    except BaseException:
+                        return False
+                elif event.button() == QtCore.Qt.BackButton:
+                    self.toggle_draw_style()
         return super().eventFilter(obj, event)
 
     def resize(self, force=False):
@@ -686,6 +723,17 @@ class SmartHUD(QtWidgets.QWidget):
                                     '=', False, 1)
             QtCore.QCoreApplication.postEvent(self.transaction, event)
             self.collapse()
+
+    def toggle_draw_style(self):
+        try:
+            if self.draw_style == 0:
+                Gui.runCommand('Std_DrawStyle', 2)  # wireframe
+                self.draw_style = 2
+            else:
+                Gui.runCommand('Std_DrawStyle', 0)  # as is
+                self.draw_style = 0
+        except BaseException:
+            pass
 
     # --------------------------------------------------------------------------
 
@@ -753,9 +801,10 @@ class SmartHUD(QtWidgets.QWidget):
             return False
         selection = selection[0]
 
+        if not hasattr(selection, 'TypeId'):
+            return False
+
         if self.TREE_WORK and self.selected_widget == TREE:
-            if not hasattr(selection, 'TypeId'):
-                return False
             _type = selection.TypeId
             if _type == 'App::Link':
                 self.preparation_panel('TreeLink', _type)
@@ -779,7 +828,7 @@ class SmartHUD(QtWidgets.QWidget):
             elif _type in T.pd_tree_entity:
                 self.preparation_panel('TreeEntity', _type, obj)
                 return True
-            elif _type == 'App::Plane':
+            elif _type == 'App::Plane' or _type == 'PartDesign::Plane':
                 self.preparation_panel('Plane', selection.TypeId)
                 return True
             else:
@@ -855,21 +904,24 @@ class SmartHUD(QtWidgets.QWidget):
         except BaseException:
             pass
 
-        match so.ShapeType:
-            case 'Edge' | 'Face':
-                self.preparation_panel(so.ShapeType, so.TypeId)
-                return True
-            case 'Vertex':
-                if self.selected_count > 1:  # only 'Measure'
+        try:
+            match so.ShapeType:
+                case 'Edge' | 'Face':
                     self.preparation_panel(so.ShapeType, so.TypeId)
                     return True
-                else:
-                    return False
-            case 'Solid' | 'Compound':
-                self.preparation_panel('Solid', '')  # so.ShapeType?
-                return True
-            case _:
-                return False  # todo: what could it be?
+                case 'Vertex':
+                    if self.selected_count > 1:  # only 'Measure'
+                        self.preparation_panel(so.ShapeType, so.TypeId)
+                        return True
+                    else:
+                        return False
+                case 'Solid' | 'Compound':
+                    self.preparation_panel('Solid', '')  # so.ShapeType?
+                    return True
+                case _:
+                    return False  # todo: what could it be?
+        except Exception:
+            return False
 
     def preparation_panel(self, entity, type_id, obj=''):
         workbench_set = T.tools_access.get(self.active_workbench)
@@ -1015,14 +1067,25 @@ class SmartHUD(QtWidgets.QWidget):
         self.timer.stop()
 
     def clear(self):
+        # selectionObserver
         try:
-            if self.observer:
-                Gui.Selection.removeObserver(self.observer)
-                self.observer = None
+            if self.selectionObserver:
+                Gui.Selection.removeObserver(self.selectionObserver)
+                self.selectionObserver = None
         except Exception as err:
-            Logger.warning('HUD, observer removal: ' + str(err))
-        finally:
-            self.collapse()
+            self.selectionObserver = None
+            Logger.warning('HUD, selectionObserver: ' + str(err))
+        # documentObserver
+        try:
+            if self.documentObserver:
+                Gui.removeDocumentObserver(self.documentObserver)
+                self.documentObserver = None
+        except Exception as err:
+            self.documentObserver = None
+            Logger.warning('HUD, documentObserver: ' + str(err))
+        # finally
+        self.collapse()
+        self.view = None
 
     # --------------------------------------------------------------------------
 
@@ -1153,11 +1216,10 @@ for child in app.children():
     if type(child).__name__ == 'SmartHUD':
         try:
             child.clear()
-        except BaseException:
-            pass
+        except BaseException as err:
+            Logger.error('HUD, launch: ' + str(err))
         child.deleteLater()
         init = False
 
 if init:
     overlay = SmartHUD(app)
-    overlay.adjustSize()

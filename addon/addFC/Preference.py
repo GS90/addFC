@@ -1018,6 +1018,9 @@ class addFCPreferenceOther():
         # hud:smart, tree work:
         _tree_work = pref_configuration['hud_smart_tree_work']
         self.form.checkBox_hud_tree_work.setChecked(_tree_work)
+        # hud:smart, mouse extra buttons:
+        _extra = pref_configuration['hud_smart_extra_mouse_buttons']
+        self.form.checkBox_hud_extra_mouse_buttons.setChecked(_extra)
 
         # additions:
         self.form.sm.setChecked(afc_additions['sm'][0])
@@ -1066,9 +1069,9 @@ class addFCPreferenceOther():
         _fade = self.form.spinBox_hud_smart_fade.value()
         _size = int(self.form.comboBox_hud_smart_icon_size.currentText())
         _tree_work = self.form.checkBox_hud_tree_work.isChecked()
+        _extra = self.form.checkBox_hud_extra_mouse_buttons.isChecked()
 
         fresh = {
-            # interface:
             'interface_font': [
                 self.form.fontCheckBox.isChecked(),
                 self.form.fontComboBox.currentText(),
@@ -1087,6 +1090,7 @@ class addFCPreferenceOther():
             'hud_smart_fade_distance': _fade,
             'hud_smart_icon_size': _size,
             'hud_smart_tree_work': _tree_work,
+            'hud_smart_extra_mouse_buttons': _extra,
             # other:
             'drawing_templates_user': self.form.utLineEdit.text(),
         }

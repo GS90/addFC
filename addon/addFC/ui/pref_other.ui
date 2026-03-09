@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>665</width>
-    <height>660</height>
+    <height>690</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -414,6 +414,21 @@ completing specific operations such as Pad, Pocket, and similar ones</string>
             <widget class="QCheckBox" name="checkBox_hud_tree_work">
              <property name="text">
               <string>Show in TreeView</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item alignment="Qt::AlignRight">
+            <widget class="QCheckBox" name="checkBox_hud_extra_mouse_buttons">
+             <property name="toolTip">
+              <string>Enable extra mouse buttons:
+«Forward» button - open the basic elements creation panel.
+«Back» button - switch between standard and wireframe display modes.</string>
+             </property>
+             <property name="text">
+              <string>Extra mouse buttons</string>
              </property>
              <property name="checked">
               <bool>true</bool>

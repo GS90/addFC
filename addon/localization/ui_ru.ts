@@ -451,32 +451,46 @@ All models are created in FreeCAD version 0.21.2.</source>
         <translation>Показывать в дереве проекта</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="447"/>
+        <location filename="../addFC/ui/pref_other.ui" line="426"/>
+        <source>Enable extra mouse buttons:
+«Forward» button - open the basic elements creation panel.
+«Back» button - switch between standard and wireframe display modes.</source>
+        <translation>Задействовать дополнительные кнопки мыши:
+Кнопка «Вперёд» - открыть панель создания базовых элементов.
+Кнопка «Назад» - переключиться между стандартным и каркасным режимами отображения.</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="431"/>
+        <source>Extra mouse buttons</source>
+        <translation>Доп. кнопки мыши</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="462"/>
         <source>Changes require a HUD interface restart</source>
         <translation>Для применения изменений требуется перезапуск интерфейса HUD</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="515"/>
+        <location filename="../addFC/ui/pref_other.ui" line="530"/>
         <source>Additions</source>
         <translation>Дополнения</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="554"/>
+        <location filename="../addFC/ui/pref_other.ui" line="569"/>
         <source>SheetMetal Workbench</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="544"/>
+        <location filename="../addFC/ui/pref_other.ui" line="559"/>
         <source>ezdxf</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="534"/>
+        <location filename="../addFC/ui/pref_other.ui" line="549"/>
         <source>NumPy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="524"/>
+        <location filename="../addFC/ui/pref_other.ui" line="539"/>
         <source>FFmpeg</source>
         <translation></translation>
     </message>
@@ -532,17 +546,17 @@ completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation>Отступ</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="473"/>
+        <location filename="../addFC/ui/pref_other.ui" line="488"/>
         <source>User templates</source>
         <translation>Пользовательские шаблоны</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="479"/>
+        <location filename="../addFC/ui/pref_other.ui" line="494"/>
         <source>Directory with templates</source>
         <translation>Каталог с шаблонами</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="489"/>
+        <location filename="../addFC/ui/pref_other.ui" line="504"/>
         <source>Select</source>
         <translation>Выбрать</translation>
     </message>

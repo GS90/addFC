@@ -34,6 +34,7 @@ if int(P.FC_VERSION[0]) > 0:
          'Std_ViewFitSelection', 'zoom-selection', 1),
         ('Toggle Transparency',
          'Std_ToggleTransparency', 'Std_ToggleTransparency', 1),
+        ('Variable Set', 'Std_VarSet', 'VarSet', 1),
     ]
 else:
     pd_tools_std = [
@@ -43,6 +44,10 @@ else:
     ]
 
 pd_tools_std.extend([
+    # base
+    ('Create Group', 'Std_Group', 'Group', 1),
+    ('Create Part', 'Std_Part', 'Geofeaturegroup', 1),
+    ('Create Body', 'PartDesign_Body', 'PartDesign_Body', 1),
     # other
     ('Transform', 'Std_TransformManip', 'Std_TransformManip', 1),
     ('Appearance', 'Std_SetAppearance', 'Std_SetAppearance', 1),
@@ -55,6 +60,8 @@ pd_tools_std.extend([
     ('Edit Sketch', 'Sketcher_EditSketch', 'Sketcher_EditSketch', 1),
     ('Validate Sketch',
      'Sketcher_ValidateSketch', 'Sketcher_ValidateSketch', 1),
+    # spreadsheet
+    ('New Spreadsheet', 'Spreadsheet_CreateSheet', 'Spreadsheet', 1),
     # datum
     ('Datum Point', 'PartDesign_Point', 'PartDesign_Point', 1),
     ('Datum Line', 'PartDesign_Line', 'PartDesign_Line', 1),
@@ -166,6 +173,14 @@ pd_tree_entity = (
 
 tools_access = {
     'PartDesignWorkbench': {
+        'Base': [
+            'Variable Set',
+            'Create Group',
+            'Create Part',
+            'Create Body',
+            'New Sketch',
+            'New Spreadsheet',
+        ],
         'Other': [  # or 'Link'
             'Measure',
             'Go to Linked Object',
@@ -176,6 +191,7 @@ tools_access = {
             'Measure',
             'Additive Loft',
             'Edit Sketch',
+            'Validate Sketch',
             'Datum Point',
             'Datum Line',
             'Datum Plane',
@@ -246,6 +262,7 @@ tools_access = {
             'Draft Array Circular',
         ],
         'Plane': [
+            'Toggle Visibility',
             'New Sketch',
             'Datum Plane',
         ],
@@ -341,7 +358,6 @@ tools_single_selection_ban = (
 # ------------------------------------------------------------------------------
 
 # todo: Revolution, Additive Loft
-
 
 tools_value = {
     # pd:uno

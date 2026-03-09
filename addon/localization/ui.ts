@@ -1200,47 +1200,59 @@ completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="447"/>
+        <location filename="../addFC/ui/pref_other.ui" line="426"/>
+        <source>Enable extra mouse buttons:
+«Forward» button - open the basic elements creation panel.
+«Back» button - switch between standard and wireframe display modes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="431"/>
+        <source>Extra mouse buttons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="462"/>
         <source>Changes require a HUD interface restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="473"/>
+        <location filename="../addFC/ui/pref_other.ui" line="488"/>
         <source>User templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="479"/>
+        <location filename="../addFC/ui/pref_other.ui" line="494"/>
         <source>Directory with templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="489"/>
+        <location filename="../addFC/ui/pref_other.ui" line="504"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="515"/>
+        <location filename="../addFC/ui/pref_other.ui" line="530"/>
         <source>Additions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="524"/>
+        <location filename="../addFC/ui/pref_other.ui" line="539"/>
         <source>FFmpeg</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="534"/>
+        <location filename="../addFC/ui/pref_other.ui" line="549"/>
         <source>NumPy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="544"/>
+        <location filename="../addFC/ui/pref_other.ui" line="559"/>
         <source>ezdxf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="554"/>
+        <location filename="../addFC/ui/pref_other.ui" line="569"/>
         <source>SheetMetal Workbench</source>
         <translation type="unfinished"></translation>
     </message>

@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2026.03.09 (**3.5.0**):
+* HUD (Head‑Up Display): added support for extra mouse buttons (Forward & Back).
+
 #### 2026.03.08 (**3.4.1**):
 * HUD (Head‑Up Display):
     - Working with the panel in the project tree.
