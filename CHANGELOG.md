@@ -2,8 +2,10 @@
 
 ## Release notes
 
-#### 2026.03.09 (**3.5.1**):
-* HUD (Head‑Up Display): added support for extra mouse buttons (Forward & Back).
+#### 2026.03.09 (**3.5.2**):
+* HUD (Head‑Up Display):
+    - Added support for extra mouse buttons (Forward & Back).
+    - Improved interaction with the overlay TreeView.
 
 #### 2026.03.08 (**3.4.1**):
 * HUD (Head‑Up Display):

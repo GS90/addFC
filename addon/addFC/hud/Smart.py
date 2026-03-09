@@ -102,6 +102,8 @@ class SelectionObserverHUD:
 
 class DocumentObserverHUD:
 
+    # todo: the problem with opening dependent documents...
+
     def slotCreatedDocument(self, doc):
         if overlay:
             overlay.get_view()
@@ -143,7 +145,7 @@ class SmartHUD(QtWidgets.QWidget):
 
         configure()
 
-        _f = QtCore.Qt.FramelessWindowHint | QtCore.Qt.SubWindow
+        _f = QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint
         self.setWindowFlags(_f)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
@@ -307,6 +309,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.current_button = None   # pressed button
         self.current_control = None  # active taskbar
         self.selected_widget = None
+        self.selected_widget_overlay = False  # overlay treeView
         self.dialog = None
         self.content = None
         self.transaction = None
@@ -659,9 +662,12 @@ class SmartHUD(QtWidgets.QWidget):
     def eventFilter(self, obj, event):
         if self.isVisible():
             self.resize()
-            if not self.is_raised:
+            if self.selected_widget == TREE and self.selected_widget_overlay:
                 self.raise_()
-                self.is_raised = True
+            else:
+                if not self.is_raised:
+                    self.raise_()
+                    self.is_raised = True
             if event.type() == QtCore.QEvent.KeyPress:
                 if event.key() == QtCore.Qt.Key_Equal:
                     self.expression()
@@ -774,8 +780,11 @@ class SmartHUD(QtWidgets.QWidget):
         widget = QtGui.QApplication.widgetAt(self.position_current)
         if widget:
             self.selected_widget = widget.objectName().lower()
+            self.selected_widget_overlay = widget.testAttribute(
+                QtCore.Qt.WA_TranslucentBackground)
         else:
             self.selected_widget = None
+            self.selected_widget_overlay = False
 
         view_global = self.view.mapToGlobal(QtCore.QPoint(0, 0))
         view_rect = QtCore.QRect(view_global, self.view.size())
@@ -1062,6 +1071,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.check_tres.setVisible(False)
         self.clear_dialog_and_content()
         self.selected_widget = None
+        self.selected_widget_overlay = False
         self.opacity_effect.setOpacity(self.OPACITY_MIN)
         self.hide()
         self.timer.stop()
