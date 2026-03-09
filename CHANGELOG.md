@@ -2,7 +2,7 @@
 
 ## Release notes
 
-#### 2026.03.09 (**3.5.0**):
+#### 2026.03.09 (**3.5.1**):
 * HUD (Head‑Up Display): added support for extra mouse buttons (Forward & Back).
 
 #### 2026.03.08 (**3.4.1**):

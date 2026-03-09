@@ -1078,7 +1078,7 @@ class SmartHUD(QtWidgets.QWidget):
         # documentObserver
         try:
             if self.documentObserver:
-                Gui.removeDocumentObserver(self.documentObserver)
+                FreeCAD.removeDocumentObserver(self.documentObserver)
                 self.documentObserver = None
         except Exception as err:
             self.documentObserver = None
