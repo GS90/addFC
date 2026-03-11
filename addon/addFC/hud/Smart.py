@@ -145,8 +145,11 @@ class SmartHUD(QtWidgets.QWidget):
 
         configure()
 
-        _f = QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint
-        self.setWindowFlags(_f)
+        # flags
+        _f_uno = QtCore.Qt.SubWindow
+        _f_dos = QtCore.Qt.FramelessWindowHint
+        _f_tre = QtCore.Qt.WindowStaysOnTopHint
+        self.setWindowFlags(_f_uno | _f_dos | _f_tre)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         pref = P.pref_configuration
@@ -919,11 +922,8 @@ class SmartHUD(QtWidgets.QWidget):
                     self.preparation_panel(so.ShapeType, so.TypeId)
                     return True
                 case 'Vertex':
-                    if self.selected_count > 1:  # only 'Measure'
-                        self.preparation_panel(so.ShapeType, so.TypeId)
-                        return True
-                    else:
-                        return False
+                    self.preparation_panel(so.ShapeType, so.TypeId)
+                    return True
                 case 'Solid' | 'Compound':
                     self.preparation_panel('Solid', '')  # so.ShapeType?
                     return True

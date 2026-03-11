@@ -34,7 +34,8 @@ if int(P.FC_VERSION[0]) > 0:
          'Std_ViewFitSelection', 'zoom-selection', 1),
         ('Toggle Transparency',
          'Std_ToggleTransparency', 'Std_ToggleTransparency', 1),
-        ('Variable Set', 'Std_VarSet', 'VarSet', 1),
+        ('Variable Set',
+         'Std_VarSet', 'VarSet', 1),
     ]
 else:
     pd_tools_std = [
@@ -189,6 +190,8 @@ tools_access = {
         ],
         'Outline': [
             'Measure',
+            'Fit Selection',
+            'Toggle Visibility',
             'Additive Loft',
             'Edit Sketch',
             'Validate Sketch',
@@ -204,6 +207,8 @@ tools_access = {
         ],
         'OutlineUsed': [
             'Measure',
+            'Fit Selection',
+            'Toggle Visibility',
             'Edit Sketch',
             'Datum Point',
             'Datum Line',
@@ -212,6 +217,7 @@ tools_access = {
         ],
         'Edge': [
             'Measure',
+            'Fit Selection',
             'Datum Point',
             'Datum Line',
             'Datum Plane',
@@ -241,11 +247,13 @@ tools_access = {
         ],
         'Vertex': [
             'Measure',
+            'Fit Selection',
             'Datum Point',
             'Coordinate System',
         ],
         'Solid': [  # or 'Compound'
             'Measure',
+            'Fit Selection',
             'Toggle Visibility',
             'Toggle Transparency',
             'Transform',
@@ -267,6 +275,7 @@ tools_access = {
             'Datum Plane',
         ],
         'Datum': [
+            'Toggle Visibility',
             'New Sketch',
         ],
         'Sequential': [
@@ -277,6 +286,7 @@ tools_access = {
         ],
         # treeView
         'TreeEntity': [
+            'Toggle Visibility',
             'Set Tip',
             'Edit Sketch',
             'Mirror',
@@ -287,6 +297,7 @@ tools_access = {
         'TreeLink': [
             'Go to Linked Object',
             'Fit Selection',
+            'Toggle Visibility',
             'Create Simple Copy',
         ],
         'TreePart': [
@@ -358,6 +369,7 @@ tools_single_selection_ban = (
 # ------------------------------------------------------------------------------
 
 # todo: Revolution, Additive Loft
+
 
 tools_value = {
     # pd:uno
