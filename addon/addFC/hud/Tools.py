@@ -116,58 +116,6 @@ pd_tools_draft = [  # other cmd
     ('Draft Array Circular', '', 'Draft_CircularArray', 1),
 ]
 
-pd_activity_ban = (
-    'Measure',
-    'Go to Linked Object',
-    'Align to Selection',
-    'Fit Selection',
-    'Toggle Transparency',
-    'Transform',
-    'Appearance',
-    'Random Color',
-    'Toggle Visibility',
-    'Set Tip',
-    'Make Link',
-    'Binder',
-    # part
-    'Create Simple Copy',
-    # draft
-    'Draft Clone',
-    'Draft Mirror',
-    'Draft Array Ortho',
-    'Draft Array Polar',
-    'Draft Array Circular',
-)
-
-pd_tools_continuation = (
-    'Pad',
-    'Pocket',
-    'Hole',
-)
-
-pd_tools_parent = (
-    'Toggle Transparency',
-    'Transform',
-    'Appearance',
-    'Random Color',
-    'Make Link',
-    'Toggle Visibility',
-    # part
-    'Create Simple Copy',
-    # draft
-    'Draft Clone',
-    'Draft Mirror',
-    'Draft Array Ortho',
-    'Draft Array Polar',
-    'Draft Array Circular',
-)
-
-pd_tree_entity = (
-    'PartDesign::Pad',
-    'PartDesign::Pocket',
-    'PartDesign::Hole',
-)
-
 
 # ------------------------------------------------------------------------------
 
@@ -334,6 +282,76 @@ tools_access = {
     },
 }
 
+
+# ------------------------------------------------------------------------------
+
+
+pd_activity_ban = (
+    'Measure',
+    'Go to Linked Object',
+    'Align to Selection',
+    'Fit Selection',
+    'Toggle Transparency',
+    'Transform',
+    'Appearance',
+    'Random Color',
+    'Toggle Visibility',
+    'Set Tip',
+    'Make Link',
+    'Binder',
+    # part
+    'Create Simple Copy',
+    # draft
+    'Draft Clone',
+    'Draft Mirror',
+    'Draft Array Ortho',
+    'Draft Array Polar',
+    'Draft Array Circular',
+)
+
+pd_tools_continuation = (
+    'Pad',
+    'Pocket',
+    'Hole',
+)
+
+pd_tools_parent = (
+    'Toggle Transparency',
+    'Transform',
+    'Appearance',
+    'Random Color',
+    'Make Link',
+    'Toggle Visibility',
+    # part
+    'Create Simple Copy',
+    # draft
+    'Draft Clone',
+    'Draft Mirror',
+    'Draft Array Ortho',
+    'Draft Array Polar',
+    'Draft Array Circular',
+)
+
+pd_tree_entity_sketch = (
+    'PartDesign::Pad',
+    'PartDesign::Revolution',
+    'PartDesign::AdditiveHelix',
+    'PartDesign::Pocket',
+    'PartDesign::Hole',
+    'PartDesign::Groove',
+    'PartDesign::SubtractiveHelix',
+)
+
+pd_tree_entity = (
+    'PartDesign::AdditiveLoft',
+    'PartDesign::AdditivePipe',
+    'PartDesign::SubtractiveLoft',
+    'PartDesign::SubtractivePipe',
+    'PartDesign::Fillet',
+    'PartDesign::Chamfer',
+    'PartDesign::Draft',
+    'PartDesign::Thickness',
+)
 
 tools_multiple_selection_ok = (
     'Measure',

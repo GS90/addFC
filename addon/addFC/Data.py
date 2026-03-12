@@ -31,16 +31,17 @@ configuration = {
     'hud_autoload': False,
     'hud_panels': ['smart',],
     'hud_theme': 'Standard',  # 'Standard' or 'Rounded'
+    'hud_smart_icon_size': 24,
     'hud_opacity': 0,
-    'hud_value_step': '1.0',
-    'hud_tools_sequential': False,
-    'hud_smart_cursor_offset': 40,
     'hud_smart_position': 'Above',  # 'Above' or 'Below'
+    'hud_smart_cursor_offset': 40,
     'hud_smart_panel_margin': 20,
     'hud_smart_fade_distance': 200,
-    'hud_smart_icon_size': 24,
-    'hud_smart_tree_work': True,
+    'hud_value_step': '1.0',
     'hud_smart_extra_mouse_buttons': True,
+    'hud_smart_tree_work': True,
+    'hud_smart_tree_work_options': True,
+    'hud_tools_sequential': False,
     'hud_tools_ban_smart': [
         'Appearance',
         'Set Tip',

@@ -977,11 +977,16 @@ class addFCPreferenceOther():
                 case 'smart': self.form.checkBox_hud_smart.setChecked(True)
                 case 'top': self.form.checkBox_hud_top.setChecked(True)
                 case 'right': self.form.checkBox_hud_right.setChecked(True)
-        self.form.pushButton_hud_tools.clicked.connect(configuring_tools)
+
         # hud, theme:
         self.form.comboBox_hud_theme.addItems(('Standard', 'Rounded'))
         _theme = pref_configuration['hud_theme']
         self.form.comboBox_hud_theme.setCurrentText(_theme)
+        # hud:smart, icon size:
+        self.form.comboBox_hud_smart_icon_size.addItems(
+            ('16', '24', '32', '48'))
+        _size = str(pref_configuration['hud_smart_icon_size'])
+        self.form.comboBox_hud_smart_icon_size.setCurrentText(_size)
         # hud, opacity:
         _opacity = pref_configuration['hud_opacity']
         try:
@@ -989,38 +994,39 @@ class addFCPreferenceOther():
         except ValueError:
             _opacity = 0
         self.form.spinBox_hud_opacity.setValue(_opacity)
-        # hud, value step:
-        self.form.comboBox_hud_value_step.addItems(
-            ('10.0', '1.0', '0.1', '0.01'))
-        _step = pref_configuration['hud_value_step']
-        self.form.comboBox_hud_value_step.setCurrentText(_step)
-        # sequential tools:
-        _tools_sequential = pref_configuration['hud_tools_sequential']
-        self.form.checkBox_hud_sequential.setChecked(_tools_sequential)
-        # hud:smart, cursor offset:
-        _offset = pref_configuration['hud_smart_cursor_offset']
-        self.form.spinBox_hud_cursor_offset.setValue(_offset)
         # hud:smart, position:
         self.form.comboBox_hud_spart_position.addItems(('Above', 'Below'))
         _position = pref_configuration['hud_smart_position']
         self.form.comboBox_hud_spart_position.setCurrentText(_position)
+        # hud:smart, cursor offset:
+        _offset = pref_configuration['hud_smart_cursor_offset']
+        self.form.spinBox_hud_cursor_offset.setValue(_offset)
         # hud:smart, panel margin:
         _margin = pref_configuration['hud_smart_panel_margin']
         self.form.spinBox_hud_smart_margin.setValue(_margin)
         # hud:smart, fade distance:
         _fade = pref_configuration['hud_smart_fade_distance']
         self.form.spinBox_hud_smart_fade.setValue(_fade)
-        # hud:smart, icon size:
-        self.form.comboBox_hud_smart_icon_size.addItems(
-            ('16', '24', '32', '48'))
-        _size = str(pref_configuration['hud_smart_icon_size'])
-        self.form.comboBox_hud_smart_icon_size.setCurrentText(_size)
-        # hud:smart, tree work:
-        _tree_work = pref_configuration['hud_smart_tree_work']
-        self.form.checkBox_hud_tree_work.setChecked(_tree_work)
+        # hud, value step:
+        self.form.comboBox_hud_value_step.addItems(
+            ('10.0', '1.0', '0.1', '0.01'))
+        _step = pref_configuration['hud_value_step']
+        self.form.comboBox_hud_value_step.setCurrentText(_step)
         # hud:smart, mouse extra buttons:
         _extra = pref_configuration['hud_smart_extra_mouse_buttons']
         self.form.checkBox_hud_extra_mouse_buttons.setChecked(_extra)
+        # hud:smart, tree work:
+        _tree_work = pref_configuration['hud_smart_tree_work']
+        self.form.checkBox_hud_tree_work.setChecked(_tree_work)
+        # hud:smart, tree work, options:
+        _tree_work_opt = pref_configuration['hud_smart_tree_work_options']
+        self.form.checkBox_hud_tree_work_options.setChecked(_tree_work_opt)
+        # sequential tools:
+        _tools_sequential = pref_configuration['hud_tools_sequential']
+        self.form.checkBox_hud_sequential.setChecked(_tools_sequential)
+
+        # smart panel tools:
+        self.form.pushButton_hud_tools.clicked.connect(configuring_tools)
 
         # additions:
         self.form.sm.setChecked(afc_additions['sm'][0])
@@ -1062,14 +1068,15 @@ class addFCPreferenceOther():
         if self.form.checkBox_hud_right.isChecked():
             panels.append('right')
 
-        _sequential = self.form.checkBox_hud_sequential.isChecked()
-        _offset = self.form.spinBox_hud_cursor_offset.value()
+        _size = int(self.form.comboBox_hud_smart_icon_size.currentText())
         _position = self.form.comboBox_hud_spart_position.currentText()
+        _offset = self.form.spinBox_hud_cursor_offset.value()
         _margin = self.form.spinBox_hud_smart_margin.value()
         _fade = self.form.spinBox_hud_smart_fade.value()
-        _size = int(self.form.comboBox_hud_smart_icon_size.currentText())
-        _tree_work = self.form.checkBox_hud_tree_work.isChecked()
         _extra = self.form.checkBox_hud_extra_mouse_buttons.isChecked()
+        _tree_work = self.form.checkBox_hud_tree_work.isChecked()
+        _tree_work_opt = self.form.checkBox_hud_tree_work_options.isChecked()
+        _sequential = self.form.checkBox_hud_sequential.isChecked()
 
         fresh = {
             'interface_font': [
@@ -1081,16 +1088,17 @@ class addFCPreferenceOther():
             'hud_autoload': self.form.checkBox_hud_autoload.isChecked(),
             'hud_panels': panels,
             'hud_theme': self.form.comboBox_hud_theme.currentText(),
+            'hud_smart_icon_size': _size,
             'hud_opacity': self.form.spinBox_hud_opacity.value(),
-            'hud_value_step': self.form.comboBox_hud_value_step.currentText(),
-            'hud_tools_sequential': _sequential,
-            'hud_smart_cursor_offset': _offset,
             'hud_smart_position': _position,
+            'hud_smart_cursor_offset': _offset,
             'hud_smart_panel_margin': _margin,
             'hud_smart_fade_distance': _fade,
-            'hud_smart_icon_size': _size,
-            'hud_smart_tree_work': _tree_work,
+            'hud_value_step': self.form.comboBox_hud_value_step.currentText(),
             'hud_smart_extra_mouse_buttons': _extra,
+            'hud_smart_tree_work': _tree_work,
+            'hud_smart_tree_work_options': _tree_work_opt,
+            'hud_tools_sequential': _sequential,
             # other:
             'drawing_templates_user': self.form.utLineEdit.text(),
         }

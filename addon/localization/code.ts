@@ -213,5 +213,20 @@
         <source>No sheet metal parts</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../addFC/hud/Smart.py" line="246"/>
+        <source>Expression, key &quot;=&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Viewer.py" line="74"/>
+        <source>Display element names</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Viewer.py" line="201"/>
+        <source>First you need to select the objects!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

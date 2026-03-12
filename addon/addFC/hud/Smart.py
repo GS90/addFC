@@ -36,21 +36,21 @@ pd_tools = []
 
 
 def configure():
-    ban = P.pref_configuration['hud_tools_ban_smart']
+    tools_ban = P.pref_configuration['hud_tools_ban_smart']
     global pd_tools
 
     # pd:std
     for tool in T.pd_tools_std:
-        if tool[0] not in ban:
+        if tool[0] not in tools_ban:
             pd_tools.append(tool)
     # part
     for tool in T.pd_tools_part:
-        if tool[0] not in ban:
+        if tool[0] not in tools_ban:
             pd_tools.append(tool)
     # draft
     draft = False
     for tool in T.pd_tools_draft:
-        if tool[0] not in ban:
+        if tool[0] not in tools_ban:
             pd_tools.append(tool)
             if not draft:
                 draft = True
@@ -58,7 +58,7 @@ def configure():
     sm = False
     if P.afc_additions['sm'][0]:
         for tool in T.pd_tools_sm:
-            if tool[0] not in ban:
+            if tool[0] not in tools_ban:
                 pd_tools.append(tool)
                 if not sm:
                     sm = True
@@ -146,10 +146,10 @@ class SmartHUD(QtWidgets.QWidget):
         configure()
 
         # flags
-        _f_uno = QtCore.Qt.SubWindow
-        _f_dos = QtCore.Qt.FramelessWindowHint
-        _f_tre = QtCore.Qt.WindowStaysOnTopHint
-        self.setWindowFlags(_f_uno | _f_dos | _f_tre)
+        _f_sub = QtCore.Qt.SubWindow
+        _f_frameless = QtCore.Qt.FramelessWindowHint
+        _f_top = QtCore.Qt.WindowStaysOnTopHint
+        self.setWindowFlags(_f_sub | _f_frameless | _f_top)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
         pref = P.pref_configuration
@@ -189,8 +189,9 @@ class SmartHUD(QtWidgets.QWidget):
         # other
         icon_size = pref.get('hud_smart_icon_size', 24)
         self.ICON_SIZE = QtCore.QSize(icon_size, icon_size)
-        self.TREE_WORK = pref.get('hud_smart_tree_work', True)
         self.EXTRA_MOUSE = pref.get('hud_smart_extra_mouse_buttons', True)
+        self.TREE_WORK = pref.get('hud_smart_tree_work', True)
+        self.TREE_WORK_OPTIONS = pref.get('hud_smart_tree_work_options', True)
 
         self.container = QtWidgets.QWidget()
         self.container.setObjectName('HUD')
@@ -242,7 +243,8 @@ class SmartHUD(QtWidgets.QWidget):
 
         # control: expression
         self.fx = QtWidgets.QToolButton()
-        self.fx.setToolTip('Expression, key "="')
+        self.fx.setToolTip(
+            FreeCAD.Qt.translate('addFC', 'Expression, key "="'))
         self.fx.setIcon(Gui.getIcon('bound-expression-unset'))
         self.fx.setIconSize(QtCore.QSize(16, 16))
         self.fx.setFixedHeight(self.HEIGHT_CONTROL)
@@ -342,9 +344,9 @@ class SmartHUD(QtWidgets.QWidget):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_panel)
 
+        # observers
         self.selectionObserver = SelectionObserverHUD()
         Gui.Selection.addObserver(self.selectionObserver)
-
         self.documentObserver = DocumentObserverHUD()
         FreeCAD.addDocumentObserver(self.documentObserver)
 
@@ -401,8 +403,10 @@ class SmartHUD(QtWidgets.QWidget):
         self.freeze = True
 
         tree = self.selected_widget == TREE
+        options = True if not tree else self.TREE_WORK_OPTIONS
+
         # adaptation
-        if (name in T.tools_value or name in T.tools_checkbox) and not tree:
+        if options and (name in T.tools_value or name in T.tools_checkbox):
             self.current_control = name
             # button style: active
             btn.setStyleSheet(self.css_active)
@@ -472,7 +476,7 @@ class SmartHUD(QtWidgets.QWidget):
                             bb = self.parent_object.Shape.BoundBox
                             v = int(bb.YMax)
                         except BaseException:
-                            v = 10
+                            v = 100
                         mirror = Draft.mirror(self.parent_object,
                                               FreeCAD.Vector(0, v, 0),
                                               FreeCAD.Vector(v, v, 0))
@@ -534,7 +538,7 @@ class SmartHUD(QtWidgets.QWidget):
         if self.dialog:
             content = self.dialog.getDialogContent()
             if content:
-                # todo: get all the content, not just the first one [0]
+                # todo: get all the content, not just the first one [0]?
                 self.content = content[0]
                 # focus
                 Gui.updateGui()
@@ -734,13 +738,11 @@ class SmartHUD(QtWidgets.QWidget):
             self.collapse()
 
     def toggle_draw_style(self):
+        # todo: how do I check the current style?
         try:
-            if self.draw_style == 0:
-                Gui.runCommand('Std_DrawStyle', 2)  # wireframe
-                self.draw_style = 2
-            else:
-                Gui.runCommand('Std_DrawStyle', 0)  # as is
-                self.draw_style = 0
+            # note: 0 == As is, 2 == Wireframe
+            self.draw_style = 2 if self.draw_style == 0 else 0
+            Gui.runCommand('Std_DrawStyle', self.draw_style)
         except BaseException:
             pass
 
@@ -784,7 +786,7 @@ class SmartHUD(QtWidgets.QWidget):
         if widget:
             self.selected_widget = widget.objectName().lower()
             self.selected_widget_overlay = widget.testAttribute(
-                QtCore.Qt.WA_TranslucentBackground)
+                QtCore.Qt.WA_TranslucentBackground)  # overlay treeView
         else:
             self.selected_widget = None
             self.selected_widget_overlay = False
@@ -815,9 +817,9 @@ class SmartHUD(QtWidgets.QWidget):
 
         if not hasattr(selection, 'TypeId'):
             return False
+        _type = selection.TypeId
 
         if self.TREE_WORK and self.selected_widget == TREE:
-            _type = selection.TypeId
             if _type == 'App::Link':
                 self.preparation_panel('TreeLink', _type)
                 self.parent_object = selection
@@ -837,20 +839,23 @@ class SmartHUD(QtWidgets.QWidget):
             elif _type in self.OUTLINE:
                 self.preparation_panel('Outline', _type, obj)
                 return True
-            elif _type in T.pd_tree_entity:
+            elif _type in T.pd_tree_entity_sketch:
                 self.preparation_panel('TreeEntity', _type, obj)
                 return True
+            elif _type in T.pd_tree_entity:
+                self.preparation_panel('TreeEntity', _type)
+                return True
             elif _type == 'App::Plane' or _type == 'PartDesign::Plane':
-                self.preparation_panel('Plane', selection.TypeId)
+                self.preparation_panel('Plane', _type)
                 return True
             else:
                 return False
 
-        if selection.TypeId == 'App::Link':
+        if _type == 'App::Link':
             self.preparation_panel('Other', None)  # or 'Link'
             return True
 
-        if selection.TypeId in self.FEATURE:
+        if _type in self.FEATURE:
             self.parent_object = selection
             self.preparation_panel('Solid', '')
             return True
@@ -861,12 +866,12 @@ class SmartHUD(QtWidgets.QWidget):
             if self.parent_object.TypeId == 'PartDesign::Body':
                 self.active_object = self.parent_object
 
-        if selection.TypeId == 'App::Plane':
-            self.preparation_panel('Plane', selection.TypeId)
+        if _type == 'App::Plane' or _type == 'PartDesign::Plane':
+            self.preparation_panel('Plane', _type)
             return True
 
-        if selection.TypeId in self.OUTLINE:
-            self.preparation_panel('Outline', selection.TypeId, obj)
+        if _type in self.OUTLINE:
+            self.preparation_panel('Outline', _type, obj)
             return True
 
         self.sketch_profile = None
@@ -888,15 +893,15 @@ class SmartHUD(QtWidgets.QWidget):
             return False
         selection = selection[0]
         selection_obj = selection.Object
-        selection_obj_type = selection_obj.TypeId
+        _type = selection_obj.TypeId
 
         if not selection.HasSubObjects:
-            if selection_obj_type == 'Part::Feature':
+            if _type == 'Part::Feature':
                 self.preparation_panel('Solid', '')
                 return True
             return False
 
-        if selection_obj_type in self.FEATURE:  # duplicate?
+        if _type in self.FEATURE:  # duplicate?
             self.preparation_panel('Solid', '')
             return True
 
@@ -961,15 +966,18 @@ class SmartHUD(QtWidgets.QWidget):
                 Logger.warning('HUD, preparation: ' + str(err))
 
         # editing the reference sketch
-        if entity == 'TreeEntity' and obj != '':
-            try:
-                element = ad.getObject(obj)
-                if hasattr(element, 'Profile'):
-                    self.sketch_profile = element.Profile[0]
-                else:
+        if entity == 'TreeEntity':
+            if obj != '':
+                try:
+                    element = ad.getObject(obj)
+                    if hasattr(element, 'Profile'):
+                        self.sketch_profile = element.Profile[0]
+                    else:
+                        entity_set.remove('Edit Sketch')
+                except BaseException as err:
+                    Logger.warning('HUD, preparation: ' + str(err))
                     entity_set.remove('Edit Sketch')
-            except BaseException as err:
-                Logger.warning('HUD, preparation: ' + str(err))
+            else:
                 entity_set.remove('Edit Sketch')
 
         # available buttons
@@ -1109,8 +1117,8 @@ class SmartHUD(QtWidgets.QWidget):
     def transaction_verification(self):
         try:
             value_fc = self.transaction.property('rawValue')
-            value_p = self.spinbox.value()
-            if value_fc != value_p:
+            value_sp = self.spinbox.value()
+            if value_fc != value_sp:
                 self.spinbox.setValue(value_fc)
         except BaseException as err:
             Logger.warning('transaction, verification: ' + str(err))

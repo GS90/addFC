@@ -213,5 +213,20 @@
         <source>Activate the HUD</source>
         <translation>Активировать дополнительный интерфейс</translation>
     </message>
+    <message>
+        <location filename="../addFC/hud/Smart.py" line="246"/>
+        <source>Expression, key &quot;=&quot;</source>
+        <translation>Выражение, клавиша &amp;quot;=&amp;quot;</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Viewer.py" line="74"/>
+        <source>Display element names</source>
+        <translation>Показать названия элементов</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Viewer.py" line="201"/>
+        <source>First you need to select the objects!</source>
+        <translation>Сначала необходимо выбрать объекты!</translation>
+    </message>
 </context>
 </TS>
