@@ -120,7 +120,7 @@ class SmartHUD(QtWidgets.QWidget):
     P_STR_UNITS = 'User parameter:BaseApp/Preferences/Units'
 
     TIMER_SLOW = 400
-    TIMER_FAST = 40
+    TIMER_FAST = 100
 
     OPACITY_MIN = 0.0
     OPACITY_MAX = 1.0
@@ -340,6 +340,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.setGraphicsEffect(self.opacity_effect)
         self.fade = QtCore.QPropertyAnimation(self.opacity_effect, b'opacity')
         self.fade.setEasingCurve(QtCore.QEasingCurve.OutQuad)
+        self.fade.setDuration(100)
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_panel)
@@ -470,12 +471,12 @@ class SmartHUD(QtWidgets.QWidget):
             case 'Draft Mirror':
                 try:
                     Gui.runCommand('Draft_Mirror')
-                except BaseException:
+                except Exception:
                     if Draft and self.parent_object:
                         try:
                             bb = self.parent_object.Shape.BoundBox
                             v = int(bb.YMax)
-                        except BaseException:
+                        except Exception:
                             v = 100
                         mirror = Draft.mirror(self.parent_object,
                                               FreeCAD.Vector(0, v, 0),
@@ -486,7 +487,7 @@ class SmartHUD(QtWidgets.QWidget):
             case 'Draft Array Ortho':
                 try:
                     Gui.runCommand('Draft_OrthoArray')
-                except BaseException:
+                except Exception:
                     if Draft and self.parent_object:
                         array = Draft.make_ortho_array(
                             self.parent_object,
@@ -503,7 +504,7 @@ class SmartHUD(QtWidgets.QWidget):
             case 'Draft Array Polar':
                 try:
                     Gui.runCommand('Draft_PolarArray')
-                except BaseException:
+                except Exception:
                     if Draft and self.parent_object:
                         array = Draft.make_polar_array(
                             self.parent_object,
@@ -514,7 +515,7 @@ class SmartHUD(QtWidgets.QWidget):
             case 'Draft Array Circular':
                 try:
                     Gui.runCommand('Draft_CircularArray')
-                except BaseException:
+                except Exception:
                     if Draft and self.parent_object:
                         array = Draft.make_circular_array(
                             self.parent_object,
@@ -553,12 +554,21 @@ class SmartHUD(QtWidgets.QWidget):
                             self.transaction = _transaction
                             self.transaction.valueChanged.connect(
                                 self.transaction_changed)
-                    except BaseException as err:
+                    except Exception as err:
                         Logger.warning('transaction, add: ' + str(err))
                         self.transaction = None
 
     def clear_dialog_and_content(self):
         self.dialog, self.content, self.transaction = None, None, None
+
+    def set_opacity(self, target_opacity):
+        current = self.opacity_effect.opacity()
+        if abs(current - target_opacity) < 0.01:
+            return
+        self.fade.stop()
+        self.fade.setStartValue(current)
+        self.fade.setEndValue(target_opacity)
+        self.fade.start()
 
     def update_panel(self):
         if not self.isVisible():
@@ -574,7 +584,7 @@ class SmartHUD(QtWidgets.QWidget):
 
         if inside_boundary:
             self.timer.setInterval(self.TIMER_SLOW)
-            self.opacity_effect.setOpacity(self.OPACITY_MAX)
+            self.set_opacity(self.OPACITY_MAX)
         else:
             self.timer.setInterval(self.TIMER_FAST)
             x = max(0,
@@ -593,7 +603,7 @@ class SmartHUD(QtWidgets.QWidget):
                 adjusted = max(0, distance_from_boundary)
                 opacity = self.OPACITY_MAX - (adjusted / self.FD)
                 opacity = max(self.OPACITY_MIN, min(self.OPACITY_MAX, opacity))
-                self.opacity_effect.setOpacity(opacity)
+                self.set_opacity(opacity)
 
     def get_boundary_rect(self, position_init, size):
         if self.boundary_rect_valid \
@@ -644,7 +654,7 @@ class SmartHUD(QtWidgets.QWidget):
             else:
                 self.view = csw
                 self.view.installEventFilter(self)
-        except BaseException as err:
+        except Exception as err:
             Logger.error('HUD, view: ' + str(err))
 
     def workbench_changed(self, workbench_name):
@@ -695,7 +705,7 @@ class SmartHUD(QtWidgets.QWidget):
                             self.position_current)
                         self.activate(position_local)
                         return True
-                    except BaseException:
+                    except Exception:
                         return False
                 elif event.button() == QtCore.Qt.BackButton:
                     self.toggle_draw_style()
@@ -743,12 +753,14 @@ class SmartHUD(QtWidgets.QWidget):
             # note: 0 == As is, 2 == Wireframe
             self.draw_style = 2 if self.draw_style == 0 else 0
             Gui.runCommand('Std_DrawStyle', self.draw_style)
-        except BaseException:
+        except Exception:
             pass
 
     # --------------------------------------------------------------------------
 
     def selection_add(self, doc, obj, sub, pos):
+        if pos == (0.0, 0.0, 0.0):  # automated process
+            return
         if self.freeze:
             return
         self.parent_object = None
@@ -759,7 +771,7 @@ class SmartHUD(QtWidgets.QWidget):
                 return
             if not self.selection_parsing(doc, obj, sub, pos):
                 return
-        except BaseException as err:
+        except Exception as err:
             Logger.warning('HUD, selection parsing: ' + str(err))
             return
         position_local = self.parent.mapFromGlobal(self.position_current)
@@ -907,7 +919,7 @@ class SmartHUD(QtWidgets.QWidget):
 
         try:
             so = selection.SubObjects[-1]
-        except BaseException:
+        except Exception:
             return False
 
         # datum
@@ -918,7 +930,7 @@ class SmartHUD(QtWidgets.QWidget):
                 return True
             elif 'datum' in sen.lower():
                 return False
-        except BaseException:
+        except Exception:
             pass
 
         try:
@@ -962,7 +974,7 @@ class SmartHUD(QtWidgets.QWidget):
                 sketch = ad.getObject(obj)
                 if len(sketch.InList) > 2:
                     entity_set = workbench_set.get('OutlineUsed', []).copy()
-            except BaseException as err:
+            except Exception as err:
                 Logger.warning('HUD, preparation: ' + str(err))
 
         # editing the reference sketch
@@ -974,7 +986,7 @@ class SmartHUD(QtWidgets.QWidget):
                         self.sketch_profile = element.Profile[0]
                     else:
                         entity_set.remove('Edit Sketch')
-                except BaseException as err:
+                except Exception as err:
                     Logger.warning('HUD, preparation: ' + str(err))
                     entity_set.remove('Edit Sketch')
             else:
@@ -1120,7 +1132,7 @@ class SmartHUD(QtWidgets.QWidget):
             value_sp = self.spinbox.value()
             if value_fc != value_sp:
                 self.spinbox.setValue(value_fc)
-        except BaseException as err:
+        except Exception as err:
             Logger.warning('transaction, verification: ' + str(err))
             self.transaction = None
 
@@ -1136,7 +1148,7 @@ class SmartHUD(QtWidgets.QWidget):
             try:
                 self.transaction.setProperty('rawValue', value)
                 return
-            except BaseException as err:
+            except Exception as err:
                 Logger.warning('transaction, changed: ' + str(err))
                 self.transaction = None
         current_tool = self.check_changed()
@@ -1205,7 +1217,7 @@ class SmartHUD(QtWidgets.QWidget):
         if self.dialog:
             try:
                 self.dialog.accept()
-            except BaseException:
+            except Exception:
                 pass
 
         # the ability to continue working with the panel
@@ -1234,7 +1246,7 @@ for child in app.children():
     if type(child).__name__ == 'SmartHUD':
         try:
             child.clear()
-        except BaseException as err:
+        except Exception as err:
             Logger.error('HUD, launch: ' + str(err))
         child.deleteLater()
         init = False
