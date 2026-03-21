@@ -103,7 +103,6 @@ class SelectionObserverHUD:
 class DocumentObserverHUD:
 
     # todo: the problem with opening dependent documents...
-
     def slotCreatedDocument(self, doc):
         if overlay:
             overlay.get_view()
@@ -750,7 +749,7 @@ class SmartHUD(QtWidgets.QWidget):
     def toggle_draw_style(self):
         # todo: how do I check the current style?
         try:
-            # note: 0 == As is, 2 == Wireframe
+            # note: 0 == 'As is', 2 == 'Wireframe'
             self.draw_style = 2 if self.draw_style == 0 else 0
             Gui.runCommand('Std_DrawStyle', self.draw_style)
         except Exception:
@@ -759,8 +758,11 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def selection_add(self, doc, obj, sub, pos):
-        if pos == (0.0, 0.0, 0.0):  # automated process
-            return
+        if pos == (0.0, 0.0, 0.0):
+            # automated process, temporary solution:
+            widget = QtGui.QApplication.widgetAt(QtGui.QCursor.pos())
+            if not widget:
+                return
         if self.freeze:
             return
         self.parent_object = None
