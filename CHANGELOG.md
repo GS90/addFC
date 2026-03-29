@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2026.03.29 (**3.5.7**):
+* Fixes and improvements.
+
 #### 2026.03.22 (**3.5.6**):
 * HUD (Head‑Up Display): improvements.
 

@@ -33,8 +33,10 @@ from addon.addFC import Logger, Preference as P
 ad = FreeCAD.ActiveDocument
 
 
-mv_src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/' \
-    '4.0.0/model-viewer.min.js'
+mv_src = (
+    'https://ajax.googleapis.com/ajax/libs/model-viewer/'
+    '4.2.0/model-viewer.min.js'
+)
 
 mv_template_css_add = """
     menu {
@@ -140,15 +142,19 @@ mv_template = """<!DOCTYPE html>
       camera-orbit="45deg 55deg 8m"
       tone-mapping="agx"
       exposure="0.5"
-      src="data:model/gltf-binary;base64,$glb">$hotspots
+      style="filter: contrast(1.2)"
+      src="data:model/gltf-binary;base64,$glb">
+$hotspots
     </model-viewer>$script
   </body>
 </html>"""
 
 # environment-image="data:image/jpeg;base64,$hdr"
 
-hotspot = '      <button class="hotspot" slot="hotspot-$mark" ' \
+hotspot = (
+    '      <button class="hotspot" slot="hotspot-$mark" '
     'data-position="$position" data-normal="$normal">$id</button>'
+)
 
 
 class Viewer():
@@ -346,9 +352,9 @@ def mv_export(selection, strict, forbidden):
 
         if id_export:
             pos = ' '.join((
-                str(o.Shape.CenterOfGravity.x / 1000),
-                str(o.Shape.CenterOfGravity.z / 1000),
-                str(-o.Shape.CenterOfGravity.y / 1000),
+                str(round(o.Shape.CenterOfGravity.x / 1000, 4)),
+                str(round(o.Shape.CenterOfGravity.z / 1000, 4)),
+                str(round(-o.Shape.CenterOfGravity.y / 1000, 4)),
             ))
             hotspots.append(Template(hotspot).substitute({
                 'mark': o.Name,
@@ -400,5 +406,4 @@ def mv_export(selection, strict, forbidden):
         file = open(path, 'w')
         file.write(result)
         file.close()
-
     return
