@@ -878,6 +878,9 @@ class SmartHUD(QtWidgets.QWidget):
             elif _type == 'App::Plane' or _type == 'PartDesign::Plane':
                 self.preparation_panel('Plane', _type)
                 return True
+            elif _type == 'Part::DatumPlane':
+                self.preparation_panel('Datum', _type)
+                return True
             else:
                 return False
 
@@ -888,6 +891,10 @@ class SmartHUD(QtWidgets.QWidget):
         if _type in self.FEATURE:
             self.parent_object = selection
             self.preparation_panel('Solid', '')
+            return True
+
+        if _type == 'Part::DatumPlane':
+            self.preparation_panel('Datum', _type)
             return True
 
         # todo: check if this method always works?
@@ -939,17 +946,6 @@ class SmartHUD(QtWidgets.QWidget):
             so = selection.SubObjects[-1]
         except Exception:
             return False
-
-        # datum
-        try:
-            sen = selection.SubElementNames[-1]
-            if 'datumplane' in sen.lower():
-                self.preparation_panel('Datum', None)
-                return True
-            elif 'datum' in sen.lower():
-                return False
-        except Exception:
-            pass
 
         try:
             match so.ShapeType:
@@ -1259,6 +1255,7 @@ class SmartHUD(QtWidgets.QWidget):
 
 
 init = True
+
 
 app = Gui.getMainWindow()
 for child in app.children():
