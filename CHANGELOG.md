@@ -9,6 +9,7 @@
 * HUD (Head‑Up Display):
     - Corrected input of decimal characters.
     - __Ctrl__ or __Shift__ + mouse wheel for step adjustment.
+    - Improved default settings.
 
 #### 2026.03.29 (**3.5.7**):
 * Fixes and improvements.
