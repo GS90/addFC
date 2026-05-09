@@ -237,6 +237,16 @@ class SmartHUD(QtWidgets.QWidget):
         self.spinbox.valueChanged.connect(self.value_changed)
         self.spinbox.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.spinbox.installEventFilter(self)  # =
+        self.spinbox.setToolTip('\n'.join((
+            FreeCAD.Qt.translate(
+                'addFC', 'Input value or press "=" to enter expression'),
+            FreeCAD.Qt.translate(
+                'addFC', 'Step control:'),
+            FreeCAD.Qt.translate(
+                'addFC', '    Ctrl + mouse wheel to increase'),
+            FreeCAD.Qt.translate(
+                'addFC', '    Shift + mouse wheel to decrease'),
+        )))
         self.c_layout.addWidget(self.spinbox)
 
         # control: expression

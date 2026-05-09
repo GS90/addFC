@@ -29,27 +29,27 @@
         <translation>Добавить свойства к объекту</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1532"/>
+        <location filename="../addFC/Main.py" line="1531"/>
         <source>Create a drawing based on a template</source>
         <translation>Создать чертёж на основе шаблона</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1813"/>
+        <location filename="../addFC/Main.py" line="1812"/>
         <source>Library</source>
         <translation>Библиотека</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1838"/>
+        <location filename="../addFC/Main.py" line="1837"/>
         <source>Explode</source>
         <translation>Взрыв-схема</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1840"/>
+        <location filename="../addFC/Main.py" line="1839"/>
         <source>Exploded view</source>
         <translation>Создание вида с разнесёнными частями</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1863"/>
+        <location filename="../addFC/Main.py" line="1862"/>
         <source>Pipe</source>
         <translation>Трубопровод</translation>
     </message>
@@ -84,17 +84,17 @@
         <translation>Вам нужно выбрать объект</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1688"/>
+        <location filename="../addFC/Main.py" line="1687"/>
         <source>Help, examples and additional files</source>
         <translation>Помощь, примеры и дополнительные файлы</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1700"/>
+        <location filename="../addFC/Main.py" line="1699"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1889"/>
+        <location filename="../addFC/Main.py" line="1888"/>
         <source>Summary</source>
         <translation>Информация</translation>
     </message>
@@ -104,12 +104,12 @@
         <translation>Нет объектов для экспорта</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1915"/>
+        <location filename="../addFC/Main.py" line="1914"/>
         <source>Isolation</source>
         <translation>Изоляция</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1917"/>
+        <location filename="../addFC/Main.py" line="1916"/>
         <source>Isolate selected objects</source>
         <translation>Изолировать выбранные объекты</translation>
     </message>
@@ -119,7 +119,7 @@
         <translation>Нет деталей из листового металла</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1941"/>
+        <location filename="../addFC/Main.py" line="1940"/>
         <source>Model Viewer</source>
         <translation>Просмотрщик моделей</translation>
     </message>
@@ -149,84 +149,104 @@
         <translation>Спецификация материалов (BOM) и связанные рабочие процессы</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1638"/>
+        <location filename="../addFC/Main.py" line="1637"/>
         <source>Additional files, such as templates and fonts.</source>
         <translation>Дополнительные файлы, такие как шаблоны и шрифты.</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1686"/>
+        <location filename="../addFC/Main.py" line="1685"/>
         <source>Help and Examples</source>
         <translation>Помощь и примеры</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1750"/>
+        <location filename="../addFC/Main.py" line="1749"/>
         <source>Create a link(s) with specified parameters</source>
         <translation>Создать ссылку (ссылки) с указанными параметрами</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1815"/>
+        <location filename="../addFC/Main.py" line="1814"/>
         <source>Element and node library</source>
         <translation>Библиотека элементов и узлов</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1865"/>
+        <location filename="../addFC/Main.py" line="1864"/>
         <source>Create a pipe using points</source>
         <translation>Построение трубопровода по заданным точкам</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1891"/>
+        <location filename="../addFC/Main.py" line="1890"/>
         <source>Display information about selected elements</source>
         <translation>Отобразить информацию о выбранных элементах</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1943"/>
+        <location filename="../addFC/Main.py" line="1942"/>
         <source>Export models for viewing</source>
         <translation>Экспорт модели для просмотра</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1530"/>
+        <location filename="../addFC/Main.py" line="1529"/>
         <source>Creating Drawing</source>
         <translation>Создание чертежа</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1748"/>
+        <location filename="../addFC/Main.py" line="1747"/>
         <source>Create Link(s)</source>
         <translation>Создать ссылку(и)</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1966"/>
+        <location filename="../addFC/Main.py" line="1965"/>
         <source>Viewport Recording</source>
         <translation>Запись сцены</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1968"/>
+        <location filename="../addFC/Main.py" line="1967"/>
         <source>Recording the 3D viewport to a video file</source>
         <translation>Запись сцены из окна 3D просмотра в видео</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1994"/>
+        <location filename="../addFC/Main.py" line="1993"/>
         <source>Head‑Up Display</source>
         <translation>Дополнительный интерфейс</translation>
     </message>
     <message>
-        <location filename="../addFC/Main.py" line="1996"/>
+        <location filename="../addFC/Main.py" line="1995"/>
         <source>Activate the HUD</source>
         <translation>Активировать дополнительный интерфейс</translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="246"/>
+        <location filename="../addFC/hud/Smart.py" line="254"/>
         <source>Expression, key &quot;=&quot;</source>
         <translation>Выражение, клавиша &amp;quot;=&amp;quot;</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Viewer.py" line="74"/>
+        <location filename="../addFC/toolkit/Viewer.py" line="76"/>
         <source>Display element names</source>
         <translation>Показать названия элементов</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Viewer.py" line="201"/>
+        <location filename="../addFC/toolkit/Viewer.py" line="207"/>
         <source>First you need to select the objects!</source>
         <translation>Сначала необходимо выбрать объекты!</translation>
+    </message>
+    <message>
+        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <source>Input value or press &quot;=&quot; to enter expression</source>
+        <translation>Введите значение или нажмите &quot;=&quot; для ввода выражения</translation>
+    </message>
+    <message>
+        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <source>Step control:</source>
+        <translation>Настройка шага:</translation>
+    </message>
+    <message>
+        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <source>    Ctrl + mouse wheel to increase</source>
+        <translation>    Ctrl + колёсико мыши - увеличить</translation>
+    </message>
+    <message>
+        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <source>    Shift + mouse wheel to decrease</source>
+        <translation>    Shift + колёсико мыши - уменьшить</translation>
     </message>
 </context>
 </TS>
