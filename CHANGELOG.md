@@ -2,11 +2,13 @@
 
 ## Release notes
 
-#### 2026.05.09 (**3.5.9**):
+#### 2026.05.09 (**3.6.0**):
 * Performed minor code refactoring.
 * Fixed minor bugs.
-* Corrected input of decimal characters in the smart panel.
 * Expanded the material library.
+* HUD (Head‑Up Display):
+    - Corrected input of decimal characters.
+    - __Ctrl__ or __Shift__ + mouse wheel for step adjustment.
 
 #### 2026.03.29 (**3.5.7**):
 * Fixes and improvements.

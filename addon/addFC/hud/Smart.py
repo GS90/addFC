@@ -677,16 +677,35 @@ class SmartHUD(QtWidgets.QWidget):
     def eventFilter(self, obj, event):
         if self.isVisible():
             self.resize()
-            if self.selected_widget == TREE and self.selected_widget_overlay:
-                self.raise_()
-            else:
-                if not self.is_raised:
-                    self.raise_()
-                    self.is_raised = True
-            if event.type() == QtCore.QEvent.KeyPress:
-                if event.key() == QtCore.Qt.Key_Equal:
-                    self.expression()
+            if obj == self.spinbox:
+                if event.type() == QtCore.QEvent.KeyPress:
+                    if event.key() == QtCore.Qt.Key_Equal:
+                        self.expression()
+                        return True
+                elif event.type() == QtCore.QEvent.Wheel:
+                    delta = event.angleDelta().y()
+                    modifiers = event.modifiers()
+                    # determine step based on modifier:
+                    if modifiers & QtCore.Qt.ControlModifier:
+                        step = 10 * self.spinbox.singleStep()
+                    elif modifiers & QtCore.Qt.ShiftModifier:
+                        step = self.spinbox.singleStep() / 10
+                    else:
+                        step = self.spinbox.singleStep()
+                    # change the value:
+                    if delta > 0:
+                        self.spinbox.setValue(self.spinbox.value() + step)
+                    else:
+                        self.spinbox.setValue(self.spinbox.value() - step)
                     return True
+            else:
+                if self.selected_widget == TREE and \
+                        self.selected_widget_overlay:
+                    self.raise_()
+                else:
+                    if not self.is_raised:
+                        self.raise_()
+                        self.is_raised = True
         else:
             if event.type() == QtCore.QEvent.MouseButtonPress:
                 if event.button() == QtCore.Qt.ForwardButton:
@@ -757,11 +776,9 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def selection_add(self, doc, obj, sub, pos):
-        if pos == (0.0, 0.0, 0.0):
-            # automated process, temporary solution:
-            widget = QtGui.QApplication.widgetAt(QtGui.QCursor.pos())
-            if not widget:
-                return
+        if pos == (0.0, 0.0, 0.0) and sub != '':
+            # automated process, such as unfold:
+            return
         if self.freeze:
             return
         self.parent_object = None
