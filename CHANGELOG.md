@@ -2,6 +2,12 @@
 
 ## Release notes
 
+#### 2026.05.09 (**3.5.9**):
+* Performed minor code refactoring.
+* Fixed minor bugs.
+* Corrected input of decimal characters in the smart panel.
+* Expanded the material library.
+
 #### 2026.03.29 (**3.5.7**):
 * Fixes and improvements.
 

@@ -133,6 +133,7 @@ PIPE_MATERIALS = {
     'Steel': (tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)), 7800),
 }
 
+
 PIPE_MATERIALS_FITTINGS = (
     tuple(int('cc6c54'[i:i + 2], 16) for i in (0, 2, 4)), 8900,
 )
@@ -252,7 +253,6 @@ def dialog() -> None:
     def select_pipe(select) -> None:
         if select != '':
             pipe = PIPE_VARIATIONS[w.comboBoxVariations.currentText()][select]
-            global fittings
             if type(pipe) is tuple:  # default value or copper pipe
                 diameter, radius = pipe[0], pipe[0]
                 thickness = pipe[1]
@@ -356,7 +356,6 @@ def create_pipe(diameter: float,
     pipe.adjustRelativeLinks(sl)
     sl.addObject(pipe)
 
-    global fittings
     fittings['color'] = None
     fittings['parent'] = sl.Label
     fittings['points'] = points
@@ -392,7 +391,6 @@ def remove_fittings() -> None:
             group.append(i.Name)
     for i in group:
         ad.removeObject(i)
-    global fittings
     if fittings['pipe'] != '':
         fittings['allowed'] = True
     ad.recompute()
@@ -403,8 +401,6 @@ def add_fittings() -> None:
         os.path.dirname(__file__)), 'addFC_Pipe.FCStd')
     d = FreeCAD.openDocument(pd, True)
     FreeCAD.setActiveDocument(ad.Name)
-
-    global fittings
 
     # group:
     group_name = f'{fittings["pipe"]}_fittings'

@@ -43,6 +43,7 @@ configuration = {
     'hud_smart_tree_work_options': True,
     'hud_tools_sequential': False,
     'hud_tools_ban_smart': [
+        # general
         'Appearance',
         'Set Tip',
         'Validate Sketch',
@@ -85,10 +86,10 @@ configuration = {
     '3d_export_save_copies': False,
     # 3d export, tessellation:
     'tessellation': {
-        'mesher': 'standard',  # or mefisto
+        'mesher': 'standard',  # or 'mefisto'
         'linear_deflection': 0.01,
         'angular_deflection': 30.0,
-        'max_length': 1.0,  # mefisto only
+        'max_length': 1.0,
     },
     # sheet metal part:
     'smp_color': tuple(int('b4c0c8'[i:i + 2], 16) for i in (0, 2, 4)),
@@ -146,32 +147,36 @@ materials = {
     'Galvanized': ['Sheet metal', 7870, 'm^2', 0],
     'Stainless': ['Sheet metal', 7900, 'm^2', 0],
     # general:
-    'Aluminum': ['General', 2700, 'kg', 0],
+    'Aluminium': ['General', 2700, 'kg', 0],
     'Brass': ['General', 8600, 'kg', 0],
     'Cast iron': ['General', 7300, 'kg', 0],
     'Ceramic': ['General', 2300, 'kg', 0],
-    'Concrete': ['General', 2410, 'm^3', 0],
+    'Concrete': ['General', 2400, 'm^3', 0],
     'Copper': ['General', 8900, 'kg', 0],
     'Glass': ['General', 2530, 'kg', 0],
-    'Mineral wool': ['General', 100, 'm^2', 0],
-    'Rubber': ['General', 1000, 'kg', 0],
-    'Steel': ['General', 7800, 'kg', 0],
+    'Mineral wool': ['General', 60, 'm^2', 0],
+    'Rock wool': ['General', 120, 'm^2', 0],
+    'Rubber': ['General', 1100, 'kg', 0],
+    'Steel': ['General', 7850, 'kg', 0],
+    'Titanium': ['General', 4500, 'kg', 0],
     # aisi:
-    'AISI 201': ['Sheet metal', 7860, 'm^2', 0],
     'AISI 304': ['Sheet metal', 7950, 'm^2', 0],
     'AISI 316': ['Sheet metal', 7970, 'm^2', 0],
-    'AISI 321': ['Sheet metal', 8020, 'm^2', 0],
+    'AISI 321': ['Sheet metal', 7980, 'm^2', 0],
     'AISI 430': ['Sheet metal', 7720, 'm^2', 0],
     # plastic:
-    'ABS': ['Plastic', 1040, 'kg', 0],
-    'PETG': ['Plastic', 1340, 'kg', 0],
+    'ABS': ['Plastic', 1045, 'kg', 0],
+    'Nylon (PA)': ['Plastic', 1150, 'kg', 0],
+    'PETG': ['Plastic', 1325, 'kg', 0],
     'PLA': ['Plastic', 1240, 'kg', 0],
-    'PP': ['Plastic', 900, 'kg', 0],
-    'PVC': ['Plastic', 1330, 'kg', 0],
+    'Polycarbonate (PC)': ['Plastic', 1210, 'kg', 0],
+    'Polypropylene (PP)': ['Plastic', 905, 'kg', 0],
+    'PVC': ['Plastic', 1400, 'kg', 0],
     # rubber:
-    'EPDM': ['Rubber', 155, 'kg', 0],
-    'Natural rubber': ['Rubber', 920, 'kg', 0],
-    'Neoprene': ['Rubber', 1230, 'kg', 0],
+    'Foamed EPDM': ['Rubber', 200, 'kg', 0],
+    'Natural rubber': ['Rubber', 940, 'kg', 0],
+    'Neoprene': ['Rubber', 1235, 'kg', 0],
+    'Silicone rubber': ['Rubber', 1205, 'kg', 0],
     # wood:
     'Wood, low density': ['Wood', 500, 'm^3', 0],
     'Wood, medium density': ['Wood', 700, 'm^3', 0],

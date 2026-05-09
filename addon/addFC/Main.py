@@ -1260,7 +1260,6 @@ class AddFCProperties():
 
                 stuff, material = {}, []
 
-                global properties_last
                 properties_last.clear()
 
                 for row in range(table.rowCount()):

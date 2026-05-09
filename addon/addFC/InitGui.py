@@ -61,7 +61,7 @@ class addFC(FreeCAD.Gui.Workbench):
         self.appendToolbar('addFC', self.list)
         self.appendMenu('addFC', self.list)
 
-        global P
+        global P  # noqa: F824
 
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceProperties, 'addFC')
         FreeCAD.Gui.addPreferencePage(P.addFCPreferenceMaterials, 'addFC')
@@ -86,10 +86,10 @@ class addFC(FreeCAD.Gui.Workbench):
             AddFCHeadUpDisplay().Activated()
 
     def Activated(self):
-        return
+        pass
 
     def Deactivated(self):
-        return
+        pass
 
     def ContextMenu(self, recipient):
         self.appendContextMenu('addFC', self.list)

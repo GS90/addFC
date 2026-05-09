@@ -291,7 +291,7 @@ def mv_export_simple(selection):
         path = fd.selectedFiles()[0]
         if path == '':
             path = 'viewer.html'
-        file = open(path, 'w')
+        file = open(path, 'w', encoding='utf-8')
         file.write(result)
         file.close()
     else:
@@ -403,7 +403,7 @@ def mv_export(selection, strict, forbidden):
         path = fd.selectedFiles()[0]
         if path == '':
             path = 'viewer.html'
-        file = open(path, 'w')
+        file = open(path, 'w', encoding='utf-8')
         file.write(result)
         file.close()
     return

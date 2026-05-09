@@ -140,7 +140,7 @@ def video_export_settings():
 def video_make(title: str, postfix: str) -> str | None:
     video_pref = P.load_pref(P.PATH_VIDEO, video_pref_std)
     storyboard = video_pref['export_storyboard']
-    file = f'../{title}{postfix}.mkv'
+    file = os.path.join(os.path.dirname(storyboard), f'{title}{postfix}.mkv')
     result = subprocess.run([
         'ffmpeg',
         '-framerate', str(video_pref['framerate']),

@@ -349,7 +349,6 @@ class widget():
             freeze = False
 
         def change(target) -> None:
-            global freeze
             if freeze or target == library_title:
                 return
             if target == SELECT:
@@ -369,11 +368,9 @@ class widget():
                 # new library:
                 title = os.path.basename(path)
                 set_library_location(title, path)
-                global library_list
                 library_list[title] = path
 
             # saving the configuration:
-            global configuration
             configuration['library']['recent'] = library_title
             configuration['library_list'] = library_list
             P.save_pref(P.PATH_CONFIGURATION, configuration)
@@ -458,7 +455,7 @@ class widget():
             # standard library:
             update = False
             try:
-                f = open(os.path.join(DIR, 'version'), 'r')
+                f = open(os.path.join(DIR, 'version'), 'r', encoding='utf-8')
                 s = f.readline().strip('\n')
                 f.close()
                 v = int(s)
@@ -489,7 +486,6 @@ class widget():
 
             u.refresh.clicked.connect(library_upgrade_wrapper)
 
-            # u.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
             u.show()
 
             def apply() -> None:
@@ -500,7 +496,6 @@ class widget():
                 debug = pref['debug']
                 global parameters_set
                 parameters_set = pref['parameters']
-                global configuration
                 configuration['library'].update(pref)
                 P.save_pref(P.PATH_CONFIGURATION, configuration)
                 u.close()
@@ -654,7 +649,6 @@ class widget():
         self.form.configuration.clear()
 
     def accept(self):
-        global configuration
         configuration['library'].update({
             'lcoc': self.form.lcoc.currentText(),
             'recent': library_title,

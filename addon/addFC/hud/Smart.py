@@ -37,7 +37,6 @@ pd_tools = []
 
 def configure():
     tools_ban = P.pref_configuration['hud_tools_ban_smart']
-    global pd_tools
 
     # pd:std
     for tool in T.pd_tools_std:
@@ -296,7 +295,7 @@ class SmartHUD(QtWidgets.QWidget):
 
         self.freeze = False
         self.new_sketch = False
-        if int(P.FC_VERSION[0]) > 0 and int(P.FC_VERSION[1]) > 1:
+        if int(P.FC_VERSION[0]) > 0 and int(P.FC_VERSION[1]) >= 1:
             self.draggers = True
         else:
             self.draggers = False
@@ -1139,16 +1138,17 @@ class SmartHUD(QtWidgets.QWidget):
             self.transaction = None
 
     def transaction_changed(self, value):
-        if self.freeze:
-            return
-        self.spinbox.setValue(value)
+        if not self.freeze:
+            self.spinbox.setValue(value)
 
     def value_changed(self, value):
         if self.freeze:
             return
         if self.transaction:
             try:
+                self.freeze = True
                 self.transaction.setProperty('rawValue', value)
+                self.freeze = False
                 return
             except Exception as err:
                 Logger.warning('transaction, changed: ' + str(err))

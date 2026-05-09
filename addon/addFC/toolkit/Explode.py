@@ -205,7 +205,6 @@ def dialog():
         target = w.target.text()
         if target == '':
             return
-        global explosion
         if target not in explosion:  # error?
             return
         group = explosion[target]
@@ -250,7 +249,6 @@ def dialog():
         title = w.groupTitle.text().strip()
         if title == '':
             return
-        global explosion
         if title in explosion:
             w.groupTitle.setText(title + ' (duplicate)')
             return
@@ -348,13 +346,11 @@ def dialog():
         if len(indexes) < 1:
             return
         target = w.groups.model().itemFromIndex(indexes[0])
-        global explosion
         if target.text() not in explosion:  # error?
             return
         update_placement((0, 0, 0), (0, 0, 0), True)
         del explosion[target.text()]
         model.clear()
-        global storage
         if storage is not None:
             if storage.Storage is not None:
                 for i in explosion:
@@ -370,7 +366,6 @@ def dialog():
         if len(indexes) < 1:
             return
         row = indexes[0].row()
-        global explosion
         if row > len(explosion) - 2:
             return
         item = model.takeItem(row)
@@ -403,7 +398,6 @@ def dialog():
     def group_select(item, select: bool = True):
         target = model.index(item.row(), item.column()).data()
         w.target.setText(target)
-        global explosion
         if target not in explosion:  # error?
             return
 
@@ -442,13 +436,11 @@ def dialog():
     # -------------- #
 
     def group_moving():
-        global freeze
         if freeze:
             return
         target = w.target.text()
         if target == '':
             return
-        global explosion
         if target not in explosion:  # error?
             return
         group = explosion[target]
@@ -495,7 +487,6 @@ def dialog():
         target = w.target.text()
         if target == '':
             return
-        global explosion
         if target not in explosion:  # error
             return
         group = explosion[target]
@@ -513,7 +504,6 @@ def dialog():
         target = w.target.text()
         if target == '':
             return
-        global explosion
         if target not in explosion:  # error
             return
         group = explosion[target]
@@ -559,7 +549,6 @@ def dialog():
 
     def guides_remove() -> bool:
         target = w.target.text()
-        global explosion
         if target not in explosion:  # error?
             return False
         guides = ad.getObject(explosion[target]['guides']['title'])
@@ -607,7 +596,6 @@ def dialog():
 
     def guides_create():
         target = w.target.text()
-        global explosion
         if target not in explosion:  # error?
             return
         if guides_remove():
@@ -615,7 +603,6 @@ def dialog():
             FreeCAD.Gui.updateGui()
 
         d = ad.addObject('App::DocumentObjectGroup', f'Guides_{target}')
-        global storage
         d.adjustRelativeLinks(storage)
         if storage is not None:
             storage.addObject(d)
@@ -664,7 +651,6 @@ def dialog():
         target = w.target.text()
         if target == '':
             return
-        global explosion
         if target not in explosion:  # error?
             return
         group = explosion[target]
@@ -677,7 +663,6 @@ def dialog():
 
     def animation_add():
         target = w.target.text()
-        global explosion
         if target not in explosion:  # error?
             return
         group = explosion[target]
@@ -694,7 +679,6 @@ def dialog():
 
     def animation_play(single: bool = True):
         target = w.target.text()
-        global explosion
         if target not in explosion or np is None:  # error
             return
 
@@ -917,8 +901,6 @@ def dialog():
     # ---- #
 
     def save():
-        global storage
-        global explosion
         db = {}
         for index in range(model.rowCount()):
             title = model.item(index).text()

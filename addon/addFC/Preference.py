@@ -26,7 +26,9 @@ import json
 import math
 import os
 import re
+import shutil
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 
 from addon.addFC import Data, Logger
@@ -84,30 +86,17 @@ except ImportError:
     afc_additions['ezdxf'][2] = 'color: #aa0000'
 
 try:
-    # todo: Windows, macOS
-    cp = subprocess.run(
-        ['ffmpeg', '-version'],
-        stdout=subprocess.DEVNULL,
-    )
-    if cp.returncode == 0:
-        pass  # todo: version number
-    else:
-        afc_additions['ffmpeg'][0] = False
-        afc_additions['ffmpeg'][2] = 'color: #aa0000'
-except BaseException:
-    afc_additions['ffmpeg'][0] = False
-    afc_additions['ffmpeg'][2] = 'color: #aa0000'
-
-try:
     afc_additions['numpy'][1] = version('numpy')
 except ImportError:
     afc_additions['numpy'][0] = False
     afc_additions['numpy'][2] = 'color: #aa0000'
 
+
 try:
+    # FreeCAD.Gui.getWorkbench('SMWorkbench')
     import smwb_locator
     path = smwb_locator.__file__
-    if path is not None:
+    if path is not None and os.path.exists(path):
         f = os.path.join(os.path.dirname(path), 'package.xml')
         root = ET.parse(f).getroot()
         for i in root:
@@ -117,6 +106,34 @@ try:
 except ImportError:
     afc_additions['sm'][0] = False
     afc_additions['sm'][2] = 'color: #aa0000'
+
+
+def get_ffmpeg_info():
+    ffmpeg_path = shutil.which('ffmpeg')
+    if ffmpeg_path is None and sys.platform == 'win32':
+        # checking standard Windows paths:
+        for path in ('C:\\Program Files\\FFmpeg\bin\\ffmpeg.exe',
+                     'C:\\Program Files (x86)\\FFmpeg\bin\\ffmpeg.exe'):
+            if os.path.exists(path):
+                ffmpeg_path = path
+                break
+    if ffmpeg_path is None:
+        return [False, '', 'color: #aa0000']
+    try:
+        result = subprocess.run([ffmpeg_path, '-version'],
+                                capture_output=True, text=True, timeout=2)
+        if result.returncode == 0:
+            # extracting the version:
+            version_line = result.stdout.split('\n')[0]
+            match = re.search(r'ffmpeg version (\d+\.\d+\.\d+)', version_line)
+            version = match.group(1) if match else ''
+            return [True, version, 'color: #005500']
+    except (FileNotFoundError, subprocess.CalledProcessError, TimeoutError):
+        pass
+    return [False, '', 'color: #aa0000']
+
+
+afc_additions['ffmpeg'] = get_ffmpeg_info()
 
 
 # ------------------------------------------------------------------------------
@@ -189,15 +206,15 @@ def load_pref(path: str, std: dict, conf=False) -> dict:
                 if i not in result:
                     result[i] = Data.configuration[i]
                 value = Data.configuration[i]
-                if type(value) is dict:
-                    if type(result[i]) is not dict:
+                if isinstance(value, dict):
+                    if not isinstance(result[i], dict):
                         result[i] = value
                     else:
                         for j in value:
                             if j not in result[i]:
                                 result[i][j] = value[j]
         return result
-    except BaseException as e:
+    except Exception as e:
         Logger.error(f'load, pref: {e}')
         return std
 
@@ -208,7 +225,7 @@ def load_properties() -> dict:
         file = open(PATH_PROPERTIES, 'r', encoding='utf-8')
         result = json.load(file)
         file.close()
-    except BaseException as e:
+    except Exception as e:
         Logger.error(f'load, prop: {e}')
         result = Data.properties_add
     properties = copy.deepcopy(Data.properties_core)
@@ -236,7 +253,7 @@ def load_steel() -> dict:
         file = open(PATH_STEEL, 'r', encoding='utf-8')
         result = json.load(file)
         file.close()
-    except BaseException as e:
+    except Exception as e:
         Logger.error(f'load steel: {e}')
         result = Data.steel
     steel = {}
@@ -257,7 +274,7 @@ def save_pref(path: str, pref: dict, indent=4) -> None:
         file = open(path, 'w+', encoding='utf-8')
         json.dump(pref, file, ensure_ascii=False, indent=indent)
         file.close()
-    except BaseException as e:
+    except Exception as e:
         Logger.error(f'save pref: {e}')
 
 
@@ -289,7 +306,8 @@ class addFCPreferenceProperties():
         def align(t, i: int) -> None:
             t.resizeColumnsToContents()
             t.resizeRowsToContents()
-            t.horizontalHeader().setResizeMode(i, QtGui.QHeaderView.Stretch)
+            t.horizontalHeader().setSectionResizeMode(
+                i, QtGui.QHeaderView.Stretch)
 
         # ---------- #
         # properties #
@@ -504,21 +522,26 @@ class addFCPreferenceProperties():
             values = table_values.item(item.row(), 1)
             if values is None:
                 return
-            values = values.text()
-            if values == '':
+            values_text = values.text()
+            if values_text == '':
                 return
-            split, enum = values.split(','), []
-            for s in split:
-                v = s.strip()
-                if v != '' and v not in enum:
-                    enum.append(v)
-            if '-' not in enum:
-                enum.insert(0, '-')
-            else:
-                index = enum.index('-')
-                if index != 0:
-                    enum[index], enum[0] = enum[0], enum[index]
-            item.setText(', '.join(enum))
+            table_values.blockSignals(True)
+            try:
+                split = values_text.split(',')
+                enum = []
+                for s in split:
+                    v = s.strip()
+                    if v != '' and v not in enum:
+                        enum.append(v)
+                if '-' not in enum:
+                    enum.insert(0, '-')
+                else:
+                    index = enum.index('-')
+                    if index != 0:
+                        enum[index], enum[0] = enum[0], enum[index]
+                item.setText(', '.join(enum))
+            finally:
+                table_values.blockSignals(False)
 
         self.form.tableValues.itemChanged.connect(check_current_value)
 
@@ -612,7 +635,8 @@ class addFCPreferenceMaterials():
         def align(t, i: int) -> None:
             t.resizeColumnsToContents()
             t.resizeRowsToContents()
-            t.horizontalHeader().setResizeMode(i, QtGui.QHeaderView.Stretch)
+            t.horizontalHeader().setSectionResizeMode(
+                i, QtGui.QHeaderView.Stretch)
 
         def purge() -> None:
             table.setSortingEnabled(False)
@@ -625,12 +649,13 @@ class addFCPreferenceMaterials():
             purge()
             table.setColumnCount(len(headers))
             table.setHorizontalHeaderLabels(headers)
-            table.setRowCount(len(pref_materials) - 1)  # without '-'
+            count = len([k for k in pref_materials if k != '-'])
+            table.setRowCount(count)
             x = 0
             for key in pref_materials:
                 if key == '-':
                     continue
-                if key == 'Galvanized' or key == 'Stainless':
+                if key in ('Galvanized', 'Stainless'):
                     std = True
                 else:
                     std = False
@@ -829,7 +854,8 @@ class addFCPreferenceSM():
         def align(t) -> None:
             t.resizeColumnsToContents()
             t.resizeRowsToContents()
-            t.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+            t.horizontalHeader().setSectionResizeMode(
+                QtGui.QHeaderView.Stretch)
 
         def fill(t, d: dict) -> None:
             t.setColumnCount(len(headers))
@@ -866,6 +892,8 @@ class addFCPreferenceSM():
                             r = max(0.1, float(r.text().replace(',', '.')))
                         except BaseException:
                             r = t
+                    if t == 0 or r == 0:
+                        continue
                     k = 1 / math.log(1 + t / r) - r / t
                     i = table.item(row, 2)
                     i.setText(str(round(k, 3)))  # k-factor
@@ -1028,21 +1056,34 @@ class addFCPreferenceOther():
         # smart panel tools:
         self.form.pushButton_hud_tools.clicked.connect(configuring_tools)
 
-        # additions:
+        # additions, sm:
         self.form.sm.setChecked(afc_additions['sm'][0])
         self.form.sm.setStyleSheet(afc_additions['sm'][2])
         if afc_additions['sm'][0]:
-            self.form.sm.setText(f"SheetMetal ({afc_additions['sm'][1]})")
+            _version = afc_additions['sm'][1]
+            if _version != '':
+                self.form.sm.setText(f"SheetMetal ({_version})")
+        # additions, ezdxf:
         self.form.ezdxf.setChecked(afc_additions['ezdxf'][0])
         self.form.ezdxf.setStyleSheet(afc_additions['ezdxf'][2])
         if afc_additions['ezdxf'][0]:
-            self.form.ezdxf.setText(f"ezdxf ({afc_additions['ezdxf'][1]})")
+            _version = afc_additions['ezdxf'][1]
+            if _version != '':
+                self.form.ezdxf.setText(f"ezdxf ({_version})")
+        # additions, numpy:
         self.form.numpy.setChecked(afc_additions['numpy'][0])
         self.form.numpy.setStyleSheet(afc_additions['numpy'][2])
         if afc_additions['numpy'][0]:
-            self.form.numpy.setText(f"NumPy ({afc_additions['numpy'][1]})")
+            _version = afc_additions['numpy'][1]
+            if _version != '':
+                self.form.numpy.setText(f"NumPy ({_version})")
+        # additions, ffmpeg:
         self.form.ffmpeg.setChecked(afc_additions['ffmpeg'][0])
         self.form.ffmpeg.setStyleSheet(afc_additions['ffmpeg'][2])
+        if afc_additions['ffmpeg'][0]:
+            _version = afc_additions['ffmpeg'][1]
+            if _version != '':
+                self.form.ffmpeg.setText(f"FFmpeg ({_version})")
 
         # user templates:
         self.form.utLineEdit.setText(
@@ -1197,8 +1238,8 @@ class addFCPreferenceRU():
                 'Weight': self.form.Weight.text(),
                 'Scale': self.form.Scale.text(),
                 'Letter 1': self.form.Letter1.text(),
-                'Letter 2': self.form.Letter1.text(),
-                'Letter 3': self.form.Letter1.text(),
+                'Letter 2': self.form.Letter2.text(),
+                'Letter 3': self.form.Letter3.text(),
             },
         }
         pref_configuration.update(fresh)
@@ -1271,7 +1312,8 @@ def configuring_tools() -> None:
 
     table.resizeColumnsToContents()
     table.resizeRowsToContents()
-    table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.Stretch)
+    table.horizontalHeader().setSectionResizeMode(
+        0, QtGui.QHeaderView.Stretch)
 
     table.setSortingEnabled(False)
     table.horizontalHeader().setSortIndicatorShown(False)
@@ -1310,7 +1352,7 @@ def add_autoload() -> None:
     autoload = FreeCAD.ParamGet(
         'User parameter:BaseApp/Preferences/General').GetString(
             'BackgroundAutoloadModules')
-    if 'addFC' not in autoload:
+    if 'addfc' not in autoload.lower():
         autoload += ',addFC'
         FreeCAD.ParamGet(
             'User parameter:BaseApp/Preferences/General').SetString(
