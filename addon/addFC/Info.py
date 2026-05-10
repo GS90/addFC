@@ -202,6 +202,7 @@ def compilation(strict: bool = True,
                             pass  # todo: think about it
         # standard:
         if property_name in obj.PropertiesList:
+            obj.recompute()
             dn = obj.Document.Name if doc == '' else doc
             if count > 1:
                 for _ in range(count):

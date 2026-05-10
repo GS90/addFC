@@ -1234,10 +1234,11 @@ class AddFCProperties():
         # add property #
         # ------------ #
 
+        err = FreeCAD.Qt.translate('addFC', 'You need to select an object')
+
         def add() -> None:
             if len(FreeCAD.Gui.Selection.getSelection()) < 1:
-                w.info.setText(FreeCAD.Qt.translate(
-                    'addFC', 'You need to select an object'))
+                w.info.setText(err)
                 return
             w.info.setText('')
 
@@ -1245,6 +1246,7 @@ class AddFCProperties():
 
             selection = FreeCAD.Gui.Selection.getSelectionEx('')
             if len(selection) == 0:
+                w.info.setText(err)
                 return
             for s in selection:
                 if s.HasSubObjects:
@@ -1493,9 +1495,70 @@ class AddFCProperties():
             cb_materials.setCurrentText(text)
         w.comboBoxSMP.currentTextChanged.connect(changed_material)
 
+        # copy and paste properties
+
+        cp_properties = {}
+
+        w.pushButtonPaste.setEnabled(False)
+
+        def get_first_obj():
+            if len(FreeCAD.Gui.Selection.getSelection()) < 1:
+                return None
+            selection = FreeCAD.Gui.Selection.getSelectionEx('')
+            if len(selection) == 0:
+                return None
+            s, obj = selection[0], None
+            if s.HasSubObjects:
+                obj = s.Object.InList[0]
+            else:
+                obj = s.Object
+            if obj.TypeId == 'App::Link':
+                obj = obj.LinkedObject
+            return obj
+
+        def copy_properties():
+            w.pushButtonPaste.setEnabled(False)
+            obj = get_first_obj()
+            if obj is None:
+                w.info.setText(err)
+                return
+            cp_properties.clear()
+            for p in obj.PropertiesList:
+                if 'Add_' in p:
+                    cp_properties[p] = [obj.getTypeIdOfProperty(p),
+                                        obj.dumpPropertyContent(p),
+                                        None]  # exp
+            for exp in obj.ExpressionEngine:
+                for p in ('Add_Name', 'Add_Weight', 'Add_Price'):
+                    if p in exp:
+                        if p in cp_properties:
+                            cp_properties[p][2] = exp
+            if len(cp_properties) == 0:
+                w.info.setText(FreeCAD.Qt.translate(
+                    'addFC', 'Properties not found'))
+            else:
+                w.info.setText('')
+                w.pushButtonPaste.setEnabled(True)
+
+        def paste_properties():
+            obj = get_first_obj()
+            if obj is None:
+                w.info.setText(err)
+                return
+            w.info.setText('')
+            for k, v in cp_properties.items():
+                obj.addProperty(v[0], k, 'Add')
+                if v[2] is None:
+                    obj.restorePropertyContent(k, v[1])
+                else:
+                    obj.setExpression(*v[2])
+            obj.recompute()
+
+        w.pushButtonCopy.clicked.connect(copy_properties)
+        w.pushButtonPaste.clicked.connect(paste_properties)
+
         w.show()
         w.pushButtonAdd.setFocus()
-
         return
 
     def IsActive(self):

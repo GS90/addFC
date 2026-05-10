@@ -2,10 +2,11 @@
 
 ## Release notes
 
-#### 2026.05.10 (**3.6.2**):
+#### 2026.05.10 (**3.6.3**):
 * Performed minor code refactoring.
 * Fixed minor bugs.
 * Expanded the material library.
+* Add Properties: copy and paste capabilities.
 * HUD (Head‑Up Display):
     - Corrected input of decimal characters.
     - __Ctrl__ or __Shift__ + mouse wheel for step adjustment.

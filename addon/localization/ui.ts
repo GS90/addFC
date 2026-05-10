@@ -21,7 +21,7 @@
         <location filename="../addFC/ui/insert.ui" line="105"/>
         <location filename="../addFC/ui/linker.ui" line="89"/>
         <location filename="../addFC/ui/list.ui" line="58"/>
-        <location filename="../addFC/ui/properties.ui" line="163"/>
+        <location filename="../addFC/ui/properties.ui" line="177"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -56,7 +56,7 @@
         <location filename="../addFC/ui/pref_sm.ui" line="161"/>
         <location filename="../addFC/ui/pref_sm.ui" line="242"/>
         <location filename="../addFC/ui/pref_uProp.ui" line="65"/>
-        <location filename="../addFC/ui/properties.ui" line="183"/>
+        <location filename="../addFC/ui/properties.ui" line="197"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1447,13 +1447,23 @@ completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="129"/>
-        <source>Sheet metal part</source>
+        <location filename="../addFC/ui/properties.ui" line="125"/>
+        <source>Link thickness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../addFC/ui/properties.ui" line="139"/>
-        <source>Link thickness</source>
+        <source>Sheet metal part</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/properties.ui" line="146"/>
+        <source>Paste properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/properties.ui" line="153"/>
+        <source>Copy properties</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
