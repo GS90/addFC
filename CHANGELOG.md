@@ -2,7 +2,7 @@
 
 ## Release notes
 
-#### 2026.05.10 (**3.6.3**):
+#### 2026.05.10 (**3.6.4**):
 * Performed minor code refactoring.
 * Fixed minor bugs.
 * Expanded the material library.
