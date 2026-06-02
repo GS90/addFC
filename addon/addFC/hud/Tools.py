@@ -101,7 +101,7 @@ pd_tools_sm = [
     ('Extend Face',
      'SheetMetal_Extrude', 'SheetMetal_Extrude', 2),
     ('Unattended Unfold',
-     'SheetMetal_UnattendedUnfold', 'SheetMetal_UnfoldUnattended', 2),
+     'SheetMetal_UnattendedUnfold', 'SheetMetal_UnfoldUnattended', 1),
 ]
 
 pd_tools_part = [
@@ -210,6 +210,8 @@ tools_access = {
             'Make Link',
             # part
             'Create Simple Copy',
+            # sm
+            'Unattended Unfold',
             # draft
             'Draft Clone',
             'Draft Mirror',
