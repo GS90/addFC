@@ -120,6 +120,60 @@ pd_tools_draft = [  # other cmd
 # ------------------------------------------------------------------------------
 
 
+sk_tools_std = [
+    ('Horizontal Distance',
+     'Sketcher_ConstrainDistanceX', 'Constraint_HorizontalDistance', 1),
+    ('Vertical Distance',
+     'Sketcher_ConstrainDistanceY', 'Constraint_VerticalDistance', 1),
+    ('Distance',
+     'Sketcher_ConstrainDistance', 'Constraint_Length', 1),
+    ('Radius',
+     'Sketcher_CompConstrainRadDia', 'Constraint_Radius', 1),    # value 0
+    ('Diameter',
+     'Sketcher_CompConstrainRadDia', 'Constraint_Diameter', 1),  # value 1
+    ('Angle',
+     'Sketcher_ConstrainAngle', 'Constraint_InternalAngle', 1),
+    ('Symmetric',
+     'Sketcher_ConstrainSymmetric', 'Constraint_Symmetric', 1),
+    ('Vertically',
+     'Sketcher_ConstrainVertical', 'Constraint_Vertical', 1),
+    ('Horizontally',
+     'Sketcher_ConstrainHorizontal', 'Constraint_Horizontal', 1),
+    ('Parallel',
+     'Sketcher_ConstrainParallel', 'Constraint_Parallel', 1),
+    ('Perpendicular',
+     'Sketcher_ConstrainPerpendicular', 'Constraint_Perpendicular', 1),
+    ('Tangent',
+     'Sketcher_ConstrainTangent', 'Constraint_Tangent', 1),
+    ('Equal',
+     'Sketcher_ConstrainEqual', 'Constraint_EqualLength', 1),
+    ('Coincident',
+     'Sketcher_ConstrainCoincident', 'Constraint_PointOnPoint', 1),
+    ('Point Onto Object',
+     'Sketcher_ConstrainPointOnObject', 'Constraint_PointOnObject', 1),
+    ('Block',
+     'Sketcher_ConstrainBlock', 'Constraint_Block', 1),
+    ('Lock',
+     'Sketcher_ConstrainLock', 'Constraint_Lock', 1),
+    ('Toggle Construction',
+     'Sketcher_ToggleConstruction', 'Sketcher_ToggleConstruction', 1),
+]
+
+if int(P.FC_VERSION[0]) > 0:
+    sk_tools_std.extend([
+        ('Create External Geometry',
+         'Sketcher_CompExternal', 'Sketcher_Projection_Constr', 1),
+    ])
+else:
+    sk_tools_std.extend([
+        ('Create External Geometry',
+         'Sketcher_External', 'Sketcher_External', 1),
+    ])
+
+
+# ------------------------------------------------------------------------------
+
+
 tools_access = {
     'PartDesignWorkbench': {
         'Base': [
@@ -282,6 +336,69 @@ tools_access = {
             'Draft Array Circular',
         ],
     },
+    'SketcherWorkbench': {
+        # options: Line, Line|N, Curve, Curve|N, Point, Point|N
+        'Line': [
+            'Block',
+            'Distance',
+            'Horizontal Distance',
+            'Horizontally',
+            'Toggle Construction',
+            'Vertical Distance',
+            'Vertically',
+        ],
+        'Line|N': [
+            'Angle',
+            'Block',
+            'Equal',
+            'Horizontally',
+            'Parallel',
+            'Perpendicular',
+            'Tangent',
+            'Toggle Construction',
+            'Vertically',
+        ],
+        'Curve': [
+            'Block',
+            'Diameter',
+            'Radius',
+            'Toggle Construction',
+        ],
+        'Curve|N': [
+            'Block',
+            'Diameter',
+            'Equal',
+            'Radius',
+            'Tangent',
+            'Toggle Construction',
+        ],
+        'Point': [
+            'Horizontal Distance',
+            'Lock',
+            'Vertical Distance',
+        ],
+        'Point|N': [
+            'Coincident',
+            'Horizontal Distance',
+            'Horizontally',
+            'Lock',
+            'Vertical Distance',
+            'Vertically',
+        ],
+        # options: Curve|Line, Curve|Point, Line|Point
+        'Curve|Line': [
+            'Block',
+            'Tangent',
+        ],
+        'Curve|Point': [
+            'Point Onto Object',
+        ],
+        'Line|Point': [
+            'Distance',
+            'Point Onto Object',
+            'Symmetric',
+        ],
+    },
 }
 
 
@@ -383,6 +500,13 @@ tools_multiple_selection_ok = (
 tools_single_selection_ban = (
     'Measure',
     'Additive Loft',
+)
+
+sk_symmetry = (
+    'Curve|Point',
+    'Line',
+    'Line|Point',
+    'Point|N',
 )
 
 

@@ -18,6 +18,7 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 
+from Part import ArcOfCircle, BSplineCurve, Circle, LineSegment
 from PySide import QtCore, QtGui, QtWidgets
 import FreeCAD
 import FreeCADGui as Gui
@@ -28,11 +29,10 @@ from addon.addFC.hud.Theme import generate_css
 import addon.addFC.hud.Tools as T
 
 
-Draft = None  # import
-
 TREE = 'qt_scrollarea_viewport'
 
-pd_tools = []
+Draft = None  # import
+tools = []    # all tools
 
 
 def configure():
@@ -41,16 +41,16 @@ def configure():
     # pd:std
     for tool in T.pd_tools_std:
         if tool[0] not in tools_ban:
-            pd_tools.append(tool)
+            tools.append(tool)
     # part
     for tool in T.pd_tools_part:
         if tool[0] not in tools_ban:
-            pd_tools.append(tool)
+            tools.append(tool)
     # draft
     draft = False
     for tool in T.pd_tools_draft:
         if tool[0] not in tools_ban:
-            pd_tools.append(tool)
+            tools.append(tool)
             if not draft:
                 draft = True
     # sm
@@ -58,9 +58,14 @@ def configure():
     if P.afc_additions['sm'][0]:
         for tool in T.pd_tools_sm:
             if tool[0] not in tools_ban:
-                pd_tools.append(tool)
+                tools.append(tool)
                 if not sm:
                     sm = True
+
+    # sketcher
+    for tool in T.sk_tools_std:
+        if tool[0] not in tools_ban:
+            tools.append(tool)
 
     # import
     if draft:
@@ -367,7 +372,7 @@ class SmartHUD(QtWidgets.QWidget):
     # --------------------------------------------------------------------------
 
     def add_buttons(self):
-        for name, cmd, icon, row in pd_tools:
+        for name, cmd, icon, row in tools:
             btn = QtWidgets.QToolButton()
             btn.setObjectName(name)
             btn.setToolTip(name)
@@ -458,7 +463,10 @@ class SmartHUD(QtWidgets.QWidget):
 
         # initializing
         if cmd != '':
-            Gui.runCommand(cmd)
+            if name == 'Diameter':  # exception
+                Gui.runCommand(cmd, 1)
+            else:
+                Gui.runCommand(cmd)
             if self.current_control:
                 self.get_dialog_and_content()
         else:
@@ -812,9 +820,13 @@ class SmartHUD(QtWidgets.QWidget):
         self.get_view()
         if not self.view:
             return False
-        if Gui.Control.activeTaskDialog() is not None:
-            return False
         self.active_workbench = Gui.activeWorkbench().name()
+        if Gui.Control.activeTaskDialog() is not None:
+            # sk
+            if self.active_workbench == 'SketcherWorkbench':
+                return self.is_viewport()
+            return False
+        # pd
         if self.active_workbench == 'PartDesignWorkbench':
             return self.is_viewport()
         return False
@@ -841,6 +853,48 @@ class SmartHUD(QtWidgets.QWidget):
 
         return False
 
+    def selection_parsing_sk(self) -> str | None:
+        selection = Gui.Selection.getSelectionEx()
+        if len(selection) == 0:
+            return None
+
+        lst = []
+        for sel in selection:
+            sketch = sel.Object
+            for sub in sel.SubElementNames:
+                if sub.startswith('Edge'):
+                    n = int(sub[4:]) - 1
+                    g = sketch.Geometry[n]
+                    # determine the geometry type
+                    if isinstance(g, LineSegment):
+                        lst.append('Line')
+                    elif isinstance(g, Circle):
+                        lst.append('Curve')  # Circle
+                    elif isinstance(g, ArcOfCircle):
+                        lst.append('Curve')  # Arc
+                    elif isinstance(g, BSplineCurve):
+                        pass  # todo: Spline
+                    # print(f'HUD: skType: {sub} ({type(g).__name__})')
+                elif sub.startswith('Vertex'):
+                    lst.append('Point')
+                elif 'axis' in sub.lower():
+                    pass  # todo: axes
+                elif sub.startswith('Constraint'):
+                    pass  # todo: delete
+
+        if not lst:
+            return None
+        quantity = len(lst)
+        result = list(set(lst))
+        if len(result) == 1:
+            if quantity == 1:
+                return result[-1]
+            else:
+                return f'{result[-1]}|N'
+        result = result[-2:]
+        result.sort()  # is sequence important?
+        return '|'.join(result)
+
     def selection_parsing(self, doc, obj, sub, pos) -> bool:
         self.selected_count = len(Gui.Selection.getCompleteSelection())
 
@@ -858,6 +912,17 @@ class SmartHUD(QtWidgets.QWidget):
         if not hasattr(selection, 'TypeId'):
             return False
         _type = selection.TypeId
+
+        if self.active_workbench == 'SketcherWorkbench':
+            try:
+                result = self.selection_parsing_sk()
+                if not result:
+                    return False
+            except Exception as err:
+                Logger.error('HUD, sketcher: ' + str(err))
+                return False
+            self.preparation_panel(result, None)
+            return True
 
         if self.TREE_WORK and self.selected_widget == TREE:
             if _type == 'App::Link':
@@ -1024,17 +1089,24 @@ class SmartHUD(QtWidgets.QWidget):
             if object_name in entity_set:
 
                 # exceptions
-                if self.selected_count > 1:
-                    if object_name not in T.tools_multiple_selection_ok:
-                        btn.setVisible(False)
-                        continue
-                else:
-                    if object_name in T.tools_single_selection_ban:
-                        btn.setVisible(False)
-                        continue
-                    elif object_name == 'Datum Plane' and entity == 'Outline':
-                        btn.setVisible(False)
-                        continue
+                if self.active_workbench == 'PartDesignWorkbench':
+                    if self.selected_count > 1:
+                        if object_name not in T.tools_multiple_selection_ok:
+                            btn.setVisible(False)
+                            continue
+                    else:
+                        if object_name in T.tools_single_selection_ban:
+                            btn.setVisible(False)
+                            continue
+                        elif object_name == 'Datum Plane':
+                            if entity == 'Outline':
+                                btn.setVisible(False)
+                                continue
+                # sk: symmetry
+                elif self.active_workbench == 'SketcherWorkbench':
+                    if self.selected_count == 3:
+                        if entity in T.sk_symmetry:
+                            entity_set.append('Symmetric')
 
                 if not used_tools:
                     used_tools = True

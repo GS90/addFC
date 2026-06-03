@@ -1255,14 +1255,15 @@ def configuring_tools() -> None:
 
     import addon.addFC.hud.Tools as T
 
-    tools = T.pd_tools_std.copy()
-    tools.extend(T.pd_tools_part)
-    tools.extend(T.pd_tools_draft)
+    pd_tools = T.pd_tools_std.copy()
+    pd_tools.extend(T.pd_tools_part)
+    pd_tools.extend(T.pd_tools_draft)
     if afc_additions['sm'][0]:
-        tools.extend(T.pd_tools_sm)
+        pd_tools.extend(T.pd_tools_sm)
 
-    # todo: ...
-    form.comboBoxW.addItems(('PartDesign',))
+    sk_tools = T.sk_tools_std.copy()
+
+    form.comboBoxW.addItems(('PartDesign', 'Sketcher'))
     form.comboBoxP.addItems(('Smart',))
 
     labels = ('Tool', 'Status', 'Note')
@@ -1270,7 +1271,6 @@ def configuring_tools() -> None:
     table = form.tableTools
     table.setIconSize(QtCore.QSize(24, 24))
     table.setColumnCount(len(labels))
-    table.setRowCount(len(tools))
     table.setHorizontalHeaderLabels(labels)
 
     f = QtCore.Qt.ItemFlag
@@ -1280,43 +1280,57 @@ def configuring_tools() -> None:
 
     secondary = ('Mirrored', 'Pattern', 'MultiTransform')
 
-    x = 0
-    for name, cmd, icon, _ in tools:
-        # icon and name
-        i = FreeCAD.Gui.getIcon(icon)
-        table.setItem(x, 0, QtGui.QTableWidgetItem(i, name))
-        # checkbox
-        if name in ban:
-            item = QtGui.QTableWidgetItem('Disabled')
-            item.setFlags(f.ItemIsUserCheckable | f.ItemIsEnabled)
-            item.setCheckState(QtCore.Qt.CheckState.Unchecked)
-            item.setForeground(color_red)
-        else:
-            item = QtGui.QTableWidgetItem('Enabled')
-            item.setFlags(f.ItemIsUserCheckable | f.ItemIsEnabled)
-            item.setCheckState(QtCore.Qt.CheckState.Checked)
-            item.setForeground(color_blue)
-        table.setItem(x, 1, item)
-        # note
-        if 'Draft ' in name:
-            table.setItem(x, 2, QtGui.QTableWidgetItem('Draft Workbench'))
-        elif 'SheetMetal' in cmd:
-            table.setItem(x, 2, QtGui.QTableWidgetItem('Sheet Metal'))
-        elif cmd == 'Part_SimpleCopy':
-            table.setItem(x, 2, QtGui.QTableWidgetItem('Part Workbench'))
-        else:
-            for s in secondary:
-                if s in cmd:
-                    table.setItem(x, 2, QtGui.QTableWidgetItem('Sequential'))
-        x += 1
+    def fill():
+        table.blockSignals(True)
 
-    table.resizeColumnsToContents()
-    table.resizeRowsToContents()
-    table.horizontalHeader().setSectionResizeMode(
-        0, QtGui.QHeaderView.Stretch)
+        match form.comboBoxW.currentText():
+            case 'PartDesign': tools = pd_tools
+            case 'Sketcher': tools = sk_tools
+        table.setRowCount(len(tools))
 
-    table.setSortingEnabled(False)
-    table.horizontalHeader().setSortIndicatorShown(False)
+        x = 0
+        for name, cmd, icon, _ in tools:
+            # icon and name
+            i = FreeCAD.Gui.getIcon(icon)
+            table.setItem(x, 0, QtGui.QTableWidgetItem(i, name))
+            # checkbox
+            if name in ban:
+                item = QtGui.QTableWidgetItem('Disabled')
+                item.setFlags(f.ItemIsUserCheckable | f.ItemIsEnabled)
+                item.setCheckState(QtCore.Qt.CheckState.Unchecked)
+                item.setForeground(color_red)
+            else:
+                item = QtGui.QTableWidgetItem('Enabled')
+                item.setFlags(f.ItemIsUserCheckable | f.ItemIsEnabled)
+                item.setCheckState(QtCore.Qt.CheckState.Checked)
+                item.setForeground(color_blue)
+            table.setItem(x, 1, item)
+            # note
+            if 'Draft ' in name:
+                table.setItem(x, 2, QtGui.QTableWidgetItem('Draft Workbench'))
+            elif 'SheetMetal' in cmd:
+                table.setItem(x, 2, QtGui.QTableWidgetItem('Sheet Metal'))
+            elif cmd == 'Part_SimpleCopy':
+                table.setItem(x, 2, QtGui.QTableWidgetItem('Part Workbench'))
+            else:
+                for s in secondary:
+                    if s in cmd:
+                        table.setItem(
+                            x, 2, QtGui.QTableWidgetItem('Sequential'))
+            x += 1
+
+        table.resizeColumnsToContents()
+        table.resizeRowsToContents()
+        table.horizontalHeader().setSectionResizeMode(
+            0, QtGui.QHeaderView.Stretch)
+        table.setSortingEnabled(False)
+        table.horizontalHeader().setSortIndicatorShown(False)
+
+        table.blockSignals(False)
+
+    form.comboBoxW.currentIndexChanged.connect(fill)
+
+    fill()
 
     def item_changed(item):
         if item.checkState() == QtCore.Qt.CheckState.Checked:
@@ -1328,6 +1342,7 @@ def configuring_tools() -> None:
     table.itemChanged.connect(item_changed)
 
     def apply():
+        # todo: определить верстак!
         ban = []
         for row in range(table.rowCount()):
             n = table.item(row, 0)

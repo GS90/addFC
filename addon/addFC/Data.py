@@ -63,6 +63,10 @@ configuration = {
         'Make Wall',
         'Extend Face',
         'Unattended Unfold',
+        # sk
+        'Block',
+        'Lock',
+        'Radius',
     ],
     # unfold:
     'unfold_dxf': True,
