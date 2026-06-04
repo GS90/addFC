@@ -41,6 +41,7 @@ configuration = {
     'hud_smart_extra_mouse_buttons': True,
     'hud_smart_tree_work': True,
     'hud_smart_tree_work_options': True,
+    'hud_smart_allow_in_sketcher': False,
     'hud_tools_sequential': False,
     'hud_tools_ban_smart': [
         # general
@@ -88,7 +89,6 @@ configuration = {
     '3d_export_prefix': '',
     '3d_export_save_by_type': False,
     '3d_export_save_copies': False,
-    # 3d export, tessellation:
     'tessellation': {
         'mesher': 'standard',  # or 'mefisto'
         'linear_deflection': 0.01,

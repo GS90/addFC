@@ -1211,63 +1211,73 @@ the panel is fully visible and interactive before fading begins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="408"/>
+        <location filename="../addFC/ui/pref_other.ui" line="395"/>
+        <source>Enable this panel to work in the Sketcher workbench</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="398"/>
+        <source>Allow in Sketcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="418"/>
         <source>Enable secondary tools - they activate automatically after
 completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="412"/>
+        <location filename="../addFC/ui/pref_other.ui" line="422"/>
         <source>Sequential tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="430"/>
+        <location filename="../addFC/ui/pref_other.ui" line="440"/>
         <source>Tool selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="465"/>
+        <location filename="../addFC/ui/pref_other.ui" line="475"/>
         <source>Changes require a HUD interface restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="491"/>
+        <location filename="../addFC/ui/pref_other.ui" line="501"/>
         <source>User templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="497"/>
+        <location filename="../addFC/ui/pref_other.ui" line="507"/>
         <source>Directory with templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="507"/>
+        <location filename="../addFC/ui/pref_other.ui" line="517"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="533"/>
+        <location filename="../addFC/ui/pref_other.ui" line="543"/>
         <source>Additions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="542"/>
+        <location filename="../addFC/ui/pref_other.ui" line="552"/>
         <source>FFmpeg</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="552"/>
+        <location filename="../addFC/ui/pref_other.ui" line="562"/>
         <source>NumPy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="562"/>
+        <location filename="../addFC/ui/pref_other.ui" line="572"/>
         <source>ezdxf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="572"/>
+        <location filename="../addFC/ui/pref_other.ui" line="582"/>
         <source>SheetMetal Workbench</source>
         <translation type="unfinished"></translation>
     </message>

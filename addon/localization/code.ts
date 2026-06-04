@@ -219,27 +219,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <location filename="../addFC/hud/Smart.py" line="247"/>
         <source>Input value or press &quot;=&quot; to enter expression</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <location filename="../addFC/hud/Smart.py" line="247"/>
         <source>Step control:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <location filename="../addFC/hud/Smart.py" line="247"/>
         <source>    Ctrl + mouse wheel to increase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <location filename="../addFC/hud/Smart.py" line="247"/>
         <source>    Shift + mouse wheel to decrease</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="254"/>
+        <location filename="../addFC/hud/Smart.py" line="261"/>
         <source>Expression, key &quot;=&quot;</source>
         <translation type="unfinished"></translation>
     </message>

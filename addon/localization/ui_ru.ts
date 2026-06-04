@@ -6,7 +6,7 @@
     <message>
         <location filename="../addFC/ui/info.ui" line="24"/>
         <source>Model information</source>
-        <translation type="unfinished">Информация о модели</translation>
+        <translation>Информация о модели</translation>
     </message>
     <message>
         <location filename="../addFC/ui/info.ui" line="34"/>
@@ -402,7 +402,17 @@ the panel is fully visible and interactive before fading begins</source>
         <translation>Параметры в дереве проекта</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="430"/>
+        <location filename="../addFC/ui/pref_other.ui" line="395"/>
+        <source>Enable this panel to work in the Sketcher workbench</source>
+        <translation>Включить работу панели в верстаке Sketcher</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="398"/>
+        <source>Allow in Sketcher</source>
+        <translation>Разрешить в Sketcher</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/pref_other.ui" line="440"/>
         <source>Tool selection</source>
         <translation>Инструменты</translation>
     </message>
@@ -447,7 +457,7 @@ the panel is fully visible and interactive before fading begins</source>
         <translation>Показывать панель при выделении элементов в дереве проекта</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="412"/>
+        <location filename="../addFC/ui/pref_other.ui" line="422"/>
         <source>Sequential tools</source>
         <translation>Вторичные</translation>
     </message>
@@ -481,32 +491,32 @@ the panel is fully visible and interactive before fading begins</source>
         <translation>Доп. кнопки мыши</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="465"/>
+        <location filename="../addFC/ui/pref_other.ui" line="475"/>
         <source>Changes require a HUD interface restart</source>
         <translation>Для применения изменений требуется перезапуск интерфейса HUD</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="533"/>
+        <location filename="../addFC/ui/pref_other.ui" line="543"/>
         <source>Additions</source>
         <translation>Дополнения</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="572"/>
+        <location filename="../addFC/ui/pref_other.ui" line="582"/>
         <source>SheetMetal Workbench</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="562"/>
+        <location filename="../addFC/ui/pref_other.ui" line="572"/>
         <source>ezdxf</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="552"/>
+        <location filename="../addFC/ui/pref_other.ui" line="562"/>
         <source>NumPy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="542"/>
+        <location filename="../addFC/ui/pref_other.ui" line="552"/>
         <source>FFmpeg</source>
         <translation></translation>
     </message>
@@ -522,7 +532,7 @@ the panel is fully visible and interactive before fading begins</source>
         <translation>Размер шага изменения значения</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="408"/>
+        <location filename="../addFC/ui/pref_other.ui" line="418"/>
         <source>Enable secondary tools - they activate automatically after
 completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation>Включить вторичные инструменты - они автоматически
@@ -562,17 +572,17 @@ completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation>Отступ</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="491"/>
+        <location filename="../addFC/ui/pref_other.ui" line="501"/>
         <source>User templates</source>
         <translation>Пользовательские шаблоны</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="497"/>
+        <location filename="../addFC/ui/pref_other.ui" line="507"/>
         <source>Directory with templates</source>
         <translation>Каталог с шаблонами</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/pref_other.ui" line="507"/>
+        <location filename="../addFC/ui/pref_other.ui" line="517"/>
         <source>Select</source>
         <translation>Выбрать</translation>
     </message>

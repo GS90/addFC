@@ -160,6 +160,8 @@ class SmartHUD(QtWidgets.QWidget):
         app_theme = P.afc_theme['current']  # std, dark, light
         hud_theme = pref['hud_theme']       # Standard, Rounded
 
+        self.sketcher = pref['hud_smart_allow_in_sketcher']
+
         css, css_fx, css_apply, self.css_active = generate_css(
             'smart', app_theme, hud_theme)
 
@@ -824,7 +826,7 @@ class SmartHUD(QtWidgets.QWidget):
         self.active_workbench = Gui.activeWorkbench().name()
         if Gui.Control.activeTaskDialog() is not None:
             # sk
-            if self.active_workbench == 'SketcherWorkbench':
+            if self.active_workbench == 'SketcherWorkbench' and self.sketcher:
                 return self.is_viewport()
             return False
         # pd
@@ -919,7 +921,7 @@ class SmartHUD(QtWidgets.QWidget):
             return False
         _type = selection.TypeId
 
-        if self.active_workbench == 'SketcherWorkbench':
+        if self.active_workbench == 'SketcherWorkbench' and self.sketcher:
             try:
                 result = self.selection_parsing_sk()
                 if not result:
@@ -1089,7 +1091,7 @@ class SmartHUD(QtWidgets.QWidget):
                 entity_set.remove('Edit Sketch')
 
         # sk: symmetry
-        elif self.active_workbench == 'SketcherWorkbench':
+        elif self.active_workbench == 'SketcherWorkbench' and self.sketcher:
             if self.selected_count_sk == 3:
                 if entity in T.sk_symmetry:
                     entity_set.append('Symmetric')

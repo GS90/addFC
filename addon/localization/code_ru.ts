@@ -214,7 +214,7 @@
         <translation>Активировать дополнительный интерфейс</translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="254"/>
+        <location filename="../addFC/hud/Smart.py" line="261"/>
         <source>Expression, key &quot;=&quot;</source>
         <translation>Выражение, клавиша &amp;quot;=&amp;quot;</translation>
     </message>
@@ -229,22 +229,22 @@
         <translation>Сначала необходимо выбрать объекты!</translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <location filename="../addFC/hud/Smart.py" line="247"/>
         <source>Input value or press &quot;=&quot; to enter expression</source>
         <translation>Введите значение или нажмите &amp;quot;=&amp;quot; для ввода выражения</translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <location filename="../addFC/hud/Smart.py" line="247"/>
         <source>Step control:</source>
         <translation>Настройка шага:</translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <location filename="../addFC/hud/Smart.py" line="247"/>
         <source>    Ctrl + mouse wheel to increase</source>
         <translation>    Ctrl + колёсико мыши - увеличить</translation>
     </message>
     <message>
-        <location filename="../addFC/hud/Smart.py" line="240"/>
+        <location filename="../addFC/hud/Smart.py" line="247"/>
         <source>    Shift + mouse wheel to decrease</source>
         <translation>    Shift + колёсико мыши - уменьшить</translation>
     </message>

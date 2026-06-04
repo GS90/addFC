@@ -1049,6 +1049,9 @@ class addFCPreferenceOther():
         # hud:smart, tree work, options:
         _tree_work_opt = pref_configuration['hud_smart_tree_work_options']
         self.form.checkBox_hud_tree_work_options.setChecked(_tree_work_opt)
+        # hud:smart, allow in sketcher:
+        _allow_in_sketcher = pref_configuration['hud_smart_allow_in_sketcher']
+        self.form.checkBox_hud_allow_in_sketcher.setChecked(_allow_in_sketcher)
         # sequential tools:
         _tools_sequential = pref_configuration['hud_tools_sequential']
         self.form.checkBox_hud_sequential.setChecked(_tools_sequential)
@@ -1102,6 +1105,7 @@ class addFCPreferenceOther():
             add_autoload()
 
         panels = []
+
         if self.form.checkBox_hud_smart.isChecked():
             panels.append('smart')
         if self.form.checkBox_hud_top.isChecked():
@@ -1117,6 +1121,7 @@ class addFCPreferenceOther():
         _extra = self.form.checkBox_hud_extra_mouse_buttons.isChecked()
         _tree_work = self.form.checkBox_hud_tree_work.isChecked()
         _tree_work_opt = self.form.checkBox_hud_tree_work_options.isChecked()
+        _sketcher = self.form.checkBox_hud_allow_in_sketcher.isChecked()
         _sequential = self.form.checkBox_hud_sequential.isChecked()
 
         fresh = {
@@ -1139,6 +1144,7 @@ class addFCPreferenceOther():
             'hud_smart_extra_mouse_buttons': _extra,
             'hud_smart_tree_work': _tree_work,
             'hud_smart_tree_work_options': _tree_work_opt,
+            'hud_smart_allow_in_sketcher': _sketcher,
             'hud_tools_sequential': _sequential,
             # other:
             'drawing_templates_user': self.form.utLineEdit.text(),
