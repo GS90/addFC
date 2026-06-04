@@ -337,7 +337,9 @@ tools_access = {
         ],
     },
     'SketcherWorkbench': {
-        # options: Line, Line|N, Curve, Curve|N, Point, Point|N
+        # Axis, Line, Curve, Point, Root (N)
+        'Axis': [],
+        'Axis|N': [],
         'Line': [
             'Block',
             'Distance',
@@ -385,7 +387,20 @@ tools_access = {
             'Vertical Distance',
             'Vertically',
         ],
-        # options: Curve|Line, Curve|Point, Line|Point
+        'Root': [],
+        'Root|N': [],
+        # Axis|Curve|Line|Root
+        'Axis|Curve': [
+            'Tangent',
+        ],
+        'Axis|Line': [
+            'Parallel',
+            'Perpendicular',
+        ],
+        'Axis|Point': [
+            'Point Onto Object',
+        ],
+        'Axis|Root': [],
         'Curve|Line': [
             'Block',
             'Tangent',
@@ -393,7 +408,15 @@ tools_access = {
         'Curve|Point': [
             'Point Onto Object',
         ],
+        'Curve|Root': [
+            'Point Onto Object',
+        ],
         'Line|Point': [
+            'Distance',
+            'Point Onto Object',
+            'Symmetric',
+        ],
+        'Line|Root': [
             'Distance',
             'Point Onto Object',
             'Symmetric',
@@ -503,9 +526,8 @@ tools_single_selection_ban = (
 )
 
 sk_symmetry = (
-    'Curve|Point',
-    'Line',
     'Line|Point',
+    'Line|Root',
     'Point|N',
 )
 

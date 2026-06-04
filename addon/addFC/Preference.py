@@ -1253,6 +1253,8 @@ def configuring_tools() -> None:
     form = FreeCAD.Gui.PySideUic.loadUi(
         os.path.join(AFC_DIR, 'hud', 'Tools.ui'))
 
+    disabled_tools = []
+
     import addon.addFC.hud.Tools as T
 
     pd_tools = T.pd_tools_std.copy()
@@ -1273,12 +1275,13 @@ def configuring_tools() -> None:
     table.setColumnCount(len(labels))
     table.setHorizontalHeaderLabels(labels)
 
-    f = QtCore.Qt.ItemFlag
     ban = pref_configuration['hud_tools_ban_smart']
     color_blue = afc_theme[afc_theme['current']]['qt-blue']
     color_red = afc_theme[afc_theme['current']]['qt-red']
 
     secondary = ('Mirrored', 'Pattern', 'MultiTransform')
+
+    f = QtCore.Qt.ItemFlag
 
     def fill():
         table.blockSignals(True)
@@ -1288,13 +1291,14 @@ def configuring_tools() -> None:
             case 'Sketcher': tools = sk_tools
         table.setRowCount(len(tools))
 
-        x = 0
-        for name, cmd, icon, _ in tools:
+        for x, (name, cmd, icon, _) in enumerate(tools):
             # icon and name
             i = FreeCAD.Gui.getIcon(icon)
             table.setItem(x, 0, QtGui.QTableWidgetItem(i, name))
             # checkbox
-            if name in ban:
+            if name in ban or name in disabled_tools:
+                if name not in disabled_tools:
+                    disabled_tools.append(name)
                 item = QtGui.QTableWidgetItem('Disabled')
                 item.setFlags(f.ItemIsUserCheckable | f.ItemIsEnabled)
                 item.setCheckState(QtCore.Qt.CheckState.Unchecked)
@@ -1317,7 +1321,6 @@ def configuring_tools() -> None:
                     if s in cmd:
                         table.setItem(
                             x, 2, QtGui.QTableWidgetItem('Sequential'))
-            x += 1
 
         table.resizeColumnsToContents()
         table.resizeRowsToContents()
@@ -1333,25 +1336,25 @@ def configuring_tools() -> None:
     fill()
 
     def item_changed(item):
+        table.blockSignals(True)
+        row = table.row(item)
+        i = table.item(row, 0)
+        name = i.text() if i is not None else None
         if item.checkState() == QtCore.Qt.CheckState.Checked:
+            if name and name in disabled_tools:
+                disabled_tools.remove(name)
             item.setText('Enabled')
             item.setForeground(color_blue)
         else:
+            if name and name not in disabled_tools:
+                disabled_tools.append(name)
             item.setText('Disabled')
             item.setForeground(color_red)
+        table.blockSignals(False)
     table.itemChanged.connect(item_changed)
 
     def apply():
-        # todo: определить верстак!
-        ban = []
-        for row in range(table.rowCount()):
-            n = table.item(row, 0)
-            b = table.item(row, 1)
-            if n is None or b is None:
-                continue
-            if b.text() == 'Disabled':
-                ban.append(n.text())
-        pref_configuration['hud_tools_ban_smart'] = ban
+        pref_configuration['hud_tools_ban_smart'] = disabled_tools
         save_pref(PATH_CONFIGURATION, pref_configuration)
         form.close()
     form.pushButtonApply.clicked.connect(apply)

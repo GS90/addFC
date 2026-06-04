@@ -318,6 +318,7 @@ class SmartHUD(QtWidgets.QWidget):
 
         self.active_workbench = Gui.activeWorkbench().name()
         self.selected_count = 0
+        self.selected_count_sk = 0
 
         self.position_init = None
         self.position_current = None
@@ -878,16 +879,21 @@ class SmartHUD(QtWidgets.QWidget):
                 elif sub.startswith('Vertex'):
                     lst.append('Point')
                 elif 'axis' in sub.lower():
-                    pass  # todo: axes
+                    lst.append('Axis')
+                elif 'rootpoint' in sub.lower():
+                    lst.append('Root')
                 elif sub.startswith('Constraint'):
                     pass  # todo: delete
 
         if not lst:
             return None
-        quantity = len(lst)
+        self.selected_count_sk = len(lst)
         result = list(set(lst))
         if len(result) == 1:
-            if quantity == 1:
+            # checking the availability of tools
+            if result[-1] in ('Axis', 'Root'):
+                return None
+            if self.selected_count_sk == 1:
                 return result[-1]
             else:
                 return f'{result[-1]}|N'
@@ -1044,7 +1050,8 @@ class SmartHUD(QtWidgets.QWidget):
             return  # todo: debug?
         entity_set = workbench_set.get(entity, []).copy()
         if not entity_set:
-            return  # todo: debug?
+            if self.active_workbench == 'PartDesignWorkbench':
+                return  # todo: debug?
 
         ad = FreeCAD.ActiveDocument
         tree = self.selected_widget == TREE
@@ -1081,6 +1088,12 @@ class SmartHUD(QtWidgets.QWidget):
             else:
                 entity_set.remove('Edit Sketch')
 
+        # sk: symmetry
+        elif self.active_workbench == 'SketcherWorkbench':
+            if self.selected_count_sk == 3:
+                if entity in T.sk_symmetry:
+                    entity_set.append('Symmetric')
+
         # available buttons
         used_tools, used_rows = False, []
         buttons = self.b_widget.findChildren(QtWidgets.QToolButton)
@@ -1102,11 +1115,6 @@ class SmartHUD(QtWidgets.QWidget):
                             if entity == 'Outline':
                                 btn.setVisible(False)
                                 continue
-                # sk: symmetry
-                elif self.active_workbench == 'SketcherWorkbench':
-                    if self.selected_count == 3:
-                        if entity in T.sk_symmetry:
-                            entity_set.append('Symmetric')
 
                 if not used_tools:
                     used_tools = True
@@ -1118,9 +1126,13 @@ class SmartHUD(QtWidgets.QWidget):
                 btn.setVisible(False)
 
         # checking for at least one button
+        if self.active_workbench == 'PartDesignWorkbench':
+            single = 'Fit Selection'
+        else:
+            single = 'Toggle Construction'  # todo: ..?
         if not used_tools:
             for btn in buttons:
-                if btn.objectName() == 'Fit Selection':  # todo: what else?
+                if btn.objectName() == single:
                     btn.setVisible(True)
                     break
 
