@@ -71,7 +71,7 @@ Explosion (30 FPS)
 12. Isolate selected objects
 13. Export models for viewing
 14. Capturing the view area with saving to a video file
-15. Activating the additional interface, only for PartDesign (currently)
+15. Activating the additional interface
 16. Documentation, help, and examples
 
 
