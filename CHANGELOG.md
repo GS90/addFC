@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2026.06.05 (**3.7.1**):
+* Minor changes.
+
 #### 2026.06.04 (**3.7.0**):
 * HUD (Head‑Up Display): Sketcher workbench support added.
 * Minor changes.

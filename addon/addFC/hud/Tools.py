@@ -389,7 +389,7 @@ tools_access = {
         ],
         'Root': [],
         'Root|N': [],
-        # Axis|Curve|Line|Root
+        # Axis|Curve|Line|Point|Root
         'Axis|Curve': [
             'Tangent',
         ],
@@ -420,6 +420,14 @@ tools_access = {
             'Distance',
             'Point Onto Object',
             'Symmetric',
+        ],
+        'Point|Root': [
+            'Coincident',
+            'Horizontal Distance',
+            'Horizontally',
+            'Lock',
+            'Vertical Distance',
+            'Vertically',
         ],
     },
 }
@@ -529,6 +537,7 @@ sk_symmetry = (
     'Line|Point',
     'Line|Root',
     'Point|N',
+    'Point|Root',
 )
 
 
@@ -586,6 +595,7 @@ tools_checkbox = {
         (QtWidgets.QCheckBox, 'checkRevDirection', False, 'Reversed'),
     ),
 }
+
 
 # differences in version 1.2+
 tools_checkbox_exception = (
