@@ -534,6 +534,7 @@ tools_single_selection_ban = (
 )
 
 sk_symmetry = (
+    'Axis|Point',
     'Line|Point',
     'Line|Root',
     'Point|N',

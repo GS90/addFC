@@ -477,7 +477,6 @@ class SmartHUD(QtWidgets.QWidget):
 
     def other_cmd(self, cmd_name):
         # todo: set parameters without task interface
-
         array = None
 
         match cmd_name:
@@ -866,18 +865,19 @@ class SmartHUD(QtWidgets.QWidget):
             sketch = sel.Object
             for sub in sel.SubElementNames:
                 if sub.startswith('Edge'):
-                    n = int(sub[4:]) - 1
-                    g = sketch.Geometry[n]
-                    # determine the geometry type
-                    if isinstance(g, LineSegment):
-                        lst.append('Line')
-                    elif isinstance(g, Circle):
-                        lst.append('Curve')  # Circle
-                    elif isinstance(g, ArcOfCircle):
-                        lst.append('Curve')  # Arc
-                    elif isinstance(g, BSplineCurve):
-                        pass  # todo: Spline
-                    # print(f'HUD: skType: {sub} ({type(g).__name__})')
+                    if hasattr(sketch, 'Geometry'):
+                        n = int(sub[4:]) - 1
+                        g = sketch.Geometry[n]
+                        # determine the geometry type
+                        if isinstance(g, LineSegment):
+                            lst.append('Line')
+                        elif isinstance(g, Circle):
+                            lst.append('Curve')  # Circle
+                        elif isinstance(g, ArcOfCircle):
+                            lst.append('Curve')  # Arc
+                        elif isinstance(g, BSplineCurve):
+                            pass  # todo: Spline
+                        # print(f'HUD: skType: {sub} ({type(g).__name__})')
                 elif sub.startswith('Vertex'):
                     lst.append('Point')
                 elif 'axis' in sub.lower():
