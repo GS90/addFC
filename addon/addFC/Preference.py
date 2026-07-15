@@ -1259,8 +1259,6 @@ def configuring_tools() -> None:
     form = FreeCAD.Gui.PySideUic.loadUi(
         os.path.join(AFC_DIR, 'hud', 'Tools.ui'))
 
-    disabled_tools = []
-
     import addon.addFC.hud.Tools as T
 
     pd_tools = T.pd_tools_std.copy()
@@ -1282,6 +1280,8 @@ def configuring_tools() -> None:
     table.setHorizontalHeaderLabels(labels)
 
     ban = pref_configuration['hud_tools_ban_smart']
+    disabled_tools = ban
+
     color_blue = afc_theme[afc_theme['current']]['qt-blue']
     color_red = afc_theme[afc_theme['current']]['qt-red']
 

@@ -876,7 +876,8 @@ class SmartHUD(QtWidgets.QWidget):
                         elif isinstance(g, ArcOfCircle):
                             lst.append('Curve')  # Arc
                         elif isinstance(g, BSplineCurve):
-                            pass  # todo: Spline
+                            # todo: Spline
+                            pass
                         # print(f'HUD: skType: {sub} ({type(g).__name__})')
                 elif sub.startswith('Vertex'):
                     lst.append('Point')
@@ -885,7 +886,7 @@ class SmartHUD(QtWidgets.QWidget):
                 elif 'rootpoint' in sub.lower():
                     lst.append('Root')
                 elif sub.startswith('Constraint'):
-                    pass  # todo: delete
+                    pass  # todo: delete?
 
         if not lst:
             return None
@@ -924,6 +925,7 @@ class SmartHUD(QtWidgets.QWidget):
         if self.active_workbench == 'SketcherWorkbench' and self.sketcher:
             try:
                 result = self.selection_parsing_sk()
+                # print(f'HUD, sketcher: {result}')  # debug
                 if not result:
                     return False
             except Exception as err:
