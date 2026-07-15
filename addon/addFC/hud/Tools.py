@@ -335,9 +335,12 @@ tools_access = {
             'Draft Array Polar',
             'Draft Array Circular',
         ],
+        'Origin': [
+            'Fit Selection',
+            'Toggle Visibility',
+        ],
     },
-    'SketcherWorkbench': {
-        # Axis, Line, Curve, Point, Root (N)
+    'SketcherWorkbench': {  # Axis, Line, Curve, Point, Root (N)
         'Axis': [],
         'Axis|N': [],
         'Line': [

@@ -876,8 +876,7 @@ class SmartHUD(QtWidgets.QWidget):
                         elif isinstance(g, ArcOfCircle):
                             lst.append('Curve')  # Arc
                         elif isinstance(g, BSplineCurve):
-                            # todo: Spline
-                            pass
+                            pass  # todo: Spline
                         # print(f'HUD: skType: {sub} ({type(g).__name__})')
                 elif sub.startswith('Vertex'):
                     lst.append('Point')
@@ -965,6 +964,9 @@ class SmartHUD(QtWidgets.QWidget):
                 return True
             elif _type == 'Part::DatumPlane':
                 self.preparation_panel('Datum', _type)
+                return True
+            elif _type == 'App::Origin':
+                self.preparation_panel('Origin', _type)
                 return True
             else:
                 return False
