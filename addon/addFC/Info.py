@@ -202,9 +202,11 @@ def compilation(strict: bool = True,
                             pass  # todo: think about it
         # standard:
         if property_name in obj.PropertiesList:
-            if any(e[0] == property_name for e in obj.ExpressionEngine):
-                # if the 'Add_Name' is associated with 'Label':
-                obj.recompute()
+            for e in obj.ExpressionEngine:
+                # association check for 'Add_Name' and 'Label'
+                if e[0] == property_name:
+                    if e[1] == 'Label' and obj.Add_Name != obj.Label:
+                        obj.recompute()
             dn = obj.Document.Name if doc == '' else doc
             if count > 1:
                 for _ in range(count):

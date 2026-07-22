@@ -68,7 +68,7 @@ class ViewportRecording():
         self.v_height = ''
         self.v_storyboard = ''
         self.v_width = ''
-        self.preparation()
+        self.preparation(True)
 
         self.form.comboBoxAxis.addItems(self.axes.keys())
         self.form.comboBoxAxis.setCurrentText('Z')
@@ -140,7 +140,7 @@ class ViewportRecording():
 
     # --------------------------------------------------------------------------
 
-    def preparation(self):
+    def preparation(self, init: bool = False):
         video_pref = P.load_pref(P.PATH_VIDEO, video_pref_std)
         self.v_background = video_pref['background']
         self.v_format = video_pref['image_format']
@@ -151,7 +151,7 @@ class ViewportRecording():
         self.av = FreeCAD.Gui.activeDocument().activeView()
         self.ccs = FreeCAD.ParamGet(CCS_STR).GetBool('CornerCoordSystem')
         self.frame = 0
-        if not os.path.exists(self.v_storyboard):
+        if not init and not os.path.exists(self.v_storyboard):
             os.makedirs(self.v_storyboard)
 
     def create_frame(self):

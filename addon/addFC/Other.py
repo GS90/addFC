@@ -49,7 +49,7 @@ def recompute_configuration_tables() -> None:
                     obj.recomputeCells(c)
 
 
-def error(message: str, header: str = 'ERROR') -> None:
+def error(message: str, header: str = 'Error') -> None:
     QtGui.QMessageBox.critical(
         None,
         header,

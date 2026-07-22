@@ -148,8 +148,8 @@ configuration = {
 materials = {
     '-': None,
     # standard:
-    'Galvanized': ['Sheet metal', 7870, 'm^2', 0],
-    'Stainless': ['Sheet metal', 7900, 'm^2', 0],
+    'Galvanized': ['Sheet metal', 7870, 'kg', 0],
+    'Stainless': ['Sheet metal', 7900, 'kg', 0],
     # general:
     'Aluminium': ['General', 2700, 'kg', 0],
     'Brass': ['General', 8600, 'kg', 0],
@@ -164,10 +164,10 @@ materials = {
     'Steel': ['General', 7850, 'kg', 0],
     'Titanium': ['General', 4500, 'kg', 0],
     # aisi:
-    'AISI 304': ['Sheet metal', 7950, 'm^2', 0],
-    'AISI 316': ['Sheet metal', 7970, 'm^2', 0],
-    'AISI 321': ['Sheet metal', 7980, 'm^2', 0],
-    'AISI 430': ['Sheet metal', 7720, 'm^2', 0],
+    'AISI 304': ['Sheet metal', 7950, 'kg', 0],
+    'AISI 316': ['Sheet metal', 7970, 'kg', 0],
+    'AISI 321': ['Sheet metal', 7980, 'kg', 0],
+    'AISI 430': ['Sheet metal', 7720, 'kg', 0],
     # plastic:
     'ABS': ['Plastic', 1045, 'kg', 0],
     'Nylon (PA)': ['Plastic', 1150, 'kg', 0],

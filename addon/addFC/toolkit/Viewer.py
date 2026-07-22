@@ -35,7 +35,7 @@ ad = FreeCAD.ActiveDocument
 
 mv_src = (
     'https://ajax.googleapis.com/ajax/libs/model-viewer/'
-    '4.2.0/model-viewer.min.js'
+    '4.3.1/model-viewer.min.js'
 )
 
 mv_template_css_add = """
