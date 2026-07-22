@@ -6,14 +6,6 @@
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>360</width>
-    <height>620</height>
-   </rect>
-  </property>
   <property name="minimumSize">
    <size>
     <width>360</width>
@@ -179,6 +171,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QCheckBox" name="checkBoxPanel">
+       <property name="toolTip">
+        <string>Show in task panel (requires relaunch)</string>
+       </property>
+       <property name="text">
+        <string>Panel mode</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -212,22 +214,5 @@
   <tabstop>pushButtonExit</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButtonExit</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>49</x>
-     <y>277</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>149</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

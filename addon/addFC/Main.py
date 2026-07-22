@@ -1081,21 +1081,15 @@ def parse_label(label: str) -> tuple[str, str]:
     return index, label
 
 
-class AddFCProperties():
-
-    def GetResources(self):
-        return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'properties.svg'),
-                'Accel': 'A',
-                'MenuText': FreeCAD.Qt.translate(
-                    'addFC', 'Add Properties'),
-                'ToolTip': FreeCAD.Qt.translate(
-                    'addFC', 'Add properties to an object')}
-
-    def Activated(self):
+class addProperties():
+    def __init__(self, panel: bool):
         w = FreeCAD.Gui.PySideUic.loadUi(os.path.join(
             P.AFC_DIR, 'ui', 'properties.ui'))
 
-        w.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        if not panel:
+            w.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        else:
+            w.pushButtonExit.hide()
 
         configuration = P.pref_configuration
         materials = P.pref_materials
@@ -1104,6 +1098,9 @@ class AddFCProperties():
         core = Data.properties_core
 
         # the user's last choice:
+        p = configuration.get('add_properties_panel')
+        if p is not None:
+            w.checkBoxPanel.setChecked(p)
         nl = configuration.get('add_properties_nl')
         if nl is not None:
             w.checkBoxNL.setChecked(nl)
@@ -1168,6 +1165,10 @@ class AddFCProperties():
 
         cb_materials, cb_type = QtGui.QComboBox(), QtGui.QComboBox()
 
+        # mouse wheel event disabling to avoid interfering with scrolling
+        cb_materials.wheelEvent = lambda event: event.ignore()
+        cb_type.wheelEvent = lambda event: event.ignore()
+
         x = 0
         for key in properties:
             # property:
@@ -1182,6 +1183,7 @@ class AddFCProperties():
             # value:
             if properties[key][0] == 'Enumeration':
                 cb = QtGui.QComboBox()
+                cb.wheelEvent = lambda event: event.ignore()
                 if key == 'Material':
                     cb_materials.addItems(materials.keys())
                     cb_materials.setCurrentText(default_material)
@@ -1200,6 +1202,7 @@ class AddFCProperties():
                     cb.currentTextChanged.connect(cb_changed)
             elif properties[key][0] == 'Bool':
                 cb = QtGui.QComboBox()
+                cb.wheelEvent = lambda event: event.ignore()
                 cb.addItems(('True', 'False'))
                 cb.setStyleSheet(COMBO_BOX_STYLE)
                 table.setCellWidget(x, 1, cb)
@@ -1557,9 +1560,53 @@ class AddFCProperties():
         w.pushButtonCopy.clicked.connect(copy_properties)
         w.pushButtonPaste.clicked.connect(paste_properties)
 
-        w.show()
-        w.pushButtonAdd.setFocus()
-        return
+        def exit():
+            try:
+                size = [w.width(), w.height()]
+                configuration['size_add_properties'] = size
+                P.save_pref(P.PATH_CONFIGURATION, configuration)
+            except Exception as err:
+                Logger.error(str(err))
+            w.close()
+        w.pushButtonExit.clicked.connect(exit)
+
+        def toggle_panel(state):
+            try:
+                configuration['add_properties_panel'] = state
+                P.save_pref(P.PATH_CONFIGURATION, configuration)
+            except Exception as err:
+                Logger.error(str(err))
+        w.checkBoxPanel.toggled.connect(toggle_panel)
+
+        if not panel:
+            size = configuration['size_add_properties']
+            if size:
+                if size[0] >= 360 and size[1] >= 620:
+                    w.resize(*size)
+            w.show()
+            w.pushButtonAdd.setFocus()
+        else:
+            self.form = w
+
+
+class AddFCProperties():
+
+    def GetResources(self):
+        return {'Pixmap': os.path.join(P.AFC_DIR_ICON, 'properties.svg'),
+                'Accel': 'A',
+                'MenuText': FreeCAD.Qt.translate(
+                    'addFC', 'Add Properties'),
+                'ToolTip': FreeCAD.Qt.translate(
+                    'addFC', 'Add properties to an object')}
+
+    def Activated(self):
+        panel = P.pref_configuration['add_properties_panel']
+        if panel:
+            p = addProperties(panel)
+            FreeCAD.Gui.Control.showDialog(p)
+            p.form.pushButtonAdd.setFocus()
+        else:
+            addProperties(panel)
 
     def IsActive(self):
         return True if FreeCAD.ActiveDocument else False

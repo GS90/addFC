@@ -240,7 +240,7 @@ settings</source>
         <location filename="../addFC/ui/insert.ui" line="105"/>
         <location filename="../addFC/ui/linker.ui" line="89"/>
         <location filename="../addFC/ui/list.ui" line="58"/>
-        <location filename="../addFC/ui/properties.ui" line="177"/>
+        <location filename="../addFC/ui/properties.ui" line="169"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
@@ -349,7 +349,7 @@ All models are created in FreeCAD version 0.21.2.</source>
         <location filename="../addFC/ui/pref_sm.ui" line="161"/>
         <location filename="../addFC/ui/pref_sm.ui" line="242"/>
         <location filename="../addFC/ui/pref_uProp.ui" line="65"/>
-        <location filename="../addFC/ui/properties.ui" line="197"/>
+        <location filename="../addFC/ui/properties.ui" line="199"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
@@ -727,57 +727,67 @@ completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation>Enumerated (перечисления) - списки значений</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="24"/>
+        <location filename="../addFC/ui/properties.ui" line="16"/>
         <source>Add properties</source>
         <translation>Добавление свойств</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="34"/>
+        <location filename="../addFC/ui/properties.ui" line="26"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="41"/>
+        <location filename="../addFC/ui/properties.ui" line="33"/>
         <source>Prev.</source>
         <translation>Пред.</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="48"/>
+        <location filename="../addFC/ui/properties.ui" line="40"/>
         <source>Core</source>
         <translation>Основ.</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="55"/>
+        <location filename="../addFC/ui/properties.ui" line="47"/>
         <source>None</source>
         <translation>Сброс</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="103"/>
+        <location filename="../addFC/ui/properties.ui" line="95"/>
         <source>Associate a Name with a Label</source>
         <translation>Связать «Name» с «Label» объекта</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="110"/>
+        <location filename="../addFC/ui/properties.ui" line="102"/>
         <source>Set weight and price as an equation</source>
         <translation>Задать «Weight» и «Price» в виде уравнений</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="139"/>
+        <location filename="../addFC/ui/properties.ui" line="138"/>
         <source>Sheet metal part</source>
         <translation>Листовой металл</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="146"/>
+        <location filename="../addFC/ui/properties.ui" line="176"/>
+        <source>Show in task panel (requires relaunch)</source>
+        <translation>Отображать в панели задач (требуется повторный запуск)</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/properties.ui" line="179"/>
+        <source>Panel mode</source>
+        <translation>Режим панели</translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/properties.ui" line="131"/>
         <source>Paste properties</source>
         <translation>Вставить свойства</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="153"/>
+        <location filename="../addFC/ui/properties.ui" line="145"/>
         <source>Copy properties</source>
         <translation>Копировать свойства</translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="125"/>
+        <location filename="../addFC/ui/properties.ui" line="117"/>
         <source>Link thickness</source>
         <translation>Связать толщину</translation>
     </message>
@@ -1202,9 +1212,8 @@ completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation>Создать</translation>
     </message>
     <message>
-        <location filename="../addFC/toolkit/Summary.ui" line="18"/>
         <source>Summary - beta</source>
-        <translation>Информация - beta</translation>
+        <translation type="vanished">Информация - beta</translation>
     </message>
     <message>
         <location filename="../addFC/toolkit/Summary.ui" line="27"/>
@@ -1305,6 +1314,11 @@ completing specific operations such as Pad, Pocket, and similar ones</source>
         <location filename="../addFC/toolkit/Summary.ui" line="457"/>
         <source>Diagonal</source>
         <translation>Диагональ</translation>
+    </message>
+    <message>
+        <location filename="../addFC/toolkit/Summary.ui" line="18"/>
+        <source>Summary</source>
+        <translation>Информация</translation>
     </message>
     <message>
         <location filename="../addFC/toolkit/Summary.ui" line="345"/>

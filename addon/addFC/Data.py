@@ -25,8 +25,11 @@ configuration = {
     'interface_font': [False, 'Sans Serif', 10],
     'working_directory': '',
     'default_material': 'Galvanized',
+    'add_properties_panel': False,
     'add_properties_nl': False,
     'add_properties_eq': True,
+    # size:
+    'size_add_properties': [360, 620],
     # hud:
     'hud_autoload': False,
     'hud_panels': ['smart',],

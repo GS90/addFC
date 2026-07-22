@@ -2,6 +2,11 @@
 
 ## Release notes
 
+#### 2026.07.22 (**3.7.6**):
+* Improved performance in __Bill of Materials__.
+* Enhanced the __Add Properties__ tool (task panel display available).
+* Other fixes and improvements.
+
 #### 2026.07.15 (**3.7.4**):
 * HUD (Head‑Up Display): improvements.
 

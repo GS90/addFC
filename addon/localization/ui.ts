@@ -21,7 +21,7 @@
         <location filename="../addFC/ui/insert.ui" line="105"/>
         <location filename="../addFC/ui/linker.ui" line="89"/>
         <location filename="../addFC/ui/list.ui" line="58"/>
-        <location filename="../addFC/ui/properties.ui" line="177"/>
+        <location filename="../addFC/ui/properties.ui" line="169"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -56,7 +56,7 @@
         <location filename="../addFC/ui/pref_sm.ui" line="161"/>
         <location filename="../addFC/ui/pref_sm.ui" line="242"/>
         <location filename="../addFC/ui/pref_uProp.ui" line="65"/>
-        <location filename="../addFC/ui/properties.ui" line="197"/>
+        <location filename="../addFC/ui/properties.ui" line="199"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -507,7 +507,7 @@
     </message>
     <message>
         <location filename="../addFC/toolkit/Summary.ui" line="18"/>
-        <source>Summary - beta</source>
+        <source>Summary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1422,58 +1422,68 @@ completing specific operations such as Pad, Pocket, and similar ones</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="24"/>
+        <location filename="../addFC/ui/properties.ui" line="16"/>
         <source>Add properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="34"/>
+        <location filename="../addFC/ui/properties.ui" line="26"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="41"/>
+        <location filename="../addFC/ui/properties.ui" line="33"/>
         <source>Prev.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="48"/>
+        <location filename="../addFC/ui/properties.ui" line="40"/>
         <source>Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="55"/>
+        <location filename="../addFC/ui/properties.ui" line="47"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="103"/>
+        <location filename="../addFC/ui/properties.ui" line="95"/>
         <source>Associate a Name with a Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="110"/>
+        <location filename="../addFC/ui/properties.ui" line="102"/>
         <source>Set weight and price as an equation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="125"/>
+        <location filename="../addFC/ui/properties.ui" line="117"/>
         <source>Link thickness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="139"/>
-        <source>Sheet metal part</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../addFC/ui/properties.ui" line="146"/>
+        <location filename="../addFC/ui/properties.ui" line="131"/>
         <source>Paste properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../addFC/ui/properties.ui" line="153"/>
+        <location filename="../addFC/ui/properties.ui" line="138"/>
+        <source>Sheet metal part</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/properties.ui" line="145"/>
         <source>Copy properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/properties.ui" line="176"/>
+        <source>Show in task panel (requires relaunch)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../addFC/ui/properties.ui" line="179"/>
+        <source>Panel mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
