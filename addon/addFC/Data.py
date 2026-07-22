@@ -44,7 +44,7 @@ configuration = {
     'hud_smart_extra_mouse_buttons': True,
     'hud_smart_tree_work': True,
     'hud_smart_tree_work_options': True,
-    'hud_smart_allow_in_sketcher': False,
+    'hud_smart_allow_in_sketcher': True,
     'hud_tools_sequential': False,
     'hud_tools_ban_smart': [
         # general

@@ -2,7 +2,7 @@
 
 ## Release notes
 
-#### 2026.07.22 (**3.7.6**):
+#### 2026.07.22 (**3.7.7**):
 * Improved performance in __Bill of Materials__.
 * Enhanced the __Add Properties__ tool (task panel display available).
 * Other fixes and improvements.
