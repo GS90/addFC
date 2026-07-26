@@ -18,6 +18,7 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
 
+from PySide import QtCore
 import FreeCAD
 import FreeCADGui as Gui
 import os
@@ -89,7 +90,7 @@ observer = SelectionObserver()
 # ------------------------------------------------------------------------------
 
 
-class Info():
+class Info(QtCore.QObject):
     area = 0
     bound_box = [0, 0, 0]
     center_of_MG = None
@@ -111,10 +112,12 @@ class Info():
     last_selection = None
 
     def __init__(self):
+        super().__init__()
         self.form = Gui.PySideUic.loadUi(
             os.path.join(os.path.dirname(__file__), 'Summary.ui'))
 
         Gui.Selection.addObserver(observer)
+        self.form.installEventFilter(self)
 
         pref = P.load_pref(P.PATH_SUMMARY, std_pref)
 
@@ -523,6 +526,8 @@ class Info():
         self.set_subobjects_title()
         self.set_subobjects_value()
 
+        self.form.setFocus()
+
     def accept(self):
         Gui.Selection.removeObserver(observer)
         P.save_pref(P.PATH_SUMMARY, {
@@ -543,9 +548,18 @@ class Info():
         Gui.Selection.removeObserver(observer)
         return True
 
+    def eventFilter(self, obj, event):
+        if obj == self.form and event.type() == QtCore.QEvent.KeyPress:
+            if event.key() == QtCore.Qt.Key_Escape:
+                Gui.Selection.removeObserver(observer)
+                Gui.Control.closeDialog()
+                return True
+        return False
+
 
 # ------------------------------------------------------------------------------
 
 
 info = Info()
 Gui.Control.showDialog(info)
+info.form.setFocus()

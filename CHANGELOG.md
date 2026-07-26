@@ -2,6 +2,10 @@
 
 ## Release notes
 
+#### 2026.07.26 (**3.7.8**):
+* HUD (Head‑Up Display): unified handling of periods and commas in input field.
+* Summary: added __Esc__ key support to close dialog.
+
 #### 2026.07.22 (**3.7.7**):
 * Improved performance in __Bill of Materials__.
 * Enhanced the __Add Properties__ tool (task panel display available).

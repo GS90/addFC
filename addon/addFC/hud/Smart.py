@@ -702,6 +702,10 @@ class SmartHUD(QtWidgets.QWidget):
                     if event.key() == QtCore.Qt.Key_Equal:
                         self.expression()
                         return True
+                    # auto-replace comma with dot:
+                    elif event.text() == '.':
+                        self.spinbox.lineEdit().insert(',')
+                        return True
                 elif event.type() == QtCore.QEvent.Wheel:
                     delta = event.angleDelta().y()
                     modifiers = event.modifiers()
@@ -884,6 +888,8 @@ class SmartHUD(QtWidgets.QWidget):
                     lst.append('Axis')
                 elif 'rootpoint' in sub.lower():
                     lst.append('Root')
+                elif sub.startswith('ExternalEdge'):
+                    pass  # todo: ...
                 elif sub.startswith('Constraint'):
                     pass  # todo: delete?
 
