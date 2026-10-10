@@ -112,8 +112,8 @@ def get_ffmpeg_info():
     ffmpeg_path = shutil.which('ffmpeg')
     if ffmpeg_path is None and sys.platform == 'win32':
         # checking standard Windows paths:
-        for path in ('C:\\Program Files\\FFmpeg\bin\\ffmpeg.exe',
-                     'C:\\Program Files (x86)\\FFmpeg\bin\\ffmpeg.exe'):
+        for path in ('C:\\Program Files\\FFmpeg\\bin\\ffmpeg.exe',
+                     'C:\\Program Files (x86)\\FFmpeg\\bin\\ffmpeg.exe'):
             if os.path.exists(path):
                 ffmpeg_path = path
                 break
@@ -121,14 +121,14 @@ def get_ffmpeg_info():
         return [False, '', 'color: #aa0000']
     try:
         result = subprocess.run([ffmpeg_path, '-version'],
-                                capture_output=True, text=True, timeout=2)
+                                capture_output=True, text=True, timeout=10)
         if result.returncode == 0:
             # extracting the version:
             version_line = result.stdout.split('\n')[0]
             match = re.search(r'ffmpeg version (\d+\.\d+\.\d+)', version_line)
             version = match.group(1) if match else ''
             return [True, version, 'color: #005500']
-    except (FileNotFoundError, subprocess.CalledProcessError, TimeoutError):
+    except (OSError, subprocess.SubprocessError):
         pass
     return [False, '', 'color: #aa0000']
 
