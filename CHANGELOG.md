@@ -2,6 +2,12 @@
 
 ## Release notes
 
+#### 2026.10.21 (**3.8.0**):
+* __Explode__ refactoring and updates:
+    - Improved performance.
+    - Added support for task panel display.
+    - Added group renaming support.
+
 #### 2026.10.10 (**3.7.9**):
 * Fix ffmpeg detection timeout on Windows, thanks to DarkBiscuits.
 

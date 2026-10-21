@@ -28,7 +28,6 @@ configuration = {
     'add_properties_panel': False,
     'add_properties_nl': False,
     'add_properties_eq': True,
-    # size:
     'size_add_properties': [360, 620],
     # hud:
     'hud_autoload': False,
@@ -143,6 +142,8 @@ configuration = {
         'ISO': None,
         'ГОСТ': None,
     },
+    # other preferences:
+    'explode_panel': False,
 }
 
 
