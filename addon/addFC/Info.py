@@ -213,6 +213,22 @@ def compilation(strict: bool = True,
                     selection.append((obj, dn))
             else:
                 selection.append((obj, dn))
+        else:
+            # part with elements, from an array
+            if obj.TypeId == 'App::Part' and count > 1:
+                if not obj.Visibility:
+                    count -= 1
+                for i in obj.Group:
+                    if i.Visibility:
+                        if i.TypeId == 'App::Link':
+                            _obj = i.getLinkedObject()
+                        elif i.TypeId in ('PartDesign::Body', 'Part::Feature'):
+                            _obj = i
+                        if _obj.Visibility:
+                            if property_name in _obj.PropertiesList:
+                                dn = obj.Document.Name if doc == '' else doc
+                                for _ in range(count):
+                                    selection.append((_obj, dn))
 
     def visibility_full(inList: list) -> bool:
         for i in inList:
@@ -273,12 +289,6 @@ def compilation(strict: bool = True,
                 case 'Part::FeaturePython':
                     lo = o.Base.getLinkedObject()
                     analysis(lo, o.Count, dn)
-                    if lo.TypeId == 'App::Part':
-                        # elements inside the part:
-                        for g in lo.Group:
-                            if g.Visibility:
-                                for _ in range(o.Count):
-                                    heap.append(g)
                 case 'Part::Mirroring':
                     s = o.Source
                     if s.TypeId == 'App::Link':

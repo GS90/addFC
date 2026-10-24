@@ -2,6 +2,9 @@
 
 ## Release notes
 
+#### 2026.10.24 (**3.8.1**):
+* Improved the info-gathering algorithm.
+
 #### 2026.10.21 (**3.8.0**):
 * __Explode__ refactoring and updates:
     - Improved performance.

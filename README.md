@@ -1,6 +1,6 @@
 # addFC - additional tools for FreeCAD
 
-Current version 3.8.0 - [release notes](CHANGELOG.md).
+Current version 3.8.1 - [release notes](CHANGELOG.md).
 
 
 ### Overview
