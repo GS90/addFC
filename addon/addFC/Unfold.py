@@ -156,7 +156,7 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
         if 'Prefix' in w.comboBoxSignature.currentText():
             signature[1] = str(w.lineEditPrefix.text()).strip()
 
-    report = {'Parts': {}, 'Materials': {}}
+    report = {'Parts': {}, 'Material area': {}}
 
     progress_value = 0
     progress_step = int(100 / (len(parts) - len(skip)))
@@ -381,16 +381,19 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
             'Dimensions': (round(bb.XLength), round(bb.YLength)),
             'Material': material,
             'Quantity': quantity,
+            'Thickness': thickness,
             'Weight': spec.get('Weight', 0),
         }
 
         if 'Id' in spec:
             report['Parts'][p]['Id'] = spec['Id']
 
-        if material in report['Materials']:
-            report['Materials'][material] += part_area * quantity
+        report_material = f'{material} ({thickness})'
+
+        if report_material in report['Material area']:
+            report['Material area'][report_material] += part_area * quantity
         else:
-            report['Materials'][material] = part_area * quantity
+            report['Material area'][report_material] = part_area * quantity
 
         progress_value += progress_step
         w.progress.setValue(progress_value)
@@ -400,8 +403,8 @@ def unfold(w, parts: dict, path: str, skip: list = []) -> None:
     FreeCAD.closeDocument(doc.Name)
     FreeCAD.setActiveDocument(ad.Name)
 
-    for i in report['Materials']:
-        report['Materials'][i] = round(report['Materials'][i], 4)
+    for i in report['Material area']:
+        report['Material area'][i] = round(report['Material area'][i], 4)
 
     file = open(os.path.join(path, 'report.json'), 'w+', encoding='utf-8')
     json.dump(report, file, ensure_ascii=False, indent=4)
