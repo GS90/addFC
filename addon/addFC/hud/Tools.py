@@ -189,6 +189,12 @@ tools_access = {
             'Go to Linked Object',
             'Fit Selection',
             'Create Simple Copy',
+            # draft
+            'Draft Clone',
+            'Draft Mirror',
+            'Draft Array Ortho',
+            'Draft Array Polar',
+            'Draft Array Circular',
         ],
         'Outline': [
             'Measure',
@@ -303,6 +309,12 @@ tools_access = {
             'Fit Selection',
             'Toggle Visibility',
             'Create Simple Copy',
+            # draft
+            'Draft Clone',
+            'Draft Mirror',
+            'Draft Array Ortho',
+            'Draft Array Polar',
+            'Draft Array Circular',
         ],
         'TreePart': [
             'Fit Selection',
